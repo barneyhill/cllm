@@ -12,9 +12,11 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import List, Tuple, Optional, Dict, Any
+from typing import List, Tuple, Optional, Dict, Any, Type, TypeVar, Union
 
 from anthropic import Anthropic
+from openai import OpenAI
+from pydantic import BaseModel
 
 from .config import config
 from .models import (
@@ -31,6 +33,8 @@ from .prompts.prompt_fallback import (
     STAGE3_FALLBACK,
     STAGE4_FALLBACK,
 )
+
+T = TypeVar('T', bound=BaseModel)
 
 
 # ============================================================================
@@ -56,12 +60,20 @@ def load_prompt(filename: str, fallback: str) -> str:
     return fallback
 
 
-def get_anthropic_client():
-    """Get configured Anthropic client with extended timeout."""
-    return Anthropic(
-        api_key=config.anthropic_api_key,
-        timeout=config.timeout,
-    )
+def get_llm_client() -> Union[Anthropic, OpenAI]:
+    """Get configured LLM client based on provider setting."""
+    if config.llm_provider == "anthropic":
+        return Anthropic(
+            api_key=config.anthropic_api_key,
+            timeout=config.timeout,
+        )
+    elif config.llm_provider == "openai":
+        return OpenAI(
+            api_key=config.openai_api_key,
+            timeout=config.timeout,
+        )
+    else:
+        raise ValueError(f"Unsupported LLM provider: {config.llm_provider}")
 
 
 def extract_json_from_response(response_text: str) -> str:
@@ -110,6 +122,98 @@ def extract_json_from_response(response_text: str) -> str:
     return text.strip()
 
 
+def call_llm_structured(
+    client: Union[Anthropic, OpenAI],
+    prompt: str,
+    response_model: Type[T],
+    max_tokens: int = 30000,
+) -> Tuple[T, Dict[str, int]]:
+    """Call LLM with structured output support.
+
+    Args:
+        client: LLM client (Anthropic or OpenAI)
+        prompt: The prompt to send
+        response_model: Pydantic model for structured response
+        max_tokens: Maximum tokens in response
+
+    Returns:
+        Tuple of (parsed_response, usage_dict)
+        where usage_dict contains 'input_tokens' and 'output_tokens'
+
+    Raises:
+        ValueError: If response cannot be parsed
+    """
+    if config.llm_provider == "anthropic":
+        # Anthropic: text response -> JSON parse -> Pydantic validation
+        message = client.messages.create(
+            model=config.anthropic_model,
+            max_tokens=max_tokens,
+            temperature=0.0,
+            messages=[{"role": "user", "content": prompt}],
+        )
+
+        response_text = message.content[0].text
+        json_text = extract_json_from_response(response_text)
+
+        if not json_text or not json_text.strip():
+            raise ValueError(
+                f"Failed to extract JSON from response. Response text: {response_text[:1000]}"
+            )
+
+        try:
+            response_data = json.loads(json_text)
+            parsed_response = response_model(**response_data)
+        except json.JSONDecodeError as e:
+            raise ValueError(
+                f"Failed to parse LLM response as JSON: {e}\n"
+                f"Extracted JSON: {json_text[:500]}\n"
+                f"Full response: {response_text[:1000]}"
+            )
+        except Exception as e:
+            raise ValueError(
+                f"Failed to validate LLM response: {e}\n"
+                f"Extracted JSON: {json_text[:500]}\n"
+                f"Full response: {response_text[:1000]}"
+            )
+
+        usage = {
+            "input_tokens": message.usage.input_tokens,
+            "output_tokens": message.usage.output_tokens,
+        }
+
+        return parsed_response, usage
+
+    elif config.llm_provider == "openai":
+        # OpenAI: structured outputs with direct Pydantic model
+        completion = client.beta.chat.completions.parse(
+            model=config.openai_model,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            response_format=response_model,
+            temperature=0.0,
+            max_tokens=max_tokens,
+        )
+
+        parsed_response = completion.choices[0].message.parsed
+
+        if parsed_response is None:
+            raise ValueError(
+                f"OpenAI returned None for parsed response. "
+                f"Refusal: {completion.choices[0].message.refusal}"
+            )
+
+        usage = {
+            "input_tokens": completion.usage.prompt_tokens,
+            "output_tokens": completion.usage.completion_tokens,
+        }
+
+        return parsed_response, usage
+
+    else:
+        raise ValueError(f"Unsupported LLM provider: {config.llm_provider}")
+
+
 # ============================================================================
 # STAGE 1: EXTRACT CLAIMS FROM MANUSCRIPT
 # ============================================================================
@@ -132,41 +236,17 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
     """
-    client = get_anthropic_client()
+    client = get_llm_client()
     start_time = time.time()
 
     prompt = STAGE1_PROMPT_TEMPLATE.replace("$MANUSCRIPT_TEXT", manuscript_text)
 
-    message = client.messages.create(
-        model=config.anthropic_model,
+    llm_response, usage = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=LLMClaimsResponseV3,
         max_tokens=30000,
-        temperature=0.0,
-        messages=[{"role": "user", "content": prompt}],
     )
-
-    response_text = message.content[0].text
-    json_text = extract_json_from_response(response_text)
-
-    if not json_text or not json_text.strip():
-        raise ValueError(
-            f"Failed to extract JSON from response. Response text: {response_text[:1000]}"
-        )
-
-    try:
-        response_data = json.loads(json_text)
-        llm_response = LLMClaimsResponseV3(**response_data)
-    except json.JSONDecodeError as e:
-        raise ValueError(
-            f"Failed to parse LLM response as JSON: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
-    except Exception as e:
-        raise ValueError(
-            f"Failed to validate LLM response: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
 
     processing_time = time.time() - start_time
 
@@ -174,8 +254,8 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     metrics = None
     if verbose or return_metrics:
         metrics = {
-            "input_tokens": message.usage.input_tokens,
-            "output_tokens": message.usage.output_tokens,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
             "num_claims": len(llm_response.claims),
             "processing_time_seconds": processing_time,
         }
@@ -215,7 +295,7 @@ def llm_group_claims_into_results(
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
     """
-    client = get_anthropic_client()
+    client = get_llm_client()
     start_time = time.time()
 
     claims_json = json.dumps(
@@ -241,36 +321,12 @@ def llm_group_claims_into_results(
 
     # Note: reviewer_id and reviewer_name will be set to "LLM" by the prompt
 
-    message = client.messages.create(
-        model=config.anthropic_model,
+    llm_response, usage = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=LLMResultsResponseV3,
         max_tokens=30000,
-        temperature=0.0,
-        messages=[{"role": "user", "content": prompt}],
     )
-
-    response_text = message.content[0].text
-    json_text = extract_json_from_response(response_text)
-
-    if not json_text or not json_text.strip():
-        raise ValueError(
-            f"Failed to extract JSON from response. Response text: {response_text[:1000]}"
-        )
-
-    try:
-        response_data = json.loads(json_text)
-        llm_response = LLMResultsResponseV3(**response_data)
-    except json.JSONDecodeError as e:
-        raise ValueError(
-            f"Failed to parse LLM response as JSON: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
-    except Exception as e:
-        raise ValueError(
-            f"Failed to validate LLM response: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
 
     processing_time = time.time() - start_time
 
@@ -278,8 +334,8 @@ def llm_group_claims_into_results(
     metrics = None
     if verbose or return_metrics:
         metrics = {
-            "input_tokens": message.usage.input_tokens,
-            "output_tokens": message.usage.output_tokens,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
             "num_results": len(llm_response.results),
             "processing_time_seconds": processing_time,
         }
@@ -319,7 +375,7 @@ def peer_review_group_claims_into_results(
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
     """
-    client = get_anthropic_client()
+    client = get_llm_client()
     start_time = time.time()
 
     claims_json = json.dumps(
@@ -341,36 +397,12 @@ def peer_review_group_claims_into_results(
         "$REVIEW_TEXT", review_text
     )
 
-    message = client.messages.create(
-        model=config.anthropic_model,
+    llm_response, usage = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=LLMResultsResponseV3,
         max_tokens=30000,
-        temperature=0.0,
-        messages=[{"role": "user", "content": prompt}],
     )
-
-    response_text = message.content[0].text
-    json_text = extract_json_from_response(response_text)
-
-    if not json_text or not json_text.strip():
-        raise ValueError(
-            f"Failed to extract JSON from response. Response text: {response_text[:1000]}"
-        )
-
-    try:
-        response_data = json.loads(json_text)
-        llm_response = LLMResultsResponseV3(**response_data)
-    except json.JSONDecodeError as e:
-        raise ValueError(
-            f"Failed to parse LLM response as JSON: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
-    except Exception as e:
-        raise ValueError(
-            f"Failed to validate LLM response: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
 
     processing_time = time.time() - start_time
 
@@ -378,8 +410,8 @@ def peer_review_group_claims_into_results(
     metrics = None
     if verbose or return_metrics:
         metrics = {
-            "input_tokens": message.usage.input_tokens,
-            "output_tokens": message.usage.output_tokens,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
             "num_results": len(llm_response.results),
             "processing_time_seconds": processing_time,
         }
@@ -469,7 +501,7 @@ def compare_results(
     """
     from .utils import calculate_comparison_metrics, format_metrics_report
 
-    client = get_anthropic_client()
+    client = get_llm_client()
     start_time = time.time()
 
     # Compute Jaccard pairings based on claim overlap
@@ -513,36 +545,12 @@ def compare_results(
         "$JACCARD_PAIRINGS_JSON", jaccard_pairings_json
     )
 
-    message = client.messages.create(
-        model=config.anthropic_model,
+    llm_response, usage = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=LLMResultsConcordanceResponse,
         max_tokens=30000,
-        temperature=0.0,
-        messages=[{"role": "user", "content": prompt}],
     )
-
-    response_text = message.content[0].text
-    json_text = extract_json_from_response(response_text)
-
-    if not json_text or not json_text.strip():
-        raise ValueError(
-            f"Failed to extract JSON from response. Response text: {response_text[:1000]}"
-        )
-
-    try:
-        response_data = json.loads(json_text)
-        llm_response = LLMResultsConcordanceResponse(**response_data)
-    except json.JSONDecodeError as e:
-        raise ValueError(
-            f"Failed to parse LLM response as JSON: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
-    except Exception as e:
-        raise ValueError(
-            f"Failed to validate LLM response: {e}\n"
-            f"Extracted JSON: {json_text[:500]}\n"
-            f"Full response: {response_text[:1000]}"
-        )
 
     # Enhance concordance rows with claim count metrics
     # Create lookup dictionaries for faster access
@@ -588,8 +596,8 @@ def compare_results(
         comparison_metrics = calculate_comparison_metrics(llm_results, peer_results, llm_response.concordance)
 
         metrics_dict = {
-            "input_tokens": message.usage.input_tokens,
-            "output_tokens": message.usage.output_tokens,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
             "num_comparisons": len(llm_response.concordance),
             "status_breakdown": status_counts,
             "processing_time_seconds": processing_time,

@@ -54,11 +54,21 @@ class Config:
 
     def __init__(self):
         """Initialize configuration from environment variables."""
+        # LLM provider selection
+        self.llm_provider = os.getenv("LLM_PROVIDER", "anthropic").lower()
+
+        # Anthropic configuration
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY", "")
         self.anthropic_model = os.getenv(
             "ANTHROPIC_MODEL", "claude-sonnet-4-5-20250929"
         )
-        self.timeout = float(os.getenv("ANTHROPIC_TIMEOUT", "600.0"))
+
+        # OpenAI configuration
+        self.openai_api_key = os.getenv("OPENAI_API_KEY", "")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-2024-08-06")
+
+        # Shared configuration
+        self.timeout = float(os.getenv("LLM_TIMEOUT", "600.0"))
 
     def validate(self) -> None:
         """Validate configuration.
@@ -66,10 +76,21 @@ class Config:
         Raises:
             ValueError: If required configuration is missing
         """
-        if not self.anthropic_api_key:
+        if self.llm_provider not in ["anthropic", "openai"]:
             raise ValueError(
-                "ANTHROPIC_API_KEY environment variable is required. "
+                f"LLM_PROVIDER must be 'anthropic' or 'openai', got: {self.llm_provider}"
+            )
+
+        if self.llm_provider == "anthropic" and not self.anthropic_api_key:
+            raise ValueError(
+                "ANTHROPIC_API_KEY environment variable is required when using Anthropic. "
                 "Please set it with: export ANTHROPIC_API_KEY=your_api_key"
+            )
+
+        if self.llm_provider == "openai" and not self.openai_api_key:
+            raise ValueError(
+                "OPENAI_API_KEY environment variable is required when using OpenAI. "
+                "Please set it with: export OPENAI_API_KEY=your_api_key"
             )
 
 
