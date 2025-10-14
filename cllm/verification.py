@@ -192,7 +192,7 @@ def call_llm_structured(
             ],
             response_format=response_model,
             temperature=0.0,
-            max_tokens=max_tokens,
+            max_completion_tokens=max_tokens,
         )
 
         parsed_response = completion.choices[0].message.parsed
