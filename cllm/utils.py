@@ -29,23 +29,31 @@ def calculate_comparison_metrics(
     n1 = len(llm_results)
     n2 = len(peer_results)
 
-    # Count overlapping (non-partial) results
-    n_overlap = sum(
-        1 for row in concordance
-        if row.llm_result_id is not None
-        and row.peer_result_id is not None
-        and row.agreement_status != "partial"
+    # Count unique result IDs that have matches (for coverage calculation)
+    llm_ids_with_match = set(
+        row.llm_result_id for row in concordance
+        if row.llm_result_id is not None and row.peer_result_id is not None
+    )
+    peer_ids_with_match = set(
+        row.peer_result_id for row in concordance
+        if row.peer_result_id is not None and row.llm_result_id is not None
     )
 
-    n_only1 = sum(
-        1 for row in concordance
+    n_overlap_llm = len(llm_ids_with_match)
+    n_overlap_peer = len(peer_ids_with_match)
+
+    # Count unique result IDs that appear only in one set
+    llm_ids_only = set(
+        row.llm_result_id for row in concordance
         if row.llm_result_id is not None and row.peer_result_id is None
     )
-
-    n_only2 = sum(
-        1 for row in concordance
+    peer_ids_only = set(
+        row.peer_result_id for row in concordance
         if row.peer_result_id is not None and row.llm_result_id is None
     )
+
+    n_only1 = len(llm_ids_only)
+    n_only2 = len(peer_ids_only)
 
     # Classification agreement (for overlapping results only)
     overlapping_rows = [
@@ -104,16 +112,17 @@ def calculate_comparison_metrics(
             "matches": matches,
         }
 
-    # Coverage metrics
-    coverage_1_by_2 = (n_overlap / n1 * 100) if n1 > 0 else 0
-    coverage_2_by_1 = (n_overlap / n2 * 100) if n2 > 0 else 0
+    # Coverage metrics (what percentage of each set has at least one match)
+    coverage_1_by_2 = (n_overlap_llm / n1 * 100) if n1 > 0 else 0
+    coverage_2_by_1 = (n_overlap_peer / n2 * 100) if n2 > 0 else 0
 
     # Build summary
     return {
         # Basic counts
         "n1": n1,
         "n2": n2,
-        "n_overlap": n_overlap,
+        "n_overlap_llm": n_overlap_llm,
+        "n_overlap_peer": n_overlap_peer,
         "n_only1": n_only1,
         "n_only2": n_only2,
 
@@ -152,7 +161,8 @@ def format_metrics_report(metrics: Dict[str, Any]) -> str:
     lines.append("Basic Counts:")
     lines.append(f"  N₁ (LLM results):          {metrics['n1']}")
     lines.append(f"  N₂ (Peer results):         {metrics['n2']}")
-    lines.append(f"  N_overlap (in both):       {metrics['n_overlap']}")
+    lines.append(f"  N_overlap_LLM (LLM w/ match): {metrics['n_overlap_llm']}")
+    lines.append(f"  N_overlap_Peer (Peer w/ match): {metrics['n_overlap_peer']}")
     lines.append(f"  N_only₁ (only LLM):        {metrics['n_only1']}")
     lines.append(f"  N_only₂ (only Peer):       {metrics['n_only2']}")
 
@@ -183,15 +193,19 @@ def format_metrics_report(metrics: Dict[str, Any]) -> str:
     # Summary line
     lines.append("")
     lines.append("Summary:")
-    total = metrics['n1'] + metrics['n2'] - metrics['n_overlap']
+    # Total unique results = all from set 1 + all from set 2 (no double counting needed in concordance)
+    total = metrics['n1'] + metrics['n2']
+    num_only = metrics['n_only1'] + metrics['n_only2']
+
+    # Calculate percentages based on concordance rows with matches
+    total_matched_rows = metrics['agreement_count'] + metrics['disagreement_count']
     agree_pct = metrics['agreement_pct']
     disagree_pct = metrics['disagreement_pct']
-    only_pct = ((metrics['n_only1'] + metrics['n_only2']) / total * 100) if total > 0 else 0
 
     summary = (
-        f"Out of {total} total results, {metrics['agreement_count']} ({agree_pct:.1f}%) agree, "
-        f"{metrics['disagreement_count']} ({disagree_pct:.1f}%) disagree, and "
-        f"{metrics['n_only1'] + metrics['n_only2']} ({only_pct:.1f}%) appear in only one set."
+        f"Of {total_matched_rows} concordance row pairs, {metrics['agreement_count']} ({agree_pct:.1f}%) agree, "
+        f"{metrics['disagreement_count']} ({disagree_pct:.1f}%) disagree. "
+        f"{num_only} results from {metrics['n1']} LLM + {metrics['n2']} peer = {total} total appear in only one set."
     )
     lines.append(f"  {summary}")
 
