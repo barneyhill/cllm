@@ -185,13 +185,13 @@ def call_llm_structured(
 
     elif config.llm_provider == "openai":
         # OpenAI: structured outputs with direct Pydantic model
+        # Note: GPT-5 only supports temperature=1, so we don't set it
         completion = client.beta.chat.completions.parse(
             model=config.openai_model,
             messages=[
                 {"role": "user", "content": prompt}
             ],
             response_format=response_model,
-            temperature=0.0,
             max_completion_tokens=max_tokens,
         )
 
