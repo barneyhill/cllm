@@ -1,0 +1,127 @@
+# Peer review - Round 1
+
+Editors:
+- Jesse H Goldberg, Cornell University Ithaca United States of America
+
+Reviewers:
+- (Reviewers not individually listed)
+
+## Review text
+
+DOI: [10.7554/eLife.106039.1.sa3](https://doi.org/10.7554/eLife.106039.1.sa3)
+
+This valuable study demonstrates that silencing of inhibitory interneurons in zebra finch HVC, a premotor nucleus critical for song production, disrupts song. However, song naturally recovers in a way that is surprisingly independent of LMAN, a distinct premotor nucleus required for normal song plasticity. The authors provide solid evidence that disruption is associated with microglial activation, activation of MHCI, synaptic changes, and altered neural dynamics in HVC. However, the manuscript would benefit from a clearer narrative structure, contextualization of the microglial results, and quantitative analyses to fully characterize song syntax and recovery after LMAN lesions.
+
+
+---
+
+# Peer review - Round 1
+
+Reviewers:
+- Anonymous Reviewer
+
+## Review text
+
+DOI: [10.7554/eLife.106039.1.sa2](https://doi.org/10.7554/eLife.106039.1.sa2)
+
+Summary:
+
+This study by Torok et al. takes a creative approach to studying circuit perturbations in a sensorimotor region for vocalization control, in a songbird species, the zebra finch. By expressing the light chain of tetanus toxin in neurons in a sensorimotor region HVC, the authors constrain neural firing and study the resulting degradation and then recovery of song, after a protracted (> 70-day) period. Recording data suggest a form of synaptic homeostasis emergent in both HVC and RA as a result of the profound loss of (inhibitory?) tone in HVC. The methods to analyze changes in song are particularly strong here, using dimension reduction and visualization techniques. Single-cell sequencing data showed accompanying changes in microglia abundance, as well as several other markers that were not observed in control viral injections. LFP analyses in birds during the tetanus onset phase showed clear dysregulation of typical voltage deflections and spectral power, each of which showed recovery in parallel with song recovery. Lastly, the authors present data indicating that the anterior forebrain region LMAN is not critical for the song degradation process, pointing instead to the direct relationship between HVC and RA in song plasticity in adults. The methods are generally well established, but my main concerns regard the validation of the viral construct, the lack of direct confirmation of tetanus toxin on inhibitory neurons or E/I balance in HVC, and a missed opportunity to look at song syllable sequence degradation and recovery.
+
+Strengths:
+
+The species under investigation is the premier model for the neural basis of vocal learning, and the telencephalic brain regions investigated are well mapped out for their control of vocal learning behavior. The methods for electrophysiology recording and analysis, song analysis, scRNAseq, and in situ hybridization pose no concern as they are well established for this group of co-authors.
+
+Weaknesses:
+
+The introduction lays out a case for pursuing long-term E/I imbalances, vis-à-vis transient perturbations that have shown effects on the behavior. However, the rationale is not clearly stated. Why should the reader care that "prolonged E/I imbalances" may occur? Do they occur naturally or in some disease states (as alluded to in the first paragraph)? Without this rationale, the reader is left with an impression that the experiments were done because of a technical capability rather than a conceptual thrust.
+
+The cited works for the statement the "AAV viral vector expressing TeNT undre the human dlx promoter, which is selective for HVC inhibitory interneurons" (reference 5 Kosche et al., 2016; and reference 10 Vallentin et al 2016) do not substantiate the targeting of this dlx5 promoter for interneurons in zebra finch HVC. Neither of these cited studies used viral vectors, and so this is a misattribution of the dlx5 promoter as targeting HVC inhibitory interneurons. However, the original development of this enhancer by Gord Fishell and others did have solid expression in HVC (Dimidschstein et al., 2016, Nature Neuroscience), and the enhancer was used to successfully target inhibitory neurons in nearby nidopallium NCM (Spool et al., 2022, Curr Biol). Citing these two studies would improve the standing of this viral approach. Nevertheless, the specific construct used here is not the same as the published studies mentioned above (AAV9-dlx-TeNT). The authors therefore need to show expression of the virus using some histological confirmation to cement the idea that they are indeed targeting inhibitory interneurons with this manipulation. The methods statement "a single injection (~100 nL) in the center of HVC was sufficient to label enough cells" is not convincing in the absence of quantified photomicrographs.
+
+The authors present no physiological confirmation of TeNT on E/I balance directly, and so we don't have a clear picture of how/whether HVC interneurons are physiologically altered by this manipulation. That said, the Npix recordings show that there was a tremendous increase in gamma power following TeNT manipulation, which subsides as the protracted song recovery unfolds. This finding is somewhat counterintuitive, given that gamma oscillations are typically driven by inhibitory neurons in many systems (including songbird pallium) while the TeNT manipulation is purported to cause *reductions* in inhibitory neurotransmitter release within HVC. Some interpretation of these incongruent results would be useful in the Discussion.
+
+The degradation and recovery of song is based mainly on the measures of duration of syllables and inter-syllable intervals, but HVC is also a key locus for song syllable sequence coding. The supplementary figures show some changes in sequences. It would improve the interpretation of both the degradation and recovery of the song to know whether syllable sequences (iiiABCCDDEF) truly recovered or were morphed in some way (e.g., iiiCDDDBEF). The PCA analyses (that the authors conducted) for these two potential outcomes would likely be very similar, but the actual songs would differ greatly under these two scenarios in terms of syllable sequence. From the representative spectrograms, it appears that the song syllable sequence does indeed recover well in these examples (perhaps less so in Supplementary Figure 3). A simple Markov-chain analysis of the syllable sequences across birds in the study would provide important confirmation of these insights.
+
+
+---
+
+# Peer review - Round 1
+
+Reviewers:
+- Anonymous Reviewer
+
+## Review text
+
+DOI: [10.7554/eLife.106039.1.sa1](https://doi.org/10.7554/eLife.106039.1.sa1)
+
+This article addresses the question of how complex behavior is maintained despite perturbations in underlying motor circuits. Using zebra finch song production as a model system, the authors employ a genetic approach to perturb activity in GABAergic neurons within the vocal control nucleus HVC. Specifically, they use AAV to deliver the tetanus toxin light chain (TeNT) under the interneuron-specific DLX promoter, with the goal of silencing interneurons. This manipulation causes rapid degradation of song, followed by recovery over several weeks.
+
+The authors characterize the recovery using a combination of transcriptomic analysis, electrophysiology, and lesion studies. Notably, the recovery does not require the lMAN, which is typically considered critical for vocal learning and plasticity. The authors speculate that homeostatic mechanisms within the motor pathway - potentially involving microglial remodeling -may mediate this recovery.
+
+The strength of the study lies in the striking behavioral effects - both degradation and recovery - resulting from a specific circuit perturbation, and the use of complementary approaches (gene expression, neurophysiology, behavior, and lesions) to link circuit changes to behavior. The approach is creative, and the findings are intriguing. More detailed comments are provided below that may help enhance the manuscript's value to the community.
+
+(1) In Figure 1b, the authors show changes in the relative abundance of cell types following TeNT expression in HVC. The most prominent change, as noted by the authors, is an increase in microglia. However, there are also apparent changes in the proportions of other cell types-particularly decreases in neurons and radial glia. How do the authors interpret the observed reductions in GABAergic and glutamatergic cells, as well as radial glia? Are these decreases statistically significant? Given the magnitude of these changes, could they reflect sampling differences (e.g., inclusion of tissue outside HVC) or neuronal cell death? Alternatively, is it possible that the absolute number of mature neurons remains constant, and increases in other cell types shift the relative proportions? The authors should clarify how to interpret the Y-axis of this plot. It appears to reflect relative abundance rather than absolute cell numbers, which has important implications for interpretation.
+
+(2) The authors appear to define their own cell type clusters and labels, rather than using standard classifications (e.g., Colquitt et al. 2021; Colquitt et al. 2023). This makes cross-study comparisons difficult. For example, Colquitt describes four classes of putative immature neurons (pre2-pre4, GABA-pre). In contrast, the authors refer to "neuroblasts" in Figure 1b. Are these equivalent to pre2-pre4 and/or to "GABA-pre"? What about "migrating neuroblasts" in Supplementary Figure 11? The authors could consider using the standard nomenclature, or if they disagree with that classification, explain why an alternative scheme is warranted.
+
+(3) The transcriptomic data are underexplored. Many genes appear differentially expressed (e.g., in Figure 1c), however, the main text contains little discussion of differential gene expression beyond MHC I and B2M. It would be useful to discuss whether transcriptomic data support or rule out any other specific mechanistic hypotheses for recovery.
+
+(4) The authors attribute increased microglial markers to interneuron silencing rather than inflammation from viral injection, based on control virus results (lines 143-146). However, is it plausible that TeNT expression itself, or batch variability, could drive differences in inflammation? The authors could address these alternatives with additional evidence or discussion.
+
+
+---
+
+# Peer review - Round 1
+
+Reviewers:
+- Anonymous Reviewer
+
+## Review text
+
+DOI: [10.7554/eLife.106039.1.sa0](https://doi.org/10.7554/eLife.106039.1.sa0)
+
+Summary:
+
+This manuscript investigates at behavioral and mechanistic levels the recovery of zebra finch song production after a genetically targeted insult to HVC, a vocal premotor nucleus known to generate stereotyped neural sequences that drive the correspondingly stereotyped song. This study is a close follow up to past work, published in Nature Neuroscience last year (Wang et al, 2024), in which custom lentiviruses were used to deliver a persistently active sodium channel, NacBAC or TeNT to block synaptic release, specifically to the excitatory projection neurons in HVC. In this past work, these manipulations resulted in rapid degradation of song, followed by a slow recovery that, remarkably, did not require practice. Song recovery was associated with synaptic remodeling that appeared to homeostatically bring the affected neurons back to a normal firing regime. This past paper was important because it clearly demonstrated behaviorally and mechanistically how neural plasticity can restore a learned behavior without practice, showing that dominant reinforcement learning models of birdsong are not the full story.
+
+This past work sets the context for the current paper, which instead targets the inhibitory neuronal population in HVC for silencing via viral-mediated expression of TeNT. Again, this sophisticated targeting of HVC interneurons resulted in rapid degradation of song, followed by a much slower but seemingly full recovery.
+
+Strengths:
+
+Overall, this paper has several strengths. First, it provides yet another convincing example of non-canonical vocal learning in the zebra finch because LMAN (a nucleus required for trial and error song learning) is not required for song recovery. Second, its targeting of interneurons clarifies the extent to which inhibition in HVC is essential for vocal patterning (not surprising but important to show). Third, by using RNAseq of HVC at the time of peak song disruption, it zeroes in on specific genetic/cellular activations associated with a lack of inhibition (e.g., microglial activation and MHC1 expression), opening up new avenues for future study. Using in vivo electrophysiology it also characterizes some gross circuit-level abnormalities in HVC-RA transmission and during sleep.
+
+Weaknesses:
+
+Yet the paper also has several areas for improvement, primarily:
+
+Main issues
+
+(1) Narrative-level confusion, a mix of results, many hanging threads
+
+The arc of this paper is very hard to follow, new experiments arise without a clear setup or connection to past ones. Concepts jump around unpredictably. The reading experience would be dramatically improved if there were a clear single line of logic going through the entire paper, which could be accomplished by inserting a paragraph at the end of the intro section that walks the reader step-by-step through what they are going to see. I don't recommend this for all papers - but this paper requires it, in my opinion, because we have such an unusual combination of experimental approaches, outcomes, and data formats (behavior, RNA seq, targeted tests of microglial activation in the setting of adult impairment and song development, electrophysiology during sleep. It's very difficult for me to tie this all together into a crisp narrative that sticks with me days after reading the paper. Instead, it feels like some disconnected factoids. Examples:
+
+a) Characterization of degradation and slow recovery (much slower than targeting of projection neurons form past work (Wang et al, 2024).
+
+b) Activation of microglia and MHC1 during the degraded period; microglia return to normal at recovery.
+
+c) Developmenta profile of microglia expression.
+
+e) Sleep replay in HVC is perturbed during the degraded state. Mostly returns to normal following recovery, but *some* aspects are still abnormal.
+
+f) Detailed ephys analysis of HVC excitability and RA suppression, invoking ideas that HVC drives RA inhibition.
+
+g) LMAN lesions do not block degradation or recovery.
+
+There are at least three threads of this paper - it therefore reads like three different papers stitched together into one - united only by the method of HVC interneuron targeting. In my view, a pretty major overhaul is required, even if it means cutting out specific details and figures that distract from the paper's message (for example there is a whole sub-section analyzing HVC impact on RA that vaguely invokes ideas of HVC engagement of RA
+
+(2) Interpretation of microglia is confusing and unresolved
+
+Microglia activation is measured at peak song disruption, and returns to normal following recovery. To test if this phenomenon is associated with learning or degradation, the authors measure microglia during development.
+
+"The increased inhibitory tone in HVC and the number of microglia could induce synaptic changes that contribute to degraded song production. Alternatively, the rise in microglia could be part of the recovery response to produce synaptic changes needed to regain the song following perturbation."
+
+This is a great if/then statement on how to interpret the microglial activation at the core of the paper. But it remains unresolved. Is there a causal experiment that could distinguish these possibilities?
+
+(3) The quantification of song dynamics during the recovery process in LMAN lesioned birds is required to support claims. Perhaps the most interesting claim of the paper - that recovery happens without LMAN, is not sufficiently supported by data analyses. This is a major problem.
+
+The same analysis used in the LMAN-intact degradation/recovery dataset should be used for the LMAN dataset. At present, there are no quantification, only example spectrograms. Also, Supplementary Figure 4 and Supplementary Figure 5 are identical, suggesting a lack of proofreading in this part of the manuscript. For example the reader cannot even ascertain if the key aspect of song degradation - the production of exceedingly long syllables - is occurring in the LMAN lesioned animals.

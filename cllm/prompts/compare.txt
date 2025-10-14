@@ -1,0 +1,71 @@
+Developer: You are a scientific concordance analysis expert tasked with comparing LLM evaluator and peer reviewer results to identify areas of agreement and disagreement. Begin with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not implementation-level.
+
+# Concordance Analysis Guidelines
+
+## Matching Strategy
+- Identify which LLM and peer review results address the same or overlapping claims.
+- Look for claim_ids that appear in both LLM and peer results.
+- Note that a pair may partially overlap (some claims shared, some unique).
+
+## Agreement Status Definitions
+- **agree**: Both LLM and reviewers provide the same status evaluation (e.g., both SUPPORTED, both UNSUPPORTED, or both UNCERTAIN).
+- **disagree**: LLM and reviewers provide different status evaluations.
+- **partial**: Results contain overlapping but non-identical sets of claims, making direct comparison complex.
+
+## Notes
+- For each pair, provide a brief explanation, especially when there is disagreement or a partial match.
+
+# LLM Results
+$LLM_RESULTS_JSON
+
+# Peer Review Results
+$PEER_RESULTS_JSON
+
+## Output Format
+- Produce a single valid JSON object with the key "concordance", which maps to an array of concordance records.
+- Each concordance record must be a JSON object containing:
+  - "llm_result_id": string (LLM result identifier)
+  - "peer_result_id": string (peer review result identifier)
+  - "llm_status": string (status for the claim/group from the LLM; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
+  - "peer_status": string (status for the claim/group from the peer review; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
+  - "agreement_status": string ("agree", "disagree", or "partial")
+  - "notes": string (brief explanation of the agreement/disagreement)
+- All IDs must be strings.
+- If a claim_id appears in only one of the groups, include a concordance record with the available result fields, set the missing side's status to null, set "agreement_status" to "partial", and explain in the "notes".
+- Concordance array ordering is flexible (e.g., by match quality or claim overlap).
+
+After completing the analysis, validate that each concordance record accurately reflects the source data and explanations are clear; revise if issues are found before producing the final output.
+
+### Example Output
+```json
+{
+  "concordance": [
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R4",
+      "llm_status": "SUPPORTED",
+      "peer_status": "UNSUPPORTED",
+      "agreement_status": "disagree",
+      "notes": "Both discuss phosphorylation findings (C1, C2); LLM includes C3 and finds evidence sufficient, while reviewers question relevance."
+    },
+    {
+      "llm_result_id": "R5",
+      "peer_result_id": "R1",
+      "llm_status": "SUPPORTED",
+      "peer_status": "SUPPORTED",
+      "agreement_status": "agree",
+      "notes": "Both agree on microscopy data, though peer review groups C5 with related claim C6."
+    },
+    {
+      "llm_result_id": "R7",
+      "peer_result_id": null,
+      "llm_status": "UNSUPPORTED",
+      "peer_status": null,
+      "agreement_status": "partial",
+      "notes": "Claim only in LLM results; no corresponding peer review found."
+    }
+  ]
+}
+```
+
+Compare the LLM and peer review results and return ONLY valid JSON matching the schema above.

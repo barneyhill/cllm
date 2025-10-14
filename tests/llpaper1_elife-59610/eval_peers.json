@@ -1,0 +1,177 @@
+{
+  "results": [
+    {
+      "result_id": "R1",
+      "claim_ids": [
+        "C4",
+        "C28",
+        "C51",
+        "C52",
+        "C53",
+        "C54",
+        "C55"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers affirm that silencing inhibitory interneurons in HVC causes song degradation. The editor states the study 'demonstrates that silencing of inhibitory interneurons in zebra finch HVC...disrupts song' and one reviewer notes 'this sophisticated targeting of HVC interneurons resulted in rapid degradation of song.' The behavioral effects are described as 'striking' with no challenges to the degradation findings themselves."
+    },
+    {
+      "result_id": "R2",
+      "claim_ids": [
+        "C5",
+        "C30",
+        "C68",
+        "C69",
+        "C129"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers accept that song recovers after prolonged degradation. The editor notes 'song naturally recovers' and one reviewer describes 'a much slower but seemingly full recovery.' Another reviewer states the methods for song analysis are 'particularly strong here, using dimension reduction and visualization techniques.' The recovery phenomenon itself is not questioned."
+    },
+    {
+      "result_id": "R3",
+      "claim_ids": [
+        "C42"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "Anonymous Reviewer",
+      "status": "UNSUPPORTED",
+      "status_reasoning": "A reviewer directly challenges the viral targeting claim, stating 'The cited works...do not substantiate the targeting of this dlx5 promoter for interneurons in zebra finch HVC. Neither of these cited studies used viral vectors, and so this is a misattribution.' The reviewer demands 'histological confirmation to cement the idea that they are indeed targeting inhibitory interneurons' and finds the methods statement 'not convincing in the absence of quantified photomicrographs.'"
+    },
+    {
+      "result_id": "R4",
+      "claim_ids": [
+        "C60",
+        "C61",
+        "C6",
+        "C7",
+        "C130"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "UNCERTAIN",
+      "status_reasoning": "Reviewers acknowledge the microglial and MHC I findings but express concerns about interpretation and context. The editor notes the manuscript 'would benefit from...contextualization of the microglial results.' One reviewer states 'the transcriptomic data are underexplored' and questions whether 'TeNT expression itself, or batch variability, could drive differences in inflammation.' Another reviewer notes the interpretation 'remains unresolved' and asks 'Is there a causal experiment that could distinguish these possibilities?'"
+    },
+    {
+      "result_id": "R5",
+      "claim_ids": [
+        "C70",
+        "C71",
+        "C72"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "Anonymous Reviewer",
+      "status": "UNCERTAIN",
+      "status_reasoning": "Reviewers note the temporal correlation between microglia and behavior but question the interpretation. One reviewer states 'Microglia activation is measured at peak song disruption, and returns to normal following recovery' but then notes the authors present two opposing scenarios and 'it remains unresolved.' The reviewer asks for 'a causal experiment that could distinguish these possibilities' between microglia contributing to degradation versus recovery."
+    },
+    {
+      "result_id": "R6",
+      "claim_ids": [
+        "C9",
+        "C35",
+        "C121",
+        "C149"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "UNCERTAIN",
+      "status_reasoning": "Reviewers find the LMAN-independence of recovery intriguing but insufficiently supported. The editor notes recovery is 'surprisingly independent of LMAN' but states the manuscript needs 'quantitative analyses to fully characterize song syntax and recovery after LMAN lesions.' One reviewer identifies this as 'a major problem,' stating 'the most interesting claim of the paper...is not sufficiently supported by data analyses' with 'no quantification, only example spectrograms.'"
+    },
+    {
+      "result_id": "R7",
+      "claim_ids": [
+        "C83",
+        "C84",
+        "C101"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "Anonymous Reviewer",
+      "status": "UNCERTAIN",
+      "status_reasoning": "A reviewer notes the gamma power findings but finds them 'somewhat counterintuitive, given that gamma oscillations are typically driven by inhibitory neurons in many systems (including songbird pallium) while the TeNT manipulation is purported to cause *reductions* in inhibitory neurotransmitter release within HVC.' The reviewer requests 'some interpretation of these incongruent results would be useful in the Discussion,' indicating uncertainty about how to reconcile the findings with expected mechanisms."
+    },
+    {
+      "result_id": "R8",
+      "claim_ids": [
+        "C12",
+        "C92",
+        "C93",
+        "C109",
+        "C137"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers accept the electrophysiological findings showing persistent neural changes after behavioral recovery. The editor notes the authors 'provide solid evidence that disruption is associated with...altered neural dynamics in HVC.' One reviewer states the study 'characterizes some gross circuit-level abnormalities in HVC-RA transmission' and describes 'Recording data suggest a form of synaptic homeostasis emergent in both HVC and RA.' The persistent changes are acknowledged without challenge."
+    },
+    {
+      "result_id": "R9",
+      "claim_ids": [
+        "C106",
+        "C107",
+        "C142",
+        "C143"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers accept the spike-field coherence findings. One reviewer notes 'LFP analyses in birds during the tetanus onset phase showed clear dysregulation of typical voltage deflections and spectral power, each of which showed recovery in parallel with song recovery.' The correlation between loss and restoration of spike-locking to alpha oscillations and behavioral state is acknowledged as part of the solid evidence provided."
+    },
+    {
+      "result_id": "R10",
+      "claim_ids": [
+        "C11",
+        "C36",
+        "C126"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers affirm the conclusion that adult recovery mechanisms differ from juvenile learning. The editor states the study shows recovery is 'surprisingly independent of LMAN, a distinct premotor nucleus required for normal song plasticity.' One reviewer notes this 'provides yet another convincing example of non-canonical vocal learning in the zebra finch because LMAN (a nucleus required for trial and error song learning) is not required for song recovery,' pointing to the direct HVC-RA relationship in adult plasticity."
+    },
+    {
+      "result_id": "R11",
+      "claim_ids": [
+        "C13",
+        "C37",
+        "C110",
+        "C154"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "PEER_REVIEW",
+      "status": "SUPPORTED",
+      "status_reasoning": "Reviewers accept the overarching conclusion about behavioral recovery despite persistent neural changes. One reviewer describes this as a strength, noting the study 'clearly demonstrated behaviorally and mechanistically how neural plasticity can restore a learned behavior without practice.' The editor acknowledges the authors provide 'solid evidence' linking disruption to recovery, and reviewers describe the behavioral effects as 'striking' without challenging the dissociation between behavior and neural dynamics."
+    },
+    {
+      "result_id": "R12",
+      "claim_ids": [
+        "C32",
+        "C33",
+        "C67",
+        "C73",
+        "C134"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "Anonymous Reviewer",
+      "status": "UNCERTAIN",
+      "status_reasoning": "Reviewers note these are speculative interpretations that remain unresolved. One reviewer explicitly states the authors present 'a great if/then statement on how to interpret the microglial activation' with two opposing scenarios, but 'it remains unresolved.' The reviewer asks 'Is there a causal experiment that could distinguish these possibilities?' indicating these mechanistic hypotheses about microglia function are uncertain and require further testing."
+    },
+    {
+      "result_id": "R13",
+      "claim_ids": [
+        "C55",
+        "C78"
+      ],
+      "reviewer_id": "PEER_REVIEW",
+      "reviewer_name": "Anonymous Reviewer",
+      "status": "UNCERTAIN",
+      "status_reasoning": "A reviewer raises concerns about syllable sequence analysis, noting 'HVC is also a key locus for song syllable sequence coding' and 'it would improve the interpretation of both the degradation and recovery of the song to know whether syllable sequences...truly recovered or were morphed in some way.' The reviewer states 'A simple Markov-chain analysis of the syllable sequences across birds in the study would provide important confirmation' suggesting the current characterization of song variability and structure is incomplete."
+    }
+  ],
+  "metadata": {
+    "source": "PEER_REVIEW",
+    "num_results": 13,
+    "processing_time_seconds": 50.69094705581665
+  }
+}

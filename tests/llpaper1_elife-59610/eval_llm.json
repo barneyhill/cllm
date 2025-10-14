@@ -1,0 +1,512 @@
+{
+  "results": [
+    {
+      "result_id": "R1",
+      "claim_ids": [
+        "C4",
+        "C27",
+        "C28",
+        "C29",
+        "C50",
+        "C51",
+        "C52",
+        "C53",
+        "C54",
+        "C55",
+        "C57"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The claims about song degradation following chronic silencing of inhibitory neurons in HVC are well-supported by longitudinal behavioral recordings, acoustic analysis, and appropriate controls. The temporal progression from initial normal song (24-48h) through severe degradation (5-30 dpi) is documented with quantitative acoustic features and spectrograms across multiple animals."
+    },
+    {
+      "result_id": "R2",
+      "claim_ids": [
+        "C5",
+        "C30",
+        "C68",
+        "C69"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The behavioral recovery after ~2 months is supported by continuous longitudinal recordings showing song quality returning to pre-perturbation levels. Multiple animals showed this pattern, and acoustic similarity to original song was quantified, providing strong evidence for this surprising finding."
+    },
+    {
+      "result_id": "R3",
+      "claim_ids": [
+        "C6",
+        "C7",
+        "C60",
+        "C61",
+        "C64"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The molecular changes (increased microglia and MHC I expression) are supported by scRNA-seq data from n=2 control and n=2 TeNT animals, with appropriate statistical testing and independent validation by in situ hybridization. The three-fold increase in microglia and significant differential expression of MHC I genes are quantified and replicated across methods."
+    },
+    {
+      "result_id": "R4",
+      "claim_ids": [
+        "C8",
+        "C70",
+        "C71",
+        "C72"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The comparison between adult perturbation and juvenile development is supported by ISH data showing similar temporal patterns of microglia elevation. The transient nature of microglia increase (elevated at 25 dpi, normal by 90 dpi in adults; elevated 20-50 dph in juveniles) is documented with appropriate controls and quantification."
+    },
+    {
+      "result_id": "R5",
+      "claim_ids": [
+        "C62",
+        "C63"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The inference that molecular changes result from interneuron silencing rather than surgery/injection is well-supported by the experimental design where control animals received identical surgical procedures and viral injections with an inactive construct. This is an appropriate control for ruling out inflammatory responses to the procedure itself."
+    },
+    {
+      "result_id": "R6",
+      "claim_ids": [
+        "C9",
+        "C35",
+        "C120",
+        "C121",
+        "C149"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The LMAN lesion experiments (n=3) demonstrate that song degradation and recovery occur even without this learning-critical nucleus. The experimental design (LMAN lesion 10 days before TeNT injection) is appropriate, and lesion completeness was verified histologically. This provides strong evidence that adult recovery mechanisms differ from juvenile learning."
+    },
+    {
+      "result_id": "R7",
+      "claim_ids": [
+        "C11",
+        "C36",
+        "C122",
+        "C125",
+        "C126"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The inference that adult recovery mechanisms differ from juvenile learning is well-supported by the LMAN lesion data combined with established knowledge that LMAN is essential for juvenile learning. The ability to recover without LMAN while juveniles cannot learn without it provides strong evidence for mechanistic differences."
+    },
+    {
+      "result_id": "R8",
+      "claim_ids": [
+        "C12",
+        "C34",
+        "C92",
+        "C93",
+        "C109",
+        "C137"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The persistent changes in neuronal dynamics after behavioral recovery are supported by both chronic and acute electrophysiological recordings. The decreased HVC firing and increased RA firing at 70 dpi (when song is recovered) are statistically significant (p=0.57\u00d710\u207b\u00b9\u00b9 for HVC) and documented across multiple animals with appropriate controls."
+    },
+    {
+      "result_id": "R9",
+      "claim_ids": [
+        "C80",
+        "C81",
+        "C82",
+        "C83",
+        "C84",
+        "C136"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The chronic electrophysiology findings showing abnormal offline activity during degradation that normalizes with recovery are well-documented. The 3-fold increase in deflection amplitude, increased gamma power, and correlation with behavioral state are quantified across the experimental timeline with appropriate controls."
+    },
+    {
+      "result_id": "R10",
+      "claim_ids": [
+        "C88",
+        "C90",
+        "C91"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The acute Neuropixel recordings document the biphasic response in HVC activity: initial elevation (3-4 dpi) followed by persistent reduction (20+ dpi). The observation of seizure-like events (n=7 events in 3 animals) is consistent with loss of inhibition and provides mechanistic insight into the perturbation effects."
+    },
+    {
+      "result_id": "R11",
+      "claim_ids": [
+        "C101",
+        "C103",
+        "C104",
+        "C105",
+        "C106",
+        "C107",
+        "C141",
+        "C142",
+        "C143",
+        "C145"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The spike-field coherence analysis reveals a critical dissociation: spike-locking to alpha oscillations is lost during degradation and restored during recovery, while alpha power remains permanently elevated. This finding is supported by appropriate phase-locking analysis methods and provides insight into how behavior recovers despite persistent circuit changes."
+    },
+    {
+      "result_id": "R12",
+      "claim_ids": [
+        "C13",
+        "C37",
+        "C110",
+        "C111",
+        "C146",
+        "C154",
+        "C155"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The central conclusion that complex behavior can recover without restoring original neural dynamics is strongly supported by the convergence of behavioral recovery data with persistent electrophysiological abnormalities. This represents a well-supported synthesis of multiple experimental findings showing dissociation between behavioral and neural state."
+    },
+    {
+      "result_id": "R13",
+      "claim_ids": [
+        "C14",
+        "C15",
+        "C38",
+        "C39",
+        "C153"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The inference that recovery involves local, homeostatic mechanisms is well-supported by the LMAN lesion experiments showing recovery without learning-critical circuits. The comparison with prior work on excitatory neuron perturbation strengthens this conclusion by showing recovery from orthogonal perturbations."
+    },
+    {
+      "result_id": "R14",
+      "claim_ids": [
+        "C32",
+        "C33",
+        "C67",
+        "C73",
+        "C134",
+        "C135"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "UNCERTAIN",
+      "status_reasoning": "The functional role of microglia in the recovery process remains speculative. While the correlation between microglia elevation and behavioral state is documented, the authors appropriately acknowledge that whether microglia aid or delay recovery cannot be determined from the current data. Causal experiments would be needed to resolve this."
+    },
+    {
+      "result_id": "R15",
+      "claim_ids": [
+        "C95",
+        "C96",
+        "C97"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "UNCERTAIN",
+      "status_reasoning": "The proposed circuit model explaining the inverse relationship between HVC and RA activity is speculative. While the model is consistent with prior slice physiology data and the observed activity patterns, the recordings in RA do not distinguish excitatory from inhibitory neurons, limiting the ability to test the specific mechanism proposed."
+    },
+    {
+      "result_id": "R16",
+      "claim_ids": [
+        "C139",
+        "C140",
+        "C144"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "UNCERTAIN",
+      "status_reasoning": "The mechanistic interpretation that elevated alpha power reflects compensatory increases in upstream inputs is speculative. While consistent with the interpretation that alpha oscillations reflect synaptic inputs, this hypothesis would require direct recordings from upstream nuclei (Uva, Nif) or perturbation experiments to test causally."
+    },
+    {
+      "result_id": "R17",
+      "claim_ids": [
+        "C58",
+        "C59"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "UNCERTAIN",
+      "status_reasoning": "The scRNA-seq sample size (n=2 per condition) is minimal for biological replicates, though the total cell count (35,804) is substantial. While the findings are validated by ISH, the limited biological replication raises concerns about generalizability. The concordance between replicates within conditions partially mitigates this concern, but additional animals would strengthen confidence."
+    },
+    {
+      "result_id": "R18",
+      "claim_ids": [
+        "C74",
+        "C75"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The technical limitation of chronic recordings (single units lost after 24-48h but LFPs stable for weeks) is clearly documented and appropriately acknowledged. This limitation is addressed by complementing chronic LFP recordings with acute high-density recordings, providing a reasonable experimental strategy."
+    },
+    {
+      "result_id": "R19",
+      "claim_ids": [
+        "C40",
+        "C41",
+        "C42",
+        "C43"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The methodological claims about TeNT mechanism and dlx5 promoter specificity are well-supported by established literature and prior characterization studies. The distinction that TeNT blocks synaptic release without affecting spike generation is important for interpreting the results and is well-established."
+    },
+    {
+      "result_id": "R20",
+      "claim_ids": [
+        "C49"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The control data showing no song changes after GFP virus injection is critical for ruling out effects of surgery, viral injection, or expression of transgenes per se. This control is appropriate and the stability of control song is well-documented across the experimental timeline."
+    },
+    {
+      "result_id": "R21",
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C127"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The background claims about the importance of motor behaviors, E/I balance, and consequences of imbalance are well-established principles in neuroscience, appropriately cited, and provide necessary context for the study. These are not novel claims but rather established framework."
+    },
+    {
+      "result_id": "R22",
+      "claim_ids": [
+        "C3",
+        "C21",
+        "C22",
+        "C23",
+        "C24",
+        "C25",
+        "C44",
+        "C45",
+        "C46",
+        "C47"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The anatomical and behavioral descriptions of the zebra finch song system are well-established in the literature and appropriately cited. These provide necessary background for understanding the experimental system and are not novel claims requiring evaluation."
+    },
+    {
+      "result_id": "R23",
+      "claim_ids": [
+        "C26",
+        "C56"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The comparisons to prior work (acute pharmacological blockade recovering in hours; excitatory neuron silencing recovering in 2 weeks) are appropriately cited and provide important context for interpreting the prolonged degradation observed with chronic interneuron silencing. These establish that the current findings are distinct from prior observations."
+    },
+    {
+      "result_id": "R24",
+      "claim_ids": [
+        "C65",
+        "C66",
+        "C131",
+        "C133"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The background on microglia function in development and after seizures is well-established and appropriately cited. This provides necessary context for interpreting the observed microglia elevation and is not a novel claim requiring independent evaluation."
+    },
+    {
+      "result_id": "R25",
+      "claim_ids": [
+        "C76",
+        "C98",
+        "C99",
+        "C138"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The interpretation of LFP frequency bands (alpha reflecting inputs, gamma reflecting local dynamics) is based on established literature and appropriately cited. While these interpretations have some uncertainty in the field, they represent reasonable working hypotheses based on prior work."
+    },
+    {
+      "result_id": "R26",
+      "claim_ids": [
+        "C79"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The hypothesis that offline HVC activity represents replay is appropriately cited and provides context for why offline recordings were analyzed. This is presented as a hypothesis from prior work, not as an established fact, which is appropriate."
+    },
+    {
+      "result_id": "R27",
+      "claim_ids": [
+        "C112",
+        "C113",
+        "C114",
+        "C115",
+        "C116",
+        "C117",
+        "C118",
+        "C119",
+        "C147",
+        "C148"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The background on juvenile song learning, LMAN function, and its role in adult song modification is well-established and appropriately cited. This provides necessary context for interpreting the LMAN lesion experiments and is not novel to this study."
+    },
+    {
+      "result_id": "R28",
+      "claim_ids": [
+        "C48"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The experimental protocol for continuous behavioral monitoring is clearly described and appropriate for capturing the full time course of degradation and recovery. The duration (7-20 days pre-injection to 60-100 dpi) is sufficient to establish baseline and document recovery."
+    },
+    {
+      "result_id": "R29",
+      "claim_ids": [
+        "C86",
+        "C87"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The use of Neuropixels probes for simultaneous recording across HVC, RA, and intervening areas is appropriate and well-described. The timeline of acute recordings (3-6, 20-22, 70-77 dpi) is well-designed to capture early, peak degradation, and recovery phases."
+    },
+    {
+      "result_id": "R30",
+      "claim_ids": [
+        "C150",
+        "C151",
+        "C152"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The synthesis comparing recovery from inhibitory vs. excitatory neuron perturbation is well-supported by citing prior work and demonstrates the robustness of HVC to orthogonal perturbations. This represents an important higher-level conclusion about circuit resilience."
+    },
+    {
+      "result_id": "R31",
+      "claim_ids": [
+        "C156"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "UNCERTAIN",
+      "status_reasoning": "The speculation about broader significance for brain resilience and motor behavior maintenance is appropriately tentative but extends beyond what the data directly support. While the findings are suggestive, generalizing from this specific system to broader principles of brain resilience requires caution and additional evidence from other systems."
+    },
+    {
+      "result_id": "R32",
+      "claim_ids": [
+        "C85"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The hypothesis that offline activity correlates with song execution quality is supported by the observed correlation between normalization of offline activity and behavioral recovery. While correlational, this represents a reasonable inference from the data and is appropriately presented as a hypothesis."
+    },
+    {
+      "result_id": "R33",
+      "claim_ids": [
+        "C94"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The citation of prior slice physiology showing HVC effects on RA firing patterns is appropriate and provides mechanistic context for interpreting the observed inverse relationship between HVC and RA activity in vivo."
+    },
+    {
+      "result_id": "R34",
+      "claim_ids": [
+        "C100"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The interpretation that gamma reflects local activity while alpha reflects inputs is a reasonable working hypothesis based on cited literature. While this interpretation has some uncertainty, it provides a useful framework for understanding the spike-field coherence results."
+    },
+    {
+      "result_id": "R35",
+      "claim_ids": [
+        "C102",
+        "C108"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The findings that some aspects of neural dynamics normalize with recovery (gamma power, alpha-gamma phase relationship, spike-locking) while others remain abnormal (alpha power, firing rates) are well-documented and represent important observations about partial vs. complete recovery of circuit properties."
+    },
+    {
+      "result_id": "R36",
+      "claim_ids": [
+        "C89"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The comparison of observed seizure-like events to prior rodent studies is appropriate and provides context for interpreting these events as expected consequences of interneuron blockade. The citation of relevant literature strengthens this interpretation."
+    },
+    {
+      "result_id": "R37",
+      "claim_ids": [
+        "C123",
+        "C124"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The observation that RA dynamics change profoundly during HVC perturbation, combined with established knowledge that LMAN is typically required for RA plasticity, sets up the important inference that adult recovery involves LMAN-independent mechanisms. The cited background is appropriate and the observed RA changes are documented."
+    },
+    {
+      "result_id": "R38",
+      "claim_ids": [
+        "C128",
+        "C129"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The summary of main findings (prolonged disruption followed by recovery) accurately reflects the experimental data and represents the core behavioral observation of the study. This is well-supported by the longitudinal recordings across multiple animals."
+    },
+    {
+      "result_id": "R39",
+      "claim_ids": [
+        "C130",
+        "C132"
+      ],
+      "reviewer_id": "LLM",
+      "reviewer_name": "LLM",
+      "status": "SUPPORTED",
+      "status_reasoning": "The summary of molecular findings (transient microglia elevation in both adult perturbation and juvenile learning) accurately reflects the scRNA-seq and ISH data. The parallel between adult recovery and juvenile development is an important observation, though the functional significance remains uncertain."
+    }
+  ],
+  "metadata": {
+    "source": "LLM",
+    "num_results": 39,
+    "processing_time_seconds": 94.33751106262207
+  }
+}
