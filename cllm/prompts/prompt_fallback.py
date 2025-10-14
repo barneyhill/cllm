@@ -230,6 +230,12 @@ $LLM_RESULTS_JSON
 
 $PEER_RESULTS_JSON
 
+# Suggested Pairings (based on Jaccard similarity of claim sets)
+
+The following pairings have been pre-computed based on the Jaccard index (overlap of claim_ids) between LLM and peer results. These are ordered by similarity and can help guide your analysis, but you should still consider all possible pairings and may identify additional or different matches based on semantic content.
+
+$JACCARD_PAIRINGS_JSON
+
 ## Example Output Format
 ```json
 {

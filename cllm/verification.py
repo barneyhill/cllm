@@ -9,9 +9,10 @@ This module implements:
 """
 
 import json
+import sys
 import time
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Optional, Dict, Any
 
 from anthropic import Anthropic
 
@@ -117,14 +118,16 @@ def extract_json_from_response(response_text: str) -> str:
 STAGE1_PROMPT_TEMPLATE = load_prompt("extract.txt", STAGE1_FALLBACK)
 
 
-def extract_claims(manuscript_text: str) -> Tuple[List[LLMClaimV3], float]:
+def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: bool = False) -> Tuple[List[LLMClaimV3], float, Optional[Dict[str, Any]]]:
     """Stage 1: Extract atomic factual claims from manuscript.
 
     Args:
         manuscript_text: Full text of the manuscript
+        verbose: If True, print detailed logging information
+        return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of extracted claims, processing time in seconds)
+        Tuple of (list of extracted claims, processing time in seconds, optional metrics dict)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -166,7 +169,25 @@ def extract_claims(manuscript_text: str) -> Tuple[List[LLMClaimV3], float]:
         )
 
     processing_time = time.time() - start_time
-    return llm_response.claims, processing_time
+
+    # Build metrics dict if verbose or return_metrics requested
+    metrics = None
+    if verbose or return_metrics:
+        metrics = {
+            "input_tokens": message.usage.input_tokens,
+            "output_tokens": message.usage.output_tokens,
+            "num_claims": len(llm_response.claims),
+            "processing_time_seconds": processing_time,
+        }
+
+    # Verbose: print metrics
+    if verbose and metrics:
+        print(f"[EXTRACT] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
+        print(f"[EXTRACT] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
+        print(f"[EXTRACT] Claims extracted: {metrics['num_claims']}", file=sys.stderr)
+        print(f"[EXTRACT] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+
+    return llm_response.claims, processing_time, metrics
 
 
 # ============================================================================
@@ -178,16 +199,18 @@ STAGE2_PROMPT_TEMPLATE = load_prompt("llm_eval.txt", STAGE2_FALLBACK)
 
 
 def llm_group_claims_into_results(
-    manuscript_text: str, claims: List[LLMClaimV3]
-) -> Tuple[List[LLMResultV3], float]:
+    manuscript_text: str, claims: List[LLMClaimV3], verbose: bool = False, return_metrics: bool = False
+) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
     """Stage 2: LLM groups claims into results and evaluates each result.
 
     Args:
         manuscript_text: Full text of the manuscript (for context)
         claims: List of extracted claims from Stage 1
+        verbose: If True, print detailed logging information
+        return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of results, processing time in seconds)
+        Tuple of (list of results, processing time in seconds, optional metrics dict)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -250,7 +273,25 @@ def llm_group_claims_into_results(
         )
 
     processing_time = time.time() - start_time
-    return llm_response.results, processing_time
+
+    # Build metrics dict if verbose or return_metrics requested
+    metrics = None
+    if verbose or return_metrics:
+        metrics = {
+            "input_tokens": message.usage.input_tokens,
+            "output_tokens": message.usage.output_tokens,
+            "num_results": len(llm_response.results),
+            "processing_time_seconds": processing_time,
+        }
+
+    # Verbose: print metrics
+    if verbose and metrics:
+        print(f"[EVAL-LLM] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
+        print(f"[EVAL-LLM] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
+        print(f"[EVAL-LLM] Results created: {metrics['num_results']}", file=sys.stderr)
+        print(f"[EVAL-LLM] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+
+    return llm_response.results, processing_time, metrics
 
 
 # ============================================================================
@@ -262,16 +303,18 @@ STAGE3_PROMPT_TEMPLATE = load_prompt("peer_eval.txt", STAGE3_FALLBACK)
 
 
 def peer_review_group_claims_into_results(
-    claims: List[LLMClaimV3], review_text: str
-) -> Tuple[List[LLMResultV3], float]:
+    claims: List[LLMClaimV3], review_text: str, verbose: bool = False, return_metrics: bool = False
+) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
     """Stage 3: Extract results from peer review based on manuscript claims.
 
     Args:
         claims: List of extracted claims from Stage 1
         review_text: Full text of peer review
+        verbose: If True, print detailed logging information
+        return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of results from reviewer perspective, processing time in seconds)
+        Tuple of (list of results from reviewer perspective, processing time in seconds, optional metrics dict)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -330,7 +373,25 @@ def peer_review_group_claims_into_results(
         )
 
     processing_time = time.time() - start_time
-    return llm_response.results, processing_time
+
+    # Build metrics dict if verbose or return_metrics requested
+    metrics = None
+    if verbose or return_metrics:
+        metrics = {
+            "input_tokens": message.usage.input_tokens,
+            "output_tokens": message.usage.output_tokens,
+            "num_results": len(llm_response.results),
+            "processing_time_seconds": processing_time,
+        }
+
+    # Verbose: print metrics
+    if verbose and metrics:
+        print(f"[EVAL-PEER] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
+        print(f"[EVAL-PEER] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
+        print(f"[EVAL-PEER] Results created: {metrics['num_results']}", file=sys.stderr)
+        print(f"[EVAL-PEER] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+
+    return llm_response.results, processing_time, metrics
 
 
 # ============================================================================
@@ -341,23 +402,78 @@ def peer_review_group_claims_into_results(
 STAGE4_PROMPT_TEMPLATE = load_prompt("compare.txt", STAGE4_FALLBACK)
 
 
+def compute_jaccard_pairings(
+    llm_results: List[LLMResultV3],
+    peer_results: List[LLMResultV3]
+) -> List[dict]:
+    """Compute pairwise Jaccard indices between LLM and peer results based on claim overlap.
+
+    The Jaccard index measures similarity between two sets: |A ∩ B| / |A ∪ B|
+
+    Args:
+        llm_results: Results from LLM evaluation
+        peer_results: Results from peer review evaluation
+
+    Returns:
+        List of pairings sorted by Jaccard index (descending), each containing:
+        - llm_result_id: ID of LLM result
+        - peer_result_id: ID of peer result
+        - jaccard_index: Similarity score (0.0 to 1.0)
+        - shared_claims: List of claim IDs that appear in both results
+    """
+    pairings = []
+
+    for llm_result in llm_results:
+        llm_claims = set(llm_result.claim_ids)
+
+        for peer_result in peer_results:
+            peer_claims = set(peer_result.claim_ids)
+
+            # Compute Jaccard index
+            intersection = llm_claims & peer_claims
+            union = llm_claims | peer_claims
+
+            jaccard = len(intersection) / len(union) if len(union) > 0 else 0.0
+
+            # Only include non-zero similarities
+            if jaccard > 0:
+                pairings.append({
+                    "llm_result_id": llm_result.result_id,
+                    "peer_result_id": peer_result.result_id,
+                    "jaccard_index": round(jaccard, 3),
+                    "shared_claims": sorted(list(intersection)),
+                })
+
+    # Sort by Jaccard index descending
+    pairings.sort(key=lambda x: x["jaccard_index"], reverse=True)
+
+    return pairings
+
+
 def compare_results(
-    llm_results: List[LLMResultV3], peer_results: List[LLMResultV3]
-) -> Tuple[List[LLMResultsConcordanceRow], float]:
+    llm_results: List[LLMResultV3], peer_results: List[LLMResultV3], verbose: bool = False, return_metrics: bool = False
+) -> Tuple[List[LLMResultsConcordanceRow], float, Optional[Dict[str, Any]]]:
     """Stage 4: Compare results between LLM and peer review.
 
     Args:
         llm_results: Results from LLM evaluation (Stage 2)
         peer_results: Results from peer review (Stage 3)
+        verbose: If True, print detailed logging information
+        return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of concordance rows, processing time in seconds)
+        Tuple of (list of concordance rows, processing time in seconds, optional metrics dict)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
     """
+    from .utils import calculate_comparison_metrics, format_metrics_report
+
     client = get_anthropic_client()
     start_time = time.time()
+
+    # Compute Jaccard pairings based on claim overlap
+    jaccard_pairings = compute_jaccard_pairings(llm_results, peer_results)
 
     llm_results_json = json.dumps(
         [
@@ -389,9 +505,13 @@ def compare_results(
         indent=2,
     )
 
+    jaccard_pairings_json = json.dumps(jaccard_pairings, indent=2)
+
     prompt = STAGE4_PROMPT_TEMPLATE.replace(
         "$LLM_RESULTS_JSON", llm_results_json
-    ).replace("$PEER_RESULTS_JSON", peer_results_json)
+    ).replace("$PEER_RESULTS_JSON", peer_results_json).replace(
+        "$JACCARD_PAIRINGS_JSON", jaccard_pairings_json
+    )
 
     message = client.messages.create(
         model=config.anthropic_model,
@@ -424,8 +544,76 @@ def compare_results(
             f"Full response: {response_text[:1000]}"
         )
 
+    # Enhance concordance rows with claim count metrics
+    # Create lookup dictionaries for faster access
+    llm_results_dict = {r.result_id: r for r in llm_results}
+    peer_results_dict = {r.result_id: r for r in peer_results}
+
+    for row in llm_response.concordance:
+        # Get the LLM result if present
+        if row.llm_result_id and row.llm_result_id in llm_results_dict:
+            llm_result = llm_results_dict[row.llm_result_id]
+            llm_claims = set(llm_result.claim_ids)
+            row.n_llm = len(llm_claims)
+        else:
+            llm_claims = set()
+            row.n_llm = None
+
+        # Get the peer result if present
+        if row.peer_result_id and row.peer_result_id in peer_results_dict:
+            peer_result = peer_results_dict[row.peer_result_id]
+            peer_claims = set(peer_result.claim_ids)
+            row.n_peer = len(peer_claims)
+        else:
+            peer_claims = set()
+            row.n_peer = None
+
+        # Calculate intersection
+        row.n_itx = len(llm_claims & peer_claims)
+
     processing_time = time.time() - start_time
-    return llm_response.concordance, processing_time
+
+    # Build metrics dict if verbose or return_metrics requested
+    metrics_dict = None
+    if verbose or return_metrics:
+        # Count status categories for breakdown
+        status_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
+        for row in llm_response.concordance:
+            if row.llm_status in status_counts:
+                status_counts[row.llm_status] += 1
+            if row.peer_status in status_counts:
+                status_counts[row.peer_status] += 1
+
+        # Calculate comprehensive comparison metrics
+        comparison_metrics = calculate_comparison_metrics(llm_results, peer_results, llm_response.concordance)
+
+        metrics_dict = {
+            "input_tokens": message.usage.input_tokens,
+            "output_tokens": message.usage.output_tokens,
+            "num_comparisons": len(llm_response.concordance),
+            "status_breakdown": status_counts,
+            "processing_time_seconds": processing_time,
+            "jaccard_pairings": jaccard_pairings,
+            "comparison_metrics": comparison_metrics,
+        }
+
+    # Verbose: print metrics
+    if verbose and metrics_dict:
+        print(f"[COMPARE] Input tokens: {metrics_dict['input_tokens']:,}", file=sys.stderr)
+        print(f"[COMPARE] Output tokens: {metrics_dict['output_tokens']:,}", file=sys.stderr)
+        print(f"[COMPARE] Comparisons created: {metrics_dict['num_comparisons']}", file=sys.stderr)
+        print(f"[COMPARE] Jaccard pairings computed: {len(metrics_dict['jaccard_pairings'])}", file=sys.stderr)
+        print(f"[COMPARE] Status breakdown - Supported: {metrics_dict['status_breakdown']['SUPPORTED']}, "
+              f"Unsupported: {metrics_dict['status_breakdown']['UNSUPPORTED']}, "
+              f"Uncertain: {metrics_dict['status_breakdown']['UNCERTAIN']}", file=sys.stderr)
+        print(f"[COMPARE] Total time: {metrics_dict['processing_time_seconds']:.2f}s", file=sys.stderr)
+        print("", file=sys.stderr)
+
+        # Print comprehensive metrics report
+        metrics_report = format_metrics_report(metrics_dict['comparison_metrics'])
+        print(metrics_report, file=sys.stderr)
+
+    return llm_response.concordance, processing_time, metrics_dict
 
 
 # ============================================================================

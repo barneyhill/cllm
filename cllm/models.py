@@ -99,6 +99,9 @@ class LLMResultsConcordanceRow(BaseModel):
         peer_status: Peer reviewer's status evaluation, or None if no peer result
         agreement_status: "agree", "disagree", or "partial"
         notes: Optional explanation of comparison
+        n_llm: Number of claims in LLM result, or None if no LLM result
+        n_peer: Number of claims in peer result, or None if no peer result
+        n_itx: Number of claims in the intersection (shared between both)
     """
     llm_result_id: Optional[str] = None
     peer_result_id: Optional[str] = None
@@ -106,6 +109,9 @@ class LLMResultsConcordanceRow(BaseModel):
     peer_status: Optional[str] = None
     agreement_status: str
     notes: Optional[str] = None
+    n_llm: Optional[int] = None
+    n_peer: Optional[int] = None
+    n_itx: Optional[int] = None
 
 
 class LLMResultsConcordanceResponse(BaseModel):

@@ -40,12 +40,14 @@ def cli():
 @click.argument("manuscript", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for claims")
 @click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
-def extract(manuscript: Path, output: Path, metadata: Optional[Path]):
+@click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
+def extract(manuscript: Path, output: Path, metadata: Optional[Path], verbose: bool):
     """
     Extract atomic factual claims from a manuscript.
 
     Example:
         cllm extract -o claims.json manuscript.txt
+        cllm extract -o claims.json -v manuscript.txt  # with verbose logging
     """
     # Validate configuration
     try:
@@ -54,7 +56,8 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path]):
         click.echo(f"❌ Configuration error: {e}", err=True)
         sys.exit(1)
 
-    click.echo(f"📄 Reading manuscript from: {manuscript}")
+    if not verbose:
+        click.echo(f"📄 Reading manuscript from: {manuscript}")
 
     # Read manuscript text
     try:
@@ -63,12 +66,14 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path]):
         click.echo(f"❌ Error reading manuscript: {e}", err=True)
         sys.exit(1)
 
-    click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
+    if not verbose:
+        click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
 
-    # Extract claims
+    # Extract claims (request metrics if metadata file specified)
     try:
-        claims, processing_time = extract_claims(manuscript_text)
-        click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
+        claims, processing_time, metrics = extract_claims(manuscript_text, verbose=verbose, return_metrics=(metadata is not None))
+        if not verbose:
+            click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
     except Exception as e:
         click.echo(f"❌ Error extracting claims: {e}", err=True)
         sys.exit(1)
@@ -96,16 +101,25 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path]):
 
     # Write metadata if requested
     if metadata:
+        # Build full command string
+        cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(output)]
+        if metadata:
+            cmd_parts.extend(["-m", str(metadata)])
+        if verbose:
+            cmd_parts.append("-v")
+
         metadata_data = {
-            "command": "extract",
-            "manuscript_file": str(manuscript),
-            "manuscript_length": len(manuscript_text),
-            "num_claims": len(claims),
-            "processing_time_seconds": processing_time,
+            "command": " ".join(cmd_parts),
         }
+
+        # Add metrics if available
+        if metrics:
+            metadata_data.update(metrics)
+
         try:
             metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
-            click.echo(f"📊 Saved metadata to: {metadata}")
+            if not verbose:
+                click.echo(f"📊 Saved metadata to: {metadata}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
 
@@ -116,7 +130,8 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path]):
 @click.option("-p", "--peer-reviews", type=click.Path(exists=True, path_type=Path), help="Peer review file (if provided, evaluates from reviewer perspective)")
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for evaluations")
 @click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
-def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, metadata: Optional[Path]):
+@click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
+def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, metadata: Optional[Path], verbose: bool):
     """
     Evaluate claims and group them into results.
 
@@ -126,6 +141,7 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
     Examples:
         cllm eval -c claims.json -o eval_llm.json manuscript.txt
         cllm eval -c claims.json -p reviews.txt -o eval_peers.json manuscript.txt
+        cllm eval -c claims.json -o eval_llm.json -v manuscript.txt  # with verbose logging
     """
     # Validate configuration
     try:
@@ -135,7 +151,8 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         sys.exit(1)
 
     # Read manuscript
-    click.echo(f"📄 Reading manuscript from: {manuscript}")
+    if not verbose:
+        click.echo(f"📄 Reading manuscript from: {manuscript}")
     try:
         manuscript_text = manuscript.read_text(encoding="utf-8")
     except Exception as e:
@@ -143,7 +160,8 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         sys.exit(1)
 
     # Read claims
-    click.echo(f"📋 Reading claims from: {claims}")
+    if not verbose:
+        click.echo(f"📋 Reading claims from: {claims}")
     try:
         claims_data = json.loads(claims.read_text(encoding="utf-8"))
         if not isinstance(claims_data, list):
@@ -160,7 +178,8 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             )
             for c in claims_data
         ]
-        click.echo(f"   Loaded {len(claims_list)} claims")
+        if not verbose:
+            click.echo(f"   Loaded {len(claims_list)} claims")
     except Exception as e:
         click.echo(f"❌ Error reading claims: {e}", err=True)
         sys.exit(1)
@@ -168,27 +187,36 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
     # Evaluate based on mode
     if peer_reviews:
         # Peer review mode
-        click.echo(f"📝 Reading peer reviews from: {peer_reviews}")
+        if not verbose:
+            click.echo(f"📝 Reading peer reviews from: {peer_reviews}")
         try:
             review_text = peer_reviews.read_text(encoding="utf-8")
         except Exception as e:
             click.echo(f"❌ Error reading peer reviews: {e}", err=True)
             sys.exit(1)
 
-        click.echo(f"🔍 Grouping claims based on peer review commentary...")
+        if not verbose:
+            click.echo(f"🔍 Grouping claims based on peer review commentary...")
         try:
-            results, processing_time = peer_review_group_claims_into_results(claims_list, review_text)
-            click.echo(f"✅ Created {len(results)} peer review results in {processing_time:.2f}s")
+            results, processing_time, metrics_eval = peer_review_group_claims_into_results(
+                claims_list, review_text, verbose=verbose, return_metrics=(metadata is not None)
+            )
+            if not verbose:
+                click.echo(f"✅ Created {len(results)} peer review results in {processing_time:.2f}s")
             eval_source = "PEER_REVIEW"
         except Exception as e:
             click.echo(f"❌ Error evaluating with peer reviews: {e}", err=True)
             sys.exit(1)
     else:
         # LLM evaluation mode
-        click.echo(f"🤖 Evaluating claims with LLM...")
+        if not verbose:
+            click.echo(f"🤖 Evaluating claims with LLM...")
         try:
-            results, processing_time = llm_group_claims_into_results(manuscript_text, claims_list)
-            click.echo(f"✅ Created {len(results)} LLM results in {processing_time:.2f}s")
+            results, processing_time, metrics_eval = llm_group_claims_into_results(
+                manuscript_text, claims_list, verbose=verbose, return_metrics=(metadata is not None)
+            )
+            if not verbose:
+                click.echo(f"✅ Created {len(results)} LLM results in {processing_time:.2f}s")
             eval_source = "LLM"
         except Exception as e:
             click.echo(f"❌ Error evaluating with LLM: {e}", err=True)
@@ -217,18 +245,28 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
 
     # Write metadata if requested
     if metadata:
+        # Build full command string
+        cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims)]
+        if peer_reviews:
+            cmd_parts.extend(["-p", str(peer_reviews)])
+        cmd_parts.extend(["-o", str(output)])
+        if metadata:
+            cmd_parts.extend(["-m", str(metadata)])
+        if verbose:
+            cmd_parts.append("-v")
+
         metadata_data = {
-            "command": "eval",
-            "manuscript_file": str(manuscript),
-            "claims_file": str(claims),
-            "peer_reviews_file": str(peer_reviews) if peer_reviews else None,
-            "source": eval_source,
-            "num_results": len(results),
-            "processing_time_seconds": processing_time,
+            "command": " ".join(cmd_parts),
         }
+
+        # Add metrics if available
+        if metrics_eval:
+            metadata_data.update(metrics_eval)
+
         try:
             metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
-            click.echo(f"📊 Saved metadata to: {metadata}")
+            if not verbose:
+                click.echo(f"📊 Saved metadata to: {metadata}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
 
@@ -238,12 +276,14 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
 @click.argument("eval_llm", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for comparison")
 @click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
-def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]):
+@click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing, metrics)")
+def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path], verbose: bool):
     """
     Compare peer review and LLM evaluations.
 
     Example:
         cllm cmp eval_peers.json eval_llm.json -o compare.json
+        cllm cmp eval_peers.json eval_llm.json -o compare.json -v  # with verbose logging and metrics
     """
     # Validate configuration
     try:
@@ -253,7 +293,8 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
         sys.exit(1)
 
     # Read peer review results
-    click.echo(f"📝 Reading peer review results from: {eval_peers}")
+    if not verbose:
+        click.echo(f"📝 Reading peer review results from: {eval_peers}")
     try:
         peers_data = json.loads(eval_peers.read_text(encoding="utf-8"))
         if not isinstance(peers_data, list):
@@ -270,13 +311,15 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
             )
             for r in peers_data
         ]
-        click.echo(f"   Loaded {len(peer_results)} peer results")
+        if not verbose:
+            click.echo(f"   Loaded {len(peer_results)} peer results")
     except Exception as e:
         click.echo(f"❌ Error reading peer review results: {e}", err=True)
         sys.exit(1)
 
     # Read LLM results
-    click.echo(f"🤖 Reading LLM results from: {eval_llm}")
+    if not verbose:
+        click.echo(f"🤖 Reading LLM results from: {eval_llm}")
     try:
         llm_data = json.loads(eval_llm.read_text(encoding="utf-8"))
         if not isinstance(llm_data, list):
@@ -293,28 +336,34 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
             )
             for r in llm_data
         ]
-        click.echo(f"   Loaded {len(llm_results)} LLM results")
+        if not verbose:
+            click.echo(f"   Loaded {len(llm_results)} LLM results")
     except Exception as e:
         click.echo(f"❌ Error reading LLM results: {e}", err=True)
         sys.exit(1)
 
-    # Compare results
-    click.echo(f"⚖️  Comparing results...")
+    # Compare results (request metrics if metadata file specified)
+    if not verbose:
+        click.echo(f"⚖️  Comparing results...")
     try:
-        concordance, processing_time = compare_results(llm_results, peer_results)
-        click.echo(f"✅ Generated {len(concordance)} concordance rows in {processing_time:.2f}s")
+        concordance, processing_time, metrics_cmp = compare_results(
+            llm_results, peer_results, verbose=verbose, return_metrics=(metadata is not None)
+        )
+        if not verbose:
+            click.echo(f"✅ Generated {len(concordance)} concordance rows in {processing_time:.2f}s")
     except Exception as e:
         click.echo(f"❌ Error comparing results: {e}", err=True)
         sys.exit(1)
 
-    # Calculate metrics
+    # Calculate basic metrics (only shown in non-verbose mode; verbose mode shows comprehensive metrics)
     agreements = sum(1 for c in concordance if c.agreement_status == "agree")
     disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
     partial = sum(1 for c in concordance if c.agreement_status == "partial")
     agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
 
-    click.echo(f"📊 Agreement rate: {agreement_rate:.1f}%")
-    click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Partial: {partial}")
+    if not verbose:
+        click.echo(f"📊 Agreement rate: {agreement_rate:.1f}%")
+        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Partial: {partial}")
 
     # Convert to JSON (just array of concordance rows)
     concordance_array = [
@@ -325,6 +374,9 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
             "peer_status": c.peer_status,
             "agreement_status": c.agreement_status,
             "notes": c.notes,
+            "n_llm": c.n_llm,
+            "n_peer": c.n_peer,
+            "n_itx": c.n_itx,
         }
         for c in concordance
     ]
@@ -339,20 +391,25 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
 
     # Write metadata if requested
     if metadata:
+        # Build full command string
+        cmd_parts = ["cllm", "cmp", str(eval_peers), str(eval_llm), "-o", str(output)]
+        if metadata:
+            cmd_parts.extend(["-m", str(metadata)])
+        if verbose:
+            cmd_parts.append("-v")
+
         metadata_data = {
-            "command": "cmp",
-            "eval_peers_file": str(eval_peers),
-            "eval_llm_file": str(eval_llm),
-            "total_comparisons": len(concordance),
-            "agreements": agreements,
-            "disagreements": disagreements,
-            "partial": partial,
-            "agreement_rate": agreement_rate,
-            "processing_time_seconds": processing_time,
+            "command": " ".join(cmd_parts),
         }
+
+        # Add metrics if available
+        if metrics_cmp:
+            metadata_data.update(metrics_cmp)
+
         try:
             metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
-            click.echo(f"📊 Saved metadata to: {metadata}")
+            if not verbose:
+                click.echo(f"📊 Saved metadata to: {metadata}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
 
