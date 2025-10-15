@@ -450,5 +450,331 @@ def generate(input_json: Path, output: Path, format: str, data_type: str):
         sys.exit(1)
 
 
+@cli.command(hidden=True)
+@click.argument("manuscript", type=click.Path(exists=True, path_type=Path))
+@click.argument("reviews", type=click.Path(exists=True, path_type=Path))
+@click.argument("output_dir", type=click.Path(path_type=Path))
+@click.option("-m", "--metrics", is_flag=True, help="Save metrics for each stage")
+@click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging")
+def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, verbose: bool):
+    """
+    Run the complete CLLM workflow from manuscript to comparison.
+
+    This is a convenience command that runs all 4 stages in sequence:
+    1. Extract claims from manuscript
+    2. LLM evaluation of claims
+    3. Peer review evaluation of claims
+    4. Compare LLM and peer evaluations
+
+    Examples:
+        cllm workflow manuscript.txt reviews.txt output/
+        cllm workflow manuscript.txt reviews.txt output/ -m      # with metrics
+        cllm workflow manuscript.txt reviews.txt output/ -m -v   # with metrics and verbose
+    """
+    # Validate configuration
+    try:
+        config.validate()
+    except ValueError as e:
+        click.echo(f"❌ Configuration error: {e}", err=True)
+        sys.exit(1)
+
+    # Create output directory if it doesn't exist
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Define output paths
+    claims_file = output_dir / "claims.json"
+    eval_llm_file = output_dir / "eval_llm.json"
+    eval_peer_file = output_dir / "eval_peer.json"
+    cmp_file = output_dir / "cmp.json"
+
+    # Define metrics paths if requested
+    metrics_extract_file = output_dir / "metrics_extract.json" if metrics else None
+    metrics_eval_llm_file = output_dir / "metrics_eval_llm.json" if metrics else None
+    metrics_eval_peer_file = output_dir / "metrics_eval_peer.json" if metrics else None
+    metrics_cmp_file = output_dir / "metrics_cmp.json" if metrics else None
+
+    click.echo("=" * 60)
+    click.echo("CLLM WORKFLOW")
+    click.echo("=" * 60)
+    click.echo(f"Manuscript: {manuscript}")
+    click.echo(f"Reviews: {reviews}")
+    click.echo(f"Output directory: {output_dir}")
+    click.echo(f"Metrics: {'enabled' if metrics else 'disabled'}")
+    click.echo(f"Verbose: {'enabled' if verbose else 'disabled'}")
+    click.echo("=" * 60)
+
+    # ========================================================================
+    # STAGE 1: EXTRACT CLAIMS
+    # ========================================================================
+    click.echo("\n📝 STAGE 1: Claim Extraction")
+    click.echo("-" * 60)
+
+    if not verbose:
+        click.echo(f"📄 Reading manuscript from: {manuscript}")
+
+    try:
+        manuscript_text = manuscript.read_text(encoding="utf-8")
+    except Exception as e:
+        click.echo(f"❌ Error reading manuscript: {e}", err=True)
+        sys.exit(1)
+
+    if not verbose:
+        click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
+
+    try:
+        claims, processing_time, metrics_data = extract_claims(
+            manuscript_text,
+            verbose=verbose,
+            return_metrics=metrics
+        )
+        if not verbose:
+            click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
+    except Exception as e:
+        click.echo(f"❌ Error extracting claims: {e}", err=True)
+        sys.exit(1)
+
+    # Write claims
+    claims_array = [
+        {
+            "claim_id": c.claim_id,
+            "claim": c.claim,
+            "claim_type": c.claim_type,
+            "source_text": c.source_text,
+            "evidence_type": c.evidence_type,
+            "evidence_reasoning": c.evidence_reasoning,
+        }
+        for c in claims
+    ]
+
+    try:
+        claims_file.write_text(json.dumps(claims_array, indent=2), encoding="utf-8")
+        click.echo(f"💾 Saved claims to: {claims_file}")
+    except Exception as e:
+        click.echo(f"❌ Error writing claims: {e}", err=True)
+        sys.exit(1)
+
+    # Write metrics if requested
+    if metrics and metrics_data:
+        try:
+            cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(claims_file)]
+            if metrics_extract_file:
+                cmd_parts.extend(["-m", str(metrics_extract_file)])
+            if verbose:
+                cmd_parts.append("-v")
+
+            metadata_data = {"command": " ".join(cmd_parts)}
+            metadata_data.update(metrics_data)
+
+            metrics_extract_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            click.echo(f"📊 Saved metrics to: {metrics_extract_file}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
+
+    # ========================================================================
+    # STAGE 2: LLM EVALUATION
+    # ========================================================================
+    click.echo("\n🤖 STAGE 2: LLM Evaluation")
+    click.echo("-" * 60)
+
+    if not verbose:
+        click.echo(f"🤖 Evaluating claims with LLM...")
+
+    try:
+        llm_results, processing_time, metrics_data = llm_group_claims_into_results(
+            manuscript_text, claims, verbose=verbose, return_metrics=metrics
+        )
+        if not verbose:
+            click.echo(f"✅ Created {len(llm_results)} LLM results in {processing_time:.2f}s")
+    except Exception as e:
+        click.echo(f"❌ Error evaluating with LLM: {e}", err=True)
+        sys.exit(1)
+
+    # Write LLM results
+    results_array = [
+        {
+            "result_id": r.result_id,
+            "claim_ids": r.claim_ids,
+            "reviewer_id": r.reviewer_id,
+            "reviewer_name": r.reviewer_name,
+            "status": r.status,
+            "status_reasoning": r.status_reasoning,
+        }
+        for r in llm_results
+    ]
+
+    try:
+        eval_llm_file.write_text(json.dumps(results_array, indent=2), encoding="utf-8")
+        click.echo(f"💾 Saved LLM results to: {eval_llm_file}")
+    except Exception as e:
+        click.echo(f"❌ Error writing LLM results: {e}", err=True)
+        sys.exit(1)
+
+    # Write metrics if requested
+    if metrics and metrics_data:
+        try:
+            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-o", str(eval_llm_file)]
+            if metrics_eval_llm_file:
+                cmd_parts.extend(["-m", str(metrics_eval_llm_file)])
+            if verbose:
+                cmd_parts.append("-v")
+
+            metadata_data = {"command": " ".join(cmd_parts)}
+            metadata_data.update(metrics_data)
+
+            metrics_eval_llm_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            click.echo(f"📊 Saved metrics to: {metrics_eval_llm_file}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
+
+    # ========================================================================
+    # STAGE 3: PEER REVIEW EVALUATION
+    # ========================================================================
+    click.echo("\n📝 STAGE 3: Peer Review Evaluation")
+    click.echo("-" * 60)
+
+    if not verbose:
+        click.echo(f"📝 Reading peer reviews from: {reviews}")
+
+    try:
+        review_text = reviews.read_text(encoding="utf-8")
+    except Exception as e:
+        click.echo(f"❌ Error reading peer reviews: {e}", err=True)
+        sys.exit(1)
+
+    if not verbose:
+        click.echo(f"🔍 Grouping claims based on peer review commentary...")
+
+    try:
+        peer_results, processing_time, metrics_data = peer_review_group_claims_into_results(
+            claims, review_text, verbose=verbose, return_metrics=metrics
+        )
+        if not verbose:
+            click.echo(f"✅ Created {len(peer_results)} peer review results in {processing_time:.2f}s")
+    except Exception as e:
+        click.echo(f"❌ Error evaluating with peer reviews: {e}", err=True)
+        sys.exit(1)
+
+    # Write peer results
+    results_array = [
+        {
+            "result_id": r.result_id,
+            "claim_ids": r.claim_ids,
+            "reviewer_id": r.reviewer_id,
+            "reviewer_name": r.reviewer_name,
+            "status": r.status,
+            "status_reasoning": r.status_reasoning,
+        }
+        for r in peer_results
+    ]
+
+    try:
+        eval_peer_file.write_text(json.dumps(results_array, indent=2), encoding="utf-8")
+        click.echo(f"💾 Saved peer results to: {eval_peer_file}")
+    except Exception as e:
+        click.echo(f"❌ Error writing peer results: {e}", err=True)
+        sys.exit(1)
+
+    # Write metrics if requested
+    if metrics and metrics_data:
+        try:
+            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-p", str(reviews), "-o", str(eval_peer_file)]
+            if metrics_eval_peer_file:
+                cmd_parts.extend(["-m", str(metrics_eval_peer_file)])
+            if verbose:
+                cmd_parts.append("-v")
+
+            metadata_data = {"command": " ".join(cmd_parts)}
+            metadata_data.update(metrics_data)
+
+            metrics_eval_peer_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            click.echo(f"📊 Saved metrics to: {metrics_eval_peer_file}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
+
+    # ========================================================================
+    # STAGE 4: COMPARE RESULTS
+    # ========================================================================
+    click.echo("\n⚖️  STAGE 4: Compare Results")
+    click.echo("-" * 60)
+
+    if not verbose:
+        click.echo(f"⚖️  Comparing results...")
+
+    try:
+        concordance, processing_time, metrics_data = compare_results(
+            llm_results, peer_results, verbose=verbose, return_metrics=metrics
+        )
+        if not verbose:
+            click.echo(f"✅ Generated {len(concordance)} concordance rows in {processing_time:.2f}s")
+    except Exception as e:
+        click.echo(f"❌ Error comparing results: {e}", err=True)
+        sys.exit(1)
+
+    # Calculate basic metrics
+    agreements = sum(1 for c in concordance if c.agreement_status == "agree")
+    disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
+    partial = sum(1 for c in concordance if c.agreement_status == "partial")
+    agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
+
+    if not verbose:
+        click.echo(f"📊 Agreement rate: {agreement_rate:.1f}%")
+        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Partial: {partial}")
+
+    # Write concordance
+    concordance_array = [
+        {
+            "llm_result_id": c.llm_result_id,
+            "peer_result_id": c.peer_result_id,
+            "llm_status": c.llm_status,
+            "peer_status": c.peer_status,
+            "agreement_status": c.agreement_status,
+            "notes": c.notes,
+            "n_llm": c.n_llm,
+            "n_peer": c.n_peer,
+            "n_itx": c.n_itx,
+        }
+        for c in concordance
+    ]
+
+    try:
+        cmp_file.write_text(json.dumps(concordance_array, indent=2), encoding="utf-8")
+        click.echo(f"💾 Saved concordance to: {cmp_file}")
+    except Exception as e:
+        click.echo(f"❌ Error writing concordance: {e}", err=True)
+        sys.exit(1)
+
+    # Write metrics if requested
+    if metrics and metrics_data:
+        try:
+            cmd_parts = ["cllm", "cmp", str(eval_peer_file), str(eval_llm_file), "-o", str(cmp_file)]
+            if metrics_cmp_file:
+                cmd_parts.extend(["-m", str(metrics_cmp_file)])
+            if verbose:
+                cmd_parts.append("-v")
+
+            metadata_data = {"command": " ".join(cmd_parts)}
+            metadata_data.update(metrics_data)
+
+            metrics_cmp_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            click.echo(f"📊 Saved metrics to: {metrics_cmp_file}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
+
+    # ========================================================================
+    # SUMMARY
+    # ========================================================================
+    click.echo("\n" + "=" * 60)
+    click.echo("✅ WORKFLOW COMPLETE")
+    click.echo("=" * 60)
+    click.echo(f"Output directory: {output_dir}")
+    click.echo(f"  - Claims: {claims_file.name}")
+    click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
+    click.echo(f"  - Peer evaluation: {eval_peer_file.name}")
+    click.echo(f"  - Comparison: {cmp_file.name}")
+    if metrics:
+        click.echo(f"  - Metrics files: metrics_*.json")
+    click.echo("=" * 60)
+
+
 if __name__ == "__main__":
     cli()
