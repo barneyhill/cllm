@@ -1,0 +1,7 @@
+{
+  "command": "cllm extract v1paper.txt -o claims.json -m metrics_extract.json",
+  "input_tokens": 17574,
+  "output_tokens": 22685,
+  "num_claims": 167,
+  "processing_time_seconds": 313.04608631134033
+}

@@ -1,0 +1,224 @@
+{
+  "command": "cllm cmp eval_peer.json eval_llm.json -o cmp2.json -m metrics_cmp.json -v",
+  "input_tokens": 7296,
+  "output_tokens": 2994,
+  "num_comparisons": 22,
+  "status_breakdown": {
+    "SUPPORTED": 26,
+    "UNSUPPORTED": 0,
+    "UNCERTAIN": 13
+  },
+  "processing_time_seconds": 48.058128118515015,
+  "jaccard_pairings": [
+    {
+      "llm_result_id": "R3",
+      "peer_result_id": "R5",
+      "jaccard_index": 1.0,
+      "shared_claims": [
+        "C115",
+        "C136",
+        "C155",
+        "C71",
+        "C8"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R3",
+      "jaccard_index": 0.692,
+      "shared_claims": [
+        "C134",
+        "C31",
+        "C57",
+        "C58",
+        "C6",
+        "C61",
+        "C69",
+        "C7",
+        "C70"
+      ]
+    },
+    {
+      "llm_result_id": "R7",
+      "peer_result_id": "R6",
+      "jaccard_index": 0.667,
+      "shared_claims": [
+        "C125",
+        "C158",
+        "C34",
+        "C9"
+      ]
+    },
+    {
+      "llm_result_id": "R8",
+      "peer_result_id": "R10",
+      "jaccard_index": 0.6,
+      "shared_claims": [
+        "C11",
+        "C130",
+        "C35"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R1",
+      "jaccard_index": 0.444,
+      "shared_claims": [
+        "C28",
+        "C29",
+        "C30",
+        "C4",
+        "C48",
+        "C49",
+        "C67",
+        "C68"
+      ]
+    },
+    {
+      "llm_result_id": "R4",
+      "peer_result_id": "R9",
+      "jaccard_index": 0.385,
+      "shared_claims": [
+        "C141",
+        "C81",
+        "C82",
+        "C83",
+        "C84"
+      ]
+    },
+    {
+      "llm_result_id": "R13",
+      "peer_result_id": "R11",
+      "jaccard_index": 0.25,
+      "shared_claims": [
+        "C56"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R11",
+      "jaccard_index": 0.231,
+      "shared_claims": [
+        "C56",
+        "C57",
+        "C58"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R13",
+      "jaccard_index": 0.176,
+      "shared_claims": [
+        "C50",
+        "C51",
+        "C52"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R4",
+      "jaccard_index": 0.154,
+      "shared_claims": [
+        "C59",
+        "C60"
+      ]
+    },
+    {
+      "llm_result_id": "R5",
+      "peer_result_id": "R8",
+      "jaccard_index": 0.143,
+      "shared_claims": [
+        "C94",
+        "C95"
+      ]
+    },
+    {
+      "llm_result_id": "R4",
+      "peer_result_id": "R8",
+      "jaccard_index": 0.111,
+      "shared_claims": [
+        "C12",
+        "C33"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R12",
+      "jaccard_index": 0.077,
+      "shared_claims": [
+        "C58"
+      ]
+    },
+    {
+      "llm_result_id": "R9",
+      "peer_result_id": "R8",
+      "jaccard_index": 0.077,
+      "shared_claims": [
+        "C113"
+      ]
+    },
+    {
+      "llm_result_id": "R4",
+      "peer_result_id": "R7",
+      "jaccard_index": 0.071,
+      "shared_claims": [
+        "C85"
+      ]
+    },
+    {
+      "llm_result_id": "R6",
+      "peer_result_id": "R7",
+      "jaccard_index": 0.067,
+      "shared_claims": [
+        "C104"
+      ]
+    },
+    {
+      "llm_result_id": "R6",
+      "peer_result_id": "R8",
+      "jaccard_index": 0.05,
+      "shared_claims": [
+        "C112"
+      ]
+    }
+  ],
+  "comparison_metrics": {
+    "n1": 14,
+    "n2": 13,
+    "n_overlap": 12,
+    "n_only1": 4,
+    "n_only2": 1,
+    "agreement_count": 9,
+    "disagreement_count": 3,
+    "agreement_pct": 52.94117647058824,
+    "disagreement_pct": 17.647058823529413,
+    "category_metrics": {
+      "SUPPORTED": {
+        "precision": 50.0,
+        "recall": 100.0,
+        "f1": 66.66666666666667,
+        "llm_count": 16,
+        "peer_count": 8,
+        "matches": 8
+      },
+      "UNSUPPORTED": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "llm_count": 0,
+        "peer_count": 0,
+        "matches": 0
+      },
+      "UNCERTAIN": {
+        "precision": 100.0,
+        "recall": 11.11111111111111,
+        "f1": 20.0,
+        "llm_count": 1,
+        "peer_count": 9,
+        "matches": 1
+      }
+    },
+    "coverage_1_by_2": 85.71428571428571,
+    "coverage_2_by_1": 92.3076923076923
+  }
+}

@@ -1,0 +1,149 @@
+[
+  {
+    "result_id": "R1",
+    "claim_ids": [
+      "C4",
+      "C49",
+      "C53",
+      "C64",
+      "C65",
+      "C66",
+      "C67",
+      "C68",
+      "C69",
+      "C70",
+      "C134",
+      "C135",
+      "C136",
+      "C137",
+      "C138",
+      "C103"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers raised serious concerns about how population structure and other confounders are accounted for and requested thorough demonstration. They asked for a head-to-head comparison with standard genetics PCA, clarity on the logistic regression covariates (gender, sequencing depth), QQ plots after adjustment, and noted potential misinterpretation of PCs (e.g., PC1 correlating with depth). Thus, adequacy of the k-mer PCA/GLM approach to infer and correct structure is not yet established."
+  },
+  {
+    "result_id": "R2",
+    "claim_ids": [
+      "C52",
+      "C59",
+      "C60",
+      "C61",
+      "C62",
+      "C94",
+      "C72"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers challenged the Poisson assumption and reliance on Bonferroni, requesting empirical evidence that counts are Poisson, baseline negative binomial tests, and calibration (QQ plots) to rule out overdispersion and confounding. They also noted that stating Bonferroni is conservative is insufficient and asked for discussion of appropriate error measures (e.g., q-values). Consequently, the adequacy of the modeling and multiple-testing strategy remains uncertain."
+  },
+  {
+    "result_id": "R3",
+    "claim_ids": [
+      "C2",
+      "C46",
+      "C47",
+      "C91",
+      "C92",
+      "C93",
+      "C95",
+      "C96",
+      "C97",
+      "C98",
+      "C99",
+      "C100",
+      "C101",
+      "C150"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "For the 1000 Genomes comparison, reviewers requested analyses restricted to SNPs, inclusion of genotype dosages, confirmation that both approaches use the same data, and QQ plots to show false-positive control. Without these targeted checks, the claims of \u2018largely agree\u2019 and overlap-based validation are not fully substantiated."
+  },
+  {
+    "result_id": "R4",
+    "claim_ids": [
+      "C48",
+      "C124",
+      "C125"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNSUPPORTED",
+    "status_reasoning": "Reviewers stated the CVD study 'seems very odd' because population identity (BEB vs TSI) was used instead of disease status, so detected k-mers likely reflect ancestry rather than disease. They found it almost impossible to interpret whether results reflect population differences or disease association and questioned the focus on genes already linked to CVD, undermining the evidentiary value of these findings."
+  },
+  {
+    "result_id": "R5",
+    "claim_ids": [
+      "C5",
+      "C50",
+      "C139",
+      "C140",
+      "C141",
+      "C142",
+      "C143",
+      "C144",
+      "C145",
+      "C146",
+      "C147",
+      "C149",
+      "C156"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers considered the E. coli analysis closer to a true association study but asked whether traditional variant calling plus association would recover the same gene and to demonstrate what is added by HAWK. Until a clear head-to-head comparison shows added value, using this as definitive validation of HAWK is premature."
+  },
+  {
+    "result_id": "R6",
+    "claim_ids": [
+      "C27",
+      "C28",
+      "C29",
+      "C40",
+      "C41",
+      "C42"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers asked the authors to explain why Cortex is not suited to large numbers of individuals and to provide a comparison with HAWK, as well as to comment on leveraging reference information as highlighted by Iqbal et al. Without these analyses and comparisons, the scalability and reference-use claims remain insufficiently supported."
+  },
+  {
+    "result_id": "R7",
+    "claim_ids": [
+      "C38",
+      "C39",
+      "C51",
+      "C63",
+      "C71",
+      "C74"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers noted HAWK appears only applicable to case-control traits and requested making this limitation explicit and explaining (ideally demonstrating) how to extend to quantitative traits. They also asked to define the scope beyond generic 'sequencing data' with empirical support (e.g., RNA-seq). Thus, broader applicability and proposed extensions are not yet substantiated."
+  },
+  {
+    "result_id": "R8",
+    "claim_ids": [
+      "C3",
+      "C105",
+      "C106",
+      "C107",
+      "C112",
+      "C113",
+      "C152",
+      "C153",
+      "C154",
+      "C155"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Although the work is proposed to be well suited for structural variants, reviewers emphasized that these harder-to-verify claims should be supported by well-calibrated SNP-only analyses demonstrating false-positive control. Until such calibration is provided, assertions about detecting structural variants and non-reference regions should be viewed as provisional."
+  }
+]

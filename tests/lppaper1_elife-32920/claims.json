@@ -1,0 +1,1610 @@
+[
+  {
+    "claim_id": "C1",
+    "claim": "The authors present an alignment free method for association studies of categorical phenotypes based on counting k-mers in whole-genome sequencing reads, testing for associations directly between k-mers and the trait of interest, and local assembly of the statistically significant k-mers to identify sequence differences.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We present an alignment free method for association studies of categorical phenotypes based on counting -mers in whole-genome sequencing reads, testing for associations directly between k -mers and the trait of interest, and local assembly of the statistically significant k -mers to identify sequence differences.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Methodological contribution explicitly described by the authors as the approach used in the study."
+  },
+  {
+    "claim_id": "C2",
+    "claim": "An analysis of the 1000 Genomes data shows that sequences identified by the authors\u2019 method largely agree with results obtained using the standard approach.",
+    "claim_type": "EXPLICIT",
+    "source_text": "An analysis of the 1000 genomes data show that sequences identified by our method largely agree with results obtained using the standard approach.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical comparison reported by the authors using 1000 Genomes data."
+  },
+  {
+    "claim_id": "C3",
+    "claim": "Unlike standard GWAS, the authors\u2019 method identifies associations with structural variations and sites not present in the reference genome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, unlike standard GWAS, our method identifies associations with structural variations and sites not present in the reference genome.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical findings later demonstrated in results; claim summarized in abstract."
+  },
+  {
+    "claim_id": "C4",
+    "claim": "Population stratification can be inferred from k-mers.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also demonstrate that population stratification can be inferred from k -mers.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Supported by analyses demonstrating PCA on k-mers separates populations."
+  },
+  {
+    "claim_id": "C5",
+    "claim": "Application to an E. coli dataset on ampicillin resistance validates the approach.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Finally, application to an k E.coli dataset on ampicillin resistance validates the approach.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical validation on E. coli dataset reported in results."
+  },
+  {
+    "claim_id": "C6",
+    "claim": "Association mapping refers to the linking of genotypes to phenotypes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Association mapping refers to the linking of genotypes to phenotypes.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Definition-level statement consistent with common usage in genetics."
+  },
+  {
+    "claim_id": "C7",
+    "claim": "Most often association mapping is done using a genome-wide association study (GWAS) with single nucleotide polymorphisms (SNPs).",
+    "claim_type": "EXPLICIT",
+    "source_text": "Most often this is done using a genome-wide association study (GWAS) with single nucleotide polymorphisms (SNPs).",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Background description of standard practice in the field."
+  },
+  {
+    "claim_id": "C8",
+    "claim": "Individuals are genotyped at a set of known SNP locations using a SNP array.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Individuals are genotyped at a set of known SNP locations using a SNP array.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Background description of common GWAS practice."
+  },
+  {
+    "claim_id": "C9",
+    "claim": "Each SNP is tested for statistically significant association with the phenotype.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Then each SNP is tested for statistically significant association with the phenotype.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Background description of GWAS procedure."
+  },
+  {
+    "claim_id": "C10",
+    "claim": "In recent years thousands of genome-wide association studies have been performed and regions associated with traits and diseases have been located.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In recent years thousands of genome-wide association studies have been performed and regions associated with traits and diseases have been located.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "General statement about the state of the field."
+  },
+  {
+    "claim_id": "C11",
+    "claim": "Designing SNP arrays requires knowledge about the genome of the organism and where the SNPs are located in the genome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "First, designing SNP arrays requires knowledge about the genome of the organism and where the SNPs are located in the genome.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Background limitation of SNP arrays; widely understood in genomics."
+  },
+  {
+    "claim_id": "C12",
+    "claim": "This requirement makes it hard to apply SNP arrays to study organisms other than human.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This makes it hard to apply to study organisms other than human.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical implication from needing prior genome knowledge to practical difficulty in non-model organisms."
+  },
+  {
+    "claim_id": "C13",
+    "claim": "The human reference genome was shown to be incomplete and association mapping to regions not in the reference is difficult.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Even the human reference genome was shown to be incomplete (Altemose et al., 2014) and association mapping to regions not in the reference is difficult.",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Cited work supports incompleteness; difficulty mapping outside reference is established knowledge."
+  },
+  {
+    "claim_id": "C14",
+    "claim": "Structural variations such as insertion-deletions (indels) and copy number variations are usually ignored in GWAS studies.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Second, structural variations such as insertion-deletions (indels) and copy number variations are usually ignored in these studies.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Common limitation of SNP-array based GWAS."
+  },
+  {
+    "claim_id": "C15",
+    "claim": "Despite many GWAS, a significant amount of heritability is yet to be explained.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Despite the many GWA studies that have been performed a significant amount of heritability is yet to be explained.",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Refers to the missing heritability problem; supported by cited literature."
+  },
+  {
+    "claim_id": "C16",
+    "claim": "This unexplained heritability is known as the \u2018missing heritability\u2019 problem.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This is known as the \u2018missing heritability\u2019 problem (Zuk et al., 2012).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Term and concept supported by citation."
+  },
+  {
+    "claim_id": "C17",
+    "claim": "A hypothesis is that some of the missing heritability is due to structural variations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A hypothesis is some of the missing heritability is due to structural variations.",
+    "evidence_type": [
+      "SPECULATION",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Presented as a hypothesis; grounded in context of missing heritability literature."
+  },
+  {
+    "claim_id": "C18",
+    "claim": "The phenotype might be caused by rare variants which are not on the SNP chip.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Third, the phenotype might be caused by rare variants which are not on the SNP chip.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Recognized limitation of SNP chips missing rare variants."
+  },
+  {
+    "claim_id": "C19",
+    "claim": "In the last two cases, follow up work is required to find the causal variant even if association is detected in the GWAS.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In last two cases, follow up work is required to find the causal variant even if association is detected in the GWAS.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Logical consequence of GWAS limitations with structural/rare variants."
+  },
+  {
+    "claim_id": "C20",
+    "claim": "As sequencing gets cheaper, association mapping using next generation sequencing is becoming feasible.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As sequencing gets cheaper association mapping using next generation sequencing is becoming feasible.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "General trend in sequencing economics enabling new methods."
+  },
+  {
+    "claim_id": "C21",
+    "claim": "The current approach using sequencing is to map all reads to a reference genome followed by variant calling.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The current approach to doing this is to map all the reads to a reference genome followed by variant calling.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Standard pipeline in resequencing analyses."
+  },
+  {
+    "claim_id": "C22",
+    "claim": "Mapping reads to a reference again requires a reference genome and may induce biases in variant calling.",
+    "claim_type": "EXPLICIT",
+    "source_text": "But this again requires a reference genome and it may induce biases in variant calling and regions not in the reference genome will not be included in the study.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Known limitation of reference-based mapping and variant calling."
+  },
+  {
+    "claim_id": "C23",
+    "claim": "Regions not in the reference genome will not be included in the study when using read mapping to a reference.",
+    "claim_type": "EXPLICIT",
+    "source_text": "... and regions not in the reference genome will not be included in the study.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Logical consequence of reference-based mapping."
+  },
+  {
+    "claim_id": "C24",
+    "claim": "Sequencing errors make genotype calling difficult when sequencing depth is low and in repetitive regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Moreover, sequencing errors make genotype calling difficult when sequencing depth is low (Nielsen et al., 2012) and in repetitive regions.",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Supported by cited literature and known challenges in variant calling."
+  },
+  {
+    "claim_id": "C25",
+    "claim": "Methods have been proposed to do population genetics analyses that avoid the genotype calling step, but these methods still require reads to be aligned to a reference genome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Methods have been proposed to do population genetics analyses that avoid the genotype calling step (Fumagalli et al., 2013, 2014) but these methods still require reads to be aligned to a reference genome.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Cited methods and their limitation."
+  },
+  {
+    "claim_id": "C26",
+    "claim": "Simultaneous de novo assembly and genotyping using a tool such as Cortex has been proposed.",
+    "claim_type": "EXPLICIT",
+    "source_text": "An alternate approach is simultaneous de novo assembly and genotyping using a tool such as Cortex (Iqbal et al., 2012)",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Cited method description."
+  },
+  {
+    "claim_id": "C27",
+    "claim": "Simultaneous de novo assembly and genotyping (e.g., Cortex) is not suited to large numbers of individuals because loading all k-mers from all samples into memory requires a large amount of memory.",
+    "claim_type": "EXPLICIT",
+    "source_text": "... but this is not suited to large number of individuals as simultaneous assembly and variant calling need loading all k-mers from all samples into memory requiring large amount of it.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Reasoned limitation based on memory requirements of colored de Bruijn graphs."
+  },
+  {
+    "claim_id": "C28",
+    "claim": "The alternative approach of loading a subset of samples at a time would require subsequent alignment of sequences.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The alternative approach of loading a subset of samples to process at a time would require subsequent alignment of sequences.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical implication from subsetting samples for assembly/genotyping."
+  },
+  {
+    "claim_id": "C29",
+    "claim": "Neither simultaneous de novo assembly/genotyping nor the subset-loading alternative is trivially parallelizable.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Neither of these approaches is trivially parallelizable.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Authors\u2019 assessment of parallelization complexity for these approaches."
+  },
+  {
+    "claim_id": "C30",
+    "claim": "Alignment-free methods have been developed for problems including transcript abundance estimation, sequence comparison, and phylogeny estimation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the past, alignment free methods have been developed for a number of problems including transcript abundance estimation (Patro et al., 2014), sequence comparison (Song et al., 2014), phylogeny estimation (Haubold, 2014), etc.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Multiple citations support the statement."
+  },
+  {
+    "claim_id": "C31",
+    "claim": "Nordstr\u00f6m et al. (2013) introduced a pipeline called needle in the k-stack (NIKS) for mutation identification by comparison of sequencing data from two strains using k-mers.",
+    "claim_type": "EXPLICIT",
+    "source_text": "(Nordstr\u00f6m et al., 2013) introduced a pipeline called needle in the k-stack (NIKS) for mutation identification by comparison of sequencing data from two strains using k-mers.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim based on cited prior work."
+  },
+  {
+    "claim_id": "C32",
+    "claim": "Sheppard et al. (2013) presented a method for association mapping in bacterial genomes using k-mers.",
+    "claim_type": "EXPLICIT",
+    "source_text": "(Sheppard et al., 2013) presented a method for association mapping in bacterial genomes using k-mers.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim based on cited prior work."
+  },
+  {
+    "claim_id": "C33",
+    "claim": "Earle et al. (2016) proposed a method for mapping associations to lineages when associations cannot be accurately mapped to loci.",
+    "claim_type": "EXPLICIT",
+    "source_text": "More recently, (Earle et al., 2016) proposed a method for mapping associations to lineages when associations can not be accurately mapped to loci",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim based on cited prior work."
+  },
+  {
+    "claim_id": "C34",
+    "claim": "Lees et al. (2016) showed that use of variable length k-mers leads to an increase in power.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and (Lees et al., 2016) showed that use of variable length k-mers leads to an increase in power.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim based on cited prior work."
+  },
+  {
+    "claim_id": "C35",
+    "claim": "Previous k-mer association mapping methods in bacterial genomes use only presence/absence of k-mers and ignore counts.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, these methods for association mapping in bacterial genomes use only the presence and absence of k-mers and ignore the actual counts.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Authors summarize limitations of cited methods."
+  },
+  {
+    "claim_id": "C36",
+    "claim": "Ignoring k-mer counts prevents association mapping to copy number variations (CNVs).",
+    "claim_type": "EXPLICIT",
+    "source_text": "This prevents association mapping to copy number variations (CNVs).",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical consequence of using only presence/absence without counts."
+  },
+  {
+    "claim_id": "C37",
+    "claim": "Tests based on k-mer counts are likely to have more power, making detection of association with smaller number of samples possible.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Moreover, tests based on k-mer counts are\u00a0likely to have more power, making detection of association with smaller number of samples possible (Appendix 1\u2014figures 2 and 3).",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Inference supported by simulations referenced in the appendix."
+  },
+  {
+    "claim_id": "C38",
+    "claim": "The authors\u2019 method is applicable to association studies in organisms with no or incomplete reference genome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our method is applicable to association studies in organisms with no or incomplete reference genome.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Method does not require a reference; applicability follows logically."
+  },
+  {
+    "claim_id": "C39",
+    "claim": "Even if a reference genome is available, this method avoids aligning and genotype calling, allowing association mapping to many types of variants and to regions not in the reference.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Even if a reference genome is available, this method has the advantage of avoiding aligning and genotype calling thus allowing association mapping to many types of variants using the same pipeline and to regions not in the reference.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical implication of the reference-free k-mer counting and assembly approach."
+  },
+  {
+    "claim_id": "C40",
+    "claim": "In the authors\u2019 method, k-mers are initially tested for association independently of other k-mers, allowing loading only a subset of k-mers using lexicographic ordering.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In contrast to the approach in Iqbal et al. (2012), in our method, k-mers are initially tested for association independently of other k-mers allowing us to load only a subset of k-mers using lexicographic ordering.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Method design choice explicitly described."
+  },
+  {
+    "claim_id": "C41",
+    "claim": "The approach of Iqbal et al. (2012) can utilize information from the reference genome, whereas the authors currently use the reference only after associated sequences have been obtained to determine variant type.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, their approach can utilize information from the reference genome if one is available whereas we currently make use of the reference genome only after sequences associated have been obtained to determine the type of associated variant.",
+    "evidence_type": [
+      "CITATION",
+      "DATA"
+    ],
+    "evidence_reasoning": "Comparison to cited method and authors\u2019 described pipeline."
+  },
+  {
+    "claim_id": "C42",
+    "claim": "A future direction may be to utilize reference genome information earlier in the pipeline.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A future direction may be to utilize this information earlier in the pipeline.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Forward-looking statement about potential enhancement."
+  },
+  {
+    "claim_id": "C43",
+    "claim": "The method is implemented in software called \u2018hitting associations with k-mers\u2019 (HAWK).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We have implemented our method in a software called \u2018hitting associations with k-mers\u2019 (HAWK).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Authors report their software implementation."
+  },
+  {
+    "claim_id": "C44",
+    "claim": "Experiments with simulated and real data demonstrate the promise of this approach.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Experiments with simulated and real data demonstrate the promises of this approach.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Results sections provide empirical support."
+  },
+  {
+    "claim_id": "C45",
+    "claim": "The authors applied their method to analyze whole genome sequencing data from three populations in the 1000 Genomes Project, treating population identity as the trait of interest.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To test our approach in a setting not confounded by population structure, we apply our method to analyze whole genome sequencing data from three populations in the 1000 genomes project treating population identity as the trait of interest.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Study design choice explicitly described."
+  },
+  {
+    "claim_id": "C46",
+    "claim": "In a pairwise TSI\u2013YRI comparison, sequences identified by the method largely agree with standard GWAS based on variant calling from mapped reads.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In a pairwise comparison of the Toscani in Italia (TSI) and the Yoruba in Ibadan, Nigeria (YRI) populations we find that sequences identified by our method largely agree with results obtained using standard GWAS based on variant calling from mapped reads (Figure 2).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical comparison reported in results."
+  },
+  {
+    "claim_id": "C47",
+    "claim": "Agreement with sites found using read alignment and genotype calling indicates that k-mer based association mapping will be applicable to mapping associations to diseases and traits.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Agreement with sites found using read alignment and genotype calling indicate that k-mer based association mapping will be applicable to mapping associations to diseases and traits.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Inference drawn from observed agreement in comparisons."
+  },
+  {
+    "claim_id": "C48",
+    "claim": "In BEB\u2013TSI analysis, the authors find significant differences in frequencies of a number of non-synonymous variants in genes linked to CVDs, including rs1042034 and rs676210 in ApoB.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also analyze data from the Bengali from Bangladesh (BEB) population to explore possible genetic basis of high rate of mortality due to cardiovascular diseases (CVD) among South Asians and find significant differences in frequencies of a number of non-synonymous variants in genes linked to CVDs between BEB and TSI samples, including the site rs1042034, which has been associated with higher risk of CVDs previously, and the nearby rs676210 in the Apolipoprotein B (ApoB) gene.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Empirical comparison; rs1042034 prior association cited."
+  },
+  {
+    "claim_id": "C49",
+    "claim": "Population structure can be inferred from k-mer data and confounders can be accounted for.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then demonstrate that population structure can be inferred from k-mer data from whole genome sequencing reads and discuss how population stratification and other confounders can be accounted for.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Analyses with PCA and logistic regression adjustments support claim."
+  },
+  {
+    "claim_id": "C50",
+    "claim": "Applying the method to E. coli ampicillin resistance finds hits to the \u03b2-lactamase TEM (blaTEM) gene, validating the approach.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Finally, we apply our method to E. coli data set on ampicillin resistance and find hits to the \u03b2-lactamase TEM (blaTEM) gene, the presence of which is known to confer ampicillin resistance, validating our overall approach.",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Empirical result; known function of blaTEM supports validation."
+  },
+  {
+    "claim_id": "C51",
+    "claim": "The method finds regions associated with a categorical trait using sequencing reads without mapping reads to reference genomes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We present a method for finding regions associated with a categorical trait using sequencing reads without mapping reads to reference genomes.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Method description."
+  },
+  {
+    "claim_id": "C52",
+    "claim": "The method assumes k-mer counts are Poisson distributed and tests k-mers for association using a likelihood ratio test for nested models.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We assume the counts are Poisson distributed and test k-mers for statistically significant association with case or control using likelihood ratio test for nested models (see Appendix 1 for details).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Specified statistical modeling choice in the methods."
+  },
+  {
+    "claim_id": "C53",
+    "claim": "Population structure is inferred from k-mer data and used to adjust p-values.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Population structure is then inferred from k-mer data and used to adjust p-values.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Described as part of the analytic pipeline."
+  },
+  {
+    "claim_id": "C54",
+    "claim": "Differences in k-mer counts may be due to SNPs, indels, and copy number variations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The differences in k-mer counts may be due to single nucleotide polymorphisms (SNPs), insertion-deletions (indels) and copy number variations.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Mechanistic explanation for observed count differences."
+  },
+  {
+    "claim_id": "C55",
+    "claim": "Overlapping k-mers found are assembled to obtain sequences corresponding to each region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The k-mers are then assembled to obtain sequences corresponding to each region.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Part of the described method."
+  },
+  {
+    "claim_id": "C56",
+    "claim": "To count k-mers, the authors use the multi-threaded hash based tool Jellyfish.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To count k-mers we use the multi-threaded hash based tool Jellyfish (Mar\u00e7ais et al., 2011).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Method tool choice with citation."
+  },
+  {
+    "claim_id": "C57",
+    "claim": "The authors use k-mers of length 31.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We use k-mers of length 31 which is the longest k-mer length which can be efficiently represented on 64-bit machines using Jellyfish",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Parameter setting in their implementation."
+  },
+  {
+    "claim_id": "C58",
+    "claim": "The pipeline filters out k-mers that appear once in samples before testing for associations, as they are likely from sequencing errors.",
+    "claim_type": "EXPLICIT",
+    "source_text": "... and filter out k-mers that appear once in samples before testing for associations for computational and memory efficiency as they are likely from sequencing errors.",
+    "evidence_type": [
+      "INFERENCE",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Common practice to remove singleton k-mers due to error; authors note rationale."
+  },
+  {
+    "claim_id": "C59",
+    "claim": "For each k-mer, the authors test whether it appears significantly more times in case or control datasets using a likelihood ratio test for nested models.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Then for each k-mer we test whether that k-mer appears significantly more times in case or control datasets compared to the other using a likelihood ratio test for nested models (Wilks, 1938).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Statistical test choice with citation to Wilks."
+  },
+  {
+    "claim_id": "C60",
+    "claim": "The authors assume Poisson distributions for k-mer counts, allowing quick p-value computation compared to negative binomial distributions used for RNA-seq.",
+    "claim_type": "EXPLICIT",
+    "source_text": "That combined with the large number of reads in second generation sequencing motivates us to assume Poisson distributions which allows us to compute p-values quickly compared to negative binomial distributions used to model RNA-seq data (Robinson and Smyth, 2008; van de Geijn et al., 2015).",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Rationale for Poisson assumption; contrasted with cited NB uses."
+  },
+  {
+    "claim_id": "C61",
+    "claim": "For large number of k-mers and typical counts, p-values assuming Poisson distributions are not notably lower than those obtained assuming negative binomial distributions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Furthermore, we observe that for large number of k-mers in a whole genome sequencing experiment and typical counts of a single k-mer, p-values calculated assuming Poisson distributions are not notably lower than those obtained assuming negative binomial distributions (Appendix 1\u2014figure 1).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Observation supported by their comparisons (appendix figure)."
+  },
+  {
+    "claim_id": "C62",
+    "claim": "The authors perform Bonferroni corrections to account for multiple testing and use the conservative Bonferroni correction as deviations from Poisson distributions are possible.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We get a p-value for each k-mer using the approximate \u03c72 distribution of the likelihood ratio and perform Bonferroni corrections to account for multiple testing. We use the conservative Bonferroni correction as deviations from Poisson distributions are possible.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Described multiple testing correction approach."
+  },
+  {
+    "claim_id": "C63",
+    "claim": "The approach may be extended to quantitative phenotypes by regressing phenotype values against k-mer counts to test whether counts are predictive.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our approach may be extended to quantitative phenotypes, by regressing phenotype values against k-mer counts to test whether k-mer counts are predictive of the phenotype.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Prospective methodological extension proposed by authors."
+  },
+  {
+    "claim_id": "C64",
+    "claim": "To detect population structure, the authors randomly choose one-thousandth of k-mers present between 1% and 99% of samples, construct a binary presence/absence matrix, and perform PCA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To detect population structure in the data, we randomly choose one-thousandth of the k-mers present between 1% and 99% of the samples and construct a binary matrix B={bij} where bij=1 if the j-th k-mer is present in the i-th individual and\u00a00\u00a0otherwise. We then perform principal components analysis (PCA) on the matrix which has been widely used to uncover population structure in genotype data (Patterson et al., 2006; Price et al., 2006).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Method description with citations to PCA use in genetics."
+  },
+  {
+    "claim_id": "C65",
+    "claim": "The authors modified the Eigenstrat software to run PCA on the k-mer presence/absence matrix.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We have modified the Eigenstrat software (Patterson et al., 2006) to run PCA on B",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Implementation detail of their pipeline."
+  },
+  {
+    "claim_id": "C66",
+    "claim": "As in Eigenstrat, values in each column are normalized using mij = (bij \u2212 \u03bcj)/sqrt(pj(1\u2212pj)) so that columns have approximately the same variance.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and as in Eigenstrat, we normalize values in the j-th column usingmij=bij\u2212\u03bcjpj(1\u2212pj)so that columns have approximately the same variance.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Normalization procedure adopted from Eigenstrat."
+  },
+  {
+    "claim_id": "C67",
+    "claim": "For diploids pj is estimated as pj = 1 \u2212 sqrt(1 \u2212 \u03bcj) and for haploids pj = \u03bcj.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Here \u03bcj is the mean of the j-th column and pj is the allele frequency estimated from the fraction of samples with the corresponding k-mer using the formula pj=1\u22121\u2212\u03bcj for diploids\u00a0and pj=\u03bcj for haploid organisms.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Specified formula for allele frequency estimation used in their PCA preprocessing."
+  },
+  {
+    "claim_id": "C68",
+    "claim": "To correct for confounders in categorical phenotypes, for k-mers significant in the Poisson LRT, the authors fit a logistic regression model of the phenotype against potential confounders and normalized k-mer counts.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To correct for confounders in association mapping involving a categorical phenotype, for the k-mers found significant in the Poisson distribution based likelihood ratio test, we fit a logistic regression model on the phenotype against potential confounders and k-mer counts normalized using total number of k-mers in the sample.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Described confounder correction procedure."
+  },
+  {
+    "claim_id": "C69",
+    "claim": "By default the authors include the first two principal components and total number of k-mers in the model, but other potential confounders may be included as needed.",
+    "claim_type": "EXPLICIT",
+    "source_text": "By default we include first two principal components obtained in the previous step and total number of k-mers in sequencing reads from each individual to account for population structure and varying sequencing depth respectively but other potential confounders may also be included as needed.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Model specification and flexibility described."
+  },
+  {
+    "claim_id": "C70",
+    "claim": "The authors quantify additional goodness of fit provided by each k-mer after confounders and obtain an ANOVA p-value using a \u03c72-test with likelihood ratio, applying the Bonferroni threshold established earlier.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then quantify the additional goodness of fit provided by each k-mer after the confounding factors and use R script to obtain an ANOVA p-value using a \u03c72-test with likelihood ratio and apply Bonferroni threshold established earlier.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "P-value computation and multiple testing correction described."
+  },
+  {
+    "claim_id": "C71",
+    "claim": "For quantitative phenotypes, linear regression may be used instead of logistic regression.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For quantitative phenotypes linear regression may be used instead of logistic regression.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Suggested extension to different phenotype types."
+  },
+  {
+    "claim_id": "C72",
+    "claim": "Simulations show logistic regression based tests have less power compared to the Poisson distribution based test.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We observe that logistic regression based tests have less power compared to Poisson distribution based test.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Result from simulation study reported by authors."
+  },
+  {
+    "claim_id": "C73",
+    "claim": "A logistic regression test using only presence/absence has similar power to one using k-mer counts for detecting one copy versus zero, but cannot detect association if cases have two copies versus one in controls.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also note that logistic regression based test using only presence and absence of k-mer has similar power as the one using k-mer counts while detecting one copy of an allele against zero copies but it is unable to detect association if cases have two copies of an allele against one copy in controls.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported outcome from simulation comparisons."
+  },
+  {
+    "claim_id": "C74",
+    "claim": "Designing tests modeling stochasticity in counts incorporating confounders and extending to quantitative phenotypes is left as future work.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We leave designing tests modeling stochasticity in counts incorporating confounders as well as extending our approach to quantitative phenotypes as future work.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Forward-looking research plan by the authors."
+  },
+  {
+    "claim_id": "C75",
+    "claim": "The authors assemble overlapping significant k-mers using ABySS to get sequences for each differential site.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then take k-mers associated with cases and controls and locally assemble overlapping k-mers to get a sequence for each differential site using the assembler ABySS (Simpson et al., 2009).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Assembly step and tool choice described."
+  },
+  {
+    "claim_id": "C76",
+    "claim": "They construct the de Bruijn graph with hash length 25 and retain assembled sequences of length at least 49.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We construct the de Bruijn graph using hash length of 25 to be robust to lack of detection of some 31-mers without creating many ambiguous paths in the de Bruijn graph and retain assembled sequences of length at least 49 which is the length formed by 25-mers overlapping with a SNP site on either side.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Assembly parameterization described."
+  },
+  {
+    "claim_id": "C77",
+    "claim": "It is possible to merge k-mers and pair sequences using the NIKS pipeline.",
+    "claim_type": "EXPLICIT",
+    "source_text": "It is also possible to merge k-mers and pair corresponding sequences from cases and controls using the NIKS pipeline (see [Nordstr\u00f6m et al., 2013] for details).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Cited pipeline provides alternative merging approach."
+  },
+  {
+    "claim_id": "C78",
+    "claim": "Using NIKS is time consuming when many significant k-mers are present, and pairing is not possible when the number of cases and controls is not very high.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, we find that this is time consuming when we have many significant k-mers. Moreover, when number of cases and controls are not very high we do not have enough power to get both of the sequences to be paired and as such pairing is not possible.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Authors\u2019 empirical observation and reasoning about power constraints."
+  },
+  {
+    "claim_id": "C79",
+    "claim": "HAWK is implemented in C++ with a multi-threaded implementation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our method is implemented in a tool called \u2018hitting associations with k-mers\u2019 (HAWK) using C++. To speed up the computation we use a multi-threaded implementation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Implementation details reported by the authors."
+  },
+  {
+    "claim_id": "C80",
+    "claim": "For large genomes, k-mers are sorted lexicographically and loaded into memory in batches because loading all k-mers at once is not possible.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, it is not possible to load all the k-mers into memory at the same time for large genomes. So, we sort the k-mers lexicographically and load them into memory in batches.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Implementation strategy described to handle memory constraints."
+  },
+  {
+    "claim_id": "C81",
+    "claim": "Jellyfish was modified to output integer representations of k-mers instead of strings to make sorting faster.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To make the sorting faster Jellyfish has been modified to output integer representation of k-mers instead of the k-mer strings.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Implementation modification described."
+  },
+  {
+    "claim_id": "C82",
+    "claim": "PCA is performed using a modified version of Eigenstrat.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The principal components analysis (PCA) is performed using a modified version of the widely used Eigenstrat software (Patterson et al., 2006).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Tool choice for PCA described with citation."
+  },
+  {
+    "claim_id": "C83",
+    "claim": "The logistic regression model fitting and p-value computation is done using scripts written in R.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The logistic regression model fitting and p-value computation is done using scripts written in R and we are presently exploring ways to speed up the computation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Implementation detail provided by authors."
+  },
+  {
+    "claim_id": "C84",
+    "claim": "The HAWK implementation is available at http://atifrahman.github.io/HAWK/ with an archived copy at https://github.com/elifesciences-publications/HAWK.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The implementation is available at http://atifrahman.github.io/HAWK/ (copy archived at https://github.com/elifesciences-publications/HAWK).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Availability statement provided by authors."
+  },
+  {
+    "claim_id": "C85",
+    "claim": "Merged k-mer sequences can be analyzed by aligning to a reference if available or by running BLAST to check for hits to related organisms.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The sequences obtained by merging overlapping k-mers can then be analyzed by aligning to a reference if one is available or by running BLAST (Altschul et al., 1990) to check for hits to related organisms.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Described downstream analysis options with citation to BLAST."
+  },
+  {
+    "claim_id": "C86",
+    "claim": "Intersections were obtained by mapping sequences to the human reference genome GRCh37 using Bowtie2.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The intersection results in this paper were obtained by mapping them to the human reference genome version GRCh37 using Bowtie2 (Langmead and Salzberg, 2012) to be consistent with co-ordinates of genoptypes called by 1000 genomes project.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Described mapping approach and tool with citation."
+  },
+  {
+    "claim_id": "C87",
+    "claim": "Breakdown analysis was performed by mapping to hg38 and then running BLAST on sequences that did not map.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The breakdown analysis was performed by first mapping to the version of the human reference genome at the UCSC Human Genome Browser, hg38 and then running BLAST on some of the ones that did not map.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Described downstream analysis procedure."
+  },
+  {
+    "claim_id": "C88",
+    "claim": "Specific loci of interest were checked by aligning to RefSeq mRNAs using Bowtie2 and by running BLAT on the UCSC Human Genome Browser.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Specific loci of interest were checked by aligning them to RefSeq mRNAs using Bowtie2 and on the UCSC Human Genome Browser by running BLAT (Kent, 2002).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Described additional validation steps with citations."
+  },
+  {
+    "claim_id": "C89",
+    "claim": "The implementation was tested by simulating reads from the genome of an Escherichia coli strain.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The implementation was tested by simulating reads from the genome of an Escherichia coli strain.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Authors describe their simulation setup."
+  },
+  {
+    "claim_id": "C90",
+    "claim": "The results of simulations are consistent with calculation of power to detect k-mers for varying coverage, with slightly lower values expected due to sequencing errors and assembly conditions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The results are consistent with calculation of power to detect k-mers for varying total k-mer coverage (Appendix 1\u2014figure 2) with slightly lower values expected due to sequencing errors and conditions imposed during assembly.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Authors report outcomes of their simulation study."
+  },
+  {
+    "claim_id": "C91",
+    "claim": "For verification, the authors used sequencing reads from 87 YRI and 98 TSI individuals for which both sequencing reads and genotype calls were available.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For verification, we used sequencing reads from 87 YRI individuals and 98 TSI individuals for which both sequencing reads and genotype calls were available at the time analysis was performed.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Study sample description."
+  },
+  {
+    "claim_id": "C92",
+    "claim": "Genotype calling was performed using the same set of reads used to perform association mapping.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The genotype calling was performed using the same set of reads we used to perform association mapping.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Methodological consistency note in verification analysis."
+  },
+  {
+    "claim_id": "C93",
+    "claim": "The k-mer analysis revealed 2,970,929 sequences enriched in YRI and 1,865,285 sequences enriched in TSI samples.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The analysis using k-mers revealed 2,970,929 sequences enriched for in the YRI population as compared to the TSI population and 1,865,285 sequences enriched for in TSI samples.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported counts of associated sequences from the analysis."
+  },
+  {
+    "claim_id": "C94",
+    "claim": "Despite large deviations in the p-value QQ plot, the cumulative distribution reveals that majority of the p-values are not significantly small.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Although we observe large deviations from the diagonal line, this is partly due to large number of k-mers for which the null is not true and cumulative distribution of the p-values, shown in Appendix 1\u2014figure 6(b), reveals that majority of the p-values are not significantly small.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Interpretation of statistical diagnostic plots in their analysis."
+  },
+  {
+    "claim_id": "C95",
+    "claim": "Using genotype calls, 2,658,964 out of 39,706,715 sites had allele frequencies that are significantly different between YRI and TSI.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that 2,658,964 out of the 39,706,715 sites had allele frequencies that are significantly different.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported result from standard GWAS-like testing using genotypes."
+  },
+  {
+    "claim_id": "C96",
+    "claim": "80.3% (2,135,415 out of 2,658,964) of the significant sites were covered by some sequence found using Hawk, while 19.7% were not.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We find that 80.3% (2,135,415 out of 2,658,964) of the significant sites was covered by some sequence found using Hawk while 19.7% was not as shown in the Venn diagram on the top left.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantified overlap between HAWK sequences and significant SNP sites."
+  },
+  {
+    "claim_id": "C97",
+    "claim": "Approximately 95.2% of the significant sites were covered by at least one k-mer.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Approximately 95.2% of the sites was covered by at least one k-mer.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Coverage metric reported by the authors."
+  },
+  {
+    "claim_id": "C98",
+    "claim": "Around 42% of sequences found using k-mers do not cover any sites found significant using genotype calling.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also observe that around 42% of sequences found using k-mers do not cover any sites found significant using genotype calling.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported proportion of HAWK sequences without overlap to significant SNPs."
+  },
+  {
+    "claim_id": "C99",
+    "claim": "Up to 20% of the sequences without overlap correspond to regions without genotype calls (chromosome Y, mitochondrial DNA, small contigs), repetitive regions where genotype calling is difficult, and structural variations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While up to 20% of them correspond to regions for which we did not have genotype calls (chromosome Y, mitochondrial DNA and small contigs), repetitive regions where genotype calling is difficult and structural variations,",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Authors\u2019 attribution of causes for non-overlapping sequences."
+  },
+  {
+    "claim_id": "C100",
+    "claim": "Many of the remaining sequences are possibly due to more power of the test based on counts than the one using only number of copies of an allele.",
+    "claim_type": "EXPLICIT",
+    "source_text": "many of the remaining sequences are possibly due to more power of the test based on counts than the one using only number of copies of an allele.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Proposed explanation for remaining non-overlaps based on power differences."
+  },
+  {
+    "claim_id": "C101",
+    "claim": "A greater fraction of sequences in YRI (47.3%) do not cover sites obtained by genotyping compared to TSI (38.7%).",
+    "claim_type": "EXPLICIT",
+    "source_text": "This is consistent with greater fraction of sequences in YRI (47.3% shown in bottom left of Figure 2(a)) not covering sites obtained by genotyping compared to TSI (38.7% shown in bottom right of Figure 2(a))",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported comparative proportions from their analysis."
+  },
+  {
+    "claim_id": "C102",
+    "claim": "Some low frequency variations in African populations were lost in other populations due to population bottleneck during the migration out of Africa.",
+    "claim_type": "EXPLICIT",
+    "source_text": "as some low frequency variations in African populations were lost in other populations due to population bottleneck during the migration out of Africa.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Population genetics explanation; broadly recognized phenomenon."
+  },
+  {
+    "claim_id": "C103",
+    "claim": "Some false positives may result due to discrepancies in sequencing depth of the samples and sequencing biases.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, some false positives may result due to discrepancies in sequencing depth of the samples and sequencing biases.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Potential confounding effects acknowledged by authors."
+  },
+  {
+    "claim_id": "C104",
+    "claim": "Scripts are provided to look up the number of individuals with constituent k-mers to help investigate sites found using Poisson LRT only.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We provide scripts to lookup number of individuals with constituent k-mers to help investigate sites found using Poisson distribution based likelihood ratio test only.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Authors\u2019 tool availability for follow-up checks."
+  },
+  {
+    "claim_id": "C105",
+    "claim": "HAWK enables mapping associations to different types of variants using the same pipeline.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Hawk enables mapping associations to different types of variants using the same pipeline.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Described capability backed by results showing multiple variant types."
+  },
+  {
+    "claim_id": "C106",
+    "claim": "In addition to SNPs, the authors find associations to sites with indels and structural variations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition to SNPs we find associations to sites with indels and structural variations.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported variant types identified by HAWK."
+  },
+  {
+    "claim_id": "C107",
+    "claim": "The authors find sequences that map to multiple regions in the genome indicating copy number variations or sequence variation in repeated regions where genotype calling is difficult.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Furthermore, we find sequences that map to multiple regions in the genome indicating copy number variations or sequence variation in repeated regions where genotype calling is known to be difficult.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Mapping multiplicity interpreted as CNV/repeat variation."
+  },
+  {
+    "claim_id": "C108",
+    "claim": "Although the majority of sequences map outside of genes, variants are found in genes including coding regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Although the majority of the sequences map outside of genes, we find variants in genes including in coding regions (Figure 3(b)).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported genomic annotations of assembled sequences."
+  },
+  {
+    "claim_id": "C109",
+    "claim": "In BEB vs TSI, the authors obtained 529,287 sequences associated with BEB and 462,122 sequences associated with TSI.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We performed similar analysis on sequencing reads available from 87 BEB and 110 TSI individuals from the 1000 genomes project and obtained 529,287 and 462,122 sequences associated with BEB and TSI samples respectively,",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported counts from BEB\u2013TSI analysis."
+  },
+  {
+    "claim_id": "C110",
+    "claim": "Histograms of assembled sequence lengths show peaks at 61 bp, the maximum length corresponding to a single SNP for k-mer size 31.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Histograms of lengths of sequences obtained by merging overlapping k-mers show (Appendix 1\u2014figure 8, Appendix 1\u2014figure 9) peaks at 61 bp which is the maximum length corresponding to a single SNP for k-mer size of 31.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Observed length distributions consistent with SNP-related assemblies."
+  },
+  {
+    "claim_id": "C111",
+    "claim": "Drops after 98 bp in all cases provide evidence for multinucleotide mutations (MNMs).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also see drops off after 98 bp in all cases providing evidence for multinucleotide mutations (MNMs) (Harris and Nielsen, 2014) since this is the maximum sequence length we can get when k-mers of size 31 are assembled with minimum overlap of 24.",
+    "evidence_type": [
+      "DATA",
+      "CITATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed length cutoff interpreted as evidence for MNMs with supporting citation."
+  },
+  {
+    "claim_id": "C112",
+    "claim": "In YRI\u2013TSI, 94,795 and 66,051 sequences associated with YRI and TSI respectively did not map to the human reference genome, with lengths up to 2,666 bp and 12,467 bp.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As Hawk is an alignment free method for mapping associations, it is able to find associations in regions that are not in the human reference genome, hg38. The analysis resulted in 94,795 and 66,051 sequences of lengths up to 2,666 bp and 12,467\u00a0bp\u00a0associated with YRI and TSI samples respectively that did not map to the human reference genome.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported counts and lengths of unmapped sequences."
+  },
+  {
+    "claim_id": "C113",
+    "claim": "In BEB\u2013TSI, 19,584 and 18,508 sequences associated with BEB and TSI respectively did not map to the human reference genome, with maximum lengths of 1761 bp and 2149 bp.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Similarly BEB-TSI comparison yielded 19,584 and 18,508 sequences with maximum lengths of 1761 bp and 2149 bp associated with BEB and TSI respectively.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported counts and lengths of unmapped sequences in BEB\u2013TSI."
+  },
+  {
+    "claim_id": "C114",
+    "claim": "A few sequences enriched in TSI mapped to the Epstein\u2013Barr virus (EBV) genome, strain B95-8, with lengths up to 12kbp (YRI comparison) and 2kbp (BEB comparison).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that few of the sequences enriched for in TSI samples, with lengths up to 12kbp and 2kbp in comparisons with YRI and BEB respectively, mapped to the Epstein\u2013Barr virus (EBV) genome, strain B95-8 [GenBank: V01555.2].",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported BLAST mapping results to EBV."
+  },
+  {
+    "claim_id": "C115",
+    "claim": "EBV strain B95-8 was used to transform B cells into lymphoblastoid cell lines (LCLs) in the 1000 Genomes Project and was shown to be a contaminant in the data.",
+    "claim_type": "EXPLICIT",
+    "source_text": "EBV strain B95-8 was used to transform B cells into lymphoblastoid cell lines (LCLs) in the 1000 Genomes Project and was shown to be a contaminant in the data (Santpere et al., 2014).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim supported by cited study on EBV contamination."
+  },
+  {
+    "claim_id": "C116",
+    "claim": "Some sequences associated with YRI that did not map to the human reference aligned by BLAST to other human sequences (e.g., AC205876.2) and to sequences reported in previous studies.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we find sequences associated with YRI that do not map to the human reference genome (hg38) with high score but upon running BLAST aligned to other sequences from human (for example to [GenBank: AC205876.2] and some other sequences reported (Kidd et al., 2010).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Reported BLAST alignments and supporting citation."
+  },
+  {
+    "claim_id": "C117",
+    "claim": "Some sequences had no significant BLAST hits to human genomic sequences but had hits to closely related species.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also find sequences with no significant BLAST hits to human genomic sequences, some of\u00a0which\u00a0have hits to closely related species.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported BLAST outcomes."
+  },
+  {
+    "claim_id": "C118",
+    "claim": "Sequences associated with TSI aligned to human sequences such as AC217954.1 that are not in the reference.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Similarly, we find sequences associated with TSI aligning to human sequences such as [GenBank: AC217954.1] not in the reference.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported BLAST alignments to non-reference human sequences."
+  },
+  {
+    "claim_id": "C119",
+    "claim": "Although there were fewer long sequences in BEB\u2013TSI, sequences longer than 1kbp associated with each population with no BLAST hit were found.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Although there are much fewer long sequences obtained in the BEB-TSI comparison, we find sequences longer than 1kbp associated with each population with no BLAST hit.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported BLAST-negative long sequences in BEB\u2013TSI."
+  },
+  {
+    "claim_id": "C120",
+    "claim": "Cardiovascular diseases are a leading cause of mortality in Bangladesh and age standardized death rates from CVDs in Bangladesh are higher compared to Italy.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We noted that cardiovascular diseases (CVD) are a leading cause of mortality in Bangladesh and age standardized death rates from CVDs in Bangladesh is higher compared to Italy (see World Health Organization, 2011).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim supported by WHO citation."
+  },
+  {
+    "claim_id": "C121",
+    "claim": "South Asians have high rates of acute myocardial infarction or heart failure at younger ages compared to other populations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Moreover, South Asians have high rates of acute myocardial infarction (MI) or heart failure at younger ages compared to other populations",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited epidemiological studies."
+  },
+  {
+    "claim_id": "C122",
+    "claim": "In several countries, migrants from South Asia have higher death rates from coronary heart disease at younger ages compared with the local population.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and (Gupta et al., 2006; Joshi et al., 2007) revealed that in several countries migrants from South Asia have higher death rates from coronary heart disease (CHD) at younger ages compared with the local population",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited studies."
+  },
+  {
+    "claim_id": "C123",
+    "claim": "According to the Interheart Study, the mean age of myocardial infarction among people from Bangladesh is considerably lower than non-South Asians and the lowest among South Asians.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and according to the Interheart Study, the mean age of MI among the poeple from Bangladesh is considerably lower than non-South Asians and the lowest among South Asians (Yusuf et al., 2004; Saquib et al., 2012).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited Interheart analyses."
+  },
+  {
+    "claim_id": "C124",
+    "claim": "The sites analyzed for CVD-related differences were obtained through BEB\u2013TSI comparison, and CVD status of individuals was unknown.",
+    "claim_type": "EXPLICIT",
+    "source_text": "It is worth noting that the sites were obtained through a comparison of BEB\u00a0and TSI samples and CVD status of the individuals were unknown.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Study design caveat noted by authors."
+  },
+  {
+    "claim_id": "C125",
+    "claim": "Table 3 shows non-synonymous variants in genes linked to CVDs that are significantly more common in the BEB sample compared to the TSI sample.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Table 3 shows non-synonymous variants in such genes that are significantly more common in the BEB sample compared to the TSI sample.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported differential variant frequencies from their analysis."
+  },
+  {
+    "claim_id": "C126",
+    "claim": "The 'C' allele at rs1042034 in ApoB has been associated with increased HDL cholesterol and decreased triglycerides in individuals of European descent.",
+    "claim_type": "EXPLICIT",
+    "source_text": "It is worth mentioning that the \u2018C\u2019 allele at the SNP site, rs1042034 in the gene Apolipoprotein B (ApoB) has been associated with increased levels of HDL cholesterol and decreased levels of triglycerides (Teslovich et al., 2010) in individuals of European descent",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Association supported by cited GWAS literature."
+  },
+  {
+    "claim_id": "C127",
+    "claim": "Individuals with the 'CC' genotype at rs1042034 have been reported to have higher risk of CVDs in the Framingham Heart Study analysis.",
+    "claim_type": "EXPLICIT",
+    "source_text": "but individuals with the \u2018CC\u2019 genotype have been reported to have higher risk of CVDs in an analysis of the data from the Framingham Heart Study (Kulminski et al., 2013).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Risk association supported by cited study."
+  },
+  {
+    "claim_id": "C128",
+    "claim": "The SNP rs676210 has been associated with a number of traits.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The SNP rs676210 has also been associated with a number of traits (M\u00e4kel\u00e4 et al., 2013; Chasman et al., 2009).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited literature."
+  },
+  {
+    "claim_id": "C129",
+    "claim": "Both alleles of higher prevalence in BEB at rs1042034/rs676210 have been found to be common in familial hypercholesterolemia patients in Taiwan.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Both alleles of higher prevalence in BEB at those sites have been found to be common in familial hypercholesterolemia patients in Taiwan (Chiou and Charng, 2012).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claim supported by cited study."
+  },
+  {
+    "claim_id": "C130",
+    "claim": "Prevalence of the risk allele 'T' at rs3184504 in SH2B3 is higher in TSI samples compared to BEB samples.",
+    "claim_type": "EXPLICIT",
+    "source_text": "On the other hand, prevalence of the risk allele, \u2018T\u2019 at rs3184504 in the gene SH2B3 is higher in TSI samples compared to BEB samples.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Observed frequency difference reported by authors."
+  },
+  {
+    "claim_id": "C131",
+    "claim": "A number of sites in TTN show differential allele frequencies between BEB and TSI samples.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also observe a number of sites in the gene Titin (TTN) of differential allele frequencies in BEB and TSI samples (Appendix 1\u2014table 1).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported from their analysis results."
+  },
+  {
+    "claim_id": "C132",
+    "claim": "Truncating mutations in TTN are known to cause dilated cardiomyopathy.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, TTN codes for the largest known protein and although truncating mutations in TTN are known to cause dilated cardiomyopathy [(Herman et al., 2012; van Spaendonck-Zwarts et al., 2014; Roberts et al., 2015)],",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Established disease association supported by multiple citations."
+  },
+  {
+    "claim_id": "C133",
+    "claim": "No such effect of other kinds of mutations in TTN are known.",
+    "claim_type": "EXPLICIT",
+    "source_text": "no such effect of other kinds of mutations are known.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Authors\u2019 statement about current knowledge in literature."
+  },
+  {
+    "claim_id": "C134",
+    "claim": "PCA on a random sample of 3,483,820 k-mers shows the first two principal components together completely separate YRI and TSI populations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Figure 4(a) shows plots of the first two principal components of the individuals. Although the clusters generated are not as clearly separated as in the case with PCA run on variant calls obtained from the 1000 genomes project, shown in Appendix 1\u2014figure 11, possibly due to varying sequencing coverage and batch effects in the k-mer counts, we observe that the first two principal components together completely separates the two populations.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported PCA results on k-mer presence/absence data."
+  },
+  {
+    "claim_id": "C135",
+    "claim": "The first principal component correlates with sequencing depth, while the second primarily separates the populations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The first principal component correlates with sequencing depth indicated by size of the circles in the figure with the second principal component primarily separating the populations.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Interpretation of PCA axes with observed depth correlation."
+  },
+  {
+    "claim_id": "C136",
+    "claim": "Logistic regression models using first two PCs, total k-mers per sample, gender, and k-mer counts yield adjusted p-values near zero when predicting population identity, as the first two PCs completely separate populations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then fit logistic regression models to predict population identities using first two principal components, total number of k-mers in each sample and gender of individuals along with k-mer counts and obtain ANOVA p-values of the k-mer counts using \u03c72-tests. ... It shows that all of the \u2212log10(adjusted p-values) are close to zero which is expected since the first two principal components together completely separate the populations.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported outcome of adjusted p-values after including confounders in model."
+  },
+  {
+    "claim_id": "C137",
+    "claim": "Only the first two principal components provide substantial adjustment in p-values for this dataset, indicating sequencing depth and sex are not significant confounders.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Appendix 1\u2014figure 11(d) shows that only the first two principal components provide substantial adjustment in p-values for this dataset indicating sequencing depth and sex are not significant confounders",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported finding from confounder assessment."
+  },
+  {
+    "claim_id": "C138",
+    "claim": "Simulations demonstrate that associations can be detected with small sample sizes after correcting for confounders; e.g., with 80% of cases YRI, detection occurs in all trials at 100% penetrance and ~80% at 80% penetrance.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We observe that with logistic regression based test that has less power compared to Poisson distribution based likelihood ratio test, associations can be detected with small sample sizes such as present ones under various conditions. For example, if 80% of case individuals are YRI, associations can be detected in all trials if penetrance is 100% and about 80% trials when it is 80%.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported results from simulation study assessing power with confounder correction."
+  },
+  {
+    "claim_id": "C139",
+    "claim": "The E. coli dataset contains short reads from 241 strains, 189 resistant to ampicillin and 52 sensitive.",
+    "claim_type": "EXPLICIT",
+    "source_text": "It contains short reads from 241 strains of E. coli, 189 of which were resistant to ampicillin and the remaining 52 were sensitive.",
+    "evidence_type": [
+      "CITATION",
+      "DATA"
+    ],
+    "evidence_reasoning": "Dataset description, as in cited source and used in the analysis."
+  },
+  {
+    "claim_id": "C140",
+    "claim": "The authors ran HAWK on 176,284,643 k-mers, computed Poisson LRT p-values, and adjusted using first ten PCs and total k-mers per sample for the top 200,000 k-mers.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We ran Hawk on 176,284,643 k-mers obtained from the whole genome sequencing reads, first computing p-values using likelihood ratio test assuming Poisson distribution and then adjusting p-values using first ten principal components and total number of\u00a0k-mers per sample for the top 200,000 k-mers associated with cases and controls.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Describes the analysis pipeline applied to the dataset."
+  },
+  {
+    "claim_id": "C141",
+    "claim": "5047 k-mers associated with cases passed Bonferroni correction while none associated with controls did.",
+    "claim_type": "EXPLICIT",
+    "source_text": "5047 of the k-mers associated with cases passed Bonferroni correction while none of the ones associated with controls did.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported statistical significance outcomes."
+  },
+  {
+    "claim_id": "C142",
+    "claim": "Significant k-mers were assembled using ABySS resulting in 16 sequences associated with cases.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The k-mers passing Bonferroni correction were assembled using ABySS resulting in 16 sequences associated with cases.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported assembly results."
+  },
+  {
+    "claim_id": "C143",
+    "claim": "BLAST of assembled sequences found hits to E. coli strain DTU-1 genome and plasmid pKBN10P04869A, among others.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Upon running BLAST on these sequences we found hits to Escherichia coli strain DTU-1 genome [GenBank: CP026612.1], Escherichia coli strain KBN10P04869 plasmid pKBN10P04869A sequence [GenBank: CP026474.1] as well as other sequences.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported BLAST search results."
+  },
+  {
+    "claim_id": "C144",
+    "claim": "The strongest associations are within the \u03b2-lactamase TEM-1 (blaTEM-1) gene and just upstream of it.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that the strongest associations are within the \u03b2-lactamase TEM-1 (blaTEM-1) gene which is known to confer resistance to ampicillin (also detected by [Earle et al., 2016]) and just upstream of that.",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Association strength reported; function of gene is known; corroborated by cited study."
+  },
+  {
+    "claim_id": "C145",
+    "claim": "Some other hits were noted within the E. coli chromosome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also noted some other hits within the E. coli chromosome.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported additional associations."
+  },
+  {
+    "claim_id": "C146",
+    "claim": "A QQ plot shows deviations due to many k-mers in or linked to blaTEM-1 violating the null, but the majority of points are near the origin in the cumulative distribution.",
+    "claim_type": "EXPLICIT",
+    "source_text": "QQ plot of the p-values obtained is shown in Appendix 1\u2014figure 13(a). It may be noted that for large number of k-mers, that are part of the \u03b2-lactamase TEM-1 (blaTEM-1) gene or are in linkage disequilibrium with it, the null is not true which results in deviations from the diagonal line. However, majority of the points are close to the origin which can be seen from the cumulative distribution of p-values in Appendix 1\u2014figure 6(b).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Interpretation of QQ and cumulative p-value plots."
+  },
+  {
+    "claim_id": "C147",
+    "claim": "Earle et al. (2016) found the gene presence/absence approach yielded blaTEM-1 as the top hit, while the best k-mer within the causal gene was rank 6.",
+    "claim_type": "EXPLICIT",
+    "source_text": "(Earle et al., 2016)\u00a0performed an association study of ampicillin resistance using multiple approaches - SNP calling and imputations, gene presence or absence through whole genome assembly and gene finding as well as a k-mer based method. Their gene presence or absence approach yielded \u03b2-lactamase TEM-1 (blaTEM-1) as the top hit while the best k-mer within the causal gene found by them was of rank 6.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Claims supported by the cited study\u2019s reported findings."
+  },
+  {
+    "claim_id": "C148",
+    "claim": "Neither the gene presence/absence approach nor their k-mer approach are likely to scale to large genomes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, neither of the approaches are likely to scale to large genomes.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Authors\u2019 assessment of scalability based on method characteristics."
+  },
+  {
+    "claim_id": "C149",
+    "claim": "A conventional pipeline mapping reads to CFT073 plus plasmid pKBN10P04869A, variant calling with Freebayes, and association testing with Eigenstrat resulted in no genome-wide significant hits.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also followed a more conventional approach where first the reads were mapped using Bowtie 2 (Langmead and Salzberg, 2012) to the reference strain CFT073 [GenBank: AE014075.1], the same reference used by (Earle et al., 2016). We also included plasmid pKBN10P04869A sequence [GenBank: CP026474.1] in the reference as it includes the \u03b2-lactamase TEM-1 (blaTEM-1) gene. Freebayes (Garrison and Marth, 2012) was then used to simultaneously call variants in all the strains. We finally tested each variant for association to ampicillin resistance using Eigenstrat (Price et al., 2006) using first ten principal components to correct for confounders. This approach resulted in no hits with genome wide significance",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Reported outcome from conventional analysis with tool citations."
+  },
+  {
+    "claim_id": "C150",
+    "claim": "More than 80% of sites found using genotype calls are covered by sequences obtained by the authors\u2019 method while also mapping associations to regions not in the reference and in repetitive areas.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We observe that more than 80% of the sites found using genotype calls are covered by some sequence obtained by our method while also mapping associations to regions not in the reference and in repetitive areas.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Summary of overlap and additional coverage capabilities reported earlier."
+  },
+  {
+    "claim_id": "C151",
+    "claim": "Simulations suggest tests based on k-mer counts have more power than those based on presence/absence of alleles.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Moreover, simulations suggest tests based on k-mer counts have more power than those based on presence and absence of alleles.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Claim based on the simulation results presented in the appendix."
+  },
+  {
+    "claim_id": "C152",
+    "claim": "Breakdown analyses reveal mapping associations to SNPs, indels, structural and copy number variations through the same pipeline.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Breakdown analysis of the sequences found in pairwise comparison of YRI, TSI and BEB, TSI samples reveals that this approach allows mapping associations to SNPs, indels, structural and copy number variations through the same pipeline.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Claim supported by variant type breakdown in results."
+  },
+  {
+    "claim_id": "C153",
+    "claim": "Between 2\u20134% of associated sequences are not present in the human reference genome, some longer than 1kbp.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition we find 2\u20134% of associated sequences are not present in the human reference genome some of which are longer than 1kbp.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported proportion and length of non-reference sequences."
+  },
+  {
+    "claim_id": "C154",
+    "claim": "The YRI\u2013TSI comparison yields almost 60kbp of sequence associated with YRI samples in sequences longer than 1kbp alone.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The YRI, TSI comparison yields almost 60kbp sequence associated with the YRI samples in sequences of length greater than 1kbp alone.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported total length of long sequences unique to YRI."
+  },
+  {
+    "claim_id": "C155",
+    "claim": "Populations worldwide have genomic regions not present in the reference, emphasizing the importance of a reference-free approach.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This indicates populations around the world have regions in the genome not present in the reference emphasizing the importance of a reference free approach.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Inference drawn from observed non-reference sequences across populations."
+  },
+  {
+    "claim_id": "C156",
+    "claim": "Application of the pipeline to map associations to ampicillin resistance in E. coli led to hits to a gene whose presence is known to confer resistance.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Application of the pipeline to map associations to ampicillin resistance in E. coli lead to hits to a gene, the presence of which is known to provide the resistance.",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Summary of E. coli results consistent with known resistance gene."
+  },
+  {
+    "claim_id": "C157",
+    "claim": "The results on simulated data, 1000 Genomes data, and E. coli datasets provide proof of principle and motivate extension to quantitative phenotypes and improved modeling for confounder correction.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The results on simulated data, real data from the 1000 genomes project and E. coli datasets provide a proof of principle of this approach and motivate extension of this method to quantitative phenotypes and modeling of randomness of counts in population stratification detection and correction of confounder steps and then application to association studies of disease phenotypes in humans and other organisms.",
+    "evidence_type": [
+      "DATA",
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Empirical demonstration plus proposed future extensions."
+  }
+]

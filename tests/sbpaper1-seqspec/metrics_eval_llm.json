@@ -1,0 +1,7 @@
+{
+  "command": "cllm eval manuscript.txt -c claims.json -o eval_llm.json -m metrics_eval.json -v",
+  "input_tokens": 32485,
+  "output_tokens": 1738,
+  "num_results": 8,
+  "processing_time_seconds": 31.79761290550232
+}

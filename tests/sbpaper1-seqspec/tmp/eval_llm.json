@@ -1,0 +1,121 @@
+[
+  {
+    "result_id": "R1",
+    "claim_ids": [
+      "C30",
+      "C31",
+      "C32",
+      "C33",
+      "C35",
+      "C36",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C47",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C52",
+      "C53",
+      "C54",
+      "C55",
+      "C56",
+      "C57",
+      "C58",
+      "C59",
+      "C60",
+      "C61"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "The manuscript specifies a YAML-based, machine-readable format with Regions/meta-Regions and ordered composition (C30\u2013C33, C43, C47\u2013C48) and enumerates concrete region properties (C35\u2013C42). It also details an operational CLI with explicit subcommands and behaviors (C49\u2013C61). Together these descriptive claims coherently support that the specification and tool exist and perform as stated."
+  },
+  {
+    "result_id": "R2",
+    "claim_ids": [
+      "C62",
+      "C63",
+      "C64",
+      "C83"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "The authors state that seqspec index generates technology strings and demonstrate implementations for kallisto|bustools, alevin-fry, and STARsolo (C62\u2013C64). They further assert seqspec can define options for preprocessing tools (C83); these are capability/implementation claims consistent with the described tool behavior."
+  },
+  {
+    "result_id": "R3",
+    "claim_ids": [
+      "C4",
+      "C65",
+      "C71",
+      "C84"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "UNCERTAIN",
+    "status_reasoning": "While seqspec plausibly facilitates standardization and uniform processing (C4, C71) and is asserted to be immediately useful (C84), no benchmarking, adoption metrics, or cross-assay reproducibility analyses are presented. The generalization to other assay types via modularity (C65) is reasonable but not empirically demonstrated."
+  },
+  {
+    "result_id": "R4",
+    "claim_ids": [
+      "C26",
+      "C28",
+      "C29"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "The existence of the prior database (C26) and its HTML, non\u2013machine-readable nature (C28) are factual statements. The inference that lacking a formal specification constrains utility/expandability (C29) is logically consistent with those facts and widely accepted in data standards practice."
+  },
+  {
+    "result_id": "R5",
+    "claim_ids": [
+      "C6",
+      "C74"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "The resource availability via DOI (C6) and the report of 49 assay specifications in the initial release (C74) are concrete, verifiable statements of release content. No additional validation is required beyond the stated availability."
+  },
+  {
+    "result_id": "R6",
+    "claim_ids": [
+      "C77",
+      "C78",
+      "C79",
+      "C80",
+      "C81"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "The paper claims that comparing/visualizing seqspecs reveals similarities/differences (C77) and provides specific observations: SPLiT-seq vs SHARE-seq similarity via split-pool barcoding (C78\u2013C79) and sci-CAR barcoding in indices (C80\u2013C81). These are descriptive, citation-backed observations consistent with known assay designs, supporting the result."
+  },
+  {
+    "result_id": "R7",
+    "claim_ids": [
+      "C68",
+      "C69",
+      "C70",
+      "C72",
+      "C73",
+      "C75",
+      "C76",
+      "C82",
+      "C85",
+      "C87"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Proposed benefits for reprocessing, artifact/batch-effect analyses, and transparency (C68\u2013C71, C87), broader platform adaptability and extensions (C72\u2013C76), and ontology/incentivization claims (C82, C85) are forward-looking. They are plausible but not supported by empirical case studies, quantitative evaluations, or user adoption evidence in the manuscript."
+  }
+]

@@ -253,7 +253,9 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
+        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
         metrics = {
+            "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
             "num_claims": len(llm_response.claims),
@@ -333,7 +335,9 @@ def llm_group_claims_into_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
+        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
         metrics = {
+            "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
             "num_results": len(llm_response.results),
@@ -409,7 +413,9 @@ def peer_review_group_claims_into_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
+        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
         metrics = {
+            "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
             "num_results": len(llm_response.results),
@@ -584,6 +590,8 @@ def compare_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics_dict = None
     if verbose or return_metrics:
+        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+
         # Count status categories for breakdown
         status_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
         for row in llm_response.concordance:
@@ -596,6 +604,7 @@ def compare_results(
         comparison_metrics = calculate_comparison_metrics(llm_results, peer_results, llm_response.concordance)
 
         metrics_dict = {
+            "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
             "num_comparisons": len(llm_response.concordance),

@@ -1,0 +1,7 @@
+{
+  "command": "cllm eval v2paper.txt -c claims.json -o eval_llm.json -m metrics_eval_llm.json",
+  "input_tokens": 52898,
+  "output_tokens": 3454,
+  "num_results": 7,
+  "processing_time_seconds": 106.90193915367126
+}

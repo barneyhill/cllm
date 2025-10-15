@@ -1,0 +1,178 @@
+[
+  {
+    "llm_result_id": "R4",
+    "peer_result_id": "R7",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Perfect match on assay comparison claims (C77-C83). Both agree that seqspec successfully demonstrates comparison of SPLiT-seq, SHARE-seq, and sci-CAR-seq structures with valid scientific content.",
+    "n_llm": 7,
+    "n_peer": 7,
+    "n_itx": 7
+  },
+  {
+    "llm_result_id": "R7",
+    "peer_result_id": "R10",
+    "llm_status": "UNCERTAIN",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "disagree",
+    "notes": "Perfect match on scope/utility claims (C65-C67, C88-C89). LLM finds these speculative without demonstrated evidence, while peer reviewers implicitly accept these claims about reprocessing utility and batch effect identification without challenge.",
+    "n_llm": 5,
+    "n_peer": 5,
+    "n_itx": 5
+  },
+  {
+    "llm_result_id": "R8",
+    "peer_result_id": "R11",
+    "llm_status": "UNCERTAIN",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "agree",
+    "notes": "Perfect match on future extension claims (C72-C73, C75-C76, C84, C87). Both agree these are speculative. LLM notes they are aspirational goals; peer reviewers raise concerns about versioning and backwards compatibility, indicating uncertainty about future extensibility.",
+    "n_llm": 6,
+    "n_peer": 6,
+    "n_itx": 6
+  },
+  {
+    "llm_result_id": "R3",
+    "peer_result_id": "R5",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "High overlap (75% Jaccard) on preprocessing integration (C62-C64). Both agree the demonstration with kallisto bustools, simpleaf/alevin-fry, and STARsolo is valid and the tool works as described. LLM R3 includes C85 not in peer R5.",
+    "n_llm": 4,
+    "n_peer": 3,
+    "n_itx": 3
+  },
+  {
+    "llm_result_id": "R2",
+    "peer_result_id": "R2",
+    "llm_status": "UNCERTAIN",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "disagree",
+    "notes": "Moderate overlap (54.5% Jaccard) on standardization/utility claims (C4-C5, C69-C71, C86). LLM finds claims about facilitating standardization inferential with limited empirical evidence, while peer reviewers explicitly support the tool's value for standardization and communication.",
+    "n_llm": 6,
+    "n_peer": 11,
+    "n_itx": 6
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R3",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Moderate overlap (44.7% Jaccard) on technical design claims (C31-C47). Both agree the Region-based annotation system, YAML format, and nested structure are well-designed and technically sound. LLM R1 includes additional claims not in peer R3.",
+    "n_llm": 38,
+    "n_peer": 17,
+    "n_itx": 17
+  },
+  {
+    "llm_result_id": "R6",
+    "peer_result_id": "R8",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Moderate overlap (42.3% Jaccard) on background/technical foundation claims (C12-C22). Both agree on the characterization of sequencing library structure, technologies, and assay complexity as established knowledge.",
+    "n_llm": 24,
+    "n_peer": 13,
+    "n_itx": 11
+  },
+  {
+    "llm_result_id": "R6",
+    "peer_result_id": "R1",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Moderate overlap (37.5% Jaccard) on motivation claims (C1-C2, C7-C11, C23-C24). Both agree the problem statement and need for standardization are well-established and valid.",
+    "n_llm": 24,
+    "n_peer": 9,
+    "n_itx": 9
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R4",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Moderate overlap (36.8% Jaccard) on command-line tool claims (C48-C61). Both agree the seqspec CLI and its eleven subcommands are functional and well-implemented.",
+    "n_llm": 38,
+    "n_peer": 14,
+    "n_itx": 14
+  },
+  {
+    "llm_result_id": "R6",
+    "peer_result_id": "R9",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Low overlap (16.7% Jaccard) on prior work claims (C25-C28). Both agree on characterization of Chen 2020 database limitations and the need for machine-readable formats.",
+    "n_llm": 24,
+    "n_peer": 4,
+    "n_itx": 4
+  },
+  {
+    "llm_result_id": "R5",
+    "peer_result_id": "R2",
+    "llm_status": "UNCERTAIN",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "disagree",
+    "notes": "Minimal overlap (9.1% Jaccard) on innovation claim (C68). LLM finds comparative claims about innovating beyond kb-python/simpleaf lack rigorous benchmarking, while peer reviewers accept the tool's value without questioning this specific comparison.",
+    "n_llm": 1,
+    "n_peer": 11,
+    "n_itx": 1
+  },
+  {
+    "llm_result_id": "R3",
+    "peer_result_id": "R2",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Minimal overlap (7.1% Jaccard) on preprocessing demonstration (C85). Both agree on the successful implementation of preprocessing tool integration.",
+    "n_llm": 4,
+    "n_peer": 11,
+    "n_itx": 1
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R2",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Minimal overlap (6.5% Jaccard) on core specification claims (C3, C29-C30). Both agree the seqspec specification is well-defined and represents a valuable contribution.",
+    "n_llm": 38,
+    "n_peer": 11,
+    "n_itx": 3
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R8",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Minimal overlap (4.1% Jaccard) on technical background (C90-C91). Both agree on foundational technical descriptions of sequencing technologies and assays.",
+    "n_llm": 38,
+    "n_peer": 13,
+    "n_itx": 2
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R6",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Minimal overlap (2.6% Jaccard) on initial release claim (C74). Both confirm availability of specification collection, though peer reviewer notes 38 vs manuscript's 49 assays (likely timing difference).",
+    "n_llm": 38,
+    "n_peer": 1,
+    "n_itx": 1
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R12",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "Minimal overlap (2.6% Jaccard) on availability claim (C6). LLM finds tool availability well-documented, while peer reviewers express uncertainty about publication-ready release standards (GitHub size, formatting issues, need for PyPI/Bioconda distribution).",
+    "n_llm": 38,
+    "n_peer": 1,
+    "n_itx": 1
+  }
+]

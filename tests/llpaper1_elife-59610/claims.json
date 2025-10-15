@@ -1,1633 +1,1733 @@
-{
-  "claims": [
-    {
-      "claim_id": "C1",
-      "claim": "Maintaining motor behaviors throughout life is crucial for an individual's survival and reproductive success.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Maintaining motor behaviors throughout life is crucial for an individual's survival and reproductive success.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is a general statement based on established biological principles about the importance of motor behaviors for survival and reproduction."
-    },
-    {
-      "claim_id": "C2",
-      "claim": "The neuronal mechanisms that preserve behavior are poorly understood.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The neuronal mechanisms that preserve behavior are poorly understood.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This statement reflects the current state of scientific knowledge in the field, indicating a gap in understanding."
-    },
-    {
-      "claim_id": "C3",
-      "claim": "The zebra finch produces a highly stereotypical song after learning it as a juvenile.",
-      "claim_type": "EXPLICIT",
-      "source_text": "To address this question, we focused on the zebra finch, a bird that produces a highly stereotypical song after learning it as a juvenile.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch behavior, supported by prior research in the field."
-    },
-    {
-      "claim_id": "C4",
-      "claim": "Chronic silencing of inhibitory neurons in HVC using cell-specific viral vectors caused drastic song degradation.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Using cell-specific viral vectors, we chronically silenced inhibitory neurons in the pre-motor song nucleus called the high vocal center (HVC), which caused drastic song degradation.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a primary experimental finding from the study, supported by behavioral recordings and analysis."
-    },
-    {
-      "claim_id": "C5",
-      "claim": "After producing severely degraded vocalizations for around 2 months, the song rapidly improved and animals could sing songs that highly resembled the original.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, after producing severely degraded vocalizations for around 2 months, the song rapidly improved, and animals could sing songs that highly resembled the original.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a primary experimental finding from longitudinal behavioral recordings presented in the manuscript."
-    },
-    {
-      "claim_id": "C6",
-      "claim": "Single-cell RNA sequencing of HVC in adult birds revealed that silencing interneurons elevated markers for microglia.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In adult birds, single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a direct experimental finding from scRNA-seq analysis performed in the study."
-    },
-    {
-      "claim_id": "C7",
-      "claim": "Silencing interneurons in HVC increased expression of the Major Histocompatibility Complex I (MHC I).",
-      "claim_type": "EXPLICIT",
-      "source_text": "In adult birds, single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia and increased expression of the Major Histocompatibility Complex I (MHC I)",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a direct experimental finding from scRNA-seq analysis presented in the manuscript."
-    },
-    {
-      "claim_id": "C8",
-      "claim": "The changes in microglia and MHC I observed in adults after silencing interneurons mirror changes observed in juveniles during song learning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia and increased expression of the Major Histocompatibility Complex I (MHC I), mirroring changes observed in juveniles during song learning.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This comparison is based on experimental data from both adult manipulated birds and juvenile birds during development."
-    },
-    {
-      "claim_id": "C9",
-      "claim": "Adults could restore their songs despite lesioning the lateral magnocellular nucleus of the anterior neostriatum (LMAN).",
-      "claim_type": "EXPLICIT",
-      "source_text": "Interestingly, adults could restore their songs despite lesioning the lateral magnocellular nucleus of the anterior neostriatum (LMAN), a brain nucleus crucial for juvenile song learning.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from lesion experiments combined with interneuron silencing."
-    },
-    {
-      "claim_id": "C10",
-      "claim": "LMAN is a brain nucleus crucial for juvenile song learning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "the lateral magnocellular nucleus of the anterior neostriatum (LMAN), a brain nucleus crucial for juvenile song learning.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge in the field, supported by citations to prior work."
-    },
-    {
-      "claim_id": "C11",
-      "claim": "Adults utilize different neuronal mechanisms for song recovery than those used for juvenile song learning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This suggests that while molecular mechanisms may overlap, adults utilize different neuronal mechanisms for song recovery.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing recovery without LMAN, which is required for juvenile learning."
-    },
-    {
-      "claim_id": "C12",
-      "claim": "Chronic and acute electrophysiological recordings revealed that neuronal activity in HVC and RA permanently altered with higher spontaneous firing in RA and lower in HVC compared to control even after the song had fully recovered.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Chronic and acute electrophysiological recordings within HVC and its downstream target, the robust nucleus of the archistriatum (RA), revealed that neuronal activity in the circuit permanently altered with higher spontaneous firing in RA and lower in HVC compared to control even after the song had fully recovered.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a direct experimental finding from electrophysiological recordings presented in the manuscript."
-    },
-    {
-      "claim_id": "C13",
-      "claim": "A complex learned behavior can recover despite extended periods of perturbed behavior and permanently altered neuronal dynamics.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Together, our findings show that a complex learned behavior can recover despite extended periods of perturbed behavior and permanently altered neuronal dynamics.",
-      "evidence_type": [
-        "DATA",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a synthesis of multiple experimental findings including behavioral recovery and persistent electrophysiological changes."
-    },
-    {
-      "claim_id": "C14",
-      "claim": "Loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These results show that loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the recovery occurring without LMAN, suggesting local mechanisms within HVC."
-    },
-    {
-      "claim_id": "C15",
-      "claim": "Recovery mechanisms do not require circuits necessary for learning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These results show that loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus and do not require circuits necessary for learning.",
-      "evidence_type": [
-        "DATA",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is based on the LMAN lesion experiments showing recovery without a circuit essential for learning."
-    },
-    {
-      "claim_id": "C16",
-      "claim": "All animal species display behaviors crucial for reproduction and survival that are challenged by a changing environment.",
-      "claim_type": "EXPLICIT",
-      "source_text": "All animal species display behaviors crucial for reproduction and survival that are challenged by a changing environment.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is a general biological principle based on established knowledge about animal behavior and evolution."
-    },
-    {
-      "claim_id": "C17",
-      "claim": "Behaviors rely on activity in brain circuits with an appropriate balance between excitatory and inhibitory neuronal activity (E/I balance).",
-      "claim_type": "EXPLICIT",
-      "source_text": "These behaviors rely on activity in brain circuits with an appropriate balance between excitatory and inhibitory neuronal activity (E/I balance).",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established neuroscience knowledge about the importance of E/I balance, supported by citation 1."
-    },
-    {
-      "claim_id": "C18",
-      "claim": "Brain circuits strive to restore E/I balance once disturbed.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Once disturbed, brain circuits strive to restore E/I balance",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is based on established principles of homeostatic plasticity in neuroscience, supported by citation 1."
-    },
-    {
-      "claim_id": "C19",
-      "claim": "Loss of E/I balance leads to abnormal neuronal firing patterns.",
-      "claim_type": "EXPLICIT",
-      "source_text": "as its loss leads to abnormal neuronal firing patterns",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about the consequences of E/I imbalance, supported by citations 1 and 2."
-    },
-    {
-      "claim_id": "C20",
-      "claim": "Abnormal neuronal firing patterns are implicated in several brain diseases, including epilepsy.",
-      "claim_type": "EXPLICIT",
-      "source_text": "which are implicated in several brain diseases, including epilepsy",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established medical knowledge about epilepsy and other neurological disorders, supported by citations 1 and 2."
-    },
-    {
-      "claim_id": "C21",
-      "claim": "Zebra finches produce a highly stereotyped song with minimal variability over extended periods.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Zebra finches produce a highly stereotyped song with minimal variability over extended periods",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch behavior, supported by citation 3."
-    },
-    {
-      "claim_id": "C22",
-      "claim": "Zebra finch song is underpinned by temporally precise neural activity.",
-      "claim_type": "EXPLICIT",
-      "source_text": "underpinned by temporally precise neural activity",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about the neural basis of zebra finch song, supported by citation 4."
-    },
-    {
-      "claim_id": "C23",
-      "claim": "HVC is a premotor brain nucleus of the male zebra finch involved in song production.",
-      "claim_type": "EXPLICIT",
-      "source_text": "we genetically blocked inhibitory neurons in HVC, a premotor brain nucleus of the male zebra finch involved in song production.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is established anatomical and functional knowledge about the zebra finch song system."
-    },
-    {
-      "claim_id": "C24",
-      "claim": "HVC contains two main types of excitatory neurons that project into two downstream targets: Area X and nucleus RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "HVC contains two main types of excitatory neurons that project into two downstream targets: Area X (proper name) and nucleus RA.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established anatomical knowledge about HVC organization, supported by citation 4."
-    },
-    {
-      "claim_id": "C25",
-      "claim": "HVC contains inhibitory neurons whose axons do not leave HVC.",
-      "claim_type": "EXPLICIT",
-      "source_text": "HVC also contains inhibitory neurons whose axons do not leave HVC",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established anatomical knowledge about HVC interneurons, supported by citation 4."
-    },
-    {
-      "claim_id": "C26",
-      "claim": "Acute pharmacological blocking of interneurons in the HVC of adult finches perturbs song for a few hours until the chemical is washed out, after which normal behavior is restored.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Previous work has shown that acute pharmacological blocking of interneurons in the HVC of adult finches perturbs song for a few hours until the chemical is washed out, after which normal behavior is restored",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a finding from prior work, supported by citation 5."
-    },
-    {
-      "claim_id": "C27",
-      "claim": "Viral vectors carrying the light chain of tetanus toxin were used to chronically silence inhibitory neurons in the HVC of adult zebra finches.",
-      "claim_type": "EXPLICIT",
-      "source_text": "we used viral vectors carrying the light chain of tetanus toxin to chronically silence inhibitory neurons in the HVC of adult zebra finches.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental method used in the study."
-    },
-    {
-      "claim_id": "C28",
-      "claim": "The persistent loss of inhibitory tone altered brain activity and severely perturbed song production for several weeks.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The persistent loss of inhibitory tone altered brain activity and severely perturbed song production for several weeks",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from the behavioral and electrophysiological recordings."
-    },
-    {
-      "claim_id": "C29",
-      "claim": "During song degradation, animals produced degraded, variable songs.",
-      "claim_type": "EXPLICIT",
-      "source_text": "during which animals produced degraded, variable songs.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a direct observation from behavioral recordings in the study."
-    },
-    {
-      "claim_id": "C30",
-      "claim": "The song completely recovered around two months after being perturbed.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Most surprisingly, the song completely recovered around two months after being perturbed.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a primary experimental finding from longitudinal behavioral recordings."
-    },
-    {
-      "claim_id": "C31",
-      "claim": "While the song was degraded, increased expression in MHC I and microglia marker genes was observed within HVC.",
-      "claim_type": "EXPLICIT",
-      "source_text": "While the song was degraded, we observed increased expression in MHC I and microglia marker genes within HVC",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from scRNA-seq and in situ hybridization experiments."
-    },
-    {
-      "claim_id": "C32",
-      "claim": "The increased inhibitory tone in HVC and the number of microglia could induce synaptic changes that contribute to degraded song production.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The increased inhibitory tone in HVC and the number of microglia could account for two opposite scenarios. The increased inhibitory tone in HVC and the number of microglia could induce synaptic changes that contribute to degraded song production.",
-      "evidence_type": [
-        "SPECULATION"
-      ],
-      "evidence_reasoning": "This is a hypothetical scenario proposed to explain the observed data."
-    },
-    {
-      "claim_id": "C33",
-      "claim": "The rise in microglia could be part of the recovery response to produce synaptic changes needed to regain the song following perturbation.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Alternatively, the rise in microglia could be part of the recovery response to produce synaptic changes needed to regain the song following perturbation.",
-      "evidence_type": [
-        "SPECULATION"
-      ],
-      "evidence_reasoning": "This is an alternative hypothetical scenario proposed to explain the observed data."
-    },
-    {
-      "claim_id": "C34",
-      "claim": "Although the neuronal activity within HVC or RA remained abnormal even two months after the perturbations, the song was fully restored.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Surprisingly, although the neuronal activity within HVC or RA remained abnormal even two months after the perturbations, the song was fully restored.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from electrophysiological recordings combined with behavioral analysis."
-    },
-    {
-      "claim_id": "C35",
-      "claim": "In adult animals subjected to perturbation of interneurons in HVC, the song degraded and recovered after lesioning LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition, in adult animals subjected to perturbation of interneurons in HVC, the song degraded and recovered after lesioning LMAN, a song nucleus essential for song learning in juveniles",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from the LMAN lesion experiments."
-    },
-    {
-      "claim_id": "C36",
-      "claim": "The mechanisms by which song recovers in adults after perturbation differ from those used by juvenile animals to learn the song.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This indicates that the mechanisms by which song recovers in adults after perturbation differ from those used by juvenile animals to learn the song.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing recovery without LMAN, which is required for juvenile learning."
-    },
-    {
-      "claim_id": "C37",
-      "claim": "An adult motor circuit can regain the original complex learned behavior without restoring the original neuronal dynamics after extended periods of drastic E/I imbalance.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our findings indicate that an adult motor circuit can regain the original complex learned behavior without restoring the original neuronal dynamics after extended periods of drastic E/I imbalance.",
-      "evidence_type": [
-        "DATA",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a synthesis of behavioral and electrophysiological findings showing recovery with persistent neural changes."
-    },
-    {
-      "claim_id": "C38",
-      "claim": "Loss of either inhibitory or excitatory tone in a brain nucleus can recover by mechanisms that are likely in part local and homeostatic.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Together with our previous work perturbing HVC excitatory neurons, these observations suggest that loss of either inhibitory or excitatory tone in a brain nucleus can recover by mechanisms that are likely in part local and homeostatic",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is inferred from the current study and previous work on excitatory neuron perturbation, suggesting common recovery mechanisms."
-    },
-    {
-      "claim_id": "C39",
-      "claim": "Recovery mechanisms do not require practice or inputs from nuclei necessary for song learning such as LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "since they do not require practice or inputs from nuclei necessary for song learning such as LMAN.",
-      "evidence_type": [
-        "DATA",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is based on the LMAN lesion experiments showing recovery without this learning-critical nucleus."
-    },
-    {
-      "claim_id": "C40",
-      "claim": "The light chain of tetanus toxin (TeNT) blocks the release of neurotransmitters from presynaptic terminals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "To functionally mute interneurons, we used the light chain of tetanus toxin (TeNT), which blocks the release of neurotransmitters from presynaptic terminals, thereby preventing neurons from communicating with their postsynaptic partners",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about the mechanism of action of tetanus toxin, supported by citation 9."
-    },
-    {
-      "claim_id": "C41",
-      "claim": "TeNT prevents neurons from communicating with their postsynaptic partners.",
-      "claim_type": "EXPLICIT",
-      "source_text": "which blocks the release of neurotransmitters from presynaptic terminals, thereby preventing neurons from communicating with their postsynaptic partners",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about the functional consequence of TeNT action, supported by citation 9."
-    },
-    {
-      "claim_id": "C42",
-      "claim": "An AAV viral vector expressing TeNT under the human dlx5 promoter is selective for HVC inhibitory interneurons.",
-      "claim_type": "EXPLICIT",
-      "source_text": "We used an AAV viral vector expressing TeNT under the human dlx5 promoter, which is selective for HVC inhibitory interneurons",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is based on prior characterization of the dlx5 promoter specificity, supported by citations 5 and 10."
-    },
-    {
-      "claim_id": "C43",
-      "claim": "The expression of TeNT does not directly alter the ability of interneurons to fire action potentials but effectively prevents synaptic release.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The expression of TeNT does not directly alter the ability of interneurons to fire action potentials but effectively prevents synaptic release, thereby muting them.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is established knowledge about the specific mechanism of TeNT action on neurons."
-    },
-    {
-      "claim_id": "C44",
-      "claim": "An average male zebra finch song contains 4 to 7 units called syllables.",
-      "claim_type": "EXPLICIT",
-      "source_text": "An average male zebra finch song contains 4 to 7 units called syllables.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch song structure, supported by citations 9-11."
-    },
-    {
-      "claim_id": "C45",
-      "claim": "Syllables are fixed in order and make up a so-called motif.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These syllables are fixed in order and make up a so-called motif.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established terminology and knowledge about zebra finch song structure, supported by citations 9-11."
-    },
-    {
-      "claim_id": "C46",
-      "claim": "The motif is repeated multiple times to form a bout.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The motif is repeated multiple times to form a bout",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch song organization, supported by citations 9-11."
-    },
-    {
-      "claim_id": "C47",
-      "claim": "A bout is defined as the set of vocalizations produced by a bird without pauses (> 200 msec) between them.",
-      "claim_type": "EXPLICIT",
-      "source_text": "defined as the set of vocalizations produced by a bird without pauses (> 200 msec) between them.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a standard definition used in the field, supported by citations 9-11."
-    },
-    {
-      "claim_id": "C48",
-      "claim": "Songs were continuously monitored from 7-20 days before virus injection to 60-100 days post-injection.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Throughout all experiments, we continuously monitored the songs of individually housed animals from 7-20 days before virus injection to 60-100 days post-injection (dpi) using sound-isolated chambers.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental protocol used in the study."
-    },
-    {
-      "claim_id": "C49",
-      "claim": "In control animals, the song did not change at any time after the viral injection.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In control animals, the song did not change at any time after the viral injection (Figure 2d).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from behavioral recordings in control animals."
-    },
-    {
-      "claim_id": "C50",
-      "claim": "For the first 24-48 hours, the song of TeNT-treated animals was identical to their original song.",
-      "claim_type": "EXPLICIT",
-      "source_text": "For the first 24-48 hours, the song of TeNT-treated animals was identical to their original song.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from behavioral recordings."
-    },
-    {
-      "claim_id": "C51",
-      "claim": "Starting at 2-5 dpi, the song of TeNT-treated animals began to degrade, both in its acoustic and temporal features.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, starting at 2-5 dpi, the song of TeNT-treated animals began to degrade, both in its acoustic and temporal features (Figure 1a).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C52",
-      "claim": "By 5-10 dpi, the song of TeNT-treated animals was highly degraded and bore no resemblance to the original song before viral injection.",
-      "claim_type": "EXPLICIT",
-      "source_text": "By 5-10 dpi, the song of TeNT-treated animals was highly degraded and bore no resemblance to the original song before viral injection (Figure 1a).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C53",
-      "claim": "During the first few days of song degradation, TeNT-treated animals produced instances of syllables with abnormally long durations far outside the range of any adult syllable duration observed in control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "During the first few days of song degradation, TeNT-treated animals produced instances of syllables with abnormally long durations far outside the range of any adult syllable duration observed in control animals",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C54",
-      "claim": "By 8 to 30 dpi, vocalizations became very short (< 100 msec) with inter-syllable intervals of varying lengths (100 msec to 1 sec).",
-      "claim_type": "EXPLICIT",
-      "source_text": "By 8 to 30 dpi, vocalizations became very short (< 100 msec) with inter-syllable intervals of varying lengths (100 msec to 1 sec)",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C55",
-      "claim": "At 20-30 dpi, the song of TeNT-treated animals was highly variable between renditions and lacked the typical organization of motif and bout.",
-      "claim_type": "EXPLICIT",
-      "source_text": "At 20-30 dpi, the song of TeNT-treated animals was highly variable between renditions and lacked the typical organization of motif and bout",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C56",
-      "claim": "Silencing of projecting neurons in HVC induced a transient song degradation with full recovery after 2 weeks.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In previous work, we showed that silencing of projecting neurons in HVC using a similar approach induced a transient song degradation with full recovery after 2 weeks",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a finding from prior work by the authors, supported by citation 11."
-    },
-    {
-      "claim_id": "C57",
-      "claim": "Even 4 weeks after genetic muting of HVC interneurons, the song did not recover.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, even 4 weeks after genetic muting of HVC interneurons, the song did not recover.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from longitudinal behavioral recordings."
-    },
-    {
-      "claim_id": "C58",
-      "claim": "Single-cell RNA sequencing was performed on HVC from control (n=2) and TeNT-treated (n=2) adult male zebra finches at 25 dpi.",
-      "claim_type": "EXPLICIT",
-      "source_text": "To understand the molecular mechanisms caused by interneuron muting, we performed single-cell RNA sequencing (scRNA-Seq) of HVC from control (n=2) and TeNT-treated (n=2) adult male zebra finches at 25 dpi, around the time of peak song distortion.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental method and sample size used in the study."
-    },
-    {
-      "claim_id": "C59",
-      "claim": "Following quality control, a total of 35,804 single-cell profiles from four animals were retained.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Following quality control, we retained a total of 35,804 single-cell profiles from four animals.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a quantitative result from the scRNA-seq experiment."
-    },
-    {
-      "claim_id": "C60",
-      "claim": "TeNT-treated animals displayed a three-fold increase in the number of microglia.",
-      "claim_type": "EXPLICIT",
-      "source_text": "we found that TeNT-treated animals displayed a three-fold increase in the number of microglia (Figure 1b).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a quantitative finding from scRNA-seq analysis."
-    },
-    {
-      "claim_id": "C61",
-      "claim": "A significant increase in the expression of the \u03b1 chain of MHC I and \u03b22-microglobulin (B2M) genes was found across several neuronal cell types in TeNT-treated animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition, we found a significant increase in the expression of the \u03b1 chain of MHC I and \u03b22-microglobulin (B2M) genes across several neuronal cell types in TeNT-treated animals (Figures 1c and d).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from scRNA-seq differential expression analysis."
-    },
-    {
-      "claim_id": "C62",
-      "claim": "The increase in microglia and MHC I was not due to an inflammatory reaction caused by the surgical procedure or the AAV injection.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This increase in microglia and MHC I was not due to an inflammatory reaction caused by the surgical procedure or the AAV injection since control animals also received a viral injection with an identical serotype viral backbone that did not affect neuronal activity.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the experimental design where control animals received similar surgical and viral treatments."
-    },
-    {
-      "claim_id": "C63",
-      "claim": "The increase in microglia and MHC I in TeNT-treated animals results from the chronic muting of inhibitory neurons.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Thus, we hypothesize that the increase in microglia and MHC I in TeNT-treated animals results from the chronic muting of inhibitory neurons.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a hypothesis based on the experimental design and observed results."
-    },
-    {
-      "claim_id": "C64",
-      "claim": "The increase in MHC I and microglia was confirmed by in situ hybridization.",
-      "claim_type": "EXPLICIT",
-      "source_text": "We also confirmed the increase in MHC I and microglia by in situ hybridization (ISH) (Supplementary Figures 12, 13).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental validation using an independent method (ISH)."
-    },
-    {
-      "claim_id": "C65",
-      "claim": "MHC I and microglia are involved in the synaptic reorganization of brain circuits, especially during postnatal development in mammals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Previous works have shown that MHC I and microglia are involved in the synaptic reorganization of brain circuits, especially during postnatal development in mammals",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 12-18."
-    },
-    {
-      "claim_id": "C66",
-      "claim": "Several studies have demonstrated the upregulation of microglia following seizure-like activity in mammals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition, several studies have demonstrated the upregulation of microglia following seizure-like activity in mammals",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 19 and 20."
-    },
-    {
-      "claim_id": "C67",
-      "claim": "The increase of microglia and MHC I expression caused by chronic silencing of interneurons may be involved in the synaptic reorganization of HVC.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our finding suggests that the increase of microglia and MHC I expression caused by chronic silencing of interneurons may be involved in the synaptic reorganization of HVC.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative interpretation of the findings based on prior knowledge about microglia and MHC I function."
-    },
-    {
-      "claim_id": "C68",
-      "claim": "After 40-70 days of degraded song production, the original song started to re-emerge.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Unexpectedly, after 40-70 days of degraded song production, the original song started to re-emerge.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental observation from longitudinal behavioral recordings."
-    },
-    {
-      "claim_id": "C69",
-      "claim": "By around 70 dpi, the song of all TeNT-treated animals was highly similar to the song produced before viral injection.",
-      "claim_type": "EXPLICIT",
-      "source_text": "By around 70 dpi, the song of all TeNT-treated animals was highly similar to the song produced before viral injection (Figure 2a).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from behavioral recordings and acoustic analysis."
-    },
-    {
-      "claim_id": "C70",
-      "claim": "At 25 dpi, the number of RGS10+ cells significantly increased in TeNT-treated animals compared to control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "At 25 dpi, the number of RGS10+ cells significantly increased in TeNT-treated animals compared to control animals (Supplementary Figures 12 A, 13 A, and B)",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from in situ hybridization experiments."
-    },
-    {
-      "claim_id": "C71",
-      "claim": "The number of RGS10+ cells returned to normal levels by 90 dpi.",
-      "claim_type": "EXPLICIT",
-      "source_text": "and returned to normal levels by 90 dpi.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from in situ hybridization experiments at a later timepoint."
-    },
-    {
-      "claim_id": "C72",
-      "claim": "The number of microglia in the HVC of juveniles was high during the early stages of song learning (20-50 days post-hatching) and decreased after that.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The number of microglia in the HVC of juveniles was high during the early stages of song learning (20-50 days post-hatching (dph)) and decreased after that (Supplementary Figures 12 B, 13 C, and D).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from in situ hybridization experiments in juvenile birds."
-    },
-    {
-      "claim_id": "C73",
-      "claim": "Microglia might be involved in fine-tuning brain circuits to achieve appropriate function during song learning and behavioral recovery following perturbation.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These observations suggest that microglia might be involved in fine-tuning brain circuits to achieve appropriate function during song learning and behavioral recovery following perturbation.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative interpretation based on the observed correlation between microglia numbers and behavioral states."
-    },
-    {
-      "claim_id": "C74",
-      "claim": "Single units were detectable for only 24-48 hours in chronic recordings, after which the signal irreversibly degraded.",
-      "claim_type": "EXPLICIT",
-      "source_text": "We found that single units were detectable for only 24-48 hours, after which the signal irreversibly degraded.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an observation from chronic electrophysiology recordings."
-    },
-    {
-      "claim_id": "C75",
-      "claim": "Electrodes allowed recording of local field potential (LFPs) for several weeks.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, these electrodes allowed us to record local field potential (LFPs) for several weeks.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an observation from chronic electrophysiology recordings."
-    },
-    {
-      "claim_id": "C76",
-      "claim": "LFP recordings capture local field oscillations caused by synaptic events and action potentials from many neurons and neurites in a volume around the electrode.",
-      "claim_type": "EXPLICIT",
-      "source_text": "LFP recordings capture local field oscillations caused by synaptic events and action potentials from many neurons and neurites in a volume around the electrode",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about what LFP recordings measure, supported by citation 24."
-    },
-    {
-      "claim_id": "C77",
-      "claim": "At 5 dpi, TeNT-treated animals produced abnormally long vocalizations that were preceded by large voltage deflections, not present in control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In contrast, at 5 dpi, TeNT-treated animals produced abnormally long vocalizations that were preceded by large voltage deflections, not present in control animals (Supplementary Figure 6 A).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from electrophysiological recordings during singing."
-    },
-    {
-      "claim_id": "C78",
-      "claim": "Between 10 and 70 dpi, the songs of TeNT-treated animals were highly variable, both between renditions and across days.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Between 10 and 70 dpi, the songs of TeNT-treated animals were highly variable, both between renditions and across days (Supplementary Figure 1).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an observation from behavioral recordings."
-    },
-    {
-      "claim_id": "C79",
-      "claim": "HVC activity during sleep is hypothesized to be a form of replay of neuronal firing similar to that occurring while the animal sings.",
-      "claim_type": "EXPLICIT",
-      "source_text": "HVC activity during sleep is hypothesized to be a form of replay of neuronal firing similar to that occurring while the animal sings",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a hypothesis from prior research, supported by citations 27-30."
-    },
-    {
-      "claim_id": "C80",
-      "claim": "At 5 dpi, the average amplitude of the voltage deflections was around 3-fold higher in TeNT-treated than in control animals (-530 \u00b5V and -140 \u00b5V in TeNT-treated and control animals, respectively).",
-      "claim_type": "EXPLICIT",
-      "source_text": "At 5 dpi, the average amplitude of the voltage deflections was around 3-fold higher in TeNT-treated than in control animals (-530 \u00b5V and -140 \u00b5V in TeNT-treated and control animals, respectively)",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a quantitative finding from electrophysiological recordings."
-    },
-    {
-      "claim_id": "C81",
-      "claim": "In TeNT-treated animals, large amplitude deflections at night occurred more frequently when the song was most degraded.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition, in TeNT-treated animals, these large amplitude deflections at night occurred more frequently when the song was most degraded (Figure 2g right panel).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from chronic electrophysiological recordings correlated with behavioral data."
-    },
-    {
-      "claim_id": "C82",
-      "claim": "In TeNT-treated animals, the rate of deflections returned to those seen in control animals as the song regained stereotypy around 50 dpi.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In TeNT-treated animals, the rate of deflections returned to those seen in control animals as the song regained stereotypy around 50 dpi (Figure 2g).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from chronic electrophysiological recordings correlated with behavioral recovery."
-    },
-    {
-      "claim_id": "C83",
-      "claim": "At 5 dpi, increased power was observed only in the low gamma band (30-70 Hz) in TeNT-treated animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "At 5 dpi, we observed increased power only in the low gamma band (30-70 Hz) in TeNT-treated animals",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spectral analysis of LFP recordings."
-    },
-    {
-      "claim_id": "C84",
-      "claim": "The increased power in the low gamma band returned to control levels as the songs regained stereotypy.",
-      "claim_type": "EXPLICIT",
-      "source_text": "which returned to control levels as the songs regained stereotypy (Supplementary Figure 6 C and D).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spectral analysis of LFP recordings correlated with behavioral recovery."
-    },
-    {
-      "claim_id": "C85",
-      "claim": "Offline activity may correlate with the quality of song execution.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These findings suggest a relationship between behavioral recovery and the return to control-like offline electrophysiological activity, supporting the hypothesis that offline activity may correlate with the quality of song execution.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a hypothesis based on the observed correlation between offline activity and song quality."
-    },
-    {
-      "claim_id": "C86",
-      "claim": "High-density silicon probes (Neuropixels) allowed the simultaneous recording of neurons in HVC, RA, and intervening brain areas.",
-      "claim_type": "EXPLICIT",
-      "source_text": "High-density silicon probes (Neuropixels) allowed the simultaneous recording of neurons in HVC, RA, and intervening brain areas (Figure 3a).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental method and capability of the recording technique used."
-    },
-    {
-      "claim_id": "C87",
-      "claim": "Acute recordings were performed at 3-6, 20-22, and 70-77 dpi in TeNT-treated and 10 and 30 dpi in control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "To understand how neuronal activity evolves as the song degraded and recovered, we performed acute recordings at 3-6, 20-22, and 70-77 dpi in TeNT-treated and 10 and 30 dpi in control animals.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental timeline for acute recordings."
-    },
-    {
-      "claim_id": "C88",
-      "claim": "Loss of inhibitory tone led to seven events resembling seizure-like activity in HVC (n=3 TeNT-treated animals at 3-20 dpi), which propagated downstream into the nucleus RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Loss of inhibitory tone led to seven events resembling seizure-like activity in HVC (n=3 TeNT-treated animals at 3-20 dpi), which propagated downstream into the nucleus RA (Supplementary Figure 9 B).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an observation from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C89",
-      "claim": "Seizure-like events in HVC resemble the bursts of increased activity previously reported in rodents after acute pharmacological blockade of interneurons or during seizure events.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These seizure-like events in HVC resemble the bursts of increased activity previously reported in rodents after acute pharmacological blockade of interneurons or during seizure events",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a comparison to prior findings in rodents, supported by citations 1, 2, and 33."
-    },
-    {
-      "claim_id": "C90",
-      "claim": "For the first 3-4 dpi, HVC started with a heightened level of spontaneous offline activity.",
-      "claim_type": "EXPLICIT",
-      "source_text": "For the first 3-4 dpi, HVC started with a heightened level of spontaneous offline activity (likely due to the loss of inhibition).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C91",
-      "claim": "After 20 dpi, activity in HVC decreased to a level below that of control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, after 20 dpi, activity decreased to a level below that of control animals (Figure 3c).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C92",
-      "claim": "The activity in HVC in TeNT-treated animals remained substantially reduced relative to the control animals (p = 0.57*10-11) even after song recovery.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Surprisingly, the activity in HVC in TeNT-treated animals remained substantially reduced relative to the control animals (p = 0.57*10-11) (Figure 3c) even after song recovery.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a statistically significant finding from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C93",
-      "claim": "While activity in HVC in TeNT-treated animals was initially elevated and eventually decreased, RA showed the opposite trend.",
-      "claim_type": "EXPLICIT",
-      "source_text": "While activity in HVC in TeNT-treated animals was initially elevated and eventually decreased, RA showed the opposite trend (Figure 3c).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from acute electrophysiological recordings in both HVC and RA."
-    },
-    {
-      "claim_id": "C94",
-      "claim": "A prior study showed acute changes in RA firing patterns in single neurons upon stimulation of HVC in brain slices.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This observation is consistent with a prior study showing acute changes in RA firing patterns in single neurons upon stimulation of HVC in brain slices.",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a finding from prior research, supported by citation 34."
-    },
-    {
-      "claim_id": "C95",
-      "claim": "HVC may directly increase the activity of RA interneurons.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These observations suggest that HVC may directly increase the activity of RA interneurons.",
-      "evidence_type": [
-        "INFERENCE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is inferred from the observed activity patterns and prior work on HVC-RA connectivity."
-    },
-    {
-      "claim_id": "C96",
-      "claim": "The initial increase in overall activity in HVC would activate interneurons in RA, thereby reducing overall activity in RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "According to this model, the initial increase in overall activity in HVC (caused by blocking of HVC interneuron activity) would activate interneurons in RA, thereby reducing overall activity in RA (Figures 3c and 3d).",
-      "evidence_type": [
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a mechanistic model proposed to explain the observed activity patterns."
-    },
-    {
-      "claim_id": "C97",
-      "claim": "When the overall activity in HVC was permanently reduced, the activity in RA increased to keep the overall sum of HVC-RA output constant.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In contrast, when the overall activity in HVC was permanently reduced, the activity in RA increased to keep the overall sum of HVC-RA output constant (Figures 3c and 3d).",
-      "evidence_type": [
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a mechanistic model proposed to explain the observed activity patterns."
-    },
-    {
-      "claim_id": "C98",
-      "claim": "Local neuronal dynamics cause low gamma oscillations.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Previous studies have suggested that local neuronal dynamics cause low gamma oscillations",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citation 24."
-    },
-    {
-      "claim_id": "C99",
-      "claim": "Synaptic inputs may cause alpha oscillations.",
-      "claim_type": "EXPLICIT",
-      "source_text": "and that synaptic inputs may cause alpha oscillations",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citation 24."
-    },
-    {
-      "claim_id": "C100",
-      "claim": "Low gamma oscillations represent local neuronal activity, while alpha is a readout of inputs into HVC.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This could mean low gamma oscillations represent local neuronal activity, while alpha is a readout of inputs into HVC, highlighting their importance in circuit dynamics.",
-      "evidence_type": [
-        "INFERENCE",
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is an interpretation based on established knowledge about the origins of different frequency oscillations."
-    },
-    {
-      "claim_id": "C101",
-      "claim": "After an initial increase in the power of the low gamma range (30-40 Hz), it returned to control levels around 70 dpi.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Next, further confirming the findings of the chronic recordings, acute Neuropixels recordings revealed that after an initial increase in the power of the low gamma range (30-40 Hz), it returned to control levels around 70 dpi (Supplementary Figure 9 A).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C102",
-      "claim": "The phase relationship between alpha and gamma oscillations was variable during song degradation but returned to resemble controls after song recovery.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The phase relationship between alpha and gamma oscillations was variable during song degradation but returned to resemble controls after song recovery (Supplementary Figure 9 C-E).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from analysis of LFP oscillations in acute recordings."
-    },
-    {
-      "claim_id": "C103",
-      "claim": "Alpha oscillations stayed significantly higher in TeNT-treated animals, even after the song recovered at 70 dpi.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In contrast to the gamma oscillations' power, alpha oscillations stayed significantly higher in TeNT-treated animals, even after the song recovered at 70 dpi (Supplementary Figure 9 A).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spectral analysis of LFP recordings."
-    },
-    {
-      "claim_id": "C104",
-      "claim": "The neuronal firing within HVC locked tightly to specific phases of the alpha and low gamma LFPs in control animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The neuronal firing within HVC locked tightly to specific phases of the alpha and low gamma LFPs in control animals (Figures 3e and f; Supplementary Figure 8A).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis in acute recordings."
-    },
-    {
-      "claim_id": "C105",
-      "claim": "The phase-locking relationship remained unchanged in RA and in the local neuronal precision locked to a specific phase of gamma LFPs within HVC during the interneuron manipulation.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This phase-locking relationship remained unchanged in RA and in the local neuronal precision locked to a specific phase of gamma LFPs within HVC during the interneuron manipulation (Supplementary Figure 8).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis in acute recordings."
-    },
-    {
-      "claim_id": "C106",
-      "claim": "The precision of local neuronal firing to alpha oscillations between 60 to 140 degrees was lost or broadened during the song degradation period.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, the precision of local neuronal firing to alpha oscillations between 60 to 140 degrees was lost or broadened during the song degradation period (Figure 3e and f).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis in acute recordings."
-    },
-    {
-      "claim_id": "C107",
-      "claim": "The animals' songs started to recover at the same time as the local neuronal firing in HVC locked again to a specific phase of the alpha oscillations.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The animals' songs started to recover at the same time as the local neuronal firing in HVC locked again to a specific phase of the alpha oscillations (Figure 3 e and f).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from correlating spike-field coherence with behavioral recovery."
-    },
-    {
-      "claim_id": "C108",
-      "claim": "Restoration in behavioral stereotypy was accompanied by the return to normal of several aspects of neuronal dynamics, such as the low gamma LFP power and spike-locked alpha oscillation in HVC.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In conclusion, we found that restoration in behavioral stereotypy was accompanied by the return to normal of several aspects of neuronal dynamics, such as the low gamma LFP power and spike-locked alpha oscillation in HVC.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a synthesis of multiple electrophysiological findings correlated with behavioral recovery."
-    },
-    {
-      "claim_id": "C109",
-      "claim": "Even after the song recovered, several features of offline HVC dynamics remained abnormal, including alpha LFP power in HVC and spontaneous activity both in HVC and RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, even after the song recovered, several features of offline HVC dynamics remained abnormal, including alpha LFP power in HVC and spontaneous activity both in HVC and RA.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from electrophysiological recordings after behavioral recovery."
-    },
-    {
-      "claim_id": "C110",
-      "claim": "The adult brain can overcome extended periods of abnormal neuronal activity and perturbed behavior and precisely restore a complex behavior without recovering the original neuronal dynamics.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These observations indicate that the adult brain can overcome extended periods of abnormal neuronal activity and perturbed behavior and precisely restore a complex behavior without recovering the original neuronal dynamics.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a synthesis of behavioral and electrophysiological findings showing recovery with persistent neural changes."
-    },
-    {
-      "claim_id": "C111",
-      "claim": "HVC may transition into a new state capable of producing the original behavior despite the persistence of altered neuronal dynamics.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This suggests that HVC may transition into a new state capable of producing the original behavior despite the persistence of altered neuronal dynamics.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a mechanistic interpretation of the observed dissociation between behavior and neural dynamics."
-    },
-    {
-      "claim_id": "C112",
-      "claim": "Juvenile animals start singing a highly variable and unstructured song.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Juvenile animals start singing a highly variable and unstructured song.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch development, supported by citations 36 and 37."
-    },
-    {
-      "claim_id": "C113",
-      "claim": "By continuous trial and error over 2-3 months and thousands of practice renditions, juvenile song crystallizes into a stable motif with minimal variability.",
-      "claim_type": "EXPLICIT",
-      "source_text": "By continuous trial and error over 2-3 months and thousands of practice renditions, their song 'crystallizes' into a stable motif with minimal variability",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about zebra finch song learning, supported by citations 36 and 37."
-    },
-    {
-      "claim_id": "C114",
-      "claim": "Song learning in juveniles requires LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Song learning in juveniles requires LMAN, another nucleus in the song system that provides input to RA, the downstream target of HVC",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about the role of LMAN in song learning, supported by citations 6-8."
-    },
-    {
-      "claim_id": "C115",
-      "claim": "During learning, LMAN injects noise into RA to enable the exploration of different states.",
-      "claim_type": "EXPLICIT",
-      "source_text": "During learning, LMAN injects noise into RA to enable the exploration of different states",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about LMAN function during learning, supported by citation 38."
-    },
-    {
-      "claim_id": "C116",
-      "claim": "LMAN gates the plasticity of synapses from HVC to RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "and gates the plasticity of synapses from HVC to RA",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about LMAN function, supported by citation 39."
-    },
-    {
-      "claim_id": "C117",
-      "claim": "LMAN is necessary for song modification in adult animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition to its role in learning, LMAN is necessary for song modification in adult animals",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about LMAN function in adults, supported by citation 40."
-    },
-    {
-      "claim_id": "C118",
-      "claim": "Deafening adult animals causes a progressive degradation of their songs over several weeks, which can be blocked by prior LMAN lesioning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Deafening adult animals causes a progressive degradation of their songs over several weeks, which can be blocked by prior LMAN lesioning.",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citation 40."
-    },
-    {
-      "claim_id": "C119",
-      "claim": "A previous study reported that adult HVC microlesions led to days-long song degradation that was preventable by prior lesioning of LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "A previous study reported that adult HVC microlesions led to days-long song degradation that was preventable by prior lesioning of LMAN",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a finding from prior research, supported by citation 41."
-    },
-    {
-      "claim_id": "C120",
-      "claim": "LMAN was chemically lesioned by bilateral ibotenic acid injection, and 10 days later, AAV-dlx-TeNT was injected into HVC (n=3).",
-      "claim_type": "EXPLICIT",
-      "source_text": "To test whether the change in LMAN input is the main cause of degraded song production (given our findings about decreased HVC activity) and is necessary for song recovery after interneuron perturbation, we chemically lesioned LMAN by bilateral ibotenic acid injection, and 10 days later, we injected AAV-dlx-TeNT into HVC (n=3).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This describes the experimental design and sample size for the LMAN lesion experiments."
-    },
-    {
-      "claim_id": "C121",
-      "claim": "The song degraded and recovered similarly in all TeNT-treated animals, regardless of the presence of an intact or lesioned LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The song degraded and recovered similarly in all TeNT-treated animals, regardless of the presence of an intact or lesioned LMAN.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from the LMAN lesion experiments."
-    },
-    {
-      "claim_id": "C122",
-      "claim": "Song degradation after HVC interneuron perturbation is not simply due to an exacerbated LMAN influence on RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This observation indicates that song degradation after HVC interneuron perturbation is not simply due to an exacerbated LMAN influence on RA (Figure 4 & Supplementary Figure 3-5).",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing degradation and recovery without LMAN."
-    },
-    {
-      "claim_id": "C123",
-      "claim": "The modification of the dynamics of RA requires input from LMAN, both in juveniles and adults.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In addition, previous works have demonstrated that the modification of the dynamics of RA requires input from LMAN, both in juveniles and adults",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 42 and 43."
-    },
-    {
-      "claim_id": "C124",
-      "claim": "Perturbation of HVC caused profound changes in the activity of RA during song degradation and recovery.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our results revealed that perturbation of HVC caused profound changes in the activity of RA during song degradation and recovery.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from electrophysiological recordings in RA."
-    },
-    {
-      "claim_id": "C125",
-      "claim": "The ability of the song to recover after LMAN lesioning suggests that in adult animals, RA can modify its dynamics without the participation of LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Thus, the ability of the song to recover after LMAN lesioning suggests that in adult animals, RA can modify its dynamics without the participation of LMAN.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing RA activity changes and recovery without LMAN."
-    },
-    {
-      "claim_id": "C126",
-      "claim": "Nuclei of the song system play different roles during adult song degradation and recovery following HVC perturbation and juvenile song learning.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These findings indicate that nuclei of the song system play different roles during adult song degradation and recovery following HVC perturbation and juvenile song learning",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from comparing the LMAN lesion results with established knowledge about juvenile learning."
-    },
-    {
-      "claim_id": "C127",
-      "claim": "The brain must balance excitation and inhibition to maintain the appropriate levels of physiological activity needed to execute reliable behaviors.",
-      "claim_type": "EXPLICIT",
-      "source_text": "The brain must balance excitation and inhibition to maintain the appropriate levels of physiological activity needed to execute reliable behaviors.",
-      "evidence_type": [
-        "KNOWLEDGE"
-      ],
-      "evidence_reasoning": "This is a general principle of neuroscience about the importance of E/I balance."
-    },
-    {
-      "claim_id": "C128",
-      "claim": "Permanently muting inhibitory neurons in a pre-motor circuit in adult songbirds severely disrupts their song for an extended period (40-70 days).",
-      "claim_type": "EXPLICIT",
-      "source_text": "We found that permanently muting inhibitory neurons in a pre-motor circuit in adult songbirds severely disrupt their song for an extended period (40-70 days).",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a summary of the primary experimental finding from behavioral recordings."
-    },
-    {
-      "claim_id": "C129",
-      "claim": "Despite long-term disruption, animals eventually recovered and produced a version of the song that was highly similar to the original.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, despite this long-term disruption, animals eventually recovered and produced a version of the song that was highly similar to the original.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a summary of the primary experimental finding from behavioral recordings."
-    },
-    {
-      "claim_id": "C130",
-      "claim": "ScRNA sequencing data revealed a threefold increase in microglial marker genes compared to control animals, which returned to normal levels as the song recovered.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our sc-RNA sequencing data revealed a threefold increase in microglial marker genes compared to control animals, which returned to normal levels as the song recovered.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a summary of findings from scRNA-seq and ISH experiments."
-    },
-    {
-      "claim_id": "C131",
-      "claim": "In mammals, microglia are known to play a role in synaptic changes during the assembly of brain circuits in the embryonic and perinatal brain.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In mammals, microglia are known to play a role in synaptic changes during the assembly of brain circuits in the embryonic and perinatal brain",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 17, 18, and 45."
-    },
-    {
-      "claim_id": "C132",
-      "claim": "An increase in microglia was observed during song learning in juveniles.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Consistent with their suggested role in developmental plasticity, we observed an increase in microglia during song learning in juveniles.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from ISH experiments in juvenile birds."
-    },
-    {
-      "claim_id": "C133",
-      "claim": "Seizures have been shown to elevate the number of microglia.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Additionally, seizures have been shown to elevate the number of microglia",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 19, 20, and 46."
-    },
-    {
-      "claim_id": "C134",
-      "claim": "Microglia could participate in reorganizing HVC after chronic perturbation of inhibitory neurons.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our findings suggest that microglia could participate in reorganizing HVC after chronic perturbation of inhibitory neurons.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative interpretation based on the observed increase in microglia and prior knowledge about their function."
-    },
-    {
-      "claim_id": "C135",
-      "claim": "Whether microglia aid or delay the recovery process remains an open question for future studies.",
-      "claim_type": "EXPLICIT",
-      "source_text": "However, whether microglia aid or delay the recovery process remains an open question for future studies.",
-      "evidence_type": [
-        "SPECULATION"
-      ],
-      "evidence_reasoning": "This acknowledges uncertainty about the functional role of microglia in the recovery process."
-    },
-    {
-      "claim_id": "C136",
-      "claim": "During song degradation, an increase in the rate and amplitude of offline deflection events was observed, which returned to normal levels once the song regained its stereotypy.",
-      "claim_type": "EXPLICIT",
-      "source_text": "During song degradation, we observed an increase in the rate and amplitude of these deflection events, which returned to normal levels once the song regained its stereotypy.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from chronic electrophysiological recordings."
-    },
-    {
-      "claim_id": "C137",
-      "claim": "Following the muting of interneurons in HVC, two persistent changes in HVC dynamics remained abnormal even after the song had fully recovered: (i) a decrease in offline single neuron firing and (ii) an increase in alpha frequency power.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Following the muting of interneurons in HVC, we observed two persistent changes in HVC dynamics that remained abnormal even after the song had fully recovered: (i) a decrease in offline single neuron firing and (ii) an increase in alpha frequency power.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from acute electrophysiological recordings."
-    },
-    {
-      "claim_id": "C138",
-      "claim": "Alpha frequency oscillations have been suggested to result from synaptic inputs into a brain region.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Alpha frequency oscillations have been suggested to result from synaptic inputs into a brain region",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citation 24."
-    },
-    {
-      "claim_id": "C139",
-      "claim": "The decreased neuronal firing in HVC may have initiated a compensatory increase in the synaptic inputs originating from upstream nuclei projecting into HVC (such as Uva and Nif).",
-      "claim_type": "EXPLICIT",
-      "source_text": "Therefore, we posit that the decreased neuronal firing in HVC may have initiated a compensatory increase in the synaptic inputs originating from upstream nuclei projecting into HVC (such as Uva and Nif).",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative mechanistic interpretation of the observed changes in firing and alpha power."
-    },
-    {
-      "claim_id": "C140",
-      "claim": "The increase in alpha power could account for the observed increase in alpha power.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This could account for the observed increase in alpha power.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative explanation for the observed increase in alpha power."
-    },
-    {
-      "claim_id": "C141",
-      "claim": "In control animals, HVC neuronal firing locked to alpha and gamma oscillations during offline voltage deflections.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In control animals, HVC neuronal firing locked to alpha and gamma oscillations during offline voltage deflections.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis in acute recordings."
-    },
-    {
-      "claim_id": "C142",
-      "claim": "Single neuronal firing did not lock to alpha frequency oscillations during the peak song distortion.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In contrast, single neuronal firing did not lock to alpha frequency oscillations during the peak song distortion.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis during song degradation."
-    },
-    {
-      "claim_id": "C143",
-      "claim": "As the song recovered, the spike locking to alpha (input-driven) oscillations returned to normal.",
-      "claim_type": "EXPLICIT",
-      "source_text": "As the song recovered, the spike locking to alpha (input-driven) oscillations returned to normal.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis during song recovery."
-    },
-    {
-      "claim_id": "C144",
-      "claim": "During song degradation, when stereotypy of the song is lost, the local HVC circuit cannot correctly respond to synaptic inputs from upstream nuclei (mainly Nif and Uva) in the song system, resulting in the observed desynchronization of spikes to alpha oscillations.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In this scenario, during song degradation, when stereotypy of the song is lost, the local HVC circuit cannot correctly respond to synaptic inputs from upstream nuclei (mainly Nif and Uva) in the song system, resulting in the observed desynchronization of spikes to alpha oscillations.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative mechanistic interpretation of the observed loss of spike-field coherence."
-    },
-    {
-      "claim_id": "C145",
-      "claim": "As the song recovers, spike-field coherence becomes more precise even though the power of the alpha oscillations remains permanently elevated.",
-      "claim_type": "EXPLICIT",
-      "source_text": "As the song recovers, spike-field coherence becomes more precise even though the power of the alpha oscillations remains permanently elevated.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a finding from spike-field coherence analysis and spectral analysis during recovery."
-    },
-    {
-      "claim_id": "C146",
-      "claim": "The motor circuit can execute behavior properly despite permanent changes in its neuronal dynamics.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These findings suggest that the motor circuit can execute behavior properly despite permanent changes in its neuronal dynamics.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the dissociation between behavioral recovery and persistent neural changes."
-    },
-    {
-      "claim_id": "C147",
-      "claim": "In juveniles, song learning requires input from LMAN to RA.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In juveniles, song learning requires input from LMAN to RA",
-      "evidence_type": [
-        "KNOWLEDGE",
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge about juvenile song learning, supported by citations 6 and 7."
-    },
-    {
-      "claim_id": "C148",
-      "claim": "LMAN is required to enable song modifications in adults.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Previous studies have also shown that LMAN is required to enable song modifications in adults",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is established knowledge from prior research, supported by citations 43 and 47."
-    },
-    {
-      "claim_id": "C149",
-      "claim": "In adult animals without LMAN, the song degraded following the inactivation of inhibitory neurons in HVC and recovered after several weeks.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Here, we found that in adult animals without LMAN, the song degraded following the inactivation of inhibitory neurons in HVC and recovered after several weeks.",
-      "evidence_type": [
-        "DATA"
-      ],
-      "evidence_reasoning": "This is an experimental finding from the LMAN lesion experiments."
-    },
-    {
-      "claim_id": "C150",
-      "claim": "The song was drastically degraded and recovered after permanent genetic muting of a large fraction of projection neurons in HVC in adult animals.",
-      "claim_type": "EXPLICIT",
-      "source_text": "In our previous work, we observed that the song was drastically degraded and recovered after permanent genetic muting of a large fraction of projection neurons in HVC in adult animals",
-      "evidence_type": [
-        "CITATION"
-      ],
-      "evidence_reasoning": "This is a finding from prior work by the authors, supported by citation 11."
-    },
-    {
-      "claim_id": "C151",
-      "claim": "HVC can produce reliable songs, a complex learned behavior, after significantly reducing the fraction of its active excitatory or inhibitory neurons.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our results reveal that HVC can produce reliable songs, a complex learned behavior, after significantly reducing the fraction of its active excitatory or inhibitory neurons.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a synthesis of findings from the current study and prior work on excitatory neuron perturbation."
-    },
-    {
-      "claim_id": "C152",
-      "claim": "HVC can restore behavioral dynamics after two 'orthogonal' perturbations to the circuit.",
-      "claim_type": "EXPLICIT",
-      "source_text": "These studies highlight this nucleus's unique resilience by demonstrating that HVC can restore behavioral dynamics after two 'orthogonal' perturbations to the circuit.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a synthesis of findings from perturbations of both excitatory and inhibitory neurons."
-    },
-    {
-      "claim_id": "C153",
-      "claim": "Extensive perturbations of HVC can recover by mechanisms that are likely, in part, local and homeostatic since they do not require practice or inputs from nuclei necessary for song learning, such as LMAN.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Our current and previous studies show that extensive perturbations of HVC can recover by mechanisms that are likely, in part, local and homeostatic since they do not require practice or inputs from nuclei necessary for song learning, such as LMAN.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is inferred from the LMAN lesion experiments and the nature of the recovery process."
-    },
-    {
-      "claim_id": "C154",
-      "claim": "Behavior can be recovered after a severe and prolonged brain E/I balance perturbation without restoring the initial dynamics.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Furthermore, our findings indicate that behavior can be recovered after a severe and prolonged brain E/I balance perturbation without restoring the initial dynamics.",
-      "evidence_type": [
-        "DATA",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a synthesis of behavioral and electrophysiological findings showing recovery with persistent neural changes."
-    },
-    {
-      "claim_id": "C155",
-      "claim": "HVC adapts and reorganizes into a new state capable of producing the original behavior.",
-      "claim_type": "EXPLICIT",
-      "source_text": "Instead, it appears that HVC adapts and reorganizes into a new state capable of producing the original behavior.",
-      "evidence_type": [
-        "INFERENCE",
-        "DATA"
-      ],
-      "evidence_reasoning": "This is a mechanistic interpretation of the observed dissociation between behavior and neural dynamics."
-    },
-    {
-      "claim_id": "C156",
-      "claim": "This adaptive process may be crucial for maintaining motor behaviors over long periods and could represent a key feature of brain resilience.",
-      "claim_type": "EXPLICIT",
-      "source_text": "This adaptive process may be crucial for maintaining motor behaviors over long periods and could represent a key feature of brain resilience.",
-      "evidence_type": [
-        "SPECULATION",
-        "INFERENCE"
-      ],
-      "evidence_reasoning": "This is a speculative interpretation about the broader significance of the findings for understanding brain function."
-    }
-  ],
-  "metadata": {
-    "manuscript_length": 70666,
-    "num_claims": 156,
-    "processing_time_seconds": 297.4016191959381
+[
+  {
+    "claim_id": "C1",
+    "claim": "Maintaining motor behaviors throughout life is crucial for an individual's survival and reproductive success.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Maintaining motor behaviors throughout life is crucial for an individual's survival and reproductive success.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a general statement based on established biological principles about the importance of motor behaviors for survival and reproduction."
+  },
+  {
+    "claim_id": "C2",
+    "claim": "The neuronal mechanisms that preserve behavior are poorly understood.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The neuronal mechanisms that preserve behavior are poorly understood.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This statement reflects the current state of scientific knowledge in the field, indicating a gap in understanding."
+  },
+  {
+    "claim_id": "C3",
+    "claim": "The zebra finch produces a highly stereotypical song after learning it as a juvenile.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To address this question, we focused on the zebra finch, a bird that produces a highly stereotypical song after learning it as a juvenile.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch behavior, supported by prior research in the field."
+  },
+  {
+    "claim_id": "C4",
+    "claim": "Chronic silencing of inhibitory neurons in HVC using cell-specific viral vectors caused drastic song degradation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Using cell-specific viral vectors, we chronically silenced inhibitory neurons in the pre-motor song nucleus called the high vocal center (HVC), which caused drastic song degradation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a primary experimental finding from the study, supported by behavioral recordings and analysis."
+  },
+  {
+    "claim_id": "C5",
+    "claim": "After producing severely degraded vocalizations for around 2 months, the song rapidly improved and animals could sing songs that highly resembled the original.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, after producing severely degraded vocalizations for around 2 months, the song rapidly improved, and animals could sing songs that highly resembled the original.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a primary experimental finding from longitudinal behavioral recordings presented in the manuscript."
+  },
+  {
+    "claim_id": "C6",
+    "claim": "Single-cell RNA sequencing of HVC in adult birds revealed that silencing interneurons elevated markers for microglia.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In adult birds, single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a direct experimental finding from scRNA-seq analysis performed in the study."
+  },
+  {
+    "claim_id": "C7",
+    "claim": "Silencing interneurons in HVC increased expression of the Major Histocompatibility Complex I (MHC I).",
+    "claim_type": "EXPLICIT",
+    "source_text": "In adult birds, single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia and increased expression of the Major Histocompatibility Complex I (MHC I)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a direct experimental finding from scRNA-seq analysis presented in the manuscript."
+  },
+  {
+    "claim_id": "C8",
+    "claim": "The changes in microglia and MHC I observed in adults after silencing interneurons mirror changes observed in juveniles during song learning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "single-cell RNA sequencing of HVC revealed that silencing interneurons elevated markers for microglia and increased expression of the Major Histocompatibility Complex I (MHC I), mirroring changes observed in juveniles during song learning.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This comparison is based on experimental data from both adult manipulated birds and juvenile birds during development."
+  },
+  {
+    "claim_id": "C9",
+    "claim": "Adults could restore their songs despite lesioning the lateral magnocellular nucleus of the anterior neostriatum (LMAN).",
+    "claim_type": "EXPLICIT",
+    "source_text": "Interestingly, adults could restore their songs despite lesioning the lateral magnocellular nucleus of the anterior neostriatum (LMAN), a brain nucleus crucial for juvenile song learning.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an experimental finding from lesion experiments combined with interneuron silencing."
+  },
+  {
+    "claim_id": "C10",
+    "claim": "LMAN is a brain nucleus crucial for juvenile song learning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "the lateral magnocellular nucleus of the anterior neostriatum (LMAN), a brain nucleus crucial for juvenile song learning.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge in the field, supported by citations to prior work."
+  },
+  {
+    "claim_id": "C11",
+    "claim": "Adults utilize different neuronal mechanisms for song recovery than those used for juvenile song learning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This suggests that while molecular mechanisms may overlap, adults utilize different neuronal mechanisms for song recovery.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing recovery without LMAN, which is required for juvenile learning."
+  },
+  {
+    "claim_id": "C12",
+    "claim": "Chronic and acute electrophysiological recordings revealed that neuronal activity in HVC and RA permanently altered with higher spontaneous firing in RA and lower in HVC compared to control even after the song had fully recovered.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Chronic and acute electrophysiological recordings within HVC and its downstream target, the robust nucleus of the archistriatum (RA), revealed that neuronal activity in the circuit permanently altered with higher spontaneous firing in RA and lower in HVC compared to control even after the song had fully recovered.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a direct finding from electrophysiological recordings performed in the study."
+  },
+  {
+    "claim_id": "C13",
+    "claim": "A complex learned behavior can recover despite extended periods of perturbed behavior and permanently altered neuronal dynamics.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Together, our findings show that a complex learned behavior can recover despite extended periods of perturbed behavior and permanently altered neuronal dynamics.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a synthesis of multiple experimental findings including behavioral recovery and persistent electrophysiological changes."
+  },
+  {
+    "claim_id": "C14",
+    "claim": "Loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These results show that loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the recovery occurring without LMAN, suggesting local mechanisms within HVC."
+  },
+  {
+    "claim_id": "C15",
+    "claim": "Recovery mechanisms do not require circuits necessary for learning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These results show that loss of inhibitory tone can be compensated for by recovery mechanisms partly local to the perturbed nucleus and do not require circuits necessary for learning.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is based on the LMAN lesion experiments showing recovery without a circuit essential for learning."
+  },
+  {
+    "claim_id": "C16",
+    "claim": "All animal species display behaviors crucial for reproduction and survival that are challenged by a changing environment.",
+    "claim_type": "EXPLICIT",
+    "source_text": "All animal species display behaviors crucial for reproduction and survival that are challenged by a changing environment.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a general biological principle based on established knowledge."
+  },
+  {
+    "claim_id": "C17",
+    "claim": "Behaviors rely on activity in brain circuits with an appropriate balance between excitatory and inhibitory neuronal activity (E/I balance).",
+    "claim_type": "EXPLICIT",
+    "source_text": "These behaviors rely on activity in brain circuits with an appropriate balance between excitatory and inhibitory neuronal activity (E/I balance).",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established neuroscience knowledge about the importance of E/I balance in neural circuits."
+  },
+  {
+    "claim_id": "C18",
+    "claim": "Brain circuits strive to restore E/I balance once disturbed.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Once disturbed, brain circuits strive to restore E/I balance",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is based on established principles of homeostatic plasticity in neuroscience, supported by citation."
+  },
+  {
+    "claim_id": "C19",
+    "claim": "Loss of E/I balance leads to abnormal neuronal firing patterns.",
+    "claim_type": "EXPLICIT",
+    "source_text": "as its loss leads to abnormal neuronal firing patterns",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about the consequences of E/I imbalance, supported by citation."
+  },
+  {
+    "claim_id": "C20",
+    "claim": "Abnormal neuronal firing patterns are implicated in several brain diseases, including epilepsy.",
+    "claim_type": "EXPLICIT",
+    "source_text": "which are implicated in several brain diseases, including epilepsy",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established medical knowledge about the role of abnormal firing in disease, supported by citations."
+  },
+  {
+    "claim_id": "C21",
+    "claim": "Zebra finches produce a highly stereotyped song with minimal variability over extended periods.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Zebra finches produce a highly stereotyped song with minimal variability over extended periods",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch behavior, supported by citation."
+  },
+  {
+    "claim_id": "C22",
+    "claim": "Zebra finch song is underpinned by temporally precise neural activity.",
+    "claim_type": "EXPLICIT",
+    "source_text": "underpinned by temporally precise neural activity",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about the neural basis of zebra finch song, supported by citation."
+  },
+  {
+    "claim_id": "C23",
+    "claim": "HVC is a premotor brain nucleus of the male zebra finch involved in song production.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we genetically blocked inhibitory neurons in HVC, a premotor brain nucleus of the male zebra finch involved in song production.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established anatomical and functional knowledge about the zebra finch song system."
+  },
+  {
+    "claim_id": "C24",
+    "claim": "HVC contains two main types of excitatory neurons that project into two downstream targets: Area X and nucleus RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "HVC contains two main types of excitatory neurons that project into two downstream targets: Area X (proper name) and nucleus RA.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established anatomical knowledge about HVC organization, supported by citation."
+  },
+  {
+    "claim_id": "C25",
+    "claim": "HVC contains inhibitory neurons whose axons do not leave HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "HVC also contains inhibitory neurons whose axons do not leave HVC",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established anatomical knowledge about HVC interneurons, supported by citation."
+  },
+  {
+    "claim_id": "C26",
+    "claim": "Acute pharmacological blocking of interneurons in the HVC of adult finches perturbs song for a few hours until the chemical is washed out, after which normal behavior is restored.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Previous work has shown that acute pharmacological blocking of interneurons in the HVC of adult finches perturbs song for a few hours until the chemical is washed out, after which normal behavior is restored",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a finding from prior published work, cited in the manuscript."
+  },
+  {
+    "claim_id": "C27",
+    "claim": "Viral vectors carrying the light chain of tetanus toxin were used to chronically silence inhibitory neurons in the HVC of adult zebra finches.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we used viral vectors carrying the light chain of tetanus toxin to chronically silence inhibitory neurons in the HVC of adult zebra finches.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental method used in the study."
+  },
+  {
+    "claim_id": "C28",
+    "claim": "The persistent loss of inhibitory tone altered brain activity and severely perturbed song production for several weeks.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The persistent loss of inhibitory tone altered brain activity and severely perturbed song production for several weeks",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an experimental finding from the behavioral and electrophysiological recordings."
+  },
+  {
+    "claim_id": "C29",
+    "claim": "During song degradation, animals produced degraded, variable songs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "during which animals produced degraded, variable songs.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a direct observation from behavioral recordings in the study."
+  },
+  {
+    "claim_id": "C30",
+    "claim": "The song completely recovered around two months after being perturbed.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Most surprisingly, the song completely recovered around two months after being perturbed.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a primary finding from longitudinal behavioral recordings."
+  },
+  {
+    "claim_id": "C31",
+    "claim": "While the song was degraded, increased expression in MHC I and microglia marker genes was observed within HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While the song was degraded, we observed increased expression in MHC I and microglia marker genes within HVC",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from scRNA-seq and in situ hybridization experiments."
+  },
+  {
+    "claim_id": "C32",
+    "claim": "The increased inhibitory tone in HVC and the number of microglia could potentially contribute to synaptic changes involved in neural circuit reorganization.",
+    "claim_type": "EXPLICIT",
+    "source_text": "suggesting the potential involvement of inflammatory and immune signaling pathways in neural circuit reorganization.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation of the observed molecular changes."
+  },
+  {
+    "claim_id": "C33",
+    "claim": "Although the neuronal activity within HVC or RA remained abnormal even two months after the perturbations, the song was fully restored.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Surprisingly, although the neuronal activity within HVC or RA remained abnormal even two months after the perturbations, the song was fully restored.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from electrophysiological recordings combined with behavioral analysis."
+  },
+  {
+    "claim_id": "C34",
+    "claim": "In adult animals subjected to perturbation of interneurons in HVC, the song degraded and recovered after lesioning LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, in adult animals subjected to perturbation of interneurons in HVC, the song degraded and recovered after lesioning LMAN, a song nucleus essential for song learning in juveniles",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an experimental finding from the LMAN lesion experiments."
+  },
+  {
+    "claim_id": "C35",
+    "claim": "The mechanisms by which song recovers in adults after perturbation differ from those used by juvenile animals to learn the song.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This indicates that the mechanisms by which song recovers in adults after perturbation differ from those used by juvenile animals to learn the song.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing recovery without a circuit required for juvenile learning."
+  },
+  {
+    "claim_id": "C36",
+    "claim": "An adult motor circuit can regain the original complex learned behavior without restoring the original neuronal dynamics after extended periods of drastic E/I imbalance.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our findings indicate that an adult motor circuit can regain the original complex learned behavior without restoring the original neuronal dynamics after extended periods of drastic E/I imbalance.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a synthesis of behavioral and electrophysiological findings showing recovery with persistent neural changes."
+  },
+  {
+    "claim_id": "C37",
+    "claim": "Loss of either inhibitory or excitatory tone in a brain nucleus can recover by mechanisms that are likely in part local and homeostatic.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Together with our previous work perturbing HVC excitatory neurons, these observations suggest that loss of either inhibitory or excitatory tone in a brain nucleus can recover by mechanisms that are likely in part local and homeostatic",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is inferred from the current study combined with prior work on excitatory neuron perturbation."
+  },
+  {
+    "claim_id": "C38",
+    "claim": "Recovery mechanisms do not require practice or inputs from nuclei necessary for song learning such as LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "since they do not require practice or inputs from nuclei necessary for song learning such as LMAN.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the LMAN lesion experiments and the nature of the recovery process."
+  },
+  {
+    "claim_id": "C39",
+    "claim": "TeNT blocks the release of neurotransmitters from presynaptic terminals, thereby preventing neurons from communicating with their postsynaptic partners.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To functionally mute interneurons, we used the light chain of tetanus toxin (TeNT), which blocks the release of neurotransmitters from presynaptic terminals, thereby preventing neurons from communicating with their postsynaptic partners",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about the mechanism of action of tetanus toxin, supported by citation."
+  },
+  {
+    "claim_id": "C40",
+    "claim": "An AAV viral vector expressing TeNT under the human dlx5 promoter is selective for HVC inhibitory interneurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We used an AAV viral vector expressing TeNT under the human dlx5 promoter, which is selective for HVC inhibitory interneurons",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is based on prior characterization of the dlx5 promoter specificity, supported by citations."
+  },
+  {
+    "claim_id": "C41",
+    "claim": "The expression of TeNT does not directly alter the ability of interneurons to fire action potentials but effectively prevents synaptic release.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The expression of TeNT does not directly alter the ability of interneurons to fire action potentials but effectively prevents synaptic release, thereby muting them.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established knowledge about the mechanism of TeNT action on neurons."
+  },
+  {
+    "claim_id": "C42",
+    "claim": "An average male zebra finch song contains 4 to 7 units called syllables.",
+    "claim_type": "EXPLICIT",
+    "source_text": "An average male zebra finch song contains 4 to 7 units called syllables.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch song structure."
+  },
+  {
+    "claim_id": "C43",
+    "claim": "Syllables are fixed in order and make up a so-called motif.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These syllables are fixed in order and make up a so-called motif.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established terminology and knowledge about zebra finch song structure."
+  },
+  {
+    "claim_id": "C44",
+    "claim": "The motif is repeated multiple times to form a bout.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The motif is repeated multiple times to form a bout",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch song organization."
+  },
+  {
+    "claim_id": "C45",
+    "claim": "A bout is defined as the set of vocalizations produced by a bird without pauses (> 200 msec) between them.",
+    "claim_type": "EXPLICIT",
+    "source_text": "defined as the set of vocalizations produced by a bird without pauses (> 200 msec) between them.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a standard definition used in the field for characterizing zebra finch song."
+  },
+  {
+    "claim_id": "C46",
+    "claim": "In control animals, the song did not change at any time after the viral injection.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In control animals, the song did not change at any time after the viral injection",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from the control group behavioral recordings."
+  },
+  {
+    "claim_id": "C47",
+    "claim": "For the first 24-48 hours, the song of TeNT-treated animals was identical to their original song.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For the first 24-48 hours, the song of TeNT-treated animals was identical to their original song.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an observation from behavioral recordings in the experimental group."
+  },
+  {
+    "claim_id": "C48",
+    "claim": "Starting at 2-5 dpi, the song of TeNT-treated animals began to degrade, both in its acoustic and temporal features.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, starting at 2-5 dpi, the song of TeNT-treated animals began to degrade, both in its acoustic and temporal features",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from longitudinal behavioral recordings and acoustic analysis."
+  },
+  {
+    "claim_id": "C49",
+    "claim": "By 5-10 dpi, the song of TeNT-treated animals was highly degraded and bore no resemblance to the original song before viral injection.",
+    "claim_type": "EXPLICIT",
+    "source_text": "By 5-10 dpi, the song of TeNT-treated animals was highly degraded and bore no resemblance to the original song before viral injection",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from behavioral recordings and acoustic analysis."
+  },
+  {
+    "claim_id": "C50",
+    "claim": "During the first few days of song degradation, TeNT-treated animals produced instances of syllables with abnormally long durations far outside the range of any adult syllable duration observed in control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "During the first few days of song degradation, TeNT-treated animals produced instances of syllables with abnormally long durations far outside the range of any adult syllable duration observed in control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a specific observation from behavioral recordings and syllable duration analysis."
+  },
+  {
+    "claim_id": "C51",
+    "claim": "By 8 to 30 dpi, vocalizations became very short (< 100 msec) with inter-syllable intervals of varying lengths (100 msec to 1 sec).",
+    "claim_type": "EXPLICIT",
+    "source_text": "By 8 to 30 dpi, vocalizations became very short (< 100 msec) with inter-syllable intervals of varying lengths (100 msec to 1 sec)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from temporal analysis of behavioral recordings."
+  },
+  {
+    "claim_id": "C52",
+    "claim": "At 20-30 dpi, the song of TeNT-treated animals was highly variable between renditions and lacked the typical organization of motif and bout.",
+    "claim_type": "EXPLICIT",
+    "source_text": "At 20-30 dpi, the song of TeNT-treated animals was highly variable between renditions and lacked the typical organization of motif and bout",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from behavioral recordings and song structure analysis."
+  },
+  {
+    "claim_id": "C53",
+    "claim": "Silencing of projecting neurons in HVC using a similar approach induced a transient song degradation with full recovery after 2 weeks.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In previous work, we showed that silencing of projecting neurons in HVC using a similar approach induced a transient song degradation with full recovery after 2 weeks",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This refers to findings from prior published work by the authors."
+  },
+  {
+    "claim_id": "C54",
+    "claim": "Even 4 weeks after genetic muting of HVC interneurons, the song did not recover.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, even 4 weeks after genetic muting of HVC interneurons, the song did not recover.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from longitudinal behavioral recordings."
+  },
+  {
+    "claim_id": "C55",
+    "claim": "Single-cell RNA sequencing was performed on HVC from control (n=2) and TeNT-treated (n=2) adult male zebra finches at 25 dpi.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To understand the molecular mechanisms caused by interneuron muting, we performed single-cell RNA sequencing (scRNA-Seq) of HVC from control (n=2) and TeNT-treated (n=2) adult male zebra finches at 25 dpi",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental design and methods used in the study."
+  },
+  {
+    "claim_id": "C56",
+    "claim": "Following quality control, a total of 35,804 single-cell profiles from four animals were retained.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Following quality control, we retained a total of 35,804 single-cell profiles from four animals.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a quantitative result from the scRNA-seq experiment."
+  },
+  {
+    "claim_id": "C57",
+    "claim": "TeNT-treated animals displayed a three-fold increase in the number of microglia.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we found that TeNT-treated animals displayed a three-fold increase in the number of microglia",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a quantitative finding from scRNA-seq cell type abundance analysis."
+  },
+  {
+    "claim_id": "C58",
+    "claim": "A significant increase in the expression of the \u03b1 chain of MHC I and \u03b22-microglobulin (B2M) genes was found across several neuronal cell types in TeNT-treated animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, we found a significant increase in the expression of the \u03b1 chain of MHC I and \u03b22-microglobulin (B2M) genes across several neuronal cell types in TeNT-treated animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from differential gene expression analysis of scRNA-seq data."
+  },
+  {
+    "claim_id": "C59",
+    "claim": "The increase in microglia and MHC I was not due to an inflammatory reaction caused by the surgical procedure or the AAV injection.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This increase in microglia and MHC I was not due to an inflammatory reaction caused by the surgical procedure or the AAV injection since control animals also received a viral injection with an identical serotype viral backbone that did not affect neuronal activity.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the comparison with control animals that underwent the same procedures."
+  },
+  {
+    "claim_id": "C60",
+    "claim": "The increase in microglia and MHC I in TeNT-treated animals results from the chronic muting of inhibitory neurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Thus, we hypothesize that the increase in microglia and MHC I in TeNT-treated animals results from the chronic muting of inhibitory neurons.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a hypothesis based on the experimental design and comparison with controls."
+  },
+  {
+    "claim_id": "C61",
+    "claim": "The increase in MHC I and microglia was confirmed by in situ hybridization (ISH).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We also confirmed the increase in MHC I and microglia by in situ hybridization (ISH)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an experimental validation using an independent method."
+  },
+  {
+    "claim_id": "C62",
+    "claim": "MHC I and microglia are involved in the synaptic reorganization of brain circuits, especially during postnatal development in mammals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Previous works have shown that MHC I and microglia are involved in the synaptic reorganization of brain circuits, especially during postnatal development in mammals",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior published work, supported by multiple citations."
+  },
+  {
+    "claim_id": "C63",
+    "claim": "Several studies have demonstrated the upregulation of microglia following seizure-like activity in mammals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, several studies have demonstrated the upregulation of microglia following seizure-like activity in mammals",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior published work, supported by citations."
+  },
+  {
+    "claim_id": "C64",
+    "claim": "The increase of microglia and MHC I expression caused by chronic silencing of interneurons may be involved in the synaptic reorganization of HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our finding suggests that the increase of microglia and MHC I expression caused by chronic silencing of interneurons may be involved in the synaptic reorganization of HVC.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation based on the observed molecular changes and prior knowledge."
+  },
+  {
+    "claim_id": "C65",
+    "claim": "The song remained highly variable even three weeks after the manipulation, with differences observed between renditions produced on the same day.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Notably, the song remained highly variable even three weeks after the manipulation, with differences observed between renditions produced on the same day.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an observation from behavioral recordings and variability analysis."
+  },
+  {
+    "claim_id": "C66",
+    "claim": "Abnormal vocalizations after other irreversible song circuit manipulations, such as tracheosyringeal nerve resection or deafening, result in song production that eventually becomes degraded but stable between renditions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This is unlike the abnormal vocalizations observed after other irreversible song circuit manipulations, such as tracheosyringeal nerve resection or deafening, which result in song production that eventually becomes degraded but stable between renditions",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior published work, supported by citations."
+  },
+  {
+    "claim_id": "C67",
+    "claim": "After 40-70 days of degraded song production, the original song started to re-emerge.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Unexpectedly, after 40-70 days of degraded song production, the original song started to re-emerge.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from longitudinal behavioral recordings."
+  },
+  {
+    "claim_id": "C68",
+    "claim": "By around 70 dpi, the song of all TeNT-treated animals was highly similar to the song produced before viral injection.",
+    "claim_type": "EXPLICIT",
+    "source_text": "By around 70 dpi, the song of all TeNT-treated animals was highly similar to the song produced before viral injection",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from behavioral recordings and acoustic similarity analysis."
+  },
+  {
+    "claim_id": "C69",
+    "claim": "At 25 dpi, the number of RGS10+ cells significantly increased in TeNT-treated animals compared to control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "At 25 dpi, the number of RGS10+ cells significantly increased in TeNT-treated animals compared to control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from in situ hybridization and cell counting."
+  },
+  {
+    "claim_id": "C70",
+    "claim": "The number of RGS10+ cells returned to normal levels by 90 dpi.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and returned to normal levels by 90 dpi.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from in situ hybridization at a later timepoint."
+  },
+  {
+    "claim_id": "C71",
+    "claim": "The number of microglia in the HVC of juveniles was high during the early stages of song learning (20-50 days post-hatching (dph)) and decreased after that.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The number of microglia in the HVC of juveniles was high during the early stages of song learning (20-50 days post-hatching (dph)) and decreased after that",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from in situ hybridization in juvenile birds at different developmental stages."
+  },
+  {
+    "claim_id": "C72",
+    "claim": "Microglia might be involved in fine-tuning brain circuits to achieve appropriate function during song learning and behavioral recovery following perturbation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These observations suggest that microglia might be involved in fine-tuning brain circuits to achieve appropriate function during song learning and behavioral recovery following perturbation.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation based on the temporal correlation between microglia numbers and behavioral changes."
+  },
+  {
+    "claim_id": "C73",
+    "claim": "Single units were detectable for only 24-48 hours in chronic recordings, after which the signal irreversibly degraded.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that single units were detectable for only 24-48 hours, after which the signal irreversibly degraded.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an observation from chronic electrophysiology recordings."
+  },
+  {
+    "claim_id": "C74",
+    "claim": "Chronic electrodes allowed recording of local field potential (LFPs) for several weeks.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, these electrodes allowed us to record local field potential (LFPs) for several weeks.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an observation about the capabilities of the chronic recording method."
+  },
+  {
+    "claim_id": "C75",
+    "claim": "LFP recordings capture local field oscillations caused by synaptic events and action potentials from many neurons and neurites in a volume around the electrode.",
+    "claim_type": "EXPLICIT",
+    "source_text": "LFP recordings capture local field oscillations caused by synaptic events and action potentials from many neurons and neurites in a volume around the electrode",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about what LFP recordings measure, supported by citation."
+  },
+  {
+    "claim_id": "C76",
+    "claim": "In control animals, the song behavior and LFP features remained stable.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As expected from prior work, both the song behavior and LFP features remained stable in control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from chronic electrophysiology recordings in control animals."
+  },
+  {
+    "claim_id": "C77",
+    "claim": "The electrical activity during singing in control animals showed voltage deflections of small amplitude, which were present throughout the song.",
+    "claim_type": "EXPLICIT",
+    "source_text": "the electrical activity during singing showed voltage deflections of small amplitude, which were present throughout the song",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from LFP analysis during singing in control animals."
+  },
+  {
+    "claim_id": "C78",
+    "claim": "At 5 dpi, TeNT-treated animals produced abnormally long vocalizations that were preceded by large voltage deflections, not present in control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In contrast, at 5 dpi, TeNT-treated animals produced abnormally long vocalizations that were preceded by large voltage deflections, not present in control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from LFP analysis during singing in TeNT-treated animals."
+  },
+  {
+    "claim_id": "C79",
+    "claim": "Between 10 and 70 dpi, the songs of TeNT-treated animals were highly variable, both between renditions and across days.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Between 10 and 70 dpi, the songs of TeNT-treated animals were highly variable, both between renditions and across days",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from behavioral recordings and variability analysis."
+  },
+  {
+    "claim_id": "C80",
+    "claim": "HVC activity during sleep is hypothesized to be a form of replay of neuronal firing similar to that occurring while the animal sings.",
+    "claim_type": "EXPLICIT",
+    "source_text": "HVC activity during sleep is hypothesized to be a form of replay of neuronal firing similar to that occurring while the animal sings",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a hypothesis from prior work in the field, supported by citations."
+  },
+  {
+    "claim_id": "C81",
+    "claim": "During offline periods, the voltage deflections seen in TeNT-treated animals were more frequent and of larger amplitude than in the control group.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As observed during singing, during offline periods, the voltage deflections seen in TeNT-treated animals were more frequent and of larger amplitude than in the control group",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from LFP analysis during offline periods."
+  },
+  {
+    "claim_id": "C82",
+    "claim": "At 5 dpi, the average amplitude of the voltage deflections was around 3-fold higher in TeNT-treated than in control animals (-530 \u00b5V and -140 \u00b5V in TeNT-treated and control animals, respectively).",
+    "claim_type": "EXPLICIT",
+    "source_text": "At 5 dpi, the average amplitude of the voltage deflections was around 3-fold higher in TeNT-treated than in control animals (-530 \u00b5V and -140 \u00b5V in TeNT-treated and control animals, respectively)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a quantitative finding from LFP amplitude analysis."
+  },
+  {
+    "claim_id": "C83",
+    "claim": "In TeNT-treated animals, large amplitude deflections at night occurred more frequently when the song was most degraded.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, in TeNT-treated animals, these large amplitude deflections at night occurred more frequently when the song was most degraded",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from correlation analysis between LFP features and behavioral quality."
+  },
+  {
+    "claim_id": "C84",
+    "claim": "In TeNT-treated animals, the rate of deflections returned to those seen in control animals as the song regained stereotypy around 50 dpi.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In TeNT-treated animals, the rate of deflections returned to those seen in control animals as the song regained stereotypy around 50 dpi",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from longitudinal analysis of LFP deflection rates and behavioral quality."
+  },
+  {
+    "claim_id": "C85",
+    "claim": "At 5 dpi, increased power was observed only in the low gamma band (30-70 Hz) in TeNT-treated animals, which returned to control levels as the songs regained stereotypy.",
+    "claim_type": "EXPLICIT",
+    "source_text": "At 5 dpi, we observed increased power only in the low gamma band (30-70 Hz) in TeNT-treated animals, which returned to control levels as the songs regained stereotypy",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spectral analysis of LFP data."
+  },
+  {
+    "claim_id": "C86",
+    "claim": "Offline activity may correlate with the quality of song execution.",
+    "claim_type": "EXPLICIT",
+    "source_text": "supporting the hypothesis that offline activity may correlate with the quality of song execution.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the correlation between offline LFP features and behavioral quality."
+  },
+  {
+    "claim_id": "C87",
+    "claim": "High-density silicon probes (Neuropixels) allowed the simultaneous recording of neurons in HVC, RA, and intervening brain areas.",
+    "claim_type": "EXPLICIT",
+    "source_text": "High-density silicon probes (Neuropixels) allowed the simultaneous recording of neurons in HVC, RA, and intervening brain areas",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental method and its capabilities."
+  },
+  {
+    "claim_id": "C88",
+    "claim": "Acute recordings were obtained within a few hours after probe insertion to achieve the best possible signal-to-noise ratio.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We focused on acute recordings obtained within a few hours after probe insertion to achieve the best possible signal-to-noise ratio.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental protocol and rationale."
+  },
+  {
+    "claim_id": "C89",
+    "claim": "Acute recordings were performed at 3-6, 20-22, and 70-77 dpi in TeNT-treated and 10 and 30 dpi in control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To understand how neuronal activity evolves as the song degraded and recovered, we performed acute recordings at 3-6, 20-22, and 70-77 dpi in TeNT-treated and 10 and 30 dpi in control animals.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental design and timepoints."
+  },
+  {
+    "claim_id": "C90",
+    "claim": "Loss of inhibitory tone led to seven events resembling seizure-like activity in HVC (n=3 TeNT-treated animals at 3-20 dpi), which propagated downstream into the nucleus RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Loss of inhibitory tone led to seven events resembling seizure-like activity in HVC (n=3 TeNT-treated animals at 3-20 dpi), which propagated downstream into the nucleus RA.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute electrophysiology recordings."
+  },
+  {
+    "claim_id": "C91",
+    "claim": "Seizure-like events in HVC resemble the bursts of increased activity previously reported in rodents after acute pharmacological blockade of interneurons or during seizure events.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These seizure-like events in HVC resemble the bursts of increased activity previously reported in rodents after acute pharmacological blockade of interneurons or during seizure events",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a comparison to findings from prior published work, supported by citations."
+  },
+  {
+    "claim_id": "C92",
+    "claim": "For the first 3-4 dpi, HVC started with a heightened level of spontaneous offline activity.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For the first 3-4 dpi, HVC started with a heightened level of spontaneous offline activity (likely due to the loss of inhibition).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute electrophysiology recordings of spontaneous activity."
+  },
+  {
+    "claim_id": "C93",
+    "claim": "After 20 dpi, activity in HVC decreased to a level below that of control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, after 20 dpi, activity decreased to a level below that of control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute electrophysiology recordings at later timepoints."
+  },
+  {
+    "claim_id": "C94",
+    "claim": "The activity in HVC in TeNT-treated animals remained substantially reduced relative to the control animals even after song recovery.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Surprisingly, the activity in HVC in TeNT-treated animals remained substantially reduced relative to the control animals (p = 0.57*10-11) even after song recovery.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute electrophysiology recordings at 70 dpi with statistical analysis."
+  },
+  {
+    "claim_id": "C95",
+    "claim": "While activity in HVC in TeNT-treated animals was initially elevated and eventually decreased, RA showed the opposite trend.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While activity in HVC in TeNT-treated animals was initially elevated and eventually decreased, RA showed the opposite trend",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute electrophysiology recordings comparing HVC and RA dynamics."
+  },
+  {
+    "claim_id": "C96",
+    "claim": "A prior study showed acute changes in RA firing patterns in single neurons upon stimulation of HVC in brain slices.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This observation is consistent with a prior study showing acute changes in RA firing patterns in single neurons upon stimulation of HVC in brain slices.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This refers to findings from prior published work, supported by citation."
+  },
+  {
+    "claim_id": "C97",
+    "claim": "HVC may directly increase the activity of RA interneurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These observations suggest that HVC may directly increase the activity of RA interneurons.",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is inferred from the observed dynamics and prior work on HVC-RA connectivity."
+  },
+  {
+    "claim_id": "C98",
+    "claim": "The initial increase in overall activity in HVC would activate interneurons in RA, thereby reducing overall activity in RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "According to this model, the initial increase in overall activity in HVC (caused by blocking of HVC interneuron activity) would activate interneurons in RA, thereby reducing overall activity in RA",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a mechanistic model proposed to explain the observed dynamics."
+  },
+  {
+    "claim_id": "C99",
+    "claim": "When the overall activity in HVC was permanently reduced, the activity in RA increased to keep the overall sum of HVC-RA output constant.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In contrast, when the overall activity in HVC was permanently reduced, the activity in RA increased to keep the overall sum of HVC-RA output constant",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a mechanistic model proposed to explain the compensatory dynamics observed."
+  },
+  {
+    "claim_id": "C100",
+    "claim": "Acute offline voltage deflections were similar to those observed with chronic recordings.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found acute offline voltage deflections similar to those we observed with our chronic recordings",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a comparison between two different recording methods showing consistent results."
+  },
+  {
+    "claim_id": "C101",
+    "claim": "Significant differences in the LFP signatures of voltage deflections were observed between TeNT-treated and control animals in the alpha (1-10 Hz) and the low gamma ranges (30-40 Hz).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We observed significant differences in the LFP signatures of voltage deflections between TeNT-treated and control animals, namely in the alpha (1-10 Hz) and the low gamma ranges (30-40 Hz)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spectral analysis of LFP data."
+  },
+  {
+    "claim_id": "C102",
+    "claim": "Local neuronal dynamics cause low gamma oscillations and synaptic inputs may cause alpha oscillations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Previous studies have suggested that local neuronal dynamics cause low gamma oscillations and that synaptic inputs may cause alpha oscillations",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior published work, supported by citation."
+  },
+  {
+    "claim_id": "C103",
+    "claim": "Low gamma oscillations represent local neuronal activity, while alpha is a readout of inputs into HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This could mean low gamma oscillations represent local neuronal activity, while alpha is a readout of inputs into HVC, highlighting their importance in circuit dynamics.",
+    "evidence_type": [
+      "INFERENCE",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is an interpretation based on prior knowledge about the origins of different frequency oscillations."
+  },
+  {
+    "claim_id": "C104",
+    "claim": "After an initial increase in the power of the low gamma range (30-40 Hz), it returned to control levels around 70 dpi.",
+    "claim_type": "EXPLICIT",
+    "source_text": "acute Neuropixels recordings revealed that after an initial increase in the power of the low gamma range (30-40 Hz), it returned to control levels around 70 dpi",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spectral analysis of acute Neuropixel recordings."
+  },
+  {
+    "claim_id": "C105",
+    "claim": "The phase relationship between alpha and gamma oscillations was variable during song degradation but returned to resemble controls after song recovery.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The phase relationship between alpha and gamma oscillations was variable during song degradation but returned to resemble controls after song recovery",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from phase-amplitude coupling analysis."
+  },
+  {
+    "claim_id": "C106",
+    "claim": "Alpha oscillations stayed significantly higher in TeNT-treated animals, even after the song recovered at 70 dpi.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In contrast to the gamma oscillations' power, alpha oscillations stayed significantly higher in TeNT-treated animals, even after the song recovered at 70 dpi",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spectral analysis showing persistent changes after recovery."
+  },
+  {
+    "claim_id": "C107",
+    "claim": "The neuronal firing within HVC locked tightly to specific phases of the alpha and low gamma LFPs in control animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The neuronal firing within HVC locked tightly to specific phases of the alpha and low gamma LFPs in control animals",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis in control animals."
+  },
+  {
+    "claim_id": "C108",
+    "claim": "The phase-locking relationship remained unchanged in RA and in the local neuronal precision locked to a specific phase of gamma LFPs within HVC during the interneuron manipulation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This phase-locking relationship remained unchanged in RA and in the local neuronal precision locked to a specific phase of gamma LFPs within HVC during the interneuron manipulation",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis showing selective changes."
+  },
+  {
+    "claim_id": "C109",
+    "claim": "The precision of local neuronal firing to alpha oscillations between 60 to 140 degrees was lost or broadened during the song degradation period.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, the precision of local neuronal firing to alpha oscillations between 60 to 140 degrees was lost or broadened during the song degradation period",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis during song degradation."
+  },
+  {
+    "claim_id": "C110",
+    "claim": "The animals' songs started to recover at the same time as the local neuronal firing in HVC locked again to a specific phase of the alpha oscillations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The animals' songs started to recover at the same time as the local neuronal firing in HVC locked again to a specific phase of the alpha oscillations",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from temporal correlation analysis between spike-field coherence and behavioral recovery."
+  },
+  {
+    "claim_id": "C111",
+    "claim": "Restoration in behavioral stereotypy was accompanied by the return to normal of several aspects of neuronal dynamics, such as the low gamma LFP power and spike-locked alpha oscillation in HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In conclusion, we found that restoration in behavioral stereotypy was accompanied by the return to normal of several aspects of neuronal dynamics, such as the low gamma LFP power and spike-locked alpha oscillation in HVC.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a synthesis of multiple electrophysiological findings correlated with behavioral recovery."
+  },
+  {
+    "claim_id": "C112",
+    "claim": "Even after the song recovered, several features of offline HVC dynamics remained abnormal, including alpha LFP power in HVC and spontaneous activity both in HVC and RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, even after the song recovered, several features of offline HVC dynamics remained abnormal, including alpha LFP power in HVC and spontaneous activity both in HVC and RA.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from electrophysiological analysis at 70 dpi showing persistent changes."
+  },
+  {
+    "claim_id": "C113",
+    "claim": "The adult brain can overcome extended periods of abnormal neuronal activity and perturbed behavior and precisely restore a complex behavior without recovering the original neuronal dynamics.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These observations indicate that the adult brain can overcome extended periods of abnormal neuronal activity and perturbed behavior and precisely restore a complex behavior without recovering the original neuronal dynamics.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a synthesis and interpretation of the behavioral and electrophysiological findings."
+  },
+  {
+    "claim_id": "C114",
+    "claim": "HVC may transition into a new state capable of producing the original behavior despite the persistence of altered neuronal dynamics.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This suggests that HVC may transition into a new state capable of producing the original behavior despite the persistence of altered neuronal dynamics.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a mechanistic interpretation of the observed dissociation between behavior and neural dynamics."
+  },
+  {
+    "claim_id": "C115",
+    "claim": "Some mechanisms might be shared between song learning in young animals and recovery after inhibitory circuit manipulation in adults.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our transcriptomic results suggested that some mechanisms might be shared between song learning in young animals and recovery after inhibitory circuit manipulation in adults.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the similarities in microglia expression patterns between juveniles and adults."
+  },
+  {
+    "claim_id": "C116",
+    "claim": "Juvenile animals start singing a highly variable and unstructured song.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Juvenile animals start singing a highly variable and unstructured song.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch development."
+  },
+  {
+    "claim_id": "C117",
+    "claim": "By continuous trial and error over 2-3 months and thousands of practice renditions, juvenile song 'crystallizes' into a stable motif with minimal variability.",
+    "claim_type": "EXPLICIT",
+    "source_text": "By continuous trial and error over 2-3 months and thousands of practice renditions, their song 'crystallizes' into a stable motif with minimal variability",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about zebra finch song learning, supported by citations."
+  },
+  {
+    "claim_id": "C118",
+    "claim": "Song learning in juveniles requires LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Song learning in juveniles requires LMAN, another nucleus in the song system that provides input to RA, the downstream target of HVC",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about the role of LMAN in song learning, supported by citations."
+  },
+  {
+    "claim_id": "C119",
+    "claim": "During learning, LMAN injects noise into RA to enable the exploration of different states.",
+    "claim_type": "EXPLICIT",
+    "source_text": "During learning, LMAN injects noise into RA to enable the exploration of different states",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a hypothesis from prior work about LMAN function, supported by citation."
+  },
+  {
+    "claim_id": "C120",
+    "claim": "LMAN gates the plasticity of synapses from HVC to RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and gates the plasticity of synapses from HVC to RA",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about LMAN function, supported by citation."
+  },
+  {
+    "claim_id": "C121",
+    "claim": "LMAN is necessary for song modification in adult animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition to its role in learning, LMAN is necessary for song modification in adult animals",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about LMAN function in adults, supported by citation."
+  },
+  {
+    "claim_id": "C122",
+    "claim": "Deafening adult animals causes a progressive degradation of their songs over several weeks, which can be blocked by prior LMAN lesioning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Deafening adult animals causes a progressive degradation of their songs over several weeks, which can be blocked by prior LMAN lesioning.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a finding from prior published work, supported by citation."
+  },
+  {
+    "claim_id": "C123",
+    "claim": "A previous study reported that adult HVC microlesions led to days-long song degradation that was preventable by prior lesioning of LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A previous study reported that adult HVC microlesions led to days-long song degradation that was preventable by prior lesioning of LMAN",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a finding from prior published work, supported by citation."
+  },
+  {
+    "claim_id": "C124",
+    "claim": "LMAN was chemically lesioned by bilateral ibotenic acid injection 10 days before AAV-dlx-TeNT was injected into HVC (n=3).",
+    "claim_type": "EXPLICIT",
+    "source_text": "To test whether the change in LMAN input is the main cause of degraded song production (given our findings about decreased HVC activity) and is necessary for song recovery after interneuron perturbation, we chemically lesioned LMAN by bilateral ibotenic acid injection, and 10 days later, we injected AAV-dlx-TeNT into HVC (n=3).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the experimental design and methods."
+  },
+  {
+    "claim_id": "C125",
+    "claim": "The song degraded and recovered similarly in all TeNT-treated animals, regardless of the presence of an intact or lesioned LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The song degraded and recovered similarly in all TeNT-treated animals, regardless of the presence of an intact or lesioned LMAN.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from the LMAN lesion experiments."
+  },
+  {
+    "claim_id": "C126",
+    "claim": "Song degradation after HVC interneuron perturbation is not simply due to an exacerbated LMAN influence on RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This observation indicates that song degradation after HVC interneuron perturbation is not simply due to an exacerbated LMAN influence on RA",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing degradation occurs without LMAN."
+  },
+  {
+    "claim_id": "C127",
+    "claim": "The modification of the dynamics of RA requires input from LMAN, both in juveniles and adults.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In addition, previous works have demonstrated that the modification of the dynamics of RA requires input from LMAN, both in juveniles and adults",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior published work, supported by citations."
+  },
+  {
+    "claim_id": "C128",
+    "claim": "Perturbation of HVC caused profound changes in the activity of RA during song degradation and recovery.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our results revealed that perturbation of HVC caused profound changes in the activity of RA during song degradation and recovery.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from electrophysiological recordings in RA."
+  },
+  {
+    "claim_id": "C129",
+    "claim": "The ability of the song to recover after LMAN lesioning suggests that in adult animals, RA can modify its dynamics without the participation of LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Thus, the ability of the song to recover after LMAN lesioning suggests that in adult animals, RA can modify its dynamics without the participation of LMAN.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the LMAN lesion experiments showing recovery without LMAN."
+  },
+  {
+    "claim_id": "C130",
+    "claim": "Nuclei of the song system play different roles during adult song degradation and recovery following HVC perturbation and juvenile song learning.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These findings indicate that nuclei of the song system play different roles during adult song degradation and recovery following HVC perturbation and juvenile song learning",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is inferred from the differences in LMAN requirement between juveniles and adults."
+  },
+  {
+    "claim_id": "C131",
+    "claim": "The brain must balance excitation and inhibition to maintain the appropriate levels of physiological activity needed to execute reliable behaviors.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The brain must balance excitation and inhibition to maintain the appropriate levels of physiological activity needed to execute reliable behaviors.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a general principle in neuroscience about E/I balance."
+  },
+  {
+    "claim_id": "C132",
+    "claim": "Permanently muting inhibitory neurons in a pre-motor circuit in adult songbirds severely disrupts their song for an extended period (40-70 days).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that permanently muting inhibitory neurons in a pre-motor circuit in adult songbirds severely disrupt their song for an extended period (40-70 days).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a summary of the primary behavioral finding from the study."
+  },
+  {
+    "claim_id": "C133",
+    "claim": "Despite long-term disruption, animals eventually recovered and produced a version of the song that was highly similar to the original.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, despite this long-term disruption, animals eventually recovered and produced a version of the song that was highly similar to the original.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a summary of the primary behavioral finding from the study."
+  },
+  {
+    "claim_id": "C134",
+    "claim": "ScRNA sequencing data revealed a threefold increase in microglial marker genes compared to control animals, which returned to normal levels as the song recovered.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our sc-RNA sequencing data revealed a threefold increase in microglial marker genes compared to control animals, which returned to normal levels as the song recovered.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a summary of the scRNA-seq and ISH findings."
+  },
+  {
+    "claim_id": "C135",
+    "claim": "In mammals, microglia are known to play a role in synaptic changes during the assembly of brain circuits in the embryonic and perinatal brain.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In mammals, microglia are known to play a role in synaptic changes during the assembly of brain circuits in the embryonic and perinatal brain",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge from prior work, supported by citations."
+  },
+  {
+    "claim_id": "C136",
+    "claim": "An increase in microglia was observed during song learning in juveniles.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Consistent with their suggested role in developmental plasticity, we observed an increase in microglia during song learning in juveniles.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from ISH experiments in juvenile birds."
+  },
+  {
+    "claim_id": "C137",
+    "claim": "Seizures have been shown to elevate the number of microglia.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Additionally, seizures have been shown to elevate the number of microglia",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge from prior work, supported by citations."
+  },
+  {
+    "claim_id": "C138",
+    "claim": "Microglia could participate in reorganizing HVC after chronic perturbation of inhibitory neurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our findings suggest that microglia could participate in reorganizing HVC after chronic perturbation of inhibitory neurons.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation based on the observed changes in microglia."
+  },
+  {
+    "claim_id": "C139",
+    "claim": "Whether microglia aid or delay the recovery process remains an open question for future studies.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, whether microglia aid or delay the recovery process remains an open question for future studies.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This acknowledges uncertainty about the functional role of microglia in recovery."
+  },
+  {
+    "claim_id": "C140",
+    "claim": "Changes were detected in the electrophysiological properties of offline events, which are known to be important for a replay of the song in HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We detected changes in the electrophysiological properties of offline events, which are known to be important for a replay of the song in HVC.",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This combines experimental findings with established knowledge about offline activity."
+  },
+  {
+    "claim_id": "C141",
+    "claim": "During song degradation, an increase in the rate and amplitude of deflection events was observed, which returned to normal levels once the song regained its stereotypy.",
+    "claim_type": "EXPLICIT",
+    "source_text": "During song degradation, we observed an increase in the rate and amplitude of these deflection events, which returned to normal levels once the song regained its stereotypy.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from chronic electrophysiology recordings."
+  },
+  {
+    "claim_id": "C142",
+    "claim": "Following the muting of interneurons in HVC, two persistent changes in HVC dynamics remained abnormal even after the song had fully recovered: (i) a decrease in offline single neuron firing and (ii) an increase in alpha frequency power.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Following the muting of interneurons in HVC, we observed two persistent changes in HVC dynamics that remained abnormal even after the song had fully recovered: (i) a decrease in offline single neuron firing and (ii) an increase in alpha frequency power.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from acute Neuropixel recordings at 70 dpi."
+  },
+  {
+    "claim_id": "C143",
+    "claim": "Alpha frequency oscillations have been suggested to result from synaptic inputs into a brain region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Alpha frequency oscillations have been suggested to result from synaptic inputs into a brain region",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is knowledge from prior work about the origins of alpha oscillations, supported by citation."
+  },
+  {
+    "claim_id": "C144",
+    "claim": "The decreased neuronal firing in HVC may have initiated a compensatory increase in the synaptic inputs originating from upstream nuclei projecting into HVC (such as Uva and Nif).",
+    "claim_type": "EXPLICIT",
+    "source_text": "Therefore, we posit that the decreased neuronal firing in HVC may have initiated a compensatory increase in the synaptic inputs originating from upstream nuclei projecting into HVC (such as Uva and Nif).",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative mechanistic interpretation of the observed changes in firing and alpha power."
+  },
+  {
+    "claim_id": "C145",
+    "claim": "The increase in alpha power could account for the observed increase in alpha power.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This could account for the observed increase in alpha power.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative explanation for the observed electrophysiological changes."
+  },
+  {
+    "claim_id": "C146",
+    "claim": "The increase in alpha power could originate from synaptic inputs from neurons within HVC, but this scenario is unlikely because of decreased local neuronal activity in HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Alternatively, this increase in alpha power could originate from synaptic inputs from neurons within HVC. However, we believe this scenario is unlikely because we found decreased local neuronal activity in HVC.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a consideration and rejection of an alternative explanation based on the data."
+  },
+  {
+    "claim_id": "C147",
+    "claim": "Future experiments will be necessary to understand how the perturbations of HVC affect the dynamics of other nuclei in the song system and the cell types within HVC.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Future experiments will be necessary to understand how the perturbations of HVC affect the dynamics of other nuclei in the song system and the cell types within HVC.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This acknowledges limitations and suggests directions for future research."
+  },
+  {
+    "claim_id": "C148",
+    "claim": "In control animals, HVC neuronal firing locked to alpha and gamma oscillations during offline voltage deflections.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In control animals, HVC neuronal firing locked to alpha and gamma oscillations during offline voltage deflections.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis in control animals."
+  },
+  {
+    "claim_id": "C149",
+    "claim": "Single neuronal firing did not lock to alpha frequency oscillations during the peak song distortion.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In contrast, single neuronal firing did not lock to alpha frequency oscillations during the peak song distortion.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis during song degradation."
+  },
+  {
+    "claim_id": "C150",
+    "claim": "As the song recovered, the spike locking to alpha (input-driven) oscillations returned to normal.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As the song recovered, the spike locking to alpha (input-driven) oscillations returned to normal.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis during song recovery."
+  },
+  {
+    "claim_id": "C151",
+    "claim": "The relationship between single neuronal firing and alpha oscillations could represent how the local HVC circuit responds to inputs from other brain areas.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We hypothesize that this relationship could represent how the local HVC circuit responds to inputs from other brain areas.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation of the spike-field coherence findings."
+  },
+  {
+    "claim_id": "C152",
+    "claim": "During song degradation, when stereotypy of the song is lost, the local HVC circuit cannot correctly respond to synaptic inputs from upstream nuclei (mainly Nif and Uva) in the song system, resulting in the observed desynchronization of spikes to alpha oscillations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In this scenario, during song degradation, when stereotypy of the song is lost, the local HVC circuit cannot correctly respond to synaptic inputs from upstream nuclei (mainly Nif and Uva) in the song system, resulting in the observed desynchronization of spikes to alpha oscillations.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative mechanistic model to explain the observed changes."
+  },
+  {
+    "claim_id": "C153",
+    "claim": "As the song recovers, spike-field coherence becomes more precise even though the power of the alpha oscillations remains permanently elevated.",
+    "claim_type": "EXPLICIT",
+    "source_text": "As the song recovers, spike-field coherence becomes more precise even though the power of the alpha oscillations remains permanently elevated.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from spike-field coherence analysis showing dissociation between different measures."
+  },
+  {
+    "claim_id": "C154",
+    "claim": "The motor circuit can execute behavior properly despite permanent changes in its neuronal dynamics.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These findings suggest that the motor circuit can execute behavior properly despite permanent changes in its neuronal dynamics.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a synthesis and interpretation of the behavioral and electrophysiological findings."
+  },
+  {
+    "claim_id": "C155",
+    "claim": "Superficial similarities exist between juvenile song learning and adult song recovery after HVC interneuron perturbation, such as variable song production and increased microglia numbers.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We observed superficial similarities between juvenile song learning and adult song recovery after HVC interneuron perturbation, such as variable song production and increased microglia numbers.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a comparison of findings from different experimental conditions."
+  },
+  {
+    "claim_id": "C156",
+    "claim": "A fundamental difference exists between juvenile song learning and adult song recovery: in juveniles, song learning requires input from LMAN to RA.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, a fundamental difference exists between these processes. In juveniles, song learning requires input from LMAN to RA",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is established knowledge about juvenile song learning, supported by citations."
+  },
+  {
+    "claim_id": "C157",
+    "claim": "It has been hypothesized that LMAN injects noise into RA, allowing HVC inputs into RA to explore different states.",
+    "claim_type": "EXPLICIT",
+    "source_text": "and it has been hypothesized that LMAN injects noise into RA, allowing HVC inputs into RA to explore different states",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a hypothesis from prior work, supported by citations."
+  },
+  {
+    "claim_id": "C158",
+    "claim": "In adult animals without LMAN, the song degraded following the inactivation of inhibitory neurons in HVC and recovered after several weeks.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Here, we found that in adult animals without LMAN, the song degraded following the inactivation of inhibitory neurons in HVC and recovered after several weeks.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a finding from the LMAN lesion experiments."
+  },
+  {
+    "claim_id": "C159",
+    "claim": "Further studies are necessary to find both the commonalities and differences in mechanisms of brain reorganization following HVC perturbation in adults and the development of the song circuit in juveniles.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Further studies are necessary to find both the commonalities and differences in mechanisms of brain reorganization following HVC perturbation in adults and the development of the song circuit in juveniles.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This acknowledges limitations and suggests directions for future research."
+  },
+  {
+    "claim_id": "C160",
+    "claim": "The song was drastically degraded and recovered after permanent genetic muting of a large fraction of projection neurons in HVC in adult animals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In our previous work, we observed that the song was drastically degraded and recovered after permanent genetic muting of a large fraction of projection neurons in HVC in adult animals",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This refers to findings from prior published work by the authors."
+  },
+  {
+    "claim_id": "C161",
+    "claim": "Chronically inactivating a large fraction of interneurons in HVC causes song degradation and eventual recovery.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the present study, we observed that chronically inactivating a large fraction of interneurons in HVC also causes song degradation and eventual recovery.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a summary of the primary finding from the current study."
+  },
+  {
+    "claim_id": "C162",
+    "claim": "HVC can produce reliable songs, a complex learned behavior, after significantly reducing the fraction of its active excitatory or inhibitory neurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our results reveal that HVC can produce reliable songs, a complex learned behavior, after significantly reducing the fraction of its active excitatory or inhibitory neurons.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a synthesis of findings from the current and prior work."
+  },
+  {
+    "claim_id": "C163",
+    "claim": "HVC can restore behavioral dynamics after two 'orthogonal' perturbations to the circuit.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These studies highlight this nucleus's unique resilience by demonstrating that HVC can restore behavioral dynamics after two 'orthogonal' perturbations to the circuit.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an interpretation of the combined findings from excitatory and inhibitory neuron perturbations."
+  },
+  {
+    "claim_id": "C164",
+    "claim": "Extensive perturbations of HVC can recover by mechanisms that are likely, in part, local and homeostatic since they do not require practice or inputs from nuclei necessary for song learning, such as LMAN.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our current and previous studies show that extensive perturbations of HVC can recover by mechanisms that are likely, in part, local and homeostatic since they do not require practice or inputs from nuclei necessary for song learning, such as LMAN.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a synthesis and interpretation of findings from the current and prior work."
+  },
+  {
+    "claim_id": "C165",
+    "claim": "Behavior can be recovered after a severe and prolonged brain E/I balance perturbation without restoring the initial dynamics.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Furthermore, our findings indicate that behavior can be recovered after a severe and prolonged brain E/I balance perturbation without restoring the initial dynamics.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a synthesis of the behavioral and electrophysiological findings."
+  },
+  {
+    "claim_id": "C166",
+    "claim": "HVC adapts and reorganizes into a new state capable of producing the original behavior.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Instead, it appears that HVC adapts and reorganizes into a new state capable of producing the original behavior.",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "This is an interpretation of the dissociation between behavioral recovery and persistent neural changes."
+  },
+  {
+    "claim_id": "C167",
+    "claim": "This adaptive process may be crucial for maintaining motor behaviors over long periods and could represent a key feature of brain resilience.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This adaptive process may be crucial for maintaining motor behaviors over long periods and could represent a key feature of brain resilience.",
+    "evidence_type": [
+      "SPECULATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a speculative interpretation about the broader significance of the findings."
   }
-}
+]

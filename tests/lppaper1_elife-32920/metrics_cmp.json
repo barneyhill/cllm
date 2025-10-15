@@ -1,0 +1,171 @@
+{
+  "command": "cllm cmp eval_peer.json eval_llm.json -o cmp.json -m metrics_cmp.json",
+  "input_tokens": 5090,
+  "output_tokens": 5550,
+  "num_comparisons": 9,
+  "status_breakdown": {
+    "SUPPORTED": 8,
+    "UNSUPPORTED": 1,
+    "UNCERTAIN": 8
+  },
+  "processing_time_seconds": 110.1565523147583,
+  "jaccard_pairings": [
+    {
+      "llm_result_id": "R4",
+      "peer_result_id": "R1",
+      "jaccard_index": 0.938,
+      "shared_claims": [
+        "C134",
+        "C135",
+        "C136",
+        "C137",
+        "C138",
+        "C4",
+        "C49",
+        "C53",
+        "C64",
+        "C65",
+        "C66",
+        "C67",
+        "C68",
+        "C69",
+        "C70"
+      ]
+    },
+    {
+      "llm_result_id": "R5",
+      "peer_result_id": "R5",
+      "jaccard_index": 0.846,
+      "shared_claims": [
+        "C139",
+        "C140",
+        "C141",
+        "C142",
+        "C143",
+        "C144",
+        "C145",
+        "C146",
+        "C149",
+        "C5",
+        "C50"
+      ]
+    },
+    {
+      "llm_result_id": "R3",
+      "peer_result_id": "R8",
+      "jaccard_index": 0.562,
+      "shared_claims": [
+        "C105",
+        "C106",
+        "C107",
+        "C112",
+        "C113",
+        "C153",
+        "C154",
+        "C155",
+        "C3"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R3",
+      "jaccard_index": 0.533,
+      "shared_claims": [
+        "C150",
+        "C2",
+        "C46",
+        "C91",
+        "C93",
+        "C95",
+        "C96",
+        "C97"
+      ]
+    },
+    {
+      "llm_result_id": "R7",
+      "peer_result_id": "R4",
+      "jaccard_index": 0.3,
+      "shared_claims": [
+        "C124",
+        "C125",
+        "C48"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R2",
+      "jaccard_index": 0.19,
+      "shared_claims": [
+        "C52",
+        "C59",
+        "C60",
+        "C62"
+      ]
+    },
+    {
+      "llm_result_id": "R6",
+      "peer_result_id": "R2",
+      "jaccard_index": 0.182,
+      "shared_claims": [
+        "C61",
+        "C72"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R2",
+      "jaccard_index": 0.067,
+      "shared_claims": [
+        "C94"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R7",
+      "jaccard_index": 0.043,
+      "shared_claims": [
+        "C51"
+      ]
+    }
+  ],
+  "comparison_metrics": {
+    "n1": 7,
+    "n2": 8,
+    "n_overlap_llm": 7,
+    "n_overlap_peer": 7,
+    "n_only1": 0,
+    "n_only2": 1,
+    "agreement_count": 0,
+    "disagreement_count": 6,
+    "agreement_pct": 0.0,
+    "disagreement_pct": 75.0,
+    "category_metrics": {
+      "SUPPORTED": {
+        "precision": 0.0,
+        "recall": 0,
+        "f1": 0,
+        "llm_count": 8,
+        "peer_count": 0,
+        "matches": 0
+      },
+      "UNSUPPORTED": {
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0,
+        "llm_count": 0,
+        "peer_count": 1,
+        "matches": 0
+      },
+      "UNCERTAIN": {
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0,
+        "llm_count": 0,
+        "peer_count": 7,
+        "matches": 0
+      }
+    },
+    "coverage_1_by_2": 100.0,
+    "coverage_2_by_1": 87.5
+  }
+}

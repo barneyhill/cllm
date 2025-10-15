@@ -1,0 +1,25 @@
+Reviewer: 1
+
+Comments to the Author
+The authors present seqspec, a specification language for describing the structure of sequencing reads. The language is complemented by a command line utility for extracting information from the specification, e.g. in order to parameterize read processing tools like deduplication or adapter trimming.
+
+As reads often contain protocol specific regions (like UMIs or barcodes) that can differ a lot between different protocols, the presented approach is of high value for formalizing, communicating and using the annotated information for processing. To the best of my knowledge this is the first try to harmonize such metadata across protocols.
+
+The manuscript is well-written and nicely illustrates the diversity of read structures of different protocols, and therefore the need for harmonizing their description and automating their processing. The authors moreover link to a web page listing all currently available seqspec specifications (currently 38).
+There is almost nothing to change here, which is also why my comments below are rather technical, but IMHO still important to address. Nice work overall!
+
+# Minor comments
+* The web page listing available specs could be more interactive. It would be nice to have a search field and the ability to download a selected spec to the local machine.
+* The seqspec command line tool could have a functionality to obtain a specification from the provided ones on the web page. This way, users of a pipeline supporting seqspec could just specify an identifier and the pipeline would be able to automatically get the matching seqspec for its processing.
+* Before publishing this paper, seqspec should be released with a version on github and pypi (ideally also on Bioconda).
+* I highly recommend to add continuous testing (e.g. via Github Actions) to the seqspec repository.
+* The github repository of seqspec seems quite huge (>800MB). I suggest to cleanup/purge it a bit before the release.
+* black and flake8 suggest a fair amount of style and formatting issues in the codebase. I suggest to fix them and set up corresponding checks via Github Actions.
+
+Reviewer: 2
+
+Comments to the Author
+The authors propose a specification format for describing sequencing libraries and seqspec, a tool for manipulating the format. I feel that this is a very timely and important project due to the recent growth in new sequencing protocols. I have only minor points regarding the manuscript:
+- Just based on the manuscript, there is no complete example of a YAML specification file for a real sequencing assay. I feel that adding a complete example (perhaps in the supplementary?) will make the new concepts more concrete.
+- Presumably people will invent new sequencing protocols that require regions, sequence types, or other options that are not currently supported by seqspec. How are the specification files versioned? How will backwards compatibility be handled? This is especially a concern if people store seqspec files in SRA, etc.
+- YAML has some syntax pitfalls regarding booleans and yes/no, numbers and string parsing, confusing whitespace with large amounts of nesting, and many others. How are you dealing with these issues to ensure that manually written specification files are correct? Is that handled by seqspec check?

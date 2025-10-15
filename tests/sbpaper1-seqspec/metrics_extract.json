@@ -1,0 +1,7 @@
+{
+  "command": "cllm extract manuscript.txt -o claims.json -m metrics_extract.json",
+  "input_tokens": 4833,
+  "output_tokens": 12720,
+  "num_claims": 92,
+  "processing_time_seconds": 165.80389189720154
+}

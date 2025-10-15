@@ -1,0 +1,948 @@
+[
+  {
+    "claim_id": "C1",
+    "claim": "Understanding the structure of sequenced fragments from genomics libraries is essential for accurate read preprocessing.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Understanding the structure of sequenced fragments from genomics libraries is essential for accurate read preprocessing.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a general statement about the importance of understanding library structure, based on established practices in genomics preprocessing and logical inference about the relationship between structure understanding and accuracy."
+  },
+  {
+    "claim_id": "C2",
+    "claim": "Different assays and sequencing technologies require custom scripts and programs that do not leverage the common structure of sequence elements present in genomics libraries.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Currently, different assays and sequencing technologies require custom scripts and programs that do not leverage the common structure of sequence elements present in genomics libraries.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This describes the current state of the field, based on general knowledge of genomics preprocessing practices and the motivation for the work."
+  },
+  {
+    "claim_id": "C3",
+    "claim": "The seqspec specification is a machine-readable specification for libraries produced by genomics assays.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We present seqspec, a machine-readable specification for libraries produced by genomics assays that facilitates standardization of preprocessing and enables tracking and comparison of genomics assays.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the tool developed in this manuscript, which is the primary contribution and output of the research."
+  },
+  {
+    "claim_id": "C4",
+    "claim": "The seqspec specification facilitates standardization of preprocessing.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We present seqspec, a machine-readable specification for libraries produced by genomics assays that facilitates standardization of preprocessing and enables tracking and comparison of genomics assays.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a claim about the capability of the tool, supported by the implementation described in the manuscript and demonstrated through examples."
+  },
+  {
+    "claim_id": "C5",
+    "claim": "The seqspec specification enables tracking and comparison of genomics assays.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We present seqspec, a machine-readable specification for libraries produced by genomics assays that facilitates standardization of preprocessing and enables tracking and comparison of genomics assays.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This describes a capability of the tool, supported by the design features and examples provided in the manuscript."
+  },
+  {
+    "claim_id": "C6",
+    "claim": "The seqspec specification and command line tool is available at https://www.doi.org/10.5281/zenodo.10213865.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The specification and associated seqspec command line tool is available at https://www.doi.org/10.5281/zenodo.10213865.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a factual statement about the availability and location of the tool."
+  },
+  {
+    "claim_id": "C7",
+    "claim": "The proliferation of genomics assays has resulted in a corresponding increase in software for processing the data.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The proliferation of genomics assays (Ogbeide et al. 2022) has resulted in a corresponding increase in software for processing the data (Zappia, Phipson, and Oshlack 2018).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This claim is supported by two citations that document the proliferation of assays and software tools."
+  },
+  {
+    "claim_id": "C8",
+    "claim": "Custom scripts must be created and tailored to the specifics of assays for common preprocessing tasks.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Frequently, custom scripts must be created and tailored to the specifics of assays, where developers reimplement solutions for common preprocessing tasks such as adapter trimming, barcode identification, error correction, and read alignment",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes current practice in the field, supported by citations to specific examples and general knowledge of genomics preprocessing."
+  },
+  {
+    "claim_id": "C9",
+    "claim": "Common preprocessing tasks include adapter trimming, barcode identification, error correction, and read alignment.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Frequently, custom scripts must be created and tailored to the specifics of assays, where developers reimplement solutions for common preprocessing tasks such as adapter trimming, barcode identification, error correction, and read alignment  (Wu et al. 2022; Ma et al. 2020; Cheow et al. 2016; Healey, Bassham, and Cresko 2022).",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This lists standard preprocessing tasks, supported by citations and established knowledge in genomics."
+  },
+  {
+    "claim_id": "C10",
+    "claim": "When software tools are assay specific, parameter choices in these methods can diverge, making it difficult to perform apples-to-apples comparisons of data produced by different assays.",
+    "claim_type": "EXPLICIT",
+    "source_text": "When software tools are assay specific, parameter choices in these methods can diverge, making it difficult to perform apples-to-apples comparisons of data produced by different assays.",
+    "evidence_type": [
+      "INFERENCE",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a logical inference about the consequences of assay-specific tools, based on understanding of comparative analysis requirements."
+  },
+  {
+    "claim_id": "C11",
+    "claim": "The lack of preprocessing standardization makes reanalysis of published data in the context of new data challenging.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Furthermore, the lack of preprocessing standardization makes reanalysis of published data in the context of new data challenging.",
+    "evidence_type": [
+      "INFERENCE",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is an inference about the impact of lack of standardization on data reanalysis, based on understanding of data reuse challenges."
+  },
+  {
+    "claim_id": "C12",
+    "claim": "Genomics protocols generate libraries that share many common elements despite varying greatly from each other.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While genomics protocols can vary greatly from each other, the libraries they generate share many common elements.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is based on established knowledge about the structure of genomics libraries across different protocols."
+  },
+  {
+    "claim_id": "C13",
+    "claim": "Sequenced fragments typically contain one or several technical sequences such as barcodes and unique molecular identifiers (UMIs).",
+    "claim_type": "EXPLICIT",
+    "source_text": "Typically, sequenced fragments will contain one or several \"technical sequences\" such as barcodes and unique molecular identifiers (UMIs), as well as biological sequences that may be aligned to a genome or transcriptome.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes standard components of sequencing libraries, based on established knowledge of library structure."
+  },
+  {
+    "claim_id": "C14",
+    "claim": "Sequenced fragments contain biological sequences that may be aligned to a genome or transcriptome.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Typically, sequenced fragments will contain one or several \"technical sequences\" such as barcodes and unique molecular identifiers (UMIs), as well as biological sequences that may be aligned to a genome or transcriptome.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes standard components of sequencing libraries, based on established knowledge of library structure."
+  },
+  {
+    "claim_id": "C15",
+    "claim": "Standard library preparation kits generally require that DNA from the libraries is cut, repaired, and ligated to sequencing adapters.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Standard library preparation kits generally require that DNA from the libraries is cut, repaired, and ligated to sequencing adapters (Figure 1).",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes standard library preparation procedures, based on established protocols in genomics."
+  },
+  {
+    "claim_id": "C16",
+    "claim": "Primers bind to the sequencing adapters and initiate DNA sequencing whereby reads are subsequently generated.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Primers bind to the sequencing adapters, and initiate DNA sequencing whereby reads are subsequently generated.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes the standard sequencing process, based on established knowledge of sequencing technology."
+  },
+  {
+    "claim_id": "C17",
+    "claim": "Illumina sequencing employs a sequencing by synthesis approach where fluorescently labeled nucleotides are incorporated into single-stranded DNA and imaged.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Illumina sequencing employs a sequencing by synthesis approach where fluorescently labeled nucleotides are incorporated into single-stranded DNA, and imaged",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This describes the Illumina sequencing technology, based on established knowledge and supported by the citation to Iizuka et al. 2022."
+  },
+  {
+    "claim_id": "C18",
+    "claim": "PacBio uses zero-mode waveguides for single-molecule detection of dNTP incorporation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "while PacBio uses zero-mode waveguides for single-molecule detection of dNTP incorporation.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This describes PacBio sequencing technology, based on established knowledge and supported by the citation to Iizuka et al. 2022."
+  },
+  {
+    "claim_id": "C19",
+    "claim": "Oxford Nanopore binds sequencing adapters to pores in a flow cell and DNA is sequenced by changes in electrical resistance across the pore.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Oxford Nanopore on the other hand binds sequencing adapters to pores in a flow cell and DNA is sequenced by changes in electrical resistance across the pore (Iizuka, Yamazaki, and Uemura 2022).",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This describes Oxford Nanopore sequencing technology, based on established knowledge and supported by the citation to Iizuka et al. 2022."
+  },
+  {
+    "claim_id": "C20",
+    "claim": "Many single-cell genomics assays introduce additional library complexity that complicates preprocessing.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Many single-cell genomics assays introduce additional library complexity further complicating preprocessing.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a general statement about single-cell assays, supported by the examples that follow and general knowledge of single-cell technologies."
+  },
+  {
+    "claim_id": "C21",
+    "claim": "The inDropsv3 assay produces variable length barcodes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, the inDropsv3 (Klein et al. 2015) assay produces variable length barcodes",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a specific claim about the inDropsv3 assay, supported by citation to Klein et al. 2015."
+  },
+  {
+    "claim_id": "C22",
+    "claim": "The 10x Genomics scRNA-seq assay produces fixed-length barcodes that are derived from a known list of possibilities.",
+    "claim_type": "EXPLICIT",
+    "source_text": "while the 10x Genomics scRNA-seq assay (Zheng et al. 2017) produces fixed-length barcodes that are derived from a known list of possibilities.",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a specific claim about the 10x Genomics assay, supported by citation to Zheng et al. 2017."
+  },
+  {
+    "claim_id": "C23",
+    "claim": "Current file formats such as FASTQ, Genbank, FASTA, and workflow-specific files lack the flexibility to annotate sequenced libraries that contain complex features.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Current file formats such as FASTQ, Genbank, FASTA, and workflow-specific files (Parekh et al. 2018) lack the flexibility to annotate sequenced libraries that contain these complex features.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim about the limitations of existing file formats, based on knowledge of their capabilities and supported by citation."
+  },
+  {
+    "claim_id": "C24",
+    "claim": "In the absence of sequence annotations, processing can be challenging, limiting the reuse of data stored in publicly accessible databases such as the Sequence Read Archive.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the absence of sequence annotations, processing can be challenging, limiting the reuse of data that is stored in publicly accessible databases such as the Sequence Read Archive (Katz et al. 2022).",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is an inference about the consequences of lacking annotations, supported by citation to the Sequence Read Archive."
+  },
+  {
+    "claim_id": "C25",
+    "claim": "A database of assays along with a description of their associated library structures was assembled in Chen 2020.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To facilitate utilization of genomics data, a database of assays along with a description of their associated library structures was assembled in (Chen 2020).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a factual claim about prior work, supported by citation to Chen 2020."
+  },
+  {
+    "claim_id": "C26",
+    "claim": "The Chen 2020 database has proved to be very useful.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While this database has proved to be very useful, the HTML descriptors are not machine readable.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is an assessment of the utility of prior work, based on the authors' knowledge of its use in the field."
+  },
+  {
+    "claim_id": "C27",
+    "claim": "The HTML descriptors in the Chen 2020 database are not machine readable.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While this database has proved to be very useful, the HTML descriptors are not machine readable.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a factual claim about the format of the Chen 2020 database, based on direct knowledge of its structure."
+  },
+  {
+    "claim_id": "C28",
+    "claim": "The lack of a formal specification limits the utility and expandability of the Chen 2020 database.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Moreover, the lack of a formal specification limits the utility and expandability of the database.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the consequences of lacking a formal specification, based on understanding of software design principles."
+  },
+  {
+    "claim_id": "C29",
+    "claim": "The seqspec specification defines a machine-readable file format based on YAML.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec specification defines a machine-readable file format, based on YAML, that enables sequence library annotation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the technical implementation of seqspec, which is the primary contribution of the manuscript."
+  },
+  {
+    "claim_id": "C30",
+    "claim": "The seqspec specification enables sequence library annotation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec specification defines a machine-readable file format, based on YAML, that enables sequence library annotation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the capability of seqspec, which is demonstrated through the implementation and examples."
+  },
+  {
+    "claim_id": "C31",
+    "claim": "Assay- and sequencer specific molecules are annotated by Regions which can be nested and appended to create a seqspec.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Assay- and sequencer specific molecules are annotated by Regions which can be nested and appended to create a seqspec in a manner that assumes perfect end-to-end sequencing of a perfectly constructed library.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the design of the seqspec format, which is the primary technical contribution."
+  },
+  {
+    "claim_id": "C32",
+    "claim": "Seqspec assumes perfect end-to-end sequencing of a perfectly constructed library.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Assay- and sequencer specific molecules are annotated by Regions which can be nested and appended to create a seqspec in a manner that assumes perfect end-to-end sequencing of a perfectly constructed library.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes an assumption in the seqspec design, which is explicitly stated in the manuscript."
+  },
+  {
+    "claim_id": "C33",
+    "claim": "Regions are annotated with a variety of properties that simplify the downstream identification of sequenced elements.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Regions are annotated with a variety of properties that simplify the downstream identification of sequenced elements.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This describes a feature of seqspec and its intended benefit, based on the design implementation."
+  },
+  {
+    "claim_id": "C34",
+    "claim": "Region ID is a unique identifier for the Region in the seqspec.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Region ID: unique identifier for the Region in the seqspec",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C35",
+    "claim": "Region type specifies the type of region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Region type: the type of region",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C36",
+    "claim": "Name is a descriptive name for the Region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Name: A descriptive name for the Region",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C37",
+    "claim": "Sequence is the specific nucleotide sequence for the Region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Sequence: The specific nucleotide sequence for the Region",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C38",
+    "claim": "Sequence type specifies the type of sequence (fixed, onlist, random, joined).",
+    "claim_type": "EXPLICIT",
+    "source_text": "Sequence type: The type of sequence (fixed, onlist, random, joined)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format and its possible values."
+  },
+  {
+    "claim_id": "C39",
+    "claim": "Minimum length specifies the minimum length of the sequence for the Region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Minimum length: The minimum length of the sequence for the Region",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C40",
+    "claim": "Maximum length specifies the maximum length of the sequence for the Region.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Maximum length: The maximum length of the sequence for the Region",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C41",
+    "claim": "Onlist specifies the list of permissible sequences from which the Sequence is derived.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Onlist: The list of permissible sequences from which the Sequence is derived",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a specific property of Regions in the seqspec format."
+  },
+  {
+    "claim_id": "C42",
+    "claim": "Meta Regions can contain Regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Importantly, Regions, known as meta Regions, can contain Regions; a property that is useful for grouping and identifying library elements that are sequenced together.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a key structural feature of the seqspec format."
+  },
+  {
+    "claim_id": "C43",
+    "claim": "Meta Regions are useful for grouping and identifying library elements that are sequenced together.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Importantly, Regions, known as meta Regions, can contain Regions; a property that is useful for grouping and identifying library elements that are sequenced together.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This describes the purpose and utility of meta Regions, based on the design rationale."
+  },
+  {
+    "claim_id": "C44",
+    "claim": "YAML format is a natural language to represent nested meta-Regions in a human-readable fashion.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The YAML format is a natural language to represent nested meta-Regions in a human-readable fashion.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a claim about the properties of YAML as a format, based on established knowledge of YAML."
+  },
+  {
+    "claim_id": "C45",
+    "claim": "Python-style indentation and syntax can be used to create a human-readable file format without the excessive grouping delimiters of alternative languages such as JSON.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Python-style indentation and syntax can be used to create a human-readable file format without the excessive grouping delimiters of alternative languages such as JSON.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a claim about the advantages of YAML/Python-style syntax compared to JSON, based on knowledge of these formats."
+  },
+  {
+    "claim_id": "C46",
+    "claim": "Nested Regions allow Assays to be represented as an Ordered Tree where the ordering of subtrees is significant.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Additionally, nested Regions allow Assays to be represented as an Ordered Tree where the ordering of subtrees is significant: atomic Regions are \"glued\" together in an order that is concordant with the design of the sequencing library in the 5' to 3' direction (Supplementary Figure 1).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the data structure used in seqspec, which is a design feature of the tool."
+  },
+  {
+    "claim_id": "C47",
+    "claim": "Atomic Regions are glued together in an order that is concordant with the design of the sequencing library in the 5' to 3' direction.",
+    "claim_type": "EXPLICIT",
+    "source_text": "atomic Regions are \"glued\" together in an order that is concordant with the design of the sequencing library in the 5' to 3' direction (Supplementary Figure 1).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes how Regions are ordered in seqspec, which is a design feature of the tool."
+  },
+  {
+    "claim_id": "C48",
+    "claim": "Seqspec files are machine-readable.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A key feature of seqspec files is that they are machine-readable, and Region data can be parsed, processed, and extracted with the seqspec command-line tool.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes a key feature of seqspec, which is demonstrated through the implementation."
+  },
+  {
+    "claim_id": "C49",
+    "claim": "Region data can be parsed, processed, and extracted with the seqspec command-line tool.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A key feature of seqspec files is that they are machine-readable, and Region data can be parsed, processed, and extracted with the seqspec command-line tool.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the capability of the seqspec command-line tool, which is part of the implementation."
+  },
+  {
+    "claim_id": "C50",
+    "claim": "The seqspec command-line tool contains eleven subcommands.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The tool contains eleven subcommands that enable various tasks such as specification checking, finding, formatting, and indexing,",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a factual claim about the number of subcommands in the tool, which is part of the implementation."
+  },
+  {
+    "claim_id": "C51",
+    "claim": "The seqspec check subcommand checks the correctness of attributes against the seqspec schema.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec check: check the correctness of attributes against the seqspec schema",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C52",
+    "claim": "The seqspec find subcommand prints Region metadata.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec find: print Region metadata",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C53",
+    "claim": "The seqspec format subcommand auto populates Region metadata for meta Regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec format: auto populate Region metadata for meta Regions",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C54",
+    "claim": "The seqspec index subcommand extracts the 0-indexed position of Regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec index: extract the 0-indexed position of Regions",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C55",
+    "claim": "The seqspec info subcommand gets info about the seqspec file.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec info: get info about the seqspec file",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C56",
+    "claim": "The seqspec init subcommand initializes a seqspec with a newick-formatted string.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec init: initialize a seqspec with a newick-formatted string",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C57",
+    "claim": "The seqspec modify subcommand modifies Region attributes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec modify: modify Region attributes",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C58",
+    "claim": "The seqspec onlist subcommand gets the path to the onlist file for the specific region type.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec onlist: get the path to the onlist file for the specific region type",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C59",
+    "claim": "The seqspec print subcommand prints html, markdown, ascii, read diagram that visualizes the seqspec.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec print: print html, markdown, ascii, read diagram that visualizes the seqspec",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C60",
+    "claim": "The seqspec split subcommand splits seqspec into modalities.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec split: split seqspec into modalities",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C61",
+    "claim": "The seqspec version subcommand gets seqspec version and seqspec file version.",
+    "claim_type": "EXPLICIT",
+    "source_text": "seqspec version: get seqspec version and seqspec file version",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of a specific subcommand in the tool."
+  },
+  {
+    "claim_id": "C62",
+    "claim": "The seqspec index command produces the relevant technology string for three single-cell RNA-seq preprocessing tools: kallisto bustools, simpleaf/alevin-fry, and STARsolo.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To illustrate how seqspec can be used to facilitate processing and analysis of single-cell RNA-seq reads, we implemented in the seqspec index command the facility to produce the relevant technology string for three single-cell RNA-seq preprocessing tools: kallisto bustools (Melsted et al. 2021), simpleaf/alevin-fry (He et al. 2022), and STARsolo (Kaminow, Yunusov, and Dobin 2021)  (Figure 2).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This describes a specific implementation in the tool, demonstrated through the example and supported by citations to the preprocessing tools."
+  },
+  {
+    "claim_id": "C63",
+    "claim": "Regions associated with barcodes, UMIs, and cDNA are extracted, positionally indexed and formatted on a per-tool basis by seqspec index.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Regions associated with barcodes, UMIs, and cDNA are extracted, positionally indexed and formatted on a per-tool basis.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes the functionality of the seqspec index command, which is part of the implementation."
+  },
+  {
+    "claim_id": "C64",
+    "claim": "The modularity of seqspec makes it simple to produce tool-compatible technology strings for other assay types.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The modularity of seqspec makes it simple to produce tool-compatible technology strings for other assay types.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the extensibility of seqspec, based on its modular design."
+  },
+  {
+    "claim_id": "C65",
+    "claim": "Seqspec is not intended to annotate reads resulting from a sequencing experiment.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec specification and associated tool enables the annotation of a sequence library that has been generated by an assay to be processed with a sequencer-specific kit for sequencing. While seqspec is not intended to annotate reads resulting from a sequencing experiment, associating seqspecs with sequencing data can greatly facilitate reprocessing and interpretation.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This explicitly states a limitation or scope boundary of seqspec."
+  },
+  {
+    "claim_id": "C66",
+    "claim": "Associating seqspecs with sequencing data can greatly facilitate reprocessing and interpretation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While seqspec is not intended to annotate reads resulting from a sequencing experiment, associating seqspecs with sequencing data can greatly facilitate reprocessing and interpretation.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the utility of seqspec when associated with sequencing data."
+  },
+  {
+    "claim_id": "C67",
+    "claim": "Seqspec can help in investigating differences between sequence reads and library structure, aiding in the study of sequencing artifacts.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, seqspec can help in investigating differences between sequence reads and library structure, aiding in the study of sequencing artifacts.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about a potential application of seqspec, based on its capabilities."
+  },
+  {
+    "claim_id": "C68",
+    "claim": "Seqspec innovates beyond existing methods such as kb-python's technology string or the read geometry string in simpleaf by providing both annotation of library structures as well as a suite of tools for format validation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In terms of facilitating preprocessing, seqspec innovates beyond existing methods such as kb-python's technology string or the read geometry string in simpleaf (He and Patro 2023) by providing both annotation of library structures as well as a suite of tools for format validation.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a comparative claim about seqspec versus existing methods, based on the features implemented and cited prior work."
+  },
+  {
+    "claim_id": "C69",
+    "claim": "Standardized annotation of sequencing libraries in a human- and machine-readable format enables uniform processing.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Standardized annotation of sequencing libraries in a human- and machine-readable format serves several purposes including the enablement of uniform processing, organization of sequencing assays by constitutive components, and transparency for users.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the benefits of standardized annotation, based on the design goals of seqspec."
+  },
+  {
+    "claim_id": "C70",
+    "claim": "Standardized annotation of sequencing libraries enables organization of sequencing assays by constitutive components.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Standardized annotation of sequencing libraries in a human- and machine-readable format serves several purposes including the enablement of uniform processing, organization of sequencing assays by constitutive components, and transparency for users.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the benefits of standardized annotation, based on the design goals of seqspec."
+  },
+  {
+    "claim_id": "C71",
+    "claim": "Standardized annotation of sequencing libraries provides transparency for users.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Standardized annotation of sequencing libraries in a human- and machine-readable format serves several purposes including the enablement of uniform processing, organization of sequencing assays by constitutive components, and transparency for users.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about the benefits of standardized annotation, based on the design goals of seqspec."
+  },
+  {
+    "claim_id": "C72",
+    "claim": "The flexibility of seqspec should allow it to be used for all current sequence census assays.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The flexibility of seqspec should allow it to be used for all current sequence census assays (Wold and Myers 2008), and specifications should be readily adaptable to different sequencing platforms",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim about the potential applicability of seqspec, based on its design flexibility and supported by citation to sequence census methods."
+  },
+  {
+    "claim_id": "C73",
+    "claim": "Seqspec specifications should be readily adaptable to different sequencing platforms.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The flexibility of seqspec should allow it to be used for all current sequence census assays (Wold and Myers 2008), and specifications should be readily adaptable to different sequencing platforms",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a claim about the adaptability of seqspec, based on its design flexibility."
+  },
+  {
+    "claim_id": "C74",
+    "claim": "The initial release of seqspec contains specifications for 49 assays.",
+    "claim_type": "EXPLICIT",
+    "source_text": "our initial release of seqspec contains specifications for 49 assays (see https://igvf.github.io/seqspec/).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a factual claim about the content of the initial release, which is verifiable data."
+  },
+  {
+    "claim_id": "C75",
+    "claim": "Seqspec could be extended to describe sequencer- or protocol-specific steps.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the future, we envision that seqspec could be extended to describe sequencer- or protocol-specific steps as well as utilized to annotate engineered sequences such as DNA constructs.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This is a speculative claim about future extensions of seqspec."
+  },
+  {
+    "claim_id": "C76",
+    "claim": "Seqspec could be utilized to annotate engineered sequences such as DNA constructs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the future, we envision that seqspec could be extended to describe sequencer- or protocol-specific steps as well as utilized to annotate engineered sequences such as DNA constructs.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This is a speculative claim about future applications of seqspec."
+  },
+  {
+    "claim_id": "C77",
+    "claim": "Comparison of seqspecs for different assays immediately reveals shared similarities and differences that can be visualized with seqspec print.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Comparison of seqspecs for different assays, immediately reveals shared similarities and differences that can be visualized with seqspec print.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This describes a capability of seqspec demonstrated through the tool and examples provided."
+  },
+  {
+    "claim_id": "C78",
+    "claim": "The SPLiT-seq single-cell RNA and the multimodal SHARE-seq single-cell assays are aimed at different modalities.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, the SPLiT-seq single-cell RNA and the multimodal SHARE-seq single-cell assays are aimed at different modalities and utilize different protocols to produce libraries, but the resultant structures are very similar (Figure 1) since they both rely on split-pool barcoding (Rosenberg et al. 2018).",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim about the characteristics of these assays, based on knowledge of their design and supported by citation."
+  },
+  {
+    "claim_id": "C79",
+    "claim": "SPLiT-seq and SHARE-seq utilize different protocols to produce libraries.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, the SPLiT-seq single-cell RNA and the multimodal SHARE-seq single-cell assays are aimed at different modalities and utilize different protocols to produce libraries, but the resultant structures are very similar (Figure 1) since they both rely on split-pool barcoding (Rosenberg et al. 2018).",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim about the protocols used by these assays, based on knowledge of their design and supported by citation."
+  },
+  {
+    "claim_id": "C80",
+    "claim": "The resultant structures of SPLiT-seq and SHARE-seq are very similar.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, the SPLiT-seq single-cell RNA and the multimodal SHARE-seq single-cell assays are aimed at different modalities and utilize different protocols to produce libraries, but the resultant structures are very similar (Figure 1) since they both rely on split-pool barcoding (Rosenberg et al. 2018).",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim demonstrated through comparison in the manuscript and supported by citation to split-pool barcoding."
+  },
+  {
+    "claim_id": "C81",
+    "claim": "SPLiT-seq and SHARE-seq both rely on split-pool barcoding.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, the SPLiT-seq single-cell RNA and the multimodal SHARE-seq single-cell assays are aimed at different modalities and utilize different protocols to produce libraries, but the resultant structures are very similar (Figure 1) since they both rely on split-pool barcoding (Rosenberg et al. 2018).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim about the barcoding method used by these assays, supported by citation to Rosenberg et al. 2018."
+  },
+  {
+    "claim_id": "C82",
+    "claim": "The seqspec for the sci-CAR-seq assay shows that the cell barcoding is encoded in the Illumina indices.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec for the sci-CAR-seq assay (Cao et al. 2018), from which split-pool assays such as SHARE-seq are derived, shows that the cell barcoding is encoded in the Illumina indices.",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "This is a claim demonstrated through the seqspec for sci-CAR-seq and supported by citation."
+  },
+  {
+    "claim_id": "C83",
+    "claim": "Split-pool assays such as SHARE-seq are derived from sci-CAR-seq.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec for the sci-CAR-seq assay (Cao et al. 2018), from which split-pool assays such as SHARE-seq are derived, shows that the cell barcoding is encoded in the Illumina indices.",
+    "evidence_type": [
+      "CITATION",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This is a claim about the relationship between assays, supported by citation and knowledge of assay development."
+  },
+  {
+    "claim_id": "C84",
+    "claim": "It should be possible to develop an ontology of assays by comparing the seqspec specifications of assays and quantifying their similarities and differences.",
+    "claim_type": "EXPLICIT",
+    "source_text": "It should be possible to develop an ontology of assays by comparing the seqspec specifications of assays and quantifying their similarities and differences.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This is a speculative claim about a potential future application of seqspec."
+  },
+  {
+    "claim_id": "C85",
+    "claim": "Seqspec can be used to define options for preprocessing tools.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In demonstrating that seqspec can be used to define options for preprocessing tools, we have shown that seqspec is immediately useful for uniform processing of genomics data.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is demonstrated through the implementation of the seqspec index command for three preprocessing tools."
+  },
+  {
+    "claim_id": "C86",
+    "claim": "Seqspec is immediately useful for uniform processing of genomics data.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In demonstrating that seqspec can be used to define options for preprocessing tools, we have shown that seqspec is immediately useful for uniform processing of genomics data.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is a claim about the utility of seqspec, supported by the demonstration of its use with preprocessing tools."
+  },
+  {
+    "claim_id": "C87",
+    "claim": "The preprocessing applications will hopefully incentivize data generators to define and deposit seqspec files alongside sequencing reads in public archives such as the Sequence Read Archive.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The preprocessing applications will hopefully incentivize data generators to define and deposit seqspec files alongside sequencing reads in public archives such as the Sequence Read Archive.",
+    "evidence_type": [
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "This is a speculative claim about the potential future adoption of seqspec by the community."
+  },
+  {
+    "claim_id": "C88",
+    "claim": "Seqspec is not a suitable format for general metadata storage.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While seqspec is not a suitable format for general metadata storage, the precise specification of sequence elements present in reads, including sequencer-specific constructs, should be helpful in identifying batch effects even when metadata is missing or inaccurate.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This explicitly states a limitation of seqspec, based on its design scope."
+  },
+  {
+    "claim_id": "C89",
+    "claim": "The precise specification of sequence elements present in reads, including sequencer-specific constructs, should be helpful in identifying batch effects even when metadata is missing or inaccurate.",
+    "claim_type": "EXPLICIT",
+    "source_text": "While seqspec is not a suitable format for general metadata storage, the precise specification of sequence elements present in reads, including sequencer-specific constructs, should be helpful in identifying batch effects even when metadata is missing or inaccurate.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "This is an inference about a potential benefit of seqspec for quality control and batch effect identification."
+  },
+  {
+    "claim_id": "C90",
+    "claim": "Sequencing libraries are constructed by combining Atomic Regions to form an adapter-insert-adapter construct.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Sequencing libraries are constructed by combining Atomic Regions to form an adapter-insert-adapter construct.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "This describes the general structure of sequencing libraries, based on established knowledge and illustrated in Figure 1."
+  },
+  {
+    "claim_id": "C91",
+    "claim": "The seqspec for the assay annotates the construct with Regions and Meta Regions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The seqspec for the assay annotates the construct with Regions and Meta Regions.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This describes how seqspec annotates library structures, which is part of the tool's functionality."
+  },
+  {
+    "claim_id": "C92",
+    "claim": "A.S.B. and L.P. were supported in part by NIH 5UM1HG012077-02.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A.S.B. and L.P. were supported in part by NIH 5UM1HG012077-02.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "This is a factual statement about funding sources for the research."
+  }
+]

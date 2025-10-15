@@ -1,0 +1,101 @@
+[
+  {
+    "llm_result_id": "R4",
+    "peer_result_id": "R1",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "Strongly overlapping claims on k-mer PCA/GLM for structure correction (C4,C49,C53,C64\u2013C70,C134\u2013C138). LLM deems demonstrations sufficient; reviewers are uncertain and request head-to-head with SNP-PCA, clearer covariates, and post-adjustment QQ plots.",
+    "n_llm": 15,
+    "n_peer": 16,
+    "n_itx": 15
+  },
+  {
+    "llm_result_id": "R5",
+    "peer_result_id": "R5",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "E. coli blaTEM validation (C5,C50,C139\u2013C146,C149) is treated as confirmatory by LLM; reviewers remain uncertain pending a head-to-head with traditional variant calling to establish added value.",
+    "n_llm": 11,
+    "n_peer": 13,
+    "n_itx": 11
+  },
+  {
+    "llm_result_id": "R3",
+    "peer_result_id": "R8",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "Detection of SVs/non-reference signals (C3,C105\u2013C107,C112\u2013C113,C153\u2013C155). LLM sees sufficient evidence; reviewers call it provisional until SNP-only analyses and QQ calibration demonstrate false-positive control.",
+    "n_llm": 15,
+    "n_peer": 10,
+    "n_itx": 9
+  },
+  {
+    "llm_result_id": "R2",
+    "peer_result_id": "R3",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "1000 Genomes YRI\u2013TSI overlap/\u2018largely agree\u2019 claims (C2,C46,C91,C93,C95\u2013C97,C150). LLM supports; reviewers are uncertain and request SNP-restricted tests, genotype dosages, data parity, and QQ plots.",
+    "n_llm": 9,
+    "n_peer": 14,
+    "n_itx": 8
+  },
+  {
+    "llm_result_id": "R7",
+    "peer_result_id": "R4",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNSUPPORTED",
+    "agreement_status": "disagree",
+    "notes": "BEB\u2013TSI allele-frequency differences in CVD-linked genes (C48,C124,C125). LLM supports inter-population differences; reviewers judge unsupported due to using population identity instead of disease status and resultant confounding/interpretability issues.",
+    "n_llm": 10,
+    "n_peer": 3,
+    "n_itx": 3
+  },
+  {
+    "llm_result_id": "R6",
+    "peer_result_id": "R2",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "Modeling/power for count-based tests (overlap on C61,C72). LLM supports Poisson-count approach via simulations; reviewers are uncertain about Poisson assumption, overdispersion, and multiple-testing calibration, requesting NB baselines and QQ plots.",
+    "n_llm": 6,
+    "n_peer": 7,
+    "n_itx": 2
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R2",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Partial overlap (C52,C59,C60,C62). LLM assesses method existence/implementation as supported; reviewers\u2019 uncertainty targets distributional assumptions and error control rather than existence, so scopes differ.",
+    "n_llm": 18,
+    "n_peer": 7,
+    "n_itx": 4
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R7",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Minimal overlap (C51). LLM focuses on tool availability/description; reviewers question broader applicability beyond case\u2013control and to other sequencing data, making the comparison scope-mismatched.",
+    "n_llm": 18,
+    "n_peer": 6,
+    "n_itx": 1
+  },
+  {
+    "llm_result_id": null,
+    "peer_result_id": "R6",
+    "llm_status": null,
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Peer-only claims on Cortex vs HAWK scalability and reference use (C27\u2013C29,C40\u2013C42) have no corresponding LLM evaluation.",
+    "n_llm": null,
+    "n_peer": 6,
+    "n_itx": 0
+  }
+]

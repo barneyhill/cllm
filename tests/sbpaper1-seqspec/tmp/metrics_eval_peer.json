@@ -1,0 +1,7 @@
+{
+  "command": "cllm eval manuscript.txt -c claims.json -p reviews.txt -o eval_peer.json -m metrics_eval_peer.json -v",
+  "input_tokens": 21421,
+  "output_tokens": 5523,
+  "num_results": 7,
+  "processing_time_seconds": 97.04868292808533
+}
