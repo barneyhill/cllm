@@ -23,6 +23,7 @@ from .models import (
     LLMClaimV3,
     LLMResultV3,
 )
+from .report import json_to_pdf_table
 
 
 @click.group()
@@ -412,6 +413,41 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
                 click.echo(f"📊 Saved metadata to: {metadata}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
+
+
+@cli.command()
+@click.argument("input_json", type=click.Path(exists=True, path_type=Path))
+@click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output PDF file")
+@click.option("-f", "--format", type=click.Choice(["pdf"]), default="pdf", help="Output format (currently only PDF)")
+@click.option("-t", "--type", "data_type", type=click.Choice(["comparison", "evaluation", "claim"]), required=True, help="Type of data being rendered")
+def generate(input_json: Path, output: Path, format: str, data_type: str):
+    """
+    Generate a PDF table report from JSON data.
+
+    Examples:
+        cllm generate -o table.pdf -f pdf -t comparison compare.json
+        cllm generate -o table.pdf -f pdf -t evaluation eval_llm.json
+        cllm generate -o table.pdf -f pdf -t claim claims.json
+    """
+    click.echo(f"📄 Reading {data_type} data from: {input_json}")
+
+    # Map data type to title
+    titles = {
+        "comparison": "Results Comparison Table",
+        "evaluation": "Evaluation Results Table",
+        "claim": "Claims Table"
+    }
+
+    try:
+        json_to_pdf_table(
+            json_data=input_json,
+            output_filename=output,
+            title=titles.get(data_type, "Data Table")
+        )
+        click.echo(f"✅ Generated PDF report: {output}")
+    except Exception as e:
+        click.echo(f"❌ Error generating PDF: {e}", err=True)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
