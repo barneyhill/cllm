@@ -452,24 +452,21 @@ def generate(input_json: Path, output: Path, format: str, data_type: str):
 
 @cli.command(hidden=True)
 @click.argument("manuscript", type=click.Path(exists=True, path_type=Path))
-@click.argument("reviews", type=click.Path(exists=True, path_type=Path))
-@click.argument("output_dir", type=click.Path(path_type=Path))
+@click.option("-o", "--output", "output_dir", type=click.Path(path_type=Path), required=True, help="Output directory")
+@click.option("-p", "--peer-reviews", type=click.Path(exists=True, path_type=Path), help="Peer review file (optional, runs full workflow if provided)")
 @click.option("-m", "--metrics", is_flag=True, help="Save metrics for each stage")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging")
-def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, verbose: bool):
+def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], metrics: bool, verbose: bool):
     """
-    Run the complete CLLM workflow from manuscript to comparison.
+    Run the CLLM workflow from manuscript to evaluation/comparison.
 
-    This is a convenience command that runs all 4 stages in sequence:
-    1. Extract claims from manuscript
-    2. LLM evaluation of claims
-    3. Peer review evaluation of claims
-    4. Compare LLM and peer evaluations
+    Without -p: Runs stages 1-2 (extract claims, LLM evaluation)
+    With -p: Runs all 4 stages (extract, LLM eval, peer eval, comparison)
 
     Examples:
-        cllm workflow manuscript.txt reviews.txt output/
-        cllm workflow manuscript.txt reviews.txt output/ -m      # with metrics
-        cllm workflow manuscript.txt reviews.txt output/ -m -v   # with metrics and verbose
+        cllm workflow manuscript.txt -o output/                    # extract + LLM eval only
+        cllm workflow manuscript.txt -o output/ -p reviews.txt     # full workflow
+        cllm workflow manuscript.txt -o output/ -p reviews.txt -m  # with metrics
     """
     # Validate configuration
     try:
@@ -497,7 +494,11 @@ def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, v
     click.echo("CLLM WORKFLOW")
     click.echo("=" * 60)
     click.echo(f"Manuscript: {manuscript}")
-    click.echo(f"Reviews: {reviews}")
+    if peer_reviews:
+        click.echo(f"Reviews: {peer_reviews}")
+        click.echo(f"Mode: Full workflow (4 stages)")
+    else:
+        click.echo(f"Mode: Extract + LLM evaluation (2 stages)")
     click.echo(f"Output directory: {output_dir}")
     click.echo(f"Metrics: {'enabled' if metrics else 'disabled'}")
     click.echo(f"Verbose: {'enabled' if verbose else 'disabled'}")
@@ -627,16 +628,32 @@ def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, v
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
     # ========================================================================
+    # STAGE 3 & 4: PEER REVIEW EVALUATION AND COMPARISON (only if peer reviews provided)
+    # ========================================================================
+    if not peer_reviews:
+        # No peer reviews - skip stages 3 and 4
+        click.echo("\n" + "=" * 60)
+        click.echo("✅ WORKFLOW COMPLETE (2 stages)")
+        click.echo("=" * 60)
+        click.echo(f"Output directory: {output_dir}")
+        click.echo(f"  - Claims: {claims_file.name}")
+        click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
+        if metrics:
+            click.echo(f"  - Metrics files: metrics_extract.json, metrics_eval_llm.json")
+        click.echo("=" * 60)
+        return
+
+    # ========================================================================
     # STAGE 3: PEER REVIEW EVALUATION
     # ========================================================================
     click.echo("\n📝 STAGE 3: Peer Review Evaluation")
     click.echo("-" * 60)
 
     if not verbose:
-        click.echo(f"📝 Reading peer reviews from: {reviews}")
+        click.echo(f"📝 Reading peer reviews from: {peer_reviews}")
 
     try:
-        review_text = reviews.read_text(encoding="utf-8")
+        review_text = peer_reviews.read_text(encoding="utf-8")
     except Exception as e:
         click.echo(f"❌ Error reading peer reviews: {e}", err=True)
         sys.exit(1)
@@ -677,7 +694,7 @@ def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, v
     # Write metrics if requested
     if metrics and metrics_data:
         try:
-            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-p", str(reviews), "-o", str(eval_peer_file)]
+            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-p", str(peer_reviews), "-o", str(eval_peer_file)]
             if metrics_eval_peer_file:
                 cmd_parts.extend(["-m", str(metrics_eval_peer_file)])
             if verbose:
@@ -764,7 +781,7 @@ def workflow(manuscript: Path, reviews: Path, output_dir: Path, metrics: bool, v
     # SUMMARY
     # ========================================================================
     click.echo("\n" + "=" * 60)
-    click.echo("✅ WORKFLOW COMPLETE")
+    click.echo("✅ WORKFLOW COMPLETE (4 stages)")
     click.echo("=" * 60)
     click.echo(f"Output directory: {output_dir}")
     click.echo(f"  - Claims: {claims_file.name}")
