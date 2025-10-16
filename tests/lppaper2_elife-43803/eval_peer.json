@@ -1,0 +1,95 @@
+[
+  {
+    "result_id": "R1",
+    "claim_ids": [
+      "C5",
+      "C21",
+      "C22",
+      "C27",
+      "C28",
+      "C29",
+      "C30",
+      "C31",
+      "C32",
+      "C57"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers requested clearer and fairer comparisons with alternative methods, asking to 'clarify the comparison with alternative clustering approaches... including how it differs... in the identification of genes that are part of cell activity programs.' They also noted it is 'unfair to compare with other unsupervised methods (such as PCA) if the K cannot be automatically selected.' Consequently, simulation-based accuracy/superiority claims for cNMF over other methods require additional justification and are uncertain as presented."
+  },
+  {
+    "result_id": "R2",
+    "claim_ids": [
+      "C61",
+      "C79"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "The reviewers emphasized that 'the selection parameter K is non-trivial' and found the current choices 'not convincing,' citing figures where k=13 may be preferable to k=14 and that it is 'not clear which k should be chosen.' They requested showing GEPs under different K and suggested proposing an automatic solution, so claims about K-selection guidance and robustness remain uncertain pending further evidence."
+  },
+  {
+    "result_id": "R3",
+    "claim_ids": [
+      "C24",
+      "C66",
+      "C67",
+      "C68",
+      "C69",
+      "C70",
+      "C71",
+      "C72",
+      "C73",
+      "C74",
+      "C75",
+      "C76",
+      "C77",
+      "C78",
+      "C62",
+      "C80",
+      "C26"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers stated that 'a number of key elements of the algorithm are not described in sufficient detail' and requested 'an accurate description of the math... add equations... and explain how parameters were selected.' They highlighted many insufficiently justified parameters (e.g., uniform cell-type proportions in simulations, scaling non-log data, nearest-neighbor choice for outlier filtering, using 14 PCs for Louvain), rendering methodological clarity and parameter choices uncertain for reproducibility."
+  },
+  {
+    "result_id": "R4",
+    "claim_ids": [
+      "C82",
+      "C83",
+      "C84",
+      "C85",
+      "C86",
+      "C87"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "UNCERTAIN",
+    "status_reasoning": "Reviewers warned that 'batch effects strongly affect RNAseq analysis' and asked how the authors ensure cNMF GEPs are not reflecting batch effects and how the method controls them. They further requested testing on datasets with moderate batch effects and other tissues, and to show variance explained, leaving claims about robustness across replicates/donors and batch-effect handling insufficiently supported."
+  },
+  {
+    "result_id": "R5",
+    "claim_ids": [
+      "C6",
+      "C23",
+      "C33",
+      "C39",
+      "C40",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C52",
+      "C54",
+      "C58",
+      "C59"
+    ],
+    "reviewer_id": "PEER_REVIEW",
+    "reviewer_name": "PEER_REVIEW",
+    "status": "SUPPORTED",
+    "status_reasoning": "The editors summarized as a strength that the study compares methods and applies cNMF to both synthetic and real datasets, without raising specific concerns about the reported biological programs (e.g., cell cycle, hypoxia, depolarization, neurosecretory, synaptogenesis) or cell-type refinement. As the reviewers did not challenge these application findings, they are treated as supported."
+  }
+]

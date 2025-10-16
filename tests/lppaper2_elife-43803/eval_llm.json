@@ -1,0 +1,97 @@
+[
+  {
+    "result_id": "R1",
+    "claim_ids": [
+      "C24",
+      "C25",
+      "C21",
+      "C22",
+      "C26",
+      "C27",
+      "C28",
+      "C30",
+      "C31",
+      "C32",
+      "C57"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "Simulations (C24) show ICA/LDA/NMF\u2014but not PCA\u2014recover identity/activity GEPs (C21), yet solutions vary stochastically (C25), motivating a consensus approach (C26). cNMF most frequently deconvoluted true programs (C27), achieved the best gene-level accuracy (C28), accurately inferred per-cell usages (C30), modeled doublets (C31), and was robust under varied cell-type frequencies (C32), yielding the most accurate overall inferences (C57). These convergent quantitative benchmarks support the result."
+  },
+  {
+    "result_id": "R2",
+    "claim_ids": [
+      "C33",
+      "C34",
+      "C35",
+      "C36",
+      "C37",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C6"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "In brain organoids, cNMF identified 31 programs partitioning into identity and activity (C33\u2013C34), refined prior clusters and resolved muscle-related identities (C35\u2013C37), and deconvoluted two cell-cycle phases (G1/S, G2/M) and a hypoxia program with gene/GO evidence (C39\u2013C41, C42). It quantified activity usage across cell types (C43\u2013C47) and refined proliferative precursor composition (C45\u2013C46). These analyses substantiate that cNMF disentangles activity from identity and refines cell-type annotations (C6)."
+  },
+  {
+    "result_id": "R3",
+    "claim_ids": [
+      "C48",
+      "C49",
+      "C50",
+      "C51"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "In visual cortex neurons, cNMF recovered stimulus-correlated programs (ERP at 1h, two LRPs at 4h) overlapping published DE genes (C48\u2013C49). Layer-specific induction patterns for LRPs (C50) and replication of the superficial LRP in an independent dataset with strong concordance and expected layer usage (C51) provide orthogonal support. Together these data support robust identification of stimulus-responsive activity programs."
+  },
+  {
+    "result_id": "R4",
+    "claim_ids": [
+      "C52",
+      "C53",
+      "C54",
+      "C55"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "cNMF identified additional activity programs characterized by coherent gene sets: a neurosecretory program with neuropeptides and secretion genes that replicates across datasets (C52\u2013C53) and a synaptogenesis program enriched for synapse-related GO terms (C54). A third program shows MEG3 and injury-associated genes (C55). While functional labels are partly speculative (C55), the existence and gene/GO composition of these programs are well supported."
+  },
+  {
+    "result_id": "R5",
+    "claim_ids": [
+      "C82",
+      "C83",
+      "C84",
+      "C85",
+      "C86",
+      "C87"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "SUPPORTED",
+    "status_reasoning": "Across replicates, activity usages were uniform in visual cortex with expected stimulus associations (C82) and variable across organoids consistent with bioreactor effects (C83), with GEPs represented across multiple independent replicates (C84). In pancreatic islets, cNMF recovered major cell types but revealed donor-associated hybrid GEPs with sex-linked genes indicating batch/confounder effects and motivating batch correction (C85\u2013C87). These findings support reproducibility within experiments and highlight sensitivity to between-sample effects."
+  },
+  {
+    "result_id": "R6",
+    "claim_ids": [
+      "C16"
+    ],
+    "reviewer_id": "LLM",
+    "reviewer_name": "LLM",
+    "status": "UNCERTAIN",
+    "status_reasoning": "The claim that no prior studies benchmarked matrix factorization for identity and activity GEP recovery (C16) is a literature novelty assertion without independent verification here. Absent a systematic review in the manuscript, its accuracy cannot be fully assessed."
+  }
+]

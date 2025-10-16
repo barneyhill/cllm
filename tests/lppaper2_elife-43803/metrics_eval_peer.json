@@ -1,0 +1,8 @@
+{
+  "command": "cllm eval v2paper.txt -c claims.json -p v1reviews.txt -o eval_peer.json -m metrics_eval_peer.json",
+  "model": "gpt-5-2025-08-07",
+  "input_tokens": 30967,
+  "output_tokens": 6151,
+  "num_results": 5,
+  "processing_time_seconds": 133.36136484146118
+}

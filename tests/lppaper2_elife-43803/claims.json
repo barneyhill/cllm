@@ -1,0 +1,911 @@
+[
+  {
+    "claim_id": "C1",
+    "claim": "Identifying gene expression programs underlying both cell-type identity and cellular activities is crucial for understanding the organization of cells and tissues.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Identifying gene expression programs underlying both cell-type identity and cellular activities (e.g. life-cycle processes, responses to environmental cues) is crucial for understanding the organization of cells and tissues.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Conceptual framing statement motivating the study; no specific data cited."
+  },
+  {
+    "claim_id": "C2",
+    "claim": "Single-cell RNA-Seq can quantify transcripts in individual cells.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Although single-cell RNA-Seq (scRNA-Seq) can quantify transcripts in individual cells,",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Established property of scRNA-Seq technology described in text."
+  },
+  {
+    "claim_id": "C3",
+    "claim": "Each cell\u2019s expression profile may be a mixture of identity and activity programs, making them difficult to disentangle.",
+    "claim_type": "EXPLICIT",
+    "source_text": "each cell\u2019s expression profile may be a mixture of both types of programs, making them difficult to disentangle.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical implication of mixed program expression described by authors."
+  },
+  {
+    "claim_id": "C4",
+    "claim": "The authors benchmark and enhance the use of matrix factorization to disentangle identity and activity programs in scRNA-Seq.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Here, we benchmark and enhance the use of matrix factorization to solve this problem.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Study design and analyses reported throughout manuscript."
+  },
+  {
+    "claim_id": "C5",
+    "claim": "Simulations show that consensus non-negative matrix factorization (cNMF) accurately infers identity and activity programs, including their relative contributions in each cell.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We show with simulations that a method we call consensus non-negative matrix factorization (cNMF) accurately infers identity and activity programs, including their relative contributions in each cell.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Supported by simulation benchmarking results reported in Results."
+  },
+  {
+    "claim_id": "C6",
+    "claim": "Applied to brain organoid and visual cortex scRNA-Seq datasets, cNMF refines cell types and identifies expected activity programs (cell cycle and hypoxia) and novel activity programs, including those that may underlie a neurosecretory phenotype and synaptogenesis.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we apply it to published brain organoid and visual cortex scRNA-Seq datasets; cNMF refines cell types and identifies both expected (e.g. cell cycle and hypoxia) and novel activity programs, including programs that may underlie a neurosecretory phenotype and synaptogenesis.",
+    "evidence_type": [
+      "DATA",
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Data analysis on real datasets presented; novelty/functional interpretation of some programs is speculative."
+  },
+  {
+    "claim_id": "C7",
+    "claim": "Co-regulated genes can be induced together as a gene expression program in response to appropriate signals.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Coordinating the necessary genes for these functions is frequently achieved through transcriptional co-regulation, where genes are induced together as a gene expression program (GEP) in response to the appropriate internal or external signal (Eisen et al., 1998; Segal et al., 2003).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited foundational studies on gene co-regulation and modules."
+  },
+  {
+    "claim_id": "C8",
+    "claim": "RNA-Seq profiling technologies enable unbiased measurement of the whole transcriptome and aid systematic discovery of gene expression programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "By enabling unbiased measurement of the whole transcriptome, profiling technologies such as RNA-Seq are paving the way for systematically discovering GEPs and shedding light on the biological mechanisms that they govern (Liberzon et al., 2015).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Backed by cited work on transcriptome profiling and gene sets."
+  },
+  {
+    "claim_id": "C9",
+    "claim": "Inferring gene expression programs from scRNA-Seq remains challenging due to noise, high dimensionality, and technical artifacts such as doublets.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Even so, inferring GEPs remains challenging as scRNA-Seq data is noisy and high-dimensional, requiring computational approaches to uncover the underlying patterns. In addition, technical artifacts such as doublets (where two or more distinct cells are mistakenly collapsed into one) can confound analysis.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Recognized challenges in scRNA-Seq; related methodological advances are cited elsewhere in paragraph."
+  },
+  {
+    "claim_id": "C10",
+    "claim": "Methodological advances in dimensionality reduction, clustering, lineage tracing, and differential expression analysis have helped address scRNA-Seq challenges.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Methodological advances in dimensionality reduction, clustering, lineage trajectory tracing, and differential expression analysis have helped overcome some of these issues (Amir et al., 2013; Kharchenko et al., 2014; Satija et al., 2015; Trapnell et al., 2014).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited works introducing methods for scRNA-Seq analysis."
+  },
+  {
+    "claim_id": "C11",
+    "claim": "Individual cells may express multiple gene expression programs, but scRNA-Seq detects only their combined expression profiles.",
+    "claim_type": "EXPLICIT",
+    "source_text": "the fact that individual cells may express multiple GEPs but we only detect cellular expression profiles that reflect their combination, rather than the GEPs themselves.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Logical premise motivating matrix factorization approach."
+  },
+  {
+    "claim_id": "C12",
+    "claim": "The authors define identity GEPs as those corresponding to specific cell types and activity GEPs as those expressed independently of cell type during specific activities.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We group these into two broad classes of expression programs... (1) GEPs that correspond to the identity of a specific cell type... (identity programs) and (2) GEPs that are expressed independently of cell type, in any cell that is carrying out a specific activity... (activity programs).",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Definition introduced by authors; conceptual framework."
+  },
+  {
+    "claim_id": "C13",
+    "claim": "Most scRNA-Seq studies have focused on identifying identity GEPs, with substantially less progress on activity GEPs primarily via controlled experiments.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Thus far, the vast majority of scRNA-Seq studies have focused on systematically identifying and characterizing the expression programs of cell types... Substantially less progress has been made in identifying activity GEPs, primarily through direct manipulation of cells in controlled experiments, for example comparing stimulated and unstimulated neurons (Hrvatin et al., 2018) or cells pre- and post-viral infection (Steuerman et al., 2018).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited studies as examples of activity GEP identification."
+  },
+  {
+    "claim_id": "C14",
+    "claim": "Activity GEPs are harder to infer than identity GEPs because activity programs are expressed alongside identity programs in one or multiple cell types, so cluster averaging often fails for activity programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, this can be significantly more challenging than ascertaining identity GEPs... activity programs will always be expressed alongside the identity programs of one or frequently many cell types... finding the average expression of clusters of similar cells may often be sufficient for finding reasonably accurate identity GEPs, it will often fail for activity GEPs.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Analytical reasoning comparing identity vs activity program inference."
+  },
+  {
+    "claim_id": "C15",
+    "claim": "Matrix factorization can model gene expression as a product of gene loadings per program and per-cell program usages, allowing cells to express multiple GEPs and modeling doublets as combinations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In this context, matrix factorization would model the gene expression data matrix as the product of two lower rank matrices... We refer to the second matrix as a \u2018usage\u2019 matrix... Unlike hard clustering, which reduces all cells in a cluster to a single shared GEP, matrix factorization allows cells to express multiple GEPs... and could correctly model doublets as a combination of the identity GEPs for the combined cell types.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Methodological description and logical implications of matrix factorization."
+  },
+  {
+    "claim_id": "C16",
+    "claim": "No previously reported studies have benchmarked the ability of matrix factorization methods to accurately learn identity and activity GEPs from scRNA-Seq profiles.",
+    "claim_type": "EXPLICIT",
+    "source_text": "To the best of our knowledge, no previously reported studies have benchmarked the ability of matrix factorization methods to accurately learn identity and activity GEPs from scRNA-Seq profiles.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Authors\u2019 assessment of literature; absence of prior benchmarking."
+  },
+  {
+    "claim_id": "C17",
+    "claim": "Discovering activity GEPs can reveal unexpected programs in native tissue, enable characterization of their prevalence across cell types, and improve identity program inference by avoiding confounding.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We see three primary motivations for jointly inferring identity and activity GEPs... reveal unexpected or novel activity programs... enable characterization of the prevalence... accounting for activity programs could improve inference of identity programs by avoiding spurious inclusion of activity program genes in the latter.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Conceptual motivations articulated by authors."
+  },
+  {
+    "claim_id": "C18",
+    "claim": "Cell-cycle programs are widespread activity programs that confound identity program inference in scRNA-Seq data.",
+    "claim_type": "EXPLICIT",
+    "source_text": "GEPs corresponding to different phases of the cell cycle are examples of widespread activity programs and are well-known to confound identity (cell type) program inference in scRNA-Seq data (Chen and Zhou, 2017; Scialdone et al., 2015).",
+    "evidence_type": [
+      "CITATION"
+    ],
+    "evidence_reasoning": "Supported by cited literature on cell-cycle effects in scRNA-Seq."
+  },
+  {
+    "claim_id": "C19",
+    "claim": "PCA, ICA, LDA, and NMF are used for scRNA-Seq dimensionality reduction or clustering, but their inferred dimensions may not align with biologically meaningful GEPs, and each makes simplifying assumptions potentially inappropriate for gene expression data.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Principal Component Analysis (PCA), Independent Component Analysis (ICA), Latent Dirichlet Allocation (LDA)... and Non-Negative Matrix Factorization (NMF)... have been used... However... the dimensions inferred by these or other matrix factorization algorithms may not necessarily align with biologically meaningful gene expression programs and are frequently ignored in practice.",
+    "evidence_type": [
+      "CITATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Cited uses and interpretive challenges; authors infer limitations."
+  },
+  {
+    "claim_id": "C20",
+    "claim": "NMF and LDA are non-negative and cannot directly model repression; ICA components are independent; PCA components are orthogonal; PCA and ICA allow negative expression values; none except LDA explicitly models count distributions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For example, NMF and LDA are non-negative and so cannot directly model repression. ICA components are statistically independent, PCA components are mutually orthogonal, and both allow gene expression to be negative. Furthermore, none of these methods, except LDA, explicitly accounts for the count distribution of expression data in their error models.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Method properties are standard; underlying citations to methods provided earlier."
+  },
+  {
+    "claim_id": "C21",
+    "claim": "Using simulations, ICA, LDA, and NMF\u2014but not PCA\u2014can accurately discover both activity and identity GEPs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Using simulations, we show that despite their simplifying assumptions, ICA, LDA, and NMF\u2014but not PCA\u2014can accurately discover both activity and identity GEPs.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Supported by simulation results in the Results section."
+  },
+  {
+    "claim_id": "C22",
+    "claim": "Due to stochasticity, ICA, LDA, and NMF give substantially varying results when repeated, hindering interpretability; a meta-analysis approach increases robustness and accuracy, with cNMF giving the best performance in simulations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "However, due to inherent randomness in their algorithms, they give substantially varying results when repeated multiple times, which hinders their interpretability. We therefore implemented a meta-analysis approach... Overall, the meta-analysis of NMF, which we call Consensus NMF (cNMF), gave the best performance in these simulations.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical observations and benchmarking in simulations."
+  },
+  {
+    "claim_id": "C23",
+    "claim": "Applied to three real scRNA-Seq datasets from different platforms, cNMF inferred expected activity programs (cell-cycle in organoids and depolarization in visual cortex), an unanticipated hypoxia program, and novel activity programs, improved cell type characterization, and enabled estimating activity rates across cell types.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Applied to three real datasets generated by three different scRNA-Seq platforms, cNMF inferred expected activity programs... an unanticipated hypoxia program, and intriguing novel activity programs. It also enhanced cell type characterization and enabled estimation of rates of activity across cell types.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Results summarized from analyses on real datasets."
+  },
+  {
+    "claim_id": "C24",
+    "claim": "The simulations used 15,000 cells, 13 cell types, one activity program active variably in a subset of four cell types, and a 6% doublet rate, with 20 replicates at three signal-to-noise ratios.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We evaluated this in simulated data of 15,000 cells composed of 13 cell types, one cellular activity program that is active to varying extents in a subset of cells of four cell types, and a 6% doublet rate... We generated 20 replicates of this simulation, each at three different \u2018signal to noise\u2019 ratios,",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Design details of simulations as part of the study\u2019s data."
+  },
+  {
+    "claim_id": "C25",
+    "claim": "ICA, LDA, and NMF yielded different solutions across runs on the same simulated data, with variability including splitting true GEPs into multiple components and merging multiple GEPs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We first analyzed the performance of ICA, LDA, and NMF and noticed that they yielded different solutions when run several times on the same input simulated data... local optima frequently corresponded to solutions where a simulated GEP was split into multiple inferred components and/or multiple GEPs were merged into a single component",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Empirical observation from repeated runs on simulations."
+  },
+  {
+    "claim_id": "C26",
+    "claim": "The authors\u2019 consensus matrix factorization runs factorization multiple times, filters outliers, clusters components across replicates, and takes cluster medians as consensus estimates, then computes a final usage matrix and transforms programs to TPM units.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we employed a meta-analysis approach... we run the factorization multiple times, filter outlier components..., cluster the components over all replicates combined, and take the cluster medians as our consensus estimates. With these estimates fixed, we are able to compute a final usage matrix... and to transform our GEP estimates from normalized units to biologically meaningful ones such as transcripts per million (TPM).",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Methodological description of the approach."
+  },
+  {
+    "claim_id": "C27",
+    "claim": "Consensus matrix factorization inferred components underlying the GEPs and which cells expressed each GEP, whereas principal components were linear combinations of true GEPs; consensus increased deconvolution ability, with cNMF most frequently deconvoluting activity and identity GEPs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Consensus matrix factorization inferred components underlying the GEPs as well as which cells expressed each GEP... By contrast, principal components were linear combinations of the true GEPs... cNMF successfully deconvoluted the activity and identity GEPs more frequently than the other matrix factorizations considered",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Outcomes from simulation analyses comparing methods."
+  },
+  {
+    "claim_id": "C28",
+    "claim": "cNMF was most accurate at inferring genes in the activity program, with 61% sensitivity at 5% FDR; cICA and ground-truth clustering had 57% and 56% sensitivity respectively; clustering approaches performed worse for identity programs due to misassignment of activity genes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that cNMF was most accurate at inferring genes in the activity program, with a sensitivity of 61% at a false discovery rate (FDR) of 5%... cICA and the ground-truth clustering were the next most accurate with 57% and 56% sensitivity at a 5% FDR, respectively... clustering approaches performed worse as they inappropriately assigned activity GEP genes to these identity programs",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantitative benchmarking results reported."
+  },
+  {
+    "claim_id": "C29",
+    "claim": "The authors chose cNMF for real data analysis due to its accuracy, processing speed, and interpretability, including interpretable non-negative usage and component matrices.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We decided to proceed with cNMF to analyze the real datasets due its accuracy, processing speed, and interpretability... The non-negativity assumption of NMF naturally results in usage and component matrices that can be normalized and interpreted as probability distributions",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Supported by prior benchmarking and method properties."
+  },
+  {
+    "claim_id": "C30",
+    "claim": "With a 10% usage threshold, cNMF classified 91% of cells expressing the activity program and 94% of cells not expressing it, and inferred usage correlated with simulated usage (R=0.74 across simulations).",
+    "claim_type": "EXPLICIT",
+    "source_text": "With an expression usage threshold of 10%, cNMF accurately classified 91% of cells expressing the activity program and 94% of cells that did not express the program. Moreover, we observed a high Pearson correlation between the inferred and simulated usages... (R = 0.74 for all simulations combined)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantitative performance metrics from simulations."
+  },
+  {
+    "claim_id": "C31",
+    "claim": "cNMF correctly modeled doublets as combinations of identity GEPs and accurately inferred GEPs even in a simulated dataset with 50% doublets.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that cNMF correctly modeled doublets as a combination of the GEPs for the two combined cell types... cNMF could accurately infer the GEPs even in a simulated dataset composed of 50% doublets",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Simulation results demonstrating handling of doublets."
+  },
+  {
+    "claim_id": "C32",
+    "claim": "In simulations with variable cell-type proportions, rare identity GEPs were sometimes missed by cNMF, cICA, and Louvain, but increasing the distinctness of identity GEPs enabled inference by cNMF and cICA, suggesting uniform frequency simplification did not significantly impact conclusions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "some identity GEPs from rare cell-types were missed by cNMF, cICA, and Louvain clustering... when we increased the distinctness of the identity GEPs... they could still be inferred by both cICA and cNMF... This suggests that the simplification of uniform cell-type frequencies does not significantly impact our conclusions.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed in simulations with inference about impact on conclusions."
+  },
+  {
+    "claim_id": "C33",
+    "claim": "In brain organoid data of 52,600 cells, cNMF identified 31 distinct programs, separable into identity and activity programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we then used cNMF to re-analyze a published scRNA-Seq dataset of 52,600 single cells... We identified 31 distinct programs in this dataset that could be further parsed into identity and activity programs",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Results of applying cNMF to organoid dataset."
+  },
+  {
+    "claim_id": "C34",
+    "claim": "Most cells in organoids had high usage of a single GEP, consistent with identity programs; three GEPs were co-expressed with many distinct uncorrelated programs, suggesting activity programs expressed across diverse cell types.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Most cells had high usage of just a single GEP... three GEPs were co-expressed with many distinct and uncorrelated programs, suggesting that they represent activity programs that occur across diverse cell types",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed usage patterns; interpretation of broad co-expression as activity."
+  },
+  {
+    "claim_id": "C35",
+    "claim": "Twenty-eight identity programs refined the ten primary cell-type clusters originally reported for the organoid dataset.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our 28 identity programs further refined the 10 primary cell-type clusters originally reported for this dataset.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Result of higher-resolution identity program inference."
+  },
+  {
+    "claim_id": "C36",
+    "claim": "Cells previously annotated as mesodermal predominantly expressed three GEPs significantly enriched for 'Muscle Contraction' GO genes, indicating they likely represent muscle cells.",
+    "claim_type": "EXPLICIT",
+    "source_text": "cells previously annotated as mesodermal predominantly expressed one of three GEPs that were significantly enriched for genes in the \u2018Muscle Contraction\u2019 Gene Ontology (GO) set (p<1\u00d710\u221210 vs. p>0.19 for all other GEPs). They therefore likely represent muscle cells.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Enrichment statistics support muscle identity; conclusion inferred."
+  },
+  {
+    "claim_id": "C37",
+    "claim": "The three muscle-related GEPs include genes characteristic of immature skeletal muscle, fast-twitch muscle, and slow-twitch muscle, respectively.",
+    "claim_type": "EXPLICIT",
+    "source_text": "they include genes characteristic of different classes of skeletal muscle: (1) immature skeletal muscle (e.g. MYOG, TNNT2, NES), (2) fast-twitch muscle (e.g. TNNT3, TNNC2, MYOZ1), and (3) slow-twitch muscle (e.g. TNNT1, TNNC1, TPM3)",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Program gene composition and known markers of muscle subtypes."
+  },
+  {
+    "claim_id": "C38",
+    "claim": "The identification of multiple skeletal muscle GEPs suggests distinct skeletal muscle populations are differentiating in brain organoids.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This unexpected finding suggests that distinct populations of skeletal muscle cells -- excitatory cell types with many similarities to neurons -- are differentiating in these brain organoids.",
+    "evidence_type": [
+      "INFERENCE",
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Interpretation of observed GEPs as differentiation; speculative language used."
+  },
+  {
+    "claim_id": "C39",
+    "claim": "Two of the three activity programs in organoids were strongly enriched for cell cycle GO sets, corresponding to separate phases: one enriched for DNA replication (G1/S) and the other for mitosis (G2/M).",
+    "claim_type": "EXPLICIT",
+    "source_text": "two were strongly enriched for cell cycle Gene Ontology (GO) sets... one shows stronger enrichment for... DNA replication... the other... mitosis... implied that one represents a G1/S checkpoint program and the other represents a G2/M checkpoint program",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "GO enrichment results and interpretation to cell-cycle phases."
+  },
+  {
+    "claim_id": "C40",
+    "claim": "The third activity program in organoids is characterized by hypoxia-related genes (e.g., VEGFA, PGK1, CA9, P4HA1, HILPDA), suggesting a hypoxia program.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The third activity program is characterized by high levels of hypoxia related genes (e.g. VEGFA, PGK1, CA9, P4HA1, HILPDA) suggesting it represents a hypoxia program",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Program gene composition implies hypoxia response."
+  },
+  {
+    "claim_id": "C41",
+    "claim": "The hypoxia program is most significantly enriched for protein localization to the endoplasmic reticulum and nonsense mediated decay gene sets.",
+    "claim_type": "EXPLICIT",
+    "source_text": "This GEP is most significantly enriched for genesets related to protein localization to the endoplasmic reticulum and nonsense mediated decay (p=3\u00d710\u221237, p=5\u00d710\u221231)",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Reported GO enrichment p-values."
+  },
+  {
+    "claim_id": "C42",
+    "claim": "In the original organoid report, HIF1A staining failed to detect significant hypoxia; HIF1A is not strongly associated with the hypoxia GEP at the transcriptional level in this analysis.",
+    "claim_type": "EXPLICIT",
+    "source_text": "In the initial report of this data, staining for a single hypoxia gene, HIF1A, failed to detect significant levels of hypoxia. Indeed, HIF1A is not strongly associated with this GEP, at least not at the transcriptional level.",
+    "evidence_type": [
+      "CITATION",
+      "DATA"
+    ],
+    "evidence_reasoning": "Cites initial report observation and current program-gene association analysis."
+  },
+  {
+    "claim_id": "C43",
+    "claim": "In organoids, 5.9% of cells expressed the G1/S program and 3.9% expressed the G2/M program (usage \u226510%).",
+    "claim_type": "EXPLICIT",
+    "source_text": "We found that 3079 cells (5.9%) expressed the G1/S program and 2043 cells (3.9%) expressed the G2/M program (with usage >= 10%).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantification from cNMF usage analysis."
+  },
+  {
+    "claim_id": "C44",
+    "claim": "A 'stem-like' population showed the highest proliferation rates, with over 38% expressing a cell-cycle program in addition to the stem-like identity GEP.",
+    "claim_type": "EXPLICIT",
+    "source_text": "These cells showed the highest rates of proliferation with over 38% of them expressing a cell-cycle program in addition to the \u2018stem-like\u2019 identity GEP",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Usage-based classification of proliferative cells."
+  },
+  {
+    "claim_id": "C45",
+    "claim": "The 'proliferative precursors' cluster comprises multiple cell types including immature muscle and dopaminergic neurons, with the predominant identity GEP most strongly associated with PAX7, a muscle stem cell marker.",
+    "claim_type": "EXPLICIT",
+    "source_text": "a cell cluster labeled... as \u2018proliferative precursors\u2019... is composed of multiple cell types including immature muscle and dopaminergic neurons... The predominant identity GEP of cells in this cluster is most strongly associated with the gene PAX7, a marker of self-renewing muscle stem cells",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Program usage and marker gene association; PAX7 role supported by citation."
+  },
+  {
+    "claim_id": "C46",
+    "claim": "The PAX7-associated GEP has usage >10% in 41% of cells whose most used GEP is the immature muscle program, suggesting it may be a precursor of muscle cells.",
+    "claim_type": "EXPLICIT",
+    "source_text": "this GEP has high (>10%) usage in 41% of cells who\u2019s most used GEP is the immature muscle program, suggesting it may be a precursor of muscle cells.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Usage statistics support inference of precursor relationship."
+  },
+  {
+    "claim_id": "C47",
+    "claim": "The hypoxia program was expressed widely in organoids, with 5788 cells (11%) having usage >10%.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The hypoxia response program is widespread in this dataset with 5788 cells (11%) of all cells expressing it (usage >10%).",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantified program usage across cells."
+  },
+  {
+    "claim_id": "C48",
+    "claim": "In mouse visual cortex neurons (n=15,011), cNMF identified 20 GEPs, interpreted as 14 identity and six activity programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We ran cNMF on neurons combined from all three exposure conditions and identified 20 GEPs, interpreting 14 as identity and six as activity programs",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Result of cNMF analysis on visual cortex dataset."
+  },
+  {
+    "claim_id": "C49",
+    "claim": "Three activity programs were correlated with light stimulus: one induced at 1 hour (an early response program), and two primarily induced at 4 hours (late response programs), overlapping significantly with reported differentially expressed genes.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Three activity programs were correlated with the stimulus... One of these was induced at 1h... early response program (ERP). The others were primarily induced at 4h... late response programs (LRPs). These programs overlapped significantly with the sets of differentially expressed genes reported in Hrvatin et al. (2018)",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Program-stimulus correlations and overlap with published DE gene sets."
+  },
+  {
+    "claim_id": "C50",
+    "claim": "One late response program was more induced in superficial cortical layers and another in deeper layers, supporting a model of shared ERPs and subtype-varying LRPs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "one LRP was more induced in superficial cortical layers, while the other was more induced in deeper layers. This supports a recently proposed model where the ERP is predominantly shared across excitatory neurons, while LRPs vary more substantially across neuron subtypes (Hrvatin et al., 2018).",
+    "evidence_type": [
+      "DATA",
+      "CITATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed layer-specific induction supporting previously proposed model."
+  },
+  {
+    "claim_id": "C51",
+    "claim": "In the Tasic et al. dataset of 1573 neurons without specific light stimulus, cNMF identified a GEP matching the superficial LRP from the primary dataset with strong concordance and predominant expression in superficial excitatory layers (e.g., >40% of Exc. L2).",
+    "claim_type": "EXPLICIT",
+    "source_text": "cNMF identified a matching GEP... identified a GEP that showed striking concordance with the superficial LRP... This program was predominantly expressed in excitatory cells of the more superficial layers of the cortex... over 40% of the excitatory layer 2 (Exc. L2) type neurons expressed this activity program",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Cross-dataset program matching and usage rates reported."
+  },
+  {
+    "claim_id": "C52",
+    "claim": "An excitatory neuron-specific Neurosecretory (NS) activity program is characterized by high expression of secreted neuropeptides and secretion-facilitating genes, and a matching program was found in the Tasic dataset, indicating reproducibility.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We labeled one of these, that was specific to excitatory neurons, as Neurosecretory (NS) because it is characterized by high expression of several secreted neuropeptides... and has high expression of genes that facilitate protein secretion... Notably, we found a matching program in the Tasic Et, Al. dataset... Thus, this neurosecretory activity program is reproducible across multiple single-cell datasets.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Program gene composition and cross-dataset replication."
+  },
+  {
+    "claim_id": "C53",
+    "claim": "The top expressed gene in the NS program, Vgf, is induced by nerve growth factor.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The top expressed gene\u2014Vgf (VGF nerve growth factor inducible) is induced by nerve growth factor (Salton et al., 1991)",
+    "evidence_type": [
+      "CITATION",
+      "DATA"
+    ],
+    "evidence_reasoning": "Program observation and cited biological property of Vgf."
+  },
+  {
+    "claim_id": "C54",
+    "claim": "A Synaptogenesis (Syn) activity program is characterized by genes crucial for synapse formation and is enriched for synapse-related GO sets, suggesting involvement in synapse formation/regulation.",
+    "claim_type": "EXPLICIT",
+    "source_text": "An additional activity program which we labeled Synaptogenesis (Syn) was characterized by expression of genes that play a crucial role in synapse formation... It was also significantly enriched for relevant Gene Ontology sets... which further suggests its interpretation as a program involved in the formation or regulation of synapses.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Gene composition and GO enrichment support interpretation; gene functions have literature support."
+  },
+  {
+    "claim_id": "C55",
+    "claim": "A third activity program ('Other') was characterized by high expression of MEG3 and genes associated with cerebral ischemic injury; functional interpretations of novel programs are speculative.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The last activity program (labeled Other) was characterized by high expression of the maternally expressed long non-coding RNA Meg3... and other genes that are associated with cerebral ischemic injury... Our functional interpretations of the novel activity programs are speculative",
+    "evidence_type": [
+      "DATA",
+      "SPECULATION",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Program gene composition observed; functional assignment acknowledged as speculative; gene associations cited."
+  },
+  {
+    "claim_id": "C56",
+    "claim": "Some biological programs do not fit neatly as identity or activity, but matrix factorization can represent expression states approximated as linear mixtures of programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "some biological programs are not neatly classified as either identity or activity GEPs... While the identity/activity distinction might not be appropriate in every case, matrix factorization should, in principle, be appropriate for representing all gene expression states that can be reasonably approximated as a linear mixture of programs.",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Conceptual reasoning on framework applicability."
+  },
+  {
+    "claim_id": "C57",
+    "claim": "cNMF inferred the most accurate identity and activity programs among tested methods, yielded interpretable units (TPM), and accurately inferred the percentage of each cell\u2019s expression derived from each GEP.",
+    "claim_type": "EXPLICIT",
+    "source_text": "cNMF inferred the most accurate identity and activity programs of all the methods we tested. Moreover, it yielded results in interpretable units of gene expression (transcripts per million) and could accurately infer the percentage of each cell\u2019s expression that was derived from each GEP.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Summarizes quantitative benchmarking and properties shown in results."
+  },
+  {
+    "claim_id": "C58",
+    "claim": "cNMF recapitulated known activity programs, identified unexpected programs (hypoxia in organoids and depolarization-induced in untreated neurons), and discovered novel programs (neurosecretory, synaptogenesis, stress-like) in visual cortex neurons.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then identified several unexpected but highly plausible programs, a hypoxia program in brain organoids and a depolarization-induced activity program in untreated neurons. Finally, we identified three novel programs in visual cortex neurons that we speculate may correspond to a neurosecratory phenotype, new synapse formation, and a stress response program.",
+    "evidence_type": [
+      "DATA",
+      "SPECULATION"
+    ],
+    "evidence_reasoning": "Results from data analyses; functional labels for novel programs are speculative."
+  },
+  {
+    "claim_id": "C59",
+    "claim": "cNMF clarified underlying cell types in datasets by disentangling activity and identity programs and enabled quantifying prevalence of activities across cell types.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Beyond simply discovering activity programs, cNMF clarified the underlying cell types in these datasets by disentangling activity and identity programs... joint analysis of identity and activity GEPs allowed us to quantify the relative prevalence of activities across cell types.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Demonstrated in organoid and visual cortex analyses."
+  },
+  {
+    "claim_id": "C60",
+    "claim": "Code for cNMF is available on GitHub and analysis scripts are available on Code Ocean for re-execution.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We have deposited all the cNMF code on Github https://github.com/dylkot/cNMF/ ... and have made available all of the analysis scripts for figures contained in this manuscript on Code Ocean (https://doi.org/10.24433/CO.9044782e-cb96-4733-8a4f-bf42c21399e6)",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Author-provided resource availability statement."
+  },
+  {
+    "claim_id": "C61",
+    "claim": "Choosing K can be guided by a trade-off between factorization stability and reconstruction error and by PCA scree plots; cNMF was relatively robust to consecutive K choices within a reasonable range.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we propose two simple decision aids based on (1) considering the trade-off between factorization stability and reconstruction error and (2) looking at the proportion of variance explained by K principal components... choosing consecutive values of K primarily influenced individual components at the margin, suggesting that cNMF may be robust to this choice within a reasonable range of options",
+    "evidence_type": [
+      "INFERENCE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Guidelines from authors and empirical robustness noted in figures."
+  },
+  {
+    "claim_id": "C62",
+    "claim": "Using 30% of replicates as nearest neighbors for outlier detection worked across datasets, and outlier distance thresholds could be set by truncating long tails in distance distributions.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Using 30% of the number of replicates as nearest neighbors worked well for all datasets we analyzed, and an appropriate outlier distance threshold was clear... based on the long tail in the distance distribution",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Empirical parameter choice performing well across analyzed datasets."
+  },
+  {
+    "claim_id": "C63",
+    "claim": "cNMF does not specifically address the count nature of gene expression; methods like Hierarchical Poisson Factorization may increase accuracy; adding regularization could address lack of sparsity in usages.",
+    "claim_type": "EXPLICIT",
+    "source_text": "cNMF does not specifically address the count nature of gene expression... Hierarchical Poisson Factorization... may therefore increase the accuracy... NMF often yields low but non-zero usages... could be addressed by adding regularization to the model",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Analytical limitations and potential improvements referenced."
+  },
+  {
+    "claim_id": "C64",
+    "claim": "Matrix factorizations assume linear combinations of GEPs, precluding modeling of transcriptional repression; VAEs may capture nonlinearities but face training and interpretability challenges.",
+    "claim_type": "EXPLICIT",
+    "source_text": "A more fundamental limitation of matrix factorizations... is the built-in assumption that cells can be modeled as linear combinations of GEPs... precludes modeling of transcriptional repression... new classes of latent variable models such as variational autoencoders (VAEs)... can capture non-linearities... it remains to be shown whether they can be directly or indirectly interpreted as distinct GEPs and GEP usages.",
+    "evidence_type": [
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Methodological reasoning with references to VAEs."
+  },
+  {
+    "claim_id": "C65",
+    "claim": "As scRNA-Seq improves, it will be possible to detect increasingly subtle GEPs, and cNMF provides a framework to infer such GEPs directly from data without experimental manipulations.",
+    "claim_type": "EXPLICIT",
+    "source_text": "scRNA-Seq data is likely to become richer and more expansive. This will make it possible to detect increasingly subtle GEPs... we have demonstrated a computational framework that can be used to infer such GEPs directly from the scRNA-Seq data without the need for experimental manipulations",
+    "evidence_type": [
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Forward-looking interpretation based on demonstrated method utility."
+  },
+  {
+    "claim_id": "C66",
+    "claim": "The simulation framework is based on Splatter but re-implemented in Python and adapted to simulate doublets and activity programs.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Our simulation framework is based on Splatter (Zappia et al., 2017) but is re-implemented in Python and adapted to allow simulation of doublets and activity programs.",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Authors\u2019 method description referencing Splatter."
+  },
+  {
+    "claim_id": "C67",
+    "claim": "Fourteen GEPs (13 identity and 1 activity) were simulated; 30% of cells in four cell types expressed the activity program with usages uniformly between 10% and 70%.",
+    "claim_type": "EXPLICIT",
+    "source_text": "14 gene-expression programs Z\u2208NM (13 identity programs... and 1 activity program... ) were simulated... 30% of cells of four cell types were randomly selected to express the activity program at a usage \u03d5i, uniformly distributed between 10% and 70%.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Simulation design parameters provided by authors."
+  },
+  {
+    "claim_id": "C68",
+    "claim": "Doublets were constructed by randomly sampling cell pairs, summing counts, and down-sampling to the maximum library size.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Doublets were constructed by randomly sampling pairs of cells, summing their simulated count vectors, and randomly down-sampling the counts until the total number of counts equaled the maximum of the library sizes of the original two cells.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Method description for simulation of doublets."
+  },
+  {
+    "claim_id": "C69",
+    "claim": "25,000 genes were simulated, with 1,000 associated with the activity program, and the probability of a gene being differentially expressed in an identity program was 2.5%.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We simulated 25,000 genes, 1000 of which were associated with the activity program. The probability of a gene being differentially expressed in a cell identity program was set to 2.5%.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Simulation parameter values reported."
+  },
+  {
+    "claim_id": "C70",
+    "claim": "Cells with fewer than 1000 UMIs were removed and genes not detected in at least 1 out of 500 cells were filtered.",
+    "claim_type": "EXPLICIT",
+    "source_text": "For each dataset, we removed cells with fewer than 1000 unique molecular identifiers (UMIs) detected. We also filtered out genes that were not detected in at least 1 out of 500 cells.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Data preprocessing steps stated by authors."
+  },
+  {
+    "claim_id": "C71",
+    "claim": "The top 2000 over-dispersed genes by v-score were selected for cNMF input and scaled to unit variance; data was not mean-centered nor log-transformed prior to cNMF.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We then selected the H most over-dispersed genes as determined by the v-score... H was set to 2000... Each of the H over-dispersed genes was then scaled to unit variance... We do not mean center the genes so as to preserve the non-negativity... we... do not log-transform the data prior to running cNMF.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Preprocessing protocol specified by the authors."
+  },
+  {
+    "claim_id": "C72",
+    "claim": "No cell count normalization across cells was performed prior to cNMF; for Tasic et al. dataset, variance-normalized TPM was used.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we do not perform any cell count normalization... for the Tasic et al. (2016) dataset... we variance-normalized high-variance genes from the TPM matrix directly",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Stated methodological choice."
+  },
+  {
+    "claim_id": "C73",
+    "claim": "cNMF used scikit-learn NMF with random initialization, tolerance 1e-4, and maximum 400 iterations, run R replicates with the same K but different seeds.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We use non-negative matrix factorization implemented in scikit-learn... with the default parameters except for random initialization, tolerance for the stopping condition of 10\u22124, and a maximum number of iterations of 400. R replicates of NMF are run... with the same number of components K but with different randomly selected seeds",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Algorithm configuration details provided by authors."
+  },
+  {
+    "claim_id": "C74",
+    "claim": "Outlier components were filtered using nearest neighbors based on Euclidean distances with parameters \u03c1 and \u03c4; \u03c1 was set to 0.3 across datasets and \u03c4 varied by dataset.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Components with high mean Euclidean distance from their L nearest neighbors are then filtered out... Two user-specified parameters, \u03c1 and \u03c4... We set \u03c1=0.3 for all datasets analyzed... We set \u03c4 = 0.03, 0.10, 0.08, 0.10, and 0.04 for the simulation, organoid, main visual cortex..., secondary visual cortex..., and the Pancreatic islets datasets",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "DATA"
+    ],
+    "evidence_reasoning": "Method description with chosen parameter values."
+  },
+  {
+    "claim_id": "C75",
+    "claim": "Consensus components were obtained by KMeans clustering of replicate components and taking median per-gene values within clusters, followed by l1 normalization and fitting a final usage matrix by non-negative least squares.",
+    "claim_type": "EXPLICIT",
+    "source_text": "the rows of G(f) are clustered using KMeans... Each cluster... is then collapsed... by taking the median value for each gene... The merged GEP components are then l1 normalized... A consensus usage matrix is then fit by running one last iteration of NMF with the component matrix fixed",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Consensus procedure detailed by authors."
+  },
+  {
+    "claim_id": "C76",
+    "claim": "Final program estimates were re-fit in TPM units for all genes by fixing the normalized consensus usage and solving non-negative least squares per gene.",
+    "claim_type": "EXPLICIT",
+    "source_text": "final program estimates can be computed in desired units... by running a last iteration of NMF with the usage matrix fixed... To convert the estimated programs to TPM units... we refit against the matrix of TPM values, T",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Method for re-fitting programs in interpretable units described."
+  },
+  {
+    "claim_id": "C77",
+    "claim": "Marker genes were identified by multiple least squares regression of z-scored expression against the consensus usage matrix; coefficients indicate expected change in gene expression per unit GEP usage.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We identify marker genes... using multiple least squares regression of normalized (z-scored) gene expression against the consensus GEP usage matrix... The regression coefficients \u03b2kj can then be interpreted as by how many standard deviations the expression of gene j should increase for an additional count of usage being attributed to GEP k.",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Analytical method and interpretation defined by authors."
+  },
+  {
+    "claim_id": "C78",
+    "claim": "Because residuals are not normal, OLS p-values may be inaccurate, so gene-set enrichment is recommended on regression coefficients using a one-sided Mann-Whitney U test after flooring negative coefficients to zero.",
+    "claim_type": "EXPLICIT",
+    "source_text": "because gene-expression data is not normally distributed, the residuals... violate... OLS... we do not use the p-values... We recommend testing for gene-set enrichment on regression coefficients directly... We used the z-score regression coefficients... as input for a one-sided Mann Whitney U Test... We first floored all negative coefficients to equal zero",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Authors\u2019 methodological recommendation for enrichment testing."
+  },
+  {
+    "claim_id": "C79",
+    "claim": "K selection was guided by plots of solution stability (silhouette score) and Frobenius reconstruction error across K, and by PCA scree plots; cNMF solutions were relatively stable within \u00b14 K.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We use two diagnostic plots... stability of the solution... and the Frobenius reconstruction error... As another approach... we use scree plots... When we varied K within a range of \u00b1four... we found approximately the same core set of GEPs",
+    "evidence_type": [
+      "DATA",
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Described criteria and empirical robustness across K."
+  },
+  {
+    "claim_id": "C80",
+    "claim": "Comparisons included consensus and standard LDA and ICA, PCA, Louvain clustering, and ground-truth-based hard clustering, using scikit-learn and scanpy implementations with specified parameters.",
+    "claim_type": "EXPLICIT",
+    "source_text": "We compared cNMF with consensus and standard versions of LDA and ICA as well as with PCA, Louvain clustering and a hard clustering... We used the implementations of LDA, ICA, and PCA in scikit-learn... and... Louvain clustering in scanpy... For Louvain clustering, we used 14 principal components... and used 200 nearest neighbors",
+    "evidence_type": [
+      "KNOWLEDGE"
+    ],
+    "evidence_reasoning": "Methodological setup for benchmarking described."
+  },
+  {
+    "claim_id": "C81",
+    "claim": "The organoid data is accessible at NCBI GEO GSE86153; visual cortex datasets at GSE102827 and GSE71585; cNMF and simulation code are on GitHub; datasets and analyses are on Code Ocean.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The organoid data... is accessible at NCBI GEO accession number GSE86153... The visual cortex datasets... at NCBI GEO, accession numbers GSE102827 and GSE71585... Code for running cNMF is available on Github... as is code for simulating data... All datasets and analysis... on Code Ocean",
+    "evidence_type": [
+      "KNOWLEDGE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Resource and data availability statements with accession numbers and links."
+  },
+  {
+    "claim_id": "C82",
+    "claim": "In visual cortex data, aggregate GEP usage was relatively uniform across mouse replicates with expected association between depolarization-induced GEPs and stimulus-treated mice.",
+    "claim_type": "EXPLICIT",
+    "source_text": "The visual cortex data showed relative uniformity of GEP usage across mouse replicates, with the only clear pattern being the expected association between depolarization-induced GEPs and mice treated with the stimulus",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Supplementary analysis of between-replicate variability."
+  },
+  {
+    "claim_id": "C83",
+    "claim": "In organoids, there was significant variability between organoids primarily associated with bioreactors, reflecting true biological signal.",
+    "claim_type": "EXPLICIT",
+    "source_text": "there was significant variability between organoids... primarily associated with the bioreactors in which the organoids were grown... this variability... represents true biological signal that we would hope for cNMF to discern.",
+    "evidence_type": [
+      "DATA",
+      "CITATION",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed variability; original manuscript discussed and validated; inference that it is biological signal."
+  },
+  {
+    "claim_id": "C84",
+    "claim": "Each GEP contributed to cells from multiple independent replicates: no GEP derived >15% of its usage from a single replicate in visual cortex or >45% in organoids; each organoid GEP was the maximum GEP in \u22656 organoids and each visual cortex GEP in \u226510 mice.",
+    "claim_type": "EXPLICIT",
+    "source_text": "No GEP derived more than 15% of its usage from a single replicate in the visual cortex data or more than 45% of its usage from a single replicate in the organoid data. Furthermore, each organoid GEP was the maximum contributing GEP for a cell in at least six distinct organoid replicates, and each visual cortex GEP was the maximum contributor for a cell in at least 10 distinct mouse replicates.",
+    "evidence_type": [
+      "DATA"
+    ],
+    "evidence_reasoning": "Quantitative cross-replicate usage analysis."
+  },
+  {
+    "claim_id": "C85",
+    "claim": "Applied to a human pancreatic islet dataset (10,939 cells), cNMF identified 16 GEPs matching many cell-type clusters but missed some cell types that had been distinguished by iterative sub-clustering in the original publication.",
+    "claim_type": "EXPLICIT",
+    "source_text": "Applied to this dataset of 10,939 cells, cNMF identified 16 GEPs that corresponded well with the cell-type clusters... Our application... failed to identify GEPs corresponding to a few cell-types... many of the cell types that were missed... were only distinguished through iterative sub-clustering in the initial publication",
+    "evidence_type": [
+      "DATA",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Results of applying cNMF and comparison to prior study."
+  },
+  {
+    "claim_id": "C86",
+    "claim": "Multiple GEPs for many islet cell-type clusters corresponded to donor of origin; donors 1 and 3 were male and donors 2 and 4 female; XIST and RPSY1 were among the most differentially expressed between donor groups across certain cell types.",
+    "claim_type": "EXPLICIT",
+    "source_text": "we identified multiple GEPs for many cell-type clusters that corresponded to \u2018donor of origin.\u2019... donors 1 and 3 were male and donors 2 and 4 were female... among the genes that were most differentially expressed... were XIST... and RPSY1 on the Y chromosome",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE",
+      "CITATION"
+    ],
+    "evidence_reasoning": "Observed donor-associated GEPs; donor sexes noted; differential genes reported; implies batch effects including sex."
+  },
+  {
+    "claim_id": "C87",
+    "claim": "cNMF identified hybrid identity-donor GEPs rather than a single batch-effect GEP per donor in the islet dataset, suggesting technical batch effects can confound GEP identification; batch-effect correction can be performed prior to cNMF.",
+    "claim_type": "EXPLICIT",
+    "source_text": "cNMF did not learn a single GEP for each donor... but rather identified multiple hybrid identity-donor GEPs... technical sources of variation such as batch-effect can confound... To avoid incorporating variation between batches into the inferred GEPs... batch-effect correction can be performed prior to running cNMF.",
+    "evidence_type": [
+      "DATA",
+      "INFERENCE"
+    ],
+    "evidence_reasoning": "Observed donor-associated patterns; recommendation inferred for preprocessing."
+  }
+]

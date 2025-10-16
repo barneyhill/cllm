@@ -34,6 +34,7 @@ from .prompts.prompt_fallback import (
     STAGE3_FALLBACK,
     STAGE4_FALLBACK,
 )
+from .utils import generate_uuid, generate_prompt_id, get_current_timestamp
 
 T = TypeVar('T', bound=BaseModel)
 

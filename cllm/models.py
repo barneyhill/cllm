@@ -121,3 +121,96 @@ class LLMResultsConcordanceResponse(BaseModel):
         concordance: List of concordance comparisons
     """
     concordance: List[LLMResultsConcordanceRow]
+
+
+# ============================================================================
+# DATABASE EXPORT MODELS - New format for database import
+# ============================================================================
+
+
+class DBSubmission(BaseModel):
+    """Submission record for database."""
+    id: str  # UUID
+    user_id: Optional[int] = None  # Null for CLI usage, set by backend
+    manuscript_title: Optional[str] = None
+    manuscript_doi: Optional[str] = None
+    status: str = "completed"
+    created_at: str
+    updated_at: str
+
+
+class DBContent(BaseModel):
+    """Content record for database."""
+    id: str  # UUID
+    submission_id: str
+    content_type: str  # 'manuscript' or 'peer_review'
+    content_text: str
+    created_at: str
+
+
+class DBPrompt(BaseModel):
+    """Prompt record for database."""
+    id: str  # Hash of prompt_text + model
+    prompt_text: str
+    prompt_type: str  # 'extract', 'eval_llm', 'eval_peer', 'compare'
+    model: str
+    created_at: str
+
+
+class DBClaim(BaseModel):
+    """Claim record for database."""
+    id: str  # UUID
+    content_id: str
+    claim_id: str  # "C1", "C2" from LLM
+    claim: str
+    claim_type: str
+    source_text: str
+    evidence_type: str  # JSON string
+    evidence_reasoning: str
+    prompt_id: str
+    created_at: str
+
+
+class DBResult(BaseModel):
+    """Result record for database."""
+    id: str  # UUID
+    content_id: str
+    result_id: str  # "R1", "R2" from LLM
+    result_type: str  # 'llm' or 'peer'
+    reviewer_id: str
+    reviewer_name: str
+    result_status: str
+    result_reasoning: str
+    prompt_id: str
+    created_at: str
+
+
+class DBClaimResult(BaseModel):
+    """Junction table record linking claims to results."""
+    claim_id: str  # UUID
+    result_id: str  # UUID
+
+
+class DBComparison(BaseModel):
+    """Comparison record for database."""
+    id: str  # UUID
+    submission_id: str
+    llm_result_id: Optional[str] = None  # UUID, nullable
+    peer_result_id: Optional[str] = None  # UUID, nullable
+    llm_status: Optional[str] = None
+    peer_status: Optional[str] = None
+    agreement_status: str
+    notes: Optional[str] = None
+    prompt_id: str
+    created_at: str
+
+
+class DBExport(BaseModel):
+    """Complete database export structure."""
+    submission: DBSubmission
+    content: List[DBContent]
+    prompts: List[DBPrompt]
+    claims: List[DBClaim]
+    results: List[DBResult]
+    claim_results: List[DBClaimResult]
+    comparisons: List[DBComparison]

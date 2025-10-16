@@ -1,0 +1,123 @@
+{
+  "command": "cllm cmp eval_peer.json eval_llm.json -o cmp.json -m metrics_cmp.json",
+  "model": "gpt-5-2025-08-07",
+  "input_tokens": 3871,
+  "output_tokens": 4253,
+  "num_comparisons": 8,
+  "status_breakdown": {
+    "SUPPORTED": 9,
+    "UNSUPPORTED": 0,
+    "UNCERTAIN": 5
+  },
+  "processing_time_seconds": 95.8441960811615,
+  "jaccard_pairings": [
+    {
+      "llm_result_id": "R5",
+      "peer_result_id": "R4",
+      "jaccard_index": 1.0,
+      "shared_claims": [
+        "C82",
+        "C83",
+        "C84",
+        "C85",
+        "C86",
+        "C87"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R1",
+      "jaccard_index": 0.615,
+      "shared_claims": [
+        "C21",
+        "C22",
+        "C27",
+        "C28",
+        "C30",
+        "C31",
+        "C32",
+        "C57"
+      ]
+    },
+    {
+      "llm_result_id": "R3",
+      "peer_result_id": "R5",
+      "jaccard_index": 0.308,
+      "shared_claims": [
+        "C48",
+        "C49",
+        "C50",
+        "C51"
+      ]
+    },
+    {
+      "llm_result_id": "R2",
+      "peer_result_id": "R5",
+      "jaccard_index": 0.167,
+      "shared_claims": [
+        "C33",
+        "C39",
+        "C40",
+        "C6"
+      ]
+    },
+    {
+      "llm_result_id": "R4",
+      "peer_result_id": "R5",
+      "jaccard_index": 0.133,
+      "shared_claims": [
+        "C52",
+        "C54"
+      ]
+    },
+    {
+      "llm_result_id": "R1",
+      "peer_result_id": "R3",
+      "jaccard_index": 0.077,
+      "shared_claims": [
+        "C24",
+        "C26"
+      ]
+    }
+  ],
+  "comparison_metrics": {
+    "n1": 6,
+    "n2": 5,
+    "n_overlap_llm": 5,
+    "n_overlap_peer": 4,
+    "n_only1": 1,
+    "n_only2": 1,
+    "agreement_count": 3,
+    "disagreement_count": 1,
+    "agreement_pct": 50.0,
+    "disagreement_pct": 16.666666666666664,
+    "category_metrics": {
+      "SUPPORTED": {
+        "precision": 50.0,
+        "recall": 100.0,
+        "f1": 66.66666666666667,
+        "llm_count": 6,
+        "peer_count": 3,
+        "matches": 3
+      },
+      "UNSUPPORTED": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "llm_count": 0,
+        "peer_count": 0,
+        "matches": 0
+      },
+      "UNCERTAIN": {
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0,
+        "llm_count": 0,
+        "peer_count": 3,
+        "matches": 0
+      }
+    },
+    "coverage_1_by_2": 83.33333333333334,
+    "coverage_2_by_1": 80.0
+  }
+}

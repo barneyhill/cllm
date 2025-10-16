@@ -1,0 +1,70 @@
+digraph SQLiteSchema {
+  rankdir=LR;
+  graph [splines=true, overlap=false, bgcolor="#ffffff"];
+  node [shape=record, fontname="Helvetica", fontsize=10, style=filled];
+
+  // --- Core tables ---
+  Manuscript [label="{Manuscript|id : TEXT\lcontent : TEXT\lcreated_at : TIMESTAMP\l}", fillcolor="#f8f3ff"];
+  Prompt [label="{Prompt|id : TEXT\lprompt_text : TEXT\lmodel : TEXT\lprompt_type : TEXT\lcreated_at : TIMESTAMP\l}", fillcolor="#f8f3ff"];
+
+  // --- Claims & Peers ---
+  Claim [label="{Claim|id : TEXT\lmanuscript_id : TEXT\lclaim_id : TEXT\lclaim : TEXT\lclaim_type : TEXT\lsource_text : TEXT\levidence_type : JSON\levidence_reasoning : TEXT\lprompt_id : TEXT\l}", fillcolor="#e6f7ff"];
+  Peers [label="{Peers|id : TEXT\lmanuscript_id : TEXT\lcontent : TEXT\lcreated_at : TIMESTAMP\l}", fillcolor="#e6f7ff"];
+
+  // --- Results tables ---
+  Results_LLM [label="{Results_LLM|id : TEXT\lmanuscript_id : TEXT\lresult_id : TEXT\lreviewer_id : TEXT\lreviewer_name : TEXT\lstatus : TEXT\lstatus_reasoning : TEXT\lprompt_id : TEXT\l}", fillcolor="#fff6e6"];
+  Results_Peers [label="{Results_Peers|id : TEXT\lpeer_id : TEXT\lresult_id : TEXT\lreviewer_id : TEXT\lreviewer_name : TEXT\lstatus : TEXT\lstatus_reasoning : TEXT\lprompt_id : TEXT\l}", fillcolor="#fff6e6"];
+
+  // --- Comparison ---
+  Comparison [label="{Comparison|id : TEXT\lllm_result_id : TEXT\lpeer_result_id : TEXT\lllm_status : TEXT\lpeer_status : TEXT\lagreement_status : TEXT\lnotes : TEXT\ln_llm : INTEGER\ln_peer : INTEGER\ln_itx : INTEGER\lprompt_id : TEXT\l}", fillcolor="#f0fff0"];
+
+  // --- Junction tables ---
+  Claims_ResultsLLM [label="{Claims_ResultsLLM|claim_id : TEXT\lresult_llm_id : TEXT\l}", fillcolor="#f5f5f5"];
+  Claims_ResultsPeers [label="{Claims_ResultsPeers|claim_id : TEXT\lresult_peer_id : TEXT\l}", fillcolor="#f5f5f5"];
+
+  // --- Relationships ---
+  Claim -> Manuscript [label="manuscript_id", color="#6a5acd"];
+  Claim -> Prompt [label="prompt_id", color="#6a5acd"];
+  Peers -> Manuscript [label="manuscript_id", color="#6a5acd"];
+  Results_LLM -> Manuscript [label="manuscript_id", color="#ff8c00"];
+  Results_LLM -> Prompt [label="prompt_id", color="#ff8c00"];
+  Results_Peers -> Peers [label="peer_id", color="#ff8c00"];
+  Results_Peers -> Prompt [label="prompt_id", color="#ff8c00"];
+  Comparison -> Results_LLM [label="llm_result_id", color="#228b22"];
+  Comparison -> Results_Peers [label="peer_result_id", color="#228b22"];
+  Comparison -> Prompt [label="prompt_id", color="#228b22"];
+  Claims_ResultsLLM -> Claim [label="claim_id", color="#808080", style=dashed];
+  Claims_ResultsLLM -> Results_LLM [label="result_llm_id", color="#808080", style=dashed];
+  Claims_ResultsPeers -> Claim [label="claim_id", color="#808080", style=dashed];
+  Claims_ResultsPeers -> Results_Peers [label="result_peer_id", color="#808080", style=dashed];
+
+  // --- Clustering for clarity ---
+  subgraph cluster_core {
+    label="Core Tables";
+    color="#d0c0ff";
+    Manuscript;
+    Prompt;
+  }
+
+  subgraph cluster_claims {
+    label="Claims & Peers";
+    color="#c0e8ff";
+    Claim;
+    Peers;
+  }
+
+  subgraph cluster_results {
+    label="Results";
+    color="#ffe4b5";
+    Results_LLM;
+    Results_Peers;
+  }
+
+  subgraph cluster_comparison {
+    label="Comparison & Junctions";
+    color="#c0ffc0";
+    Comparison;
+    Claims_ResultsLLM;
+    Claims_ResultsPeers;
+  }
+}

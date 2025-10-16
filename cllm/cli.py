@@ -18,12 +18,17 @@ from .verification import (
     llm_group_claims_into_results,
     peer_review_group_claims_into_results,
     compare_results,
+    STAGE1_PROMPT_TEMPLATE,
+    STAGE2_PROMPT_TEMPLATE,
+    STAGE3_PROMPT_TEMPLATE,
+    STAGE4_PROMPT_TEMPLATE,
 )
 from .models import (
     LLMClaimV3,
     LLMResultV3,
 )
 from .report import json_to_pdf_table
+from .db_export import export_to_database_format, save_db_export
 
 
 @click.group()
@@ -631,13 +636,44 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # STAGE 3 & 4: PEER REVIEW EVALUATION AND COMPARISON (only if peer reviews provided)
     # ========================================================================
     if not peer_reviews:
-        # No peer reviews - skip stages 3 and 4
+        # No peer reviews - skip stages 3 and 4, but generate database export
+        click.echo("\n💾 Generating database export...")
+        click.echo("-" * 60)
+
+        try:
+            # Collect prompts used in workflow
+            model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+            prompts = {
+                "extract": {"text": STAGE1_PROMPT_TEMPLATE, "model": model},
+                "eval_llm": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
+            }
+
+            # Generate database export (no peer review or comparison data)
+            db_export = export_to_database_format(
+                manuscript_text=manuscript_text,
+                peer_review_text=None,
+                claims=claims,
+                llm_results=llm_results,
+                peer_results=None,
+                concordance=None,
+                prompts=prompts,
+            )
+
+            # Save to file
+            db_export_file = output_dir / "db_export.json"
+            save_db_export(db_export, db_export_file)
+            click.echo(f"✅ Generated database export: {db_export_file.name}")
+
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not generate database export: {e}", err=True)
+
         click.echo("\n" + "=" * 60)
         click.echo("✅ WORKFLOW COMPLETE (2 stages)")
         click.echo("=" * 60)
         click.echo(f"Output directory: {output_dir}")
         click.echo(f"  - Claims: {claims_file.name}")
         click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
+        click.echo(f"  - Database export: db_export.json")
         if metrics:
             click.echo(f"  - Metrics files: metrics_extract.json, metrics_eval_llm.json")
         click.echo("=" * 60)
@@ -778,6 +814,41 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
     # ========================================================================
+    # DATABASE EXPORT
+    # ========================================================================
+    click.echo("\n💾 Generating database export...")
+    click.echo("-" * 60)
+
+    try:
+        # Collect prompts used in workflow
+        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+        prompts = {
+            "extract": {"text": STAGE1_PROMPT_TEMPLATE, "model": model},
+            "eval_llm": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
+            "eval_peer": {"text": STAGE3_PROMPT_TEMPLATE, "model": model},
+            "compare": {"text": STAGE4_PROMPT_TEMPLATE, "model": model},
+        }
+
+        # Generate database export
+        db_export = export_to_database_format(
+            manuscript_text=manuscript_text,
+            peer_review_text=review_text,
+            claims=claims,
+            llm_results=llm_results,
+            peer_results=peer_results,
+            concordance=concordance,
+            prompts=prompts,
+        )
+
+        # Save to file
+        db_export_file = output_dir / "db_export.json"
+        save_db_export(db_export, db_export_file)
+        click.echo(f"✅ Generated database export: {db_export_file.name}")
+
+    except Exception as e:
+        click.echo(f"⚠️  Warning: Could not generate database export: {e}", err=True)
+
+    # ========================================================================
     # SUMMARY
     # ========================================================================
     click.echo("\n" + "=" * 60)
@@ -788,6 +859,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
     click.echo(f"  - Peer evaluation: {eval_peer_file.name}")
     click.echo(f"  - Comparison: {cmp_file.name}")
+    click.echo(f"  - Database export: db_export.json")
     if metrics:
         click.echo(f"  - Metrics files: metrics_*.json")
     click.echo("=" * 60)

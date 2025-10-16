@@ -1,0 +1,8 @@
+{
+  "command": "cllm eval v2paper.txt -c claims.json -o eval_llm.json -m metrics_eval_llm.json",
+  "model": "gpt-5-2025-08-07",
+  "input_tokens": 45134,
+  "output_tokens": 2911,
+  "num_results": 6,
+  "processing_time_seconds": 75.45806407928467
+}

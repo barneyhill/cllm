@@ -1,0 +1,8 @@
+{
+  "command": "cllm extract v2paper.txt -o claims.json -m metrics_extract.json",
+  "model": "gpt-5-2025-08-07",
+  "input_tokens": 16304,
+  "output_tokens": 18270,
+  "num_claims": 87,
+  "processing_time_seconds": 421.6748399734497
+}

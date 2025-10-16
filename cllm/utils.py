@@ -1,7 +1,37 @@
-"""Utility functions for CLLM - metrics calculation."""
+"""Utility functions for CLLM - metrics calculation, UUID generation, and prompt hashing."""
 
+import hashlib
+import uuid
+from datetime import datetime
 from typing import List, Dict, Any
 from .models import LLMResultV3, LLMResultsConcordanceRow
+
+
+def generate_uuid() -> str:
+    """Generate a UUID string."""
+    return str(uuid.uuid4())
+
+
+def generate_prompt_id(prompt_text: str, model: str) -> str:
+    """Generate a deterministic ID for a prompt based on its text and model.
+
+    Uses SHA256 hash of (prompt_text + model) and takes first 16 characters.
+
+    Args:
+        prompt_text: The full prompt text
+        model: The model name
+
+    Returns:
+        16-character hex string
+    """
+    combined = f"{prompt_text}|{model}"
+    hash_obj = hashlib.sha256(combined.encode('utf-8'))
+    return hash_obj.hexdigest()[:16]
+
+
+def get_current_timestamp() -> str:
+    """Get current timestamp in ISO format."""
+    return datetime.utcnow().isoformat() + 'Z'
 
 
 def calculate_comparison_metrics(

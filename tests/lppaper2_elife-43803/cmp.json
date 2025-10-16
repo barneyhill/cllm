@@ -1,0 +1,90 @@
+[
+  {
+    "llm_result_id": "R5",
+    "peer_result_id": "R4",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "disagree",
+    "notes": "Exact claim match (C82\u2013C87). LLM deems reproducibility and donor/batch findings supported; reviewers caution that batch effects may drive signals and request broader tests and variance explained, so they rate these claims as uncertain.",
+    "n_llm": 6,
+    "n_peer": 6,
+    "n_itx": 6
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R1",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Substantial but non-identical overlap; shared claims include C21, C22, C27, C28, C30, C31, C32, C57. LLM supports simulation-based superiority and accuracy; reviewers question fairness of method comparisons and K selection, leading to uncertainty. Extra LLM-only claims (e.g., C24, C25, C26) and peer-only (e.g., C5, C29) complicate direct concordance.",
+    "n_llm": 11,
+    "n_peer": 10,
+    "n_itx": 8
+  },
+  {
+    "llm_result_id": "R1",
+    "peer_result_id": "R3",
+    "llm_status": "SUPPORTED",
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Partial overlap on simulation/method setup (C24, C26). LLM interprets simulations and consensus approach as supportive; reviewers flag insufficient methodological detail and parameter justification, rating related claims uncertain.",
+    "n_llm": 11,
+    "n_peer": 17,
+    "n_itx": 2
+  },
+  {
+    "llm_result_id": "R3",
+    "peer_result_id": "R5",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Overlap on stimulus-responsive programs in cortex (C48\u2013C51); both support recovery and replication of ERP/LRPs with expected layer patterns. Peer result includes additional applications not covered by LLM R3.",
+    "n_llm": 4,
+    "n_peer": 13,
+    "n_itx": 4
+  },
+  {
+    "llm_result_id": "R2",
+    "peer_result_id": "R5",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Shared claims (C33, C39, C40, C6) on organoid identity/activity programs and disentangling activity; both support. Each result also contains non-overlapping claims.",
+    "n_llm": 15,
+    "n_peer": 13,
+    "n_itx": 4
+  },
+  {
+    "llm_result_id": "R4",
+    "peer_result_id": "R5",
+    "llm_status": "SUPPORTED",
+    "peer_status": "SUPPORTED",
+    "agreement_status": "agree",
+    "notes": "Shared claims (C52, C54) on neurosecretory and synaptogenesis programs; both support their existence/GO coherence. LLM also includes C53 and C55; peer includes additional application claims beyond these.",
+    "n_llm": 4,
+    "n_peer": 13,
+    "n_itx": 2
+  },
+  {
+    "llm_result_id": "R6",
+    "peer_result_id": null,
+    "llm_status": "UNCERTAIN",
+    "peer_status": null,
+    "agreement_status": "partial",
+    "notes": "Novelty claim about prior benchmarks (C16) is only evaluated by LLM and rated uncertain; no corresponding peer review assessment found.",
+    "n_llm": 1,
+    "n_peer": null,
+    "n_itx": 0
+  },
+  {
+    "llm_result_id": null,
+    "peer_result_id": "R2",
+    "llm_status": null,
+    "peer_status": "UNCERTAIN",
+    "agreement_status": "partial",
+    "notes": "Peer-only assessment of K-selection guidance and robustness (C61, C79) marked uncertain; no corresponding LLM result addressing these claims.",
+    "n_llm": null,
+    "n_peer": 2,
+    "n_itx": 0
+  }
+]
