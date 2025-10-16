@@ -13,6 +13,7 @@ import sys
 import time
 from pathlib import Path
 from typing import List, Tuple, Optional, Dict, Any, Type, TypeVar, Union
+import warnings
 
 from anthropic import Anthropic
 from openai import OpenAI
@@ -36,11 +37,33 @@ from .prompts.prompt_fallback import (
 
 T = TypeVar('T', bound=BaseModel)
 
+# ========================================================================
+# PROMPT-TOKEN LIMIT (for API calls; only used to roughly check prompt length)
+# ========================================================================
+# Common token limits for LLM API calls (as of 2024):
+#   - OpenAI GPT-4 (Turbo): 128k tokens, but safest for prompts: 100k-120k tokens
+#   - OpenAI GPT-3.5 Turbo (1106): 16k tokens (older: 4k)
+#   - Anthropic Claude 2/3: up to 200k tokens for context window (Claude 3 Opus), 
+#     but practical prompt limits often 100k-120k tokens before failures/timeouts.
+# Adjust this value to your chosen model's context window (prompt+completion).
+MAX_PROMPT_TOKENS = 32768  # Default is 32k; update for your API/model if needed
 
 # ============================================================================
 # PROMPT LOADING
 # ============================================================================
 
+def warn_if_prompt_too_long(prompt: str, max_prompt_tokens: int = MAX_PROMPT_TOKENS, stage_name: str = "Prompt"):
+    """
+    Warn if the given prompt likely exceeds max_prompt_tokens.
+    Uses a rough estimate: 1 token ≈ 4 characters.
+    """
+    approx_token_count = len(prompt) // 4
+    if approx_token_count > max_prompt_tokens:
+        warnings.warn(
+            f"[{stage_name}] Prompt may exceed {max_prompt_tokens} tokens! "
+            f"Prompt length estimate: {approx_token_count} tokens.",
+            UserWarning
+        )
 
 def load_prompt(filename: str, fallback: str) -> str:
     """Load prompt from file, falling back to hardcoded prompt if not found.
@@ -240,6 +263,7 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     start_time = time.time()
 
     prompt = STAGE1_PROMPT_TEMPLATE.replace("$MANUSCRIPT_TEXT", manuscript_text)
+    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 1: Extract Claims From Manuscript")
 
     llm_response, usage = call_llm_structured(
         client=client,
@@ -321,6 +345,8 @@ def llm_group_claims_into_results(
         )
     )
 
+    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 2: LLM Group Claims Into Results")
+
     # Note: reviewer_id and reviewer_name will be set to "LLM" by the prompt
 
     llm_response, usage = call_llm_structured(
@@ -400,6 +426,8 @@ def peer_review_group_claims_into_results(
     prompt = STAGE3_PROMPT_TEMPLATE.replace("$CLAIMS_JSON", claims_json).replace(
         "$REVIEW_TEXT", review_text
     )
+
+    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 3: Peer Review Groups Claims Into Results")
 
     llm_response, usage = call_llm_structured(
         client=client,
@@ -550,6 +578,8 @@ def compare_results(
     ).replace("$PEER_RESULTS_JSON", peer_results_json).replace(
         "$JACCARD_PAIRINGS_JSON", jaccard_pairings_json
     )
+
+    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 4: Compare Results Between LLM and Peer Review")
 
     llm_response, usage = call_llm_structured(
         client=client,

@@ -23,13 +23,13 @@ A result is a specific scientific finding or conclusion made in a paper. Each re
 - Evaluate whether conclusions are supported by the data.
 - Evaluation can suggest followup work based on a set of claims.
 
-### Assesment of prior work
+### Assessment of prior work
 - Authors may misattribute results of cited work.
 - Authors may cite the wrong work.
 - Authors may make innacurate general knowledge claims.
 - Authors may rely on inaccurate knowledge generated from prior work.
 
-### Assesment of current work
+### Assessment of current work
 
 #### Statistical and Analytical Soundness
 - Assess whether sample sizes, replicates, and study power are sufficient.
@@ -68,7 +68,7 @@ A result is a specific scientific finding or conclusion made in a paper. Each re
 - Look for calculation errors or typos.
 - Judge whether simplifications or approximations are warranted.
 
-### Assesment of future work
+### Assessment of future work
 - Results may require additional analysis, data, experiments.
 - If followup work is required, then the result cannot be SUPPORTED.
 
