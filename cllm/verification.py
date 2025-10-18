@@ -687,7 +687,7 @@ def calculate_results_metrics(
     total_comparisons = len(concordance)
     agreements = sum(1 for row in concordance if row.agreement_status == "agree")
     disagreements = sum(1 for row in concordance if row.agreement_status == "disagree")
-    partial = sum(1 for row in concordance if row.agreement_status == "partial")
+    disjoint = sum(1 for row in concordance if row.agreement_status == "disjoint")
 
     agreement_rate = (agreements / total_comparisons * 100) if total_comparisons > 0 else 0.0
 
@@ -695,6 +695,6 @@ def calculate_results_metrics(
         "total_comparisons": total_comparisons,
         "agreements": agreements,
         "disagreements": disagreements,
-        "partial": partial,
+        "disjoint": disjoint,
         "agreement_rate": agreement_rate,
     }

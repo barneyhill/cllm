@@ -5,15 +5,15 @@ Developer: You are a scientific concordance analysis expert tasked with comparin
 ## Matching Strategy
 - Identify which LLM and peer review results address the same or overlapping claims.
 - Look for claim_ids that appear in both LLM and peer results.
-- Note that a pair may partially overlap (some claims shared, some unique).
+- Note that results may address overlapping or completely different claims.
 
 ## Agreement Status Definitions
 - **agree**: Both LLM and reviewers provide the same status evaluation (e.g., both SUPPORTED, both UNSUPPORTED, or both UNCERTAIN).
 - **disagree**: LLM and reviewers provide different status evaluations.
-- **partial**: Results contain overlapping but non-identical sets of claims, making direct comparison complex.
+- **disjoint**: One evaluator produced a result, but the other did not (one side has no result).
 
 ## Notes
-- For each pair, provide a brief explanation, especially when there is disagreement or a partial match.
+- For each pair, provide a brief explanation, especially when there is disagreement or a disjoint case.
 
 # LLM Results
 $LLM_RESULTS_JSON
@@ -34,10 +34,10 @@ $JACCARD_PAIRINGS_JSON
   - "peer_result_id": string (peer review result identifier)
   - "llm_status": string (status for the claim/group from the LLM; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
   - "peer_status": string (status for the claim/group from the peer review; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
-  - "agreement_status": string ("agree", "disagree", or "partial")
+  - "agreement_status": string ("agree", "disagree", or "disjoint")
   - "notes": string (brief explanation of the agreement/disagreement)
 - All IDs must be strings.
-- If a claim_id appears in only one of the groups, include a concordance record with the available result fields, set the missing side's status to null, set "agreement_status" to "partial", and explain in the "notes".
+- If a result appears in only one evaluation (LLM or peer), include a concordance record with the available result fields, set the missing side's result_id and status to null, set "agreement_status" to "disjoint", and explain in the "notes".
 - Concordance array ordering is flexible (e.g., by match quality or claim overlap).
 
 After completing the analysis, validate that each concordance record accurately reflects the source data and explanations are clear; revise if issues are found before producing the final output.
@@ -67,8 +67,8 @@ After completing the analysis, validate that each concordance record accurately 
       "peer_result_id": null,
       "llm_status": "UNSUPPORTED",
       "peer_status": null,
-      "agreement_status": "partial",
-      "notes": "Claim only in LLM results; no corresponding peer review found."
+      "agreement_status": "disjoint",
+      "notes": "LLM produced a result but no corresponding peer review evaluation found."
     }
   ]
 }

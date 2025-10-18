@@ -97,7 +97,7 @@ class LLMResultsConcordanceRow(BaseModel):
         peer_result_id: Result ID from peer review evaluation (e.g., "R4"), or None if no peer result
         llm_status: LLM's status evaluation, or None if no LLM result
         peer_status: Peer reviewer's status evaluation, or None if no peer result
-        agreement_status: "agree", "disagree", or "partial"
+        agreement_status: "agree", "disagree", or "disjoint"
         notes: Optional explanation of comparison
         n_llm: Number of claims in LLM result, or None if no LLM result
         n_peer: Number of claims in peer result, or None if no peer result

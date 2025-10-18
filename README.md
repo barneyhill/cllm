@@ -214,13 +214,13 @@ The output file contains a JSON array of concordance objects:
     "peer_result_id": null,
     "llm_status": "SUPPORTED",
     "peer_status": null,
-    "agreement_status": "partial",
+    "agreement_status": "disjoint",
     "notes": "LLM result with no corresponding peer review"
   }
 ]
 ```
 
-**Note:** For partial matches (where a result exists in only one evaluation), the missing side's `result_id` and `status` will be `null`.
+**Note:** For disjoint cases (where a result exists in only one evaluation), the missing side's `result_id` and `status` will be `null`.
 
 **Metadata Format** (if `-m` is used):
 
@@ -232,7 +232,7 @@ The output file contains a JSON array of concordance objects:
   "total_comparisons": 20,
   "agreements": 15,
   "disagreements": 3,
-  "partial": 2,
+  "disjoint": 2,
   "agreement_rate": 75.0,
   "processing_time_seconds": 8.5
 }
@@ -314,7 +314,7 @@ cllm/
 
 - **agree**: Same status evaluation from LLM and reviewers
 - **disagree**: Different status evaluations
-- **partial**: Overlapping but not identical claim sets
+- **disjoint**: One evaluator produced a result, but the other did not
 
 ## Troubleshooting
 

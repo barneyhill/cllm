@@ -207,19 +207,19 @@ Your task is to compare these results and identify areas of agreement and disagr
 ## Matching Strategy
 1. Identify which LLM results and peer review results address the same or overlapping claims
 2. Look for claim_ids that appear in both LLM and peer results
-3. A pair may have partial overlap (some shared claims, some unique)
+3. Results may address overlapping or completely different claims
 
 ## Agreement Status
 - **agree**: Both LLM and reviewers have the same status evaluation (both SUPPORTED, both UNSUPPORTED, or both UNCERTAIN)
 - **disagree**: LLM and reviewers have different status evaluations
-- **partial**: Results have overlapping but not identical claim sets, making direct comparison complex
+- **disjoint**: One evaluator produced a result, but the other did not (one side has no result)
 
 ## Notes
-Provide brief explanation of the comparison, especially for disagreements or partial matches.
+Provide brief explanation of the comparison, especially for disagreements or disjoint cases.
 
-## Partial Matches
+## Disjoint Cases
 - If a result appears in only one evaluation (LLM or peer), include it with the missing side's result_id and status set to null
-- Set agreement_status to "partial" for these cases
+- Set agreement_status to "disjoint" for these cases
 - Explain in the notes which side is missing
 
 # LLM Results
@@ -261,7 +261,7 @@ $JACCARD_PAIRINGS_JSON
       "peer_result_id": null,
       "llm_status": "UNSUPPORTED",
       "peer_status": null,
-      "agreement_status": "partial",
+      "agreement_status": "disjoint",
       "notes": "LLM result with no corresponding peer review evaluation found."
     }
   ]

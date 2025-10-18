@@ -364,12 +364,12 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
     # Calculate basic metrics (only shown in non-verbose mode; verbose mode shows comprehensive metrics)
     agreements = sum(1 for c in concordance if c.agreement_status == "agree")
     disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
-    partial = sum(1 for c in concordance if c.agreement_status == "partial")
+    disjoint = sum(1 for c in concordance if c.agreement_status == "disjoint")
     agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
 
     if not verbose:
         click.echo(f"📊 Agreement rate: {agreement_rate:.1f}%")
-        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Partial: {partial}")
+        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Disjoint: {disjoint}")
 
     # Convert to JSON (just array of concordance rows)
     concordance_array = [
@@ -766,12 +766,12 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Calculate basic metrics
     agreements = sum(1 for c in concordance if c.agreement_status == "agree")
     disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
-    partial = sum(1 for c in concordance if c.agreement_status == "partial")
+    disjoint = sum(1 for c in concordance if c.agreement_status == "disjoint")
     agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
 
     if not verbose:
         click.echo(f"📊 Agreement rate: {agreement_rate:.1f}%")
-        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Partial: {partial}")
+        click.echo(f"   Agreements: {agreements}, Disagreements: {disagreements}, Disjoint: {disjoint}")
 
     # Write concordance
     concordance_array = [
