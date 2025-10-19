@@ -209,17 +209,11 @@ Your task is to compare these results and identify areas of agreement and disagr
 2. Look for claim_ids that appear in both LLM and peer results
 3. Results may address overlapping or completely different claims
 
-## Agreement Status
-- **agree**: Both LLM and reviewers have the same status evaluation (both SUPPORTED, both UNSUPPORTED, or both UNCERTAIN)
-- **disagree**: LLM and reviewers have different status evaluations
-- **disjoint**: One evaluator produced a result, but the other did not (one side has no result)
-
 ## Notes
-Provide brief explanation of the comparison, especially for disagreements or disjoint cases.
+Provide brief explanation of the comparison between LLM and peer evaluations.
 
 ## Disjoint Cases
 - If a result appears in only one evaluation (LLM or peer), include it with the missing side's result_id and status set to null
-- Set agreement_status to "disjoint" for these cases
 - Explain in the notes which side is missing
 
 # LLM Results
@@ -245,7 +239,6 @@ $JACCARD_PAIRINGS_JSON
       "peer_result_id": "R4",
       "llm_status": "SUPPORTED",
       "peer_status": "UNSUPPORTED",
-      "agreement_status": "disagree",
       "notes": "Both address the phosphorylation findings (C1, C2), but LLM groups with C3 and finds evidence sufficient, while reviewers question physiological relevance."
     },
     {
@@ -253,7 +246,6 @@ $JACCARD_PAIRINGS_JSON
       "peer_result_id": "R1",
       "llm_status": "SUPPORTED",
       "peer_status": "SUPPORTED",
-      "agreement_status": "agree",
       "notes": "Both agree the microscopy data is convincing, though peer review groups C5 with related claim C6."
     },
     {
@@ -261,7 +253,6 @@ $JACCARD_PAIRINGS_JSON
       "peer_result_id": null,
       "llm_status": "UNSUPPORTED",
       "peer_status": null,
-      "agreement_status": "disjoint",
       "notes": "LLM result with no corresponding peer review evaluation found."
     }
   ]

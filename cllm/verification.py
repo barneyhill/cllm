@@ -589,6 +589,19 @@ def compare_results(
         max_tokens=30000,
     )
 
+    # Post-process: Calculate agreement_status based on llm_status and peer_status
+    for row in llm_response.concordance:
+        # Calculate agreement_status based on presence and values of statuses
+        if row.llm_status is not None and row.peer_status is not None:
+            # Both statuses present - compare them
+            if row.llm_status == row.peer_status:
+                row.agreement_status = "agree"
+            else:
+                row.agreement_status = "disagree"
+        else:
+            # Only one status present (or both None) - mark as disjoint
+            row.agreement_status = "disjoint"
+
     # Enhance concordance rows with claim count metrics
     # Create lookup dictionaries for faster access
     llm_results_dict = {r.result_id: r for r in llm_results}

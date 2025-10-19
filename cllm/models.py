@@ -107,7 +107,7 @@ class LLMResultsConcordanceRow(BaseModel):
     peer_result_id: Optional[str] = None
     llm_status: Optional[str] = None
     peer_status: Optional[str] = None
-    agreement_status: str
+    agreement_status: Optional[str] = None  # Calculated post-hoc, not provided by LLM
     notes: Optional[str] = None
     n_llm: Optional[int] = None
     n_peer: Optional[int] = None
