@@ -61,12 +61,12 @@ def calculate_comparison_metrics(
 
     # Count unique result IDs that have matches (for coverage calculation)
     llm_ids_with_match = set(
-        row.llm_result_id for row in concordance
-        if row.llm_result_id is not None and row.peer_result_id is not None
+        row.openeval_result_id for row in concordance
+        if row.openeval_result_id is not None and row.peer_result_id is not None
     )
     peer_ids_with_match = set(
         row.peer_result_id for row in concordance
-        if row.peer_result_id is not None and row.llm_result_id is not None
+        if row.peer_result_id is not None and row.openeval_result_id is not None
     )
 
     n_overlap_llm = len(llm_ids_with_match)
@@ -74,12 +74,12 @@ def calculate_comparison_metrics(
 
     # Count unique result IDs that appear only in one set
     llm_ids_only = set(
-        row.llm_result_id for row in concordance
-        if row.llm_result_id is not None and row.peer_result_id is None
+        row.openeval_result_id for row in concordance
+        if row.openeval_result_id is not None and row.peer_result_id is None
     )
     peer_ids_only = set(
         row.peer_result_id for row in concordance
-        if row.peer_result_id is not None and row.llm_result_id is None
+        if row.peer_result_id is not None and row.openeval_result_id is None
     )
 
     n_only1 = len(llm_ids_only)
@@ -88,7 +88,7 @@ def calculate_comparison_metrics(
     # Classification agreement (for overlapping results only)
     overlapping_rows = [
         row for row in concordance
-        if row.llm_result_id is not None and row.peer_result_id is not None
+        if row.openeval_result_id is not None and row.peer_result_id is not None
     ]
 
     if overlapping_rows:
@@ -111,7 +111,7 @@ def calculate_comparison_metrics(
         # Count matches for this category
         matches = sum(
             1 for row in overlapping_rows
-            if row.llm_status == category
+            if row.openeval_status == category
             and row.peer_status == category
             and row.agreement_status == "agree"
         )
@@ -119,7 +119,7 @@ def calculate_comparison_metrics(
         # Count all LLM results with this category
         llm_with_category = sum(
             1 for row in overlapping_rows
-            if row.llm_status == category
+            if row.openeval_status == category
         )
 
         # Count all peer results with this category

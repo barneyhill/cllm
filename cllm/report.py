@@ -99,7 +99,7 @@ def json_to_pdf_table(json_data, output_filename, title=None):
     # Define which columns typically have long text
     # These will use smaller font
     long_text_columns = {
-        'notes', 'llm_reasoning', 'peer_reasoning', 'reasoning',
+        'comparison', 'llm_reasoning', 'peer_reasoning', 'reasoning',
         'status_reasoning', 'claim', 'source_text', 'evidence_reasoning'
     }
 
@@ -140,16 +140,16 @@ def json_to_pdf_table(json_data, output_filename, title=None):
         elif header_lower in ['claim', 'source_text']:
             # Claim text gets more space
             col_widths.append(2.0)
-        elif header_lower in ['notes', 'evidence_reasoning']:
-            # Notes column gets medium space
+        elif header_lower in ['comparison', 'evidence_reasoning']:
+            # Comparison column gets medium space
             col_widths.append(1.8)
-        elif header_lower in ['n_llm', 'n_peer', 'n_itx']:
+        elif header_lower in ['n_openeval', 'n_peer', 'n_itx']:
             # Number columns get less space
             col_widths.append(0.5)
-        elif header_lower in ['llm_status', 'peer_status', 'agreement_status', 'status', 'claim_type']:
+        elif header_lower in ['openeval_status', 'peer_status', 'agreement_status', 'status', 'claim_type']:
             # Status columns get less space
             col_widths.append(0.8)
-        elif header_lower in ['claim_id', 'result_id', 'llm_result_id', 'peer_result_id']:
+        elif header_lower in ['claim_id', 'result_id', 'openeval_result_id', 'peer_result_id']:
             # ID columns get minimal space
             col_widths.append(0.6)
         elif header_lower in ['evidence_type', 'claim_ids']:

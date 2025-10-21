@@ -44,10 +44,10 @@ T = TypeVar('T', bound=BaseModel)
 # Common token limits for LLM API calls (as of 2024):
 #   - OpenAI GPT-4 (Turbo): 128k tokens, but safest for prompts: 100k-120k tokens
 #   - OpenAI GPT-3.5 Turbo (1106): 16k tokens (older: 4k)
-#   - Anthropic Claude 2/3: up to 200k tokens for context window (Claude 3 Opus), 
+#   - Anthropic Claude 2/3: up to 200k tokens for context window (Claude 3 Opus),
 #     but practical prompt limits often 100k-120k tokens before failures/timeouts.
 # Adjust this value to your chosen model's context window (prompt+completion).
-MAX_PROMPT_TOKENS = 32768  # Default is 32k; update for your API/model if needed
+MAX_PROMPT_TOKENS = 100000  # Set to 100k for Claude models (conservative limit for 200k context)
 
 # ============================================================================
 # PROMPT LOADING
@@ -273,6 +273,19 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
         max_tokens=30000,
     )
 
+    # Post-process: Add sequential claim_id to each claim (C1, C2, C3, ...)
+    claims_with_ids = []
+    for idx, claim_response in enumerate(llm_response.claims, start=1):
+        claim = LLMClaimV3(
+            claim_id=f"C{idx}",
+            claim=claim_response.claim,
+            claim_type=claim_response.claim_type,
+            source_text=claim_response.source_text,
+            evidence_type=claim_response.evidence_type,
+            evidence_reasoning=claim_response.evidence_reasoning,
+        )
+        claims_with_ids.append(claim)
+
     processing_time = time.time() - start_time
 
     # Build metrics dict if verbose or return_metrics requested
@@ -283,7 +296,7 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
             "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
-            "num_claims": len(llm_response.claims),
+            "num_claims": len(claims_with_ids),
             "processing_time_seconds": processing_time,
         }
 
@@ -294,7 +307,7 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
         print(f"[EXTRACT] Claims extracted: {metrics['num_claims']}", file=sys.stderr)
         print(f"[EXTRACT] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
 
-    return llm_response.claims, processing_time, metrics
+    return claims_with_ids, processing_time, metrics
 
 
 # ============================================================================
@@ -357,6 +370,20 @@ def llm_group_claims_into_results(
         max_tokens=30000,
     )
 
+    # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
+    results_with_ids = []
+    for idx, result_response in enumerate(llm_response.results, start=1):
+        result = LLMResultV3(
+            result_id=f"R{idx}",
+            claim_ids=result_response.claim_ids,
+            result=result_response.result,
+            reviewer_id="OpenEval",
+            reviewer_name="OpenEval",
+            status=result_response.status,
+            status_reasoning=result_response.status_reasoning,
+        )
+        results_with_ids.append(result)
+
     processing_time = time.time() - start_time
 
     # Build metrics dict if verbose or return_metrics requested
@@ -367,7 +394,7 @@ def llm_group_claims_into_results(
             "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
-            "num_results": len(llm_response.results),
+            "num_results": len(results_with_ids),
             "processing_time_seconds": processing_time,
         }
 
@@ -378,7 +405,7 @@ def llm_group_claims_into_results(
         print(f"[EVAL-LLM] Results created: {metrics['num_results']}", file=sys.stderr)
         print(f"[EVAL-LLM] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
 
-    return llm_response.results, processing_time, metrics
+    return results_with_ids, processing_time, metrics
 
 
 # ============================================================================
@@ -437,6 +464,20 @@ def peer_review_group_claims_into_results(
         max_tokens=30000,
     )
 
+    # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
+    results_with_ids = []
+    for idx, result_response in enumerate(llm_response.results, start=1):
+        result = LLMResultV3(
+            result_id=f"R{idx}",
+            claim_ids=result_response.claim_ids,
+            result=result_response.result,
+            reviewer_id="PEER_REVIEW",
+            reviewer_name="Peer Reviewer",
+            status=result_response.status,
+            status_reasoning=result_response.status_reasoning,
+        )
+        results_with_ids.append(result)
+
     processing_time = time.time() - start_time
 
     # Build metrics dict if verbose or return_metrics requested
@@ -447,7 +488,7 @@ def peer_review_group_claims_into_results(
             "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
-            "num_results": len(llm_response.results),
+            "num_results": len(results_with_ids),
             "processing_time_seconds": processing_time,
         }
 
@@ -458,7 +499,7 @@ def peer_review_group_claims_into_results(
         print(f"[EVAL-PEER] Results created: {metrics['num_results']}", file=sys.stderr)
         print(f"[EVAL-PEER] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
 
-    return llm_response.results, processing_time, metrics
+    return results_with_ids, processing_time, metrics
 
 
 # ============================================================================
@@ -473,17 +514,17 @@ def compute_jaccard_pairings(
     llm_results: List[LLMResultV3],
     peer_results: List[LLMResultV3]
 ) -> List[dict]:
-    """Compute pairwise Jaccard indices between LLM and peer results based on claim overlap.
+    """Compute pairwise Jaccard indices between OpenEval and peer results based on claim overlap.
 
     The Jaccard index measures similarity between two sets: |A ∩ B| / |A ∪ B|
 
     Args:
-        llm_results: Results from LLM evaluation
+        llm_results: Results from OpenEval evaluation
         peer_results: Results from peer review evaluation
 
     Returns:
         List of pairings sorted by Jaccard index (descending), each containing:
-        - llm_result_id: ID of LLM result
+        - openeval_result_id: ID of OpenEval result
         - peer_result_id: ID of peer result
         - jaccard_index: Similarity score (0.0 to 1.0)
         - shared_claims: List of claim IDs that appear in both results
@@ -505,7 +546,7 @@ def compute_jaccard_pairings(
             # Only include non-zero similarities
             if jaccard > 0:
                 pairings.append({
-                    "llm_result_id": llm_result.result_id,
+                    "openeval_result_id": llm_result.result_id,
                     "peer_result_id": peer_result.result_id,
                     "jaccard_index": round(jaccard, 3),
                     "shared_claims": sorted(list(intersection)),
@@ -589,14 +630,20 @@ def compare_results(
         max_tokens=30000,
     )
 
-    # Post-process: Calculate agreement_status based on llm_status and peer_status
+    # Post-process: Calculate agreement_status based on openeval_status and peer_status
     for row in llm_response.concordance:
         # Calculate agreement_status based on presence and values of statuses
-        if row.llm_status is not None and row.peer_status is not None:
-            # Both statuses present - compare them
-            if row.llm_status == row.peer_status:
+        if row.openeval_status is not None and row.peer_status is not None:
+            # Both statuses present - check if they agree
+            if row.openeval_status == row.peer_status:
+                # If both agree on the same status (including both UNCERTAIN), mark as "agree"
                 row.agreement_status = "agree"
+            # Both present but different - check if either is UNCERTAIN
+            elif row.openeval_status == "UNCERTAIN" or row.peer_status == "UNCERTAIN":
+                # One is UNCERTAIN and the other is certain (but different), mark as "partial"
+                row.agreement_status = "partial"
             else:
+                # Both are certain (SUPPORTED or UNSUPPORTED) but disagree
                 row.agreement_status = "disagree"
         else:
             # Only one status present (or both None) - mark as disjoint
@@ -608,14 +655,14 @@ def compare_results(
     peer_results_dict = {r.result_id: r for r in peer_results}
 
     for row in llm_response.concordance:
-        # Get the LLM result if present
-        if row.llm_result_id and row.llm_result_id in llm_results_dict:
-            llm_result = llm_results_dict[row.llm_result_id]
+        # Get the OpenEval result if present
+        if row.openeval_result_id and row.openeval_result_id in llm_results_dict:
+            llm_result = llm_results_dict[row.openeval_result_id]
             llm_claims = set(llm_result.claim_ids)
-            row.n_llm = len(llm_claims)
+            row.n_openeval = len(llm_claims)
         else:
             llm_claims = set()
-            row.n_llm = None
+            row.n_openeval = None
 
         # Get the peer result if present
         if row.peer_result_id and row.peer_result_id in peer_results_dict:
@@ -639,8 +686,8 @@ def compare_results(
         # Count status categories for breakdown
         status_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
         for row in llm_response.concordance:
-            if row.llm_status in status_counts:
-                status_counts[row.llm_status] += 1
+            if row.openeval_status in status_counts:
+                status_counts[row.openeval_status] += 1
             if row.peer_status in status_counts:
                 status_counts[row.peer_status] += 1
 
@@ -700,6 +747,7 @@ def calculate_results_metrics(
     total_comparisons = len(concordance)
     agreements = sum(1 for row in concordance if row.agreement_status == "agree")
     disagreements = sum(1 for row in concordance if row.agreement_status == "disagree")
+    partial = sum(1 for row in concordance if row.agreement_status == "partial")
     disjoint = sum(1 for row in concordance if row.agreement_status == "disjoint")
 
     agreement_rate = (agreements / total_comparisons * 100) if total_comparisons > 0 else 0.0
@@ -708,6 +756,7 @@ def calculate_results_metrics(
         "total_comparisons": total_comparisons,
         "agreements": agreements,
         "disagreements": disagreements,
+        "partial": partial,
         "disjoint": disjoint,
         "agreement_rate": agreement_rate,
     }

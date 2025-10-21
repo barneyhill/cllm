@@ -197,7 +197,7 @@ Please identify which claims reviewers address, group them into results, and eva
 # ============================================================================
 
 STAGE4_FALLBACK = """You are a scientific concordance analysis expert. You have been given:
-1. Results grouped by an LLM evaluator
+1. Results grouped by an OpenEval evaluator (LLM peer reviewer)
 2. Results grouped by peer reviewers
 
 Your task is to compare these results and identify areas of agreement and disagreement.
@@ -205,18 +205,18 @@ Your task is to compare these results and identify areas of agreement and disagr
 # Concordance Analysis Guidelines
 
 ## Matching Strategy
-1. Identify which LLM results and peer review results address the same or overlapping claims
-2. Look for claim_ids that appear in both LLM and peer results
+1. Identify which OpenEval results and peer review results address the same or overlapping claims
+2. Look for claim_ids that appear in both OpenEval and peer results
 3. Results may address overlapping or completely different claims
 
-## Notes
-Provide brief explanation of the comparison between LLM and peer evaluations.
+## Comparison
+Provide brief explanation of the comparison between OpenEval and peer evaluations.
 
 ## Disjoint Cases
-- If a result appears in only one evaluation (LLM or peer), include it with the missing side's result_id and status set to null
-- Explain in the notes which side is missing
+- If a result appears in only one evaluation (OpenEval or peer), include it with the missing side's result_id and status set to null
+- Explain in the comparison which side is missing
 
-# LLM Results
+# OpenEval Results
 
 $LLM_RESULTS_JSON
 
@@ -226,7 +226,7 @@ $PEER_RESULTS_JSON
 
 # Suggested Pairings (based on Jaccard similarity of claim sets)
 
-The following pairings have been pre-computed based on the Jaccard index (overlap of claim_ids) between LLM and peer results. These are ordered by similarity and can help guide your analysis, but you should still consider all possible pairings and may identify additional or different matches based on semantic content.
+The following pairings have been pre-computed based on the Jaccard index (overlap of claim_ids) between OpenEval and peer results. These are ordered by similarity and can help guide your analysis, but you should still consider all possible pairings and may identify additional or different matches based on semantic content.
 
 $JACCARD_PAIRINGS_JSON
 
@@ -235,28 +235,28 @@ $JACCARD_PAIRINGS_JSON
 {
   "concordance": [
     {
-      "llm_result_id": "R2",
+      "openeval_result_id": "R2",
       "peer_result_id": "R4",
-      "llm_status": "SUPPORTED",
+      "openeval_status": "SUPPORTED",
       "peer_status": "UNSUPPORTED",
-      "notes": "Both address the phosphorylation findings (C1, C2), but LLM groups with C3 and finds evidence sufficient, while reviewers question physiological relevance."
+      "comparison": "Both address the phosphorylation findings (C1, C2), but OpenEval groups with C3 and finds evidence sufficient, while reviewers question physiological relevance."
     },
     {
-      "llm_result_id": "R5",
+      "openeval_result_id": "R5",
       "peer_result_id": "R1",
-      "llm_status": "SUPPORTED",
+      "openeval_status": "SUPPORTED",
       "peer_status": "SUPPORTED",
-      "notes": "Both agree the microscopy data is convincing, though peer review groups C5 with related claim C6."
+      "comparison": "Both agree the microscopy data is convincing, though peer review groups C5 with related claim C6."
     },
     {
-      "llm_result_id": "R7",
+      "openeval_result_id": "R7",
       "peer_result_id": null,
-      "llm_status": "UNSUPPORTED",
+      "openeval_status": "UNSUPPORTED",
       "peer_status": null,
-      "notes": "LLM result with no corresponding peer review evaluation found."
+      "comparison": "OpenEval result with no corresponding peer review evaluation found."
     }
   ]
 }
 ```
 
-Please compare the LLM and peer review results. Return ONLY valid JSON matching the schema above."""
+Please compare the OpenEval and peer review results. Return ONLY valid JSON matching the schema above."""

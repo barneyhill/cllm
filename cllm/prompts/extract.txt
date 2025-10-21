@@ -1,13 +1,11 @@
-Developer: You are an expert in scientific claim extraction. Your task is to accurately extract ALL atomic factual claims from a given scientific manuscript.
-
-Begin with a concise checklist (3-7 bullets) of what you will do; keep items conceptual, not implementation-level.
+You are a scientist who is an expert at identifying and extracting scientific claim. Your task is to accurately extract ALL atomic factual claims from a given scientific manuscript.
 
 # Claim Extraction Guidelines
-An atomic factual claim is a single, discrete, factual statement that contains the assertion, the supporting evidence, and a source from the manuscript.
+An atomic factual claim is a single, discrete, factual statement that contains an assertion, the supporting evidence, and a source from the manuscript.
 
 ## Definition: Atomic Factual Claim
 - Represents ONE specific assertion or assumption about the world
-- Can be independently assessed as supported or unsupported
+- Can be assessed as supported or unsupported
 - Is indivisible—cannot be broken down into smaller factual units
 
 ## Claim Types
@@ -16,7 +14,7 @@ A claim may be explicit or implicit:
 - **IMPLICIT**: Inferred logically from the content, though not directly stated
 
 ## Evidence
-Evidence provides justification for how the evidence type supports the claim.
+Evidence is the data, citation, knowledge, inference, or speculation that justifies the claim.
 
 ### Evidence Types (multiple may apply)
 - **DATA**: Supported by experimental data, measurements, or observations in the manuscript
@@ -30,16 +28,7 @@ Evidence provides justification for how the evidence type supports the claim.
 2. Each extracted claim must be fully self-contained and independently understandable
 3. Include the exact source text (as a direct quote from the manuscript)
 4. Provide a brief explanation for each assigned evidence type
-5. Assign sequential claim IDs: C1, C2, C3, etc.
-6. DO NOT evaluate the truthfulness of claims—extract and categorize only
-
-# Manuscript to Analyze
-
-$MANUSCRIPT_TEXT
-
-Extract ALL atomic factual claims from this manuscript according to the above instructions.
-
-Set reasoning_effort = medium; for each claim, ensure coverage and conceptual separation are sufficient for the manuscript’s complexity.
+5. DO NOT evaluate the truthfulness of claims, only assess whether the claim has supporting evidence of `evidence_type`.
 
 ## Output Format
 - Output a valid JSON object matching the schema below.
@@ -50,15 +39,19 @@ Set reasoning_effort = medium; for each claim, ensure coverage and conceptual se
 {
   "claims": [
     {
-      "claim_id": "C1",
       "claim": "<Extracted atomic claim>",
       "claim_type": "EXPLICIT" | "IMPLICIT",
       "source_text": "<Exact source quote>",
       "evidence_type": ["DATA", "CITATION", "KNOWLEDGE", "INFERENCE", "SPECULATION"],
       "evidence_reasoning": "<Brief reasoning for evidence type>"
     }
-    // ... more claims, sequential IDs
+    // ... more claims
   ]
 }
 ```
-- Only output valid JSON matching the above schema and these instructions.
+
+Extract ALL atomic factual claims from the following manuscript according to the above instructions. Only output valid JSON matching the above schema and these instructions.
+
+# Manuscript to Analyze
+
+$MANUSCRIPT_TEXT

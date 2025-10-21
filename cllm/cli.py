@@ -233,6 +233,7 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         {
             "result_id": r.result_id,
             "claim_ids": r.claim_ids,
+            "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
             "status": r.status,
@@ -310,6 +311,7 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
             LLMResultV3(
                 result_id=r["result_id"],
                 claim_ids=r["claim_ids"],
+                result=r["result"],
                 reviewer_id=r["reviewer_id"],
                 reviewer_name=r["reviewer_name"],
                 status=r["status"],
@@ -335,6 +337,7 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
             LLMResultV3(
                 result_id=r["result_id"],
                 claim_ids=r["claim_ids"],
+                result=r["result"],
                 reviewer_id=r["reviewer_id"],
                 reviewer_name=r["reviewer_name"],
                 status=r["status"],
@@ -374,13 +377,13 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
     # Convert to JSON (just array of concordance rows)
     concordance_array = [
         {
-            "llm_result_id": c.llm_result_id,
+            "openeval_result_id": c.openeval_result_id,
             "peer_result_id": c.peer_result_id,
-            "llm_status": c.llm_status,
+            "openeval_status": c.openeval_status,
             "peer_status": c.peer_status,
             "agreement_status": c.agreement_status,
-            "notes": c.notes,
-            "n_llm": c.n_llm,
+            "comparison": c.comparison,
+            "n_openeval": c.n_openeval,
             "n_peer": c.n_peer,
             "n_itx": c.n_itx,
         }
@@ -600,6 +603,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         {
             "result_id": r.result_id,
             "claim_ids": r.claim_ids,
+            "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
             "status": r.status,
@@ -712,6 +716,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         {
             "result_id": r.result_id,
             "claim_ids": r.claim_ids,
+            "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
             "status": r.status,
@@ -776,13 +781,13 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write concordance
     concordance_array = [
         {
-            "llm_result_id": c.llm_result_id,
+            "openeval_result_id": c.openeval_result_id,
             "peer_result_id": c.peer_result_id,
-            "llm_status": c.llm_status,
+            "openeval_status": c.openeval_status,
             "peer_status": c.peer_status,
             "agreement_status": c.agreement_status,
-            "notes": c.notes,
-            "n_llm": c.n_llm,
+            "comparison": c.comparison,
+            "n_openeval": c.n_openeval,
             "n_peer": c.n_peer,
             "n_itx": c.n_itx,
         }

@@ -144,6 +144,7 @@ def export_to_database_format(
                 content_id=manuscript_content_id,
                 result_id=result.result_id,
                 result_type='llm',
+                result=result.result,
                 reviewer_id=result.reviewer_id,
                 reviewer_name=result.reviewer_name,
                 result_status=result.status,
@@ -177,6 +178,7 @@ def export_to_database_format(
                     content_id=peer_content_id,
                     result_id=result.result_id,
                     result_type='peer',
+                    result=result.result,
                     reviewer_id=result.reviewer_id,
                     reviewer_name=result.reviewer_name,
                     result_status=result.status,
@@ -203,10 +205,10 @@ def export_to_database_format(
         for row in concordance:
             comparison_uuid = generate_uuid()
 
-            # Map LLM/peer result IDs to UUIDs
-            llm_result_uuid = None
-            if row.llm_result_id and row.llm_result_id in llm_result_uuid_map:
-                llm_result_uuid = llm_result_uuid_map[row.llm_result_id]
+            # Map OpenEval/peer result IDs to UUIDs
+            openeval_result_uuid = None
+            if row.openeval_result_id and row.openeval_result_id in llm_result_uuid_map:
+                openeval_result_uuid = llm_result_uuid_map[row.openeval_result_id]
 
             peer_result_uuid = None
             if row.peer_result_id and row.peer_result_id in peer_result_uuid_map:
@@ -216,12 +218,12 @@ def export_to_database_format(
                 DBComparison(
                     id=comparison_uuid,
                     submission_id=submission_id,
-                    llm_result_id=llm_result_uuid,
+                    openeval_result_id=openeval_result_uuid,
                     peer_result_id=peer_result_uuid,
-                    llm_status=row.llm_status,
+                    openeval_status=row.openeval_status,
                     peer_status=row.peer_status,
                     agreement_status=row.agreement_status,
-                    notes=row.notes,
+                    comparison=row.comparison,
                     prompt_id=prompt_id_map.get('compare', ''),
                     created_at=timestamp,
                 )
