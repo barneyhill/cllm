@@ -576,16 +576,25 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write metrics if requested
     if metrics and metrics_data:
         try:
-            cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(claims_file)]
-            if metrics_extract_file:
-                cmd_parts.extend(["-m", str(metrics_extract_file)])
+            cmd_parts = ["cllm", "workflow", str(manuscript), "-o", str(output_dir)]
+            if peer_reviews:
+                cmd_parts.extend(["-p", str(peer_reviews)])
+            cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
 
-            metadata_data = {"command": " ".join(cmd_parts)}
-            metadata_data.update(metrics_data)
-
-            metrics_extract_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="extract",
+                command=command_str,
+                model=metrics_data["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_data["input_tokens"],
+                output_tokens=metrics_data["output_tokens"],
+                processing_time_sec=metrics_data["processing_time_seconds"],
+                cached_tokens=0
+            )
             click.echo(f"📊 Saved metrics to: {metrics_extract_file}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
@@ -633,16 +642,25 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write metrics if requested
     if metrics and metrics_data:
         try:
-            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-o", str(eval_llm_file)]
-            if metrics_eval_llm_file:
-                cmd_parts.extend(["-m", str(metrics_eval_llm_file)])
+            cmd_parts = ["cllm", "workflow", str(manuscript), "-o", str(output_dir)]
+            if peer_reviews:
+                cmd_parts.extend(["-p", str(peer_reviews)])
+            cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
 
-            metadata_data = {"command": " ".join(cmd_parts)}
-            metadata_data.update(metrics_data)
-
-            metrics_eval_llm_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="eval_openeval",
+                command=command_str,
+                model=metrics_data["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_data["input_tokens"],
+                output_tokens=metrics_data["output_tokens"],
+                processing_time_sec=metrics_data["processing_time_seconds"],
+                cached_tokens=0
+            )
             click.echo(f"📊 Saved metrics to: {metrics_eval_llm_file}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
@@ -746,16 +764,25 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write metrics if requested
     if metrics and metrics_data:
         try:
-            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims_file), "-p", str(peer_reviews), "-o", str(eval_peer_file)]
-            if metrics_eval_peer_file:
-                cmd_parts.extend(["-m", str(metrics_eval_peer_file)])
+            cmd_parts = ["cllm", "workflow", str(manuscript), "-o", str(output_dir)]
+            if peer_reviews:
+                cmd_parts.extend(["-p", str(peer_reviews)])
+            cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
 
-            metadata_data = {"command": " ".join(cmd_parts)}
-            metadata_data.update(metrics_data)
-
-            metrics_eval_peer_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="eval_peer",
+                command=command_str,
+                model=metrics_data["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_data["input_tokens"],
+                output_tokens=metrics_data["output_tokens"],
+                processing_time_sec=metrics_data["processing_time_seconds"],
+                cached_tokens=0
+            )
             click.echo(f"📊 Saved metrics to: {metrics_eval_peer_file}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
@@ -815,16 +842,25 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write metrics if requested
     if metrics and metrics_data:
         try:
-            cmd_parts = ["cllm", "cmp", str(eval_peer_file), str(eval_llm_file), "-o", str(cmp_file)]
-            if metrics_cmp_file:
-                cmd_parts.extend(["-m", str(metrics_cmp_file)])
+            cmd_parts = ["cllm", "workflow", str(manuscript), "-o", str(output_dir)]
+            if peer_reviews:
+                cmd_parts.extend(["-p", str(peer_reviews)])
+            cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
 
-            metadata_data = {"command": " ".join(cmd_parts)}
-            metadata_data.update(metrics_data)
-
-            metrics_cmp_file.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="cmp",
+                command=command_str,
+                model=metrics_data["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_data["input_tokens"],
+                output_tokens=metrics_data["output_tokens"],
+                processing_time_sec=metrics_data["processing_time_seconds"],
+                cached_tokens=0
+            )
             click.echo(f"📊 Saved metrics to: {metrics_cmp_file}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
