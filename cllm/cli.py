@@ -77,7 +77,7 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path], verbose: b
 
     # Extract claims (request metrics if metadata file specified)
     try:
-        claims, processing_time, metrics = extract_claims(manuscript_text, verbose=verbose, return_metrics=(metadata is not None))
+        claims, processing_time, metrics, raw_response = extract_claims(manuscript_text, verbose=verbose, return_metrics=(metadata is not None))
         if not verbose:
             click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
     except Exception as e:

@@ -36,7 +36,7 @@ from .prompts.prompt_fallback import (
 )
 from .utils import generate_uuid, generate_prompt_id, get_current_timestamp
 
-T = TypeVar('T', bound=BaseModel)
+T = TypeVar("T", bound=BaseModel)
 
 # ========================================================================
 # PROMPT-TOKEN LIMIT (for API calls; only used to roughly check prompt length)
@@ -47,13 +47,18 @@ T = TypeVar('T', bound=BaseModel)
 #   - Anthropic Claude 2/3: up to 200k tokens for context window (Claude 3 Opus),
 #     but practical prompt limits often 100k-120k tokens before failures/timeouts.
 # Adjust this value to your chosen model's context window (prompt+completion).
-MAX_PROMPT_TOKENS = 100000  # Set to 100k for Claude models (conservative limit for 200k context)
+MAX_PROMPT_TOKENS = (
+    100000  # Set to 100k for Claude models (conservative limit for 200k context)
+)
 
 # ============================================================================
 # PROMPT LOADING
 # ============================================================================
 
-def warn_if_prompt_too_long(prompt: str, max_prompt_tokens: int = MAX_PROMPT_TOKENS, stage_name: str = "Prompt"):
+
+def warn_if_prompt_too_long(
+    prompt: str, max_prompt_tokens: int = MAX_PROMPT_TOKENS, stage_name: str = "Prompt"
+):
     """
     Warn if the given prompt likely exceeds max_prompt_tokens.
     Uses a rough estimate: 1 token ≈ 4 characters.
@@ -63,8 +68,9 @@ def warn_if_prompt_too_long(prompt: str, max_prompt_tokens: int = MAX_PROMPT_TOK
         warnings.warn(
             f"[{stage_name}] Prompt may exceed {max_prompt_tokens} tokens! "
             f"Prompt length estimate: {approx_token_count} tokens.",
-            UserWarning
+            UserWarning,
         )
+
 
 def load_prompt(filename: str, fallback: str) -> str:
     """Load prompt from file, falling back to hardcoded prompt if not found.
@@ -150,8 +156,8 @@ def call_llm_structured(
     client: Union[Anthropic, OpenAI],
     prompt: str,
     response_model: Type[T],
-    max_tokens: int = 30000,
-) -> Tuple[T, Dict[str, int]]:
+    max_tokens: int = 64000,
+) -> Tuple[T, Dict[str, int], Any]:
     """Call LLM with structured output support.
 
     Args:
@@ -161,8 +167,9 @@ def call_llm_structured(
         max_tokens: Maximum tokens in response
 
     Returns:
-        Tuple of (parsed_response, usage_dict)
+        Tuple of (parsed_response, usage_dict, raw_response)
         where usage_dict contains 'input_tokens' and 'output_tokens'
+        and raw_response is the full API response object
 
     Raises:
         ValueError: If response cannot be parsed
@@ -205,16 +212,14 @@ def call_llm_structured(
             "output_tokens": message.usage.output_tokens,
         }
 
-        return parsed_response, usage
+        return parsed_response, usage, message
 
     elif config.llm_provider == "openai":
         # OpenAI: structured outputs with direct Pydantic model
         # Note: GPT-5 only supports temperature=1, so we don't set it
         completion = client.beta.chat.completions.parse(
             model=config.openai_model,
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
+            messages=[{"role": "user", "content": prompt}],
             response_format=response_model,
             max_completion_tokens=max_tokens,
         )
@@ -232,7 +237,7 @@ def call_llm_structured(
             "output_tokens": completion.usage.completion_tokens,
         }
 
-        return parsed_response, usage
+        return parsed_response, usage, completion
 
     else:
         raise ValueError(f"Unsupported LLM provider: {config.llm_provider}")
@@ -246,7 +251,9 @@ def call_llm_structured(
 STAGE1_PROMPT_TEMPLATE = load_prompt("extract.txt", STAGE1_FALLBACK)
 
 
-def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: bool = False) -> Tuple[List[LLMClaimV3], float, Optional[Dict[str, Any]]]:
+def extract_claims(
+    manuscript_text: str, verbose: bool = False, return_metrics: bool = False
+) -> Tuple[List[LLMClaimV3], float, Optional[Dict[str, Any]], Optional[Any]]:
     """Stage 1: Extract atomic factual claims from manuscript.
 
     Args:
@@ -255,7 +262,7 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
         return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of extracted claims, processing time in seconds, optional metrics dict)
+        Tuple of (list of extracted claims, processing time in seconds, optional metrics dict, optional raw_response)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -264,13 +271,15 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     start_time = time.time()
 
     prompt = STAGE1_PROMPT_TEMPLATE.replace("$MANUSCRIPT_TEXT", manuscript_text)
-    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 1: Extract Claims From Manuscript")
+    warn_if_prompt_too_long(
+        prompt, MAX_PROMPT_TOKENS, "STAGE 1: Extract Claims From Manuscript"
+    )
 
-    llm_response, usage = call_llm_structured(
+    llm_response, usage, raw_response = call_llm_structured(
         client=client,
         prompt=prompt,
         response_model=LLMClaimsResponseV3,
-        max_tokens=30000,
+        max_tokens=64000,
     )
 
     # Post-process: Add sequential claim_id to each claim (C1, C2, C3, ...)
@@ -291,7 +300,11 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
-        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
         metrics = {
             "model": model,
             "input_tokens": usage["input_tokens"],
@@ -305,9 +318,12 @@ def extract_claims(manuscript_text: str, verbose: bool = False, return_metrics: 
         print(f"[EXTRACT] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
         print(f"[EXTRACT] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
         print(f"[EXTRACT] Claims extracted: {metrics['num_claims']}", file=sys.stderr)
-        print(f"[EXTRACT] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+        print(
+            f"[EXTRACT] Total time: {metrics['processing_time_seconds']:.2f}s",
+            file=sys.stderr,
+        )
 
-    return claims_with_ids, processing_time, metrics
+    return claims_with_ids, processing_time, metrics, raw_response if return_metrics else None
 
 
 # ============================================================================
@@ -319,7 +335,10 @@ STAGE2_PROMPT_TEMPLATE = load_prompt("llm_eval.txt", STAGE2_FALLBACK)
 
 
 def llm_group_claims_into_results(
-    manuscript_text: str, claims: List[LLMClaimV3], verbose: bool = False, return_metrics: bool = False
+    manuscript_text: str,
+    claims: List[LLMClaimV3],
+    verbose: bool = False,
+    return_metrics: bool = False,
 ) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
     """Stage 2: LLM groups claims into results and evaluates each result.
 
@@ -353,21 +372,21 @@ def llm_group_claims_into_results(
         indent=2,
     )
 
-    prompt = (
-        STAGE2_PROMPT_TEMPLATE.replace("$MANUSCRIPT_TEXT", manuscript_text).replace(
-            "$CLAIMS_JSON", claims_json
-        )
-    )
+    prompt = STAGE2_PROMPT_TEMPLATE.replace(
+        "$MANUSCRIPT_TEXT", manuscript_text
+    ).replace("$CLAIMS_JSON", claims_json)
 
-    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 2: LLM Group Claims Into Results")
+    warn_if_prompt_too_long(
+        prompt, MAX_PROMPT_TOKENS, "STAGE 2: LLM Group Claims Into Results"
+    )
 
     # Note: reviewer_id and reviewer_name will be set to "LLM" by the prompt
 
-    llm_response, usage = call_llm_structured(
+    llm_response, usage, raw_response = call_llm_structured(
         client=client,
         prompt=prompt,
         response_model=LLMResultsResponseV3,
-        max_tokens=30000,
+        max_tokens=64000,
     )
 
     # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
@@ -389,7 +408,11 @@ def llm_group_claims_into_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
-        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
         metrics = {
             "model": model,
             "input_tokens": usage["input_tokens"],
@@ -401,9 +424,14 @@ def llm_group_claims_into_results(
     # Verbose: print metrics
     if verbose and metrics:
         print(f"[EVAL-LLM] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
-        print(f"[EVAL-LLM] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
+        print(
+            f"[EVAL-LLM] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr
+        )
         print(f"[EVAL-LLM] Results created: {metrics['num_results']}", file=sys.stderr)
-        print(f"[EVAL-LLM] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+        print(
+            f"[EVAL-LLM] Total time: {metrics['processing_time_seconds']:.2f}s",
+            file=sys.stderr,
+        )
 
     return results_with_ids, processing_time, metrics
 
@@ -417,7 +445,10 @@ STAGE3_PROMPT_TEMPLATE = load_prompt("peer_eval.txt", STAGE3_FALLBACK)
 
 
 def peer_review_group_claims_into_results(
-    claims: List[LLMClaimV3], review_text: str, verbose: bool = False, return_metrics: bool = False
+    claims: List[LLMClaimV3],
+    review_text: str,
+    verbose: bool = False,
+    return_metrics: bool = False,
 ) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
     """Stage 3: Extract results from peer review based on manuscript claims.
 
@@ -455,13 +486,15 @@ def peer_review_group_claims_into_results(
         "$REVIEW_TEXT", review_text
     )
 
-    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 3: Peer Review Groups Claims Into Results")
+    warn_if_prompt_too_long(
+        prompt, MAX_PROMPT_TOKENS, "STAGE 3: Peer Review Groups Claims Into Results"
+    )
 
-    llm_response, usage = call_llm_structured(
+    llm_response, usage, raw_response = call_llm_structured(
         client=client,
         prompt=prompt,
         response_model=LLMResultsResponseV3,
-        max_tokens=30000,
+        max_tokens=64000,
     )
 
     # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
@@ -483,7 +516,11 @@ def peer_review_group_claims_into_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics = None
     if verbose or return_metrics:
-        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
         metrics = {
             "model": model,
             "input_tokens": usage["input_tokens"],
@@ -495,9 +532,14 @@ def peer_review_group_claims_into_results(
     # Verbose: print metrics
     if verbose and metrics:
         print(f"[EVAL-PEER] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
-        print(f"[EVAL-PEER] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr)
+        print(
+            f"[EVAL-PEER] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr
+        )
         print(f"[EVAL-PEER] Results created: {metrics['num_results']}", file=sys.stderr)
-        print(f"[EVAL-PEER] Total time: {metrics['processing_time_seconds']:.2f}s", file=sys.stderr)
+        print(
+            f"[EVAL-PEER] Total time: {metrics['processing_time_seconds']:.2f}s",
+            file=sys.stderr,
+        )
 
     return results_with_ids, processing_time, metrics
 
@@ -511,8 +553,7 @@ STAGE4_PROMPT_TEMPLATE = load_prompt("compare.txt", STAGE4_FALLBACK)
 
 
 def compute_jaccard_pairings(
-    llm_results: List[LLMResultV3],
-    peer_results: List[LLMResultV3]
+    llm_results: List[LLMResultV3], peer_results: List[LLMResultV3]
 ) -> List[dict]:
     """Compute pairwise Jaccard indices between OpenEval and peer results based on claim overlap.
 
@@ -545,12 +586,14 @@ def compute_jaccard_pairings(
 
             # Only include non-zero similarities
             if jaccard > 0:
-                pairings.append({
-                    "openeval_result_id": llm_result.result_id,
-                    "peer_result_id": peer_result.result_id,
-                    "jaccard_index": round(jaccard, 3),
-                    "shared_claims": sorted(list(intersection)),
-                })
+                pairings.append(
+                    {
+                        "openeval_result_id": llm_result.result_id,
+                        "peer_result_id": peer_result.result_id,
+                        "jaccard_index": round(jaccard, 3),
+                        "shared_claims": sorted(list(intersection)),
+                    }
+                )
 
     # Sort by Jaccard index descending
     pairings.sort(key=lambda x: x["jaccard_index"], reverse=True)
@@ -559,7 +602,10 @@ def compute_jaccard_pairings(
 
 
 def compare_results(
-    llm_results: List[LLMResultV3], peer_results: List[LLMResultV3], verbose: bool = False, return_metrics: bool = False
+    llm_results: List[LLMResultV3],
+    peer_results: List[LLMResultV3],
+    verbose: bool = False,
+    return_metrics: bool = False,
 ) -> Tuple[List[LLMResultsConcordanceRow], float, Optional[Dict[str, Any]]]:
     """Stage 4: Compare results between LLM and peer review.
 
@@ -615,19 +661,23 @@ def compare_results(
 
     jaccard_pairings_json = json.dumps(jaccard_pairings, indent=2)
 
-    prompt = STAGE4_PROMPT_TEMPLATE.replace(
-        "$LLM_RESULTS_JSON", llm_results_json
-    ).replace("$PEER_RESULTS_JSON", peer_results_json).replace(
-        "$JACCARD_PAIRINGS_JSON", jaccard_pairings_json
+    prompt = (
+        STAGE4_PROMPT_TEMPLATE.replace("$LLM_RESULTS_JSON", llm_results_json)
+        .replace("$PEER_RESULTS_JSON", peer_results_json)
+        .replace("$JACCARD_PAIRINGS_JSON", jaccard_pairings_json)
     )
 
-    warn_if_prompt_too_long(prompt, MAX_PROMPT_TOKENS, "STAGE 4: Compare Results Between LLM and Peer Review")
+    warn_if_prompt_too_long(
+        prompt,
+        MAX_PROMPT_TOKENS,
+        "STAGE 4: Compare Results Between LLM and Peer Review",
+    )
 
-    llm_response, usage = call_llm_structured(
+    llm_response, usage, raw_response = call_llm_structured(
         client=client,
         prompt=prompt,
         response_model=LLMResultsConcordanceResponse,
-        max_tokens=30000,
+        max_tokens=64000,
     )
 
     # Post-process: Calculate agreement_status based on openeval_status and peer_status
@@ -681,7 +731,11 @@ def compare_results(
     # Build metrics dict if verbose or return_metrics requested
     metrics_dict = None
     if verbose or return_metrics:
-        model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
 
         # Count status categories for breakdown
         status_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
@@ -692,7 +746,9 @@ def compare_results(
                 status_counts[row.peer_status] += 1
 
         # Calculate comprehensive comparison metrics
-        comparison_metrics = calculate_comparison_metrics(llm_results, peer_results, llm_response.concordance)
+        comparison_metrics = calculate_comparison_metrics(
+            llm_results, peer_results, llm_response.concordance
+        )
 
         metrics_dict = {
             "model": model,
@@ -707,18 +763,35 @@ def compare_results(
 
     # Verbose: print metrics
     if verbose and metrics_dict:
-        print(f"[COMPARE] Input tokens: {metrics_dict['input_tokens']:,}", file=sys.stderr)
-        print(f"[COMPARE] Output tokens: {metrics_dict['output_tokens']:,}", file=sys.stderr)
-        print(f"[COMPARE] Comparisons created: {metrics_dict['num_comparisons']}", file=sys.stderr)
-        print(f"[COMPARE] Jaccard pairings computed: {len(metrics_dict['jaccard_pairings'])}", file=sys.stderr)
-        print(f"[COMPARE] Status breakdown - Supported: {metrics_dict['status_breakdown']['SUPPORTED']}, "
-              f"Unsupported: {metrics_dict['status_breakdown']['UNSUPPORTED']}, "
-              f"Uncertain: {metrics_dict['status_breakdown']['UNCERTAIN']}", file=sys.stderr)
-        print(f"[COMPARE] Total time: {metrics_dict['processing_time_seconds']:.2f}s", file=sys.stderr)
+        print(
+            f"[COMPARE] Input tokens: {metrics_dict['input_tokens']:,}", file=sys.stderr
+        )
+        print(
+            f"[COMPARE] Output tokens: {metrics_dict['output_tokens']:,}",
+            file=sys.stderr,
+        )
+        print(
+            f"[COMPARE] Comparisons created: {metrics_dict['num_comparisons']}",
+            file=sys.stderr,
+        )
+        print(
+            f"[COMPARE] Jaccard pairings computed: {len(metrics_dict['jaccard_pairings'])}",
+            file=sys.stderr,
+        )
+        print(
+            f"[COMPARE] Status breakdown - Supported: {metrics_dict['status_breakdown']['SUPPORTED']}, "
+            f"Unsupported: {metrics_dict['status_breakdown']['UNSUPPORTED']}, "
+            f"Uncertain: {metrics_dict['status_breakdown']['UNCERTAIN']}",
+            file=sys.stderr,
+        )
+        print(
+            f"[COMPARE] Total time: {metrics_dict['processing_time_seconds']:.2f}s",
+            file=sys.stderr,
+        )
         print("", file=sys.stderr)
 
         # Print comprehensive metrics report
-        metrics_report = format_metrics_report(metrics_dict['comparison_metrics'])
+        metrics_report = format_metrics_report(metrics_dict["comparison_metrics"])
         print(metrics_report, file=sys.stderr)
 
     return llm_response.concordance, processing_time, metrics_dict
@@ -750,7 +823,9 @@ def calculate_results_metrics(
     partial = sum(1 for row in concordance if row.agreement_status == "partial")
     disjoint = sum(1 for row in concordance if row.agreement_status == "disjoint")
 
-    agreement_rate = (agreements / total_comparisons * 100) if total_comparisons > 0 else 0.0
+    agreement_rate = (
+        (agreements / total_comparisons * 100) if total_comparisons > 0 else 0.0
+    )
 
     return {
         "total_comparisons": total_comparisons,
