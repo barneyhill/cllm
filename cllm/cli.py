@@ -140,14 +140,13 @@ def extract(manuscript: Path, output: Path, verbose: bool):
 @click.option("-c", "--claims", type=click.Path(exists=True, path_type=Path), required=True, help="Input claims JSON file")
 @click.option("-p", "--peer-reviews", type=click.Path(exists=True, path_type=Path), help="Peer review file (if provided, evaluates from reviewer perspective)")
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for evaluations")
-@click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
-def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, metadata: Optional[Path], verbose: bool):
+def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, verbose: bool):
     """
     Evaluate claims and group them into results.
 
-    Without -p: LLM evaluates the claims based on manuscript.
-    With -p: Groups claims based on peer review commentary.
+    Without -p: LLM evaluates the claims based on manuscript (saves metrics_eval_openeval.json).
+    With -p: Groups claims based on peer review commentary (saves metrics_eval_peer.json).
 
     Examples:
         cllm eval -c claims.json -o eval_llm.json manuscript.txt
@@ -209,12 +208,12 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         if not verbose:
             click.echo(f"🔍 Grouping claims based on peer review commentary...")
         try:
-            results, processing_time, metrics_eval = peer_review_group_claims_into_results(
-                claims_list, review_text, verbose=verbose, return_metrics=(metadata is not None)
+            results, processing_time, metrics_eval, raw_response = peer_review_group_claims_into_results(
+                claims_list, review_text, verbose=verbose, return_metrics=True
             )
             if not verbose:
                 click.echo(f"✅ Created {len(results)} peer review results in {processing_time:.2f}s")
-            eval_source = "PEER_REVIEW"
+            workflow_step = "eval_peer"
         except Exception as e:
             click.echo(f"❌ Error evaluating with peer reviews: {e}", err=True)
             sys.exit(1)
@@ -223,12 +222,12 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         if not verbose:
             click.echo(f"🤖 Evaluating claims with LLM...")
         try:
-            results, processing_time, metrics_eval = llm_group_claims_into_results(
-                manuscript_text, claims_list, verbose=verbose, return_metrics=(metadata is not None)
+            results, processing_time, metrics_eval, raw_response = llm_group_claims_into_results(
+                manuscript_text, claims_list, verbose=verbose, return_metrics=True
             )
             if not verbose:
                 click.echo(f"✅ Created {len(results)} LLM results in {processing_time:.2f}s")
-            eval_source = "LLM"
+            workflow_step = "eval_openeval"
         except Exception as e:
             click.echo(f"❌ Error evaluating with LLM: {e}", err=True)
             sys.exit(1)
@@ -255,43 +254,47 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         click.echo(f"❌ Error writing output: {e}", err=True)
         sys.exit(1)
 
-    # Write metadata if requested
-    if metadata:
-        # Build full command string
-        cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims)]
-        if peer_reviews:
-            cmd_parts.extend(["-p", str(peer_reviews)])
-        cmd_parts.extend(["-o", str(output)])
-        if metadata:
-            cmd_parts.extend(["-m", str(metadata)])
-        if verbose:
-            cmd_parts.append("-v")
-
-        metadata_data = {
-            "command": " ".join(cmd_parts),
-        }
-
-        # Add metrics if available
-        if metrics_eval:
-            metadata_data.update(metrics_eval)
-
+    # Save metrics
+    if metrics_eval:
         try:
-            metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            # Build full command string
+            cmd_parts = ["cllm", "eval", str(manuscript), "-c", str(claims)]
+            if peer_reviews:
+                cmd_parts.extend(["-p", str(peer_reviews)])
+            cmd_parts.extend(["-o", str(output)])
+            if verbose:
+                cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
+
+            # Save metrics to output directory
+            output_dir = output.parent
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step=workflow_step,
+                command=command_str,
+                model=metrics_eval["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_eval["input_tokens"],
+                output_tokens=metrics_eval["output_tokens"],
+                processing_time_sec=metrics_eval["processing_time_seconds"],
+                cached_tokens=0
+            )
             if not verbose:
-                click.echo(f"📊 Saved metadata to: {metadata}")
+                click.echo(f"📊 Saved metrics to: {output_dir / f'metrics_{workflow_step}.json'}")
         except Exception as e:
-            click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
 
 @cli.command()
 @click.argument("eval_peers", type=click.Path(exists=True, path_type=Path))
 @click.argument("eval_llm", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for comparison")
-@click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing, metrics)")
-def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path], verbose: bool):
+def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
     """
     Compare peer review and LLM evaluations.
+
+    Automatically saves metrics to metrics_cmp.json in the output directory.
 
     Example:
         cllm cmp eval_peers.json eval_llm.json -o compare.json
@@ -356,12 +359,12 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
         click.echo(f"❌ Error reading LLM results: {e}", err=True)
         sys.exit(1)
 
-    # Compare results (request metrics if metadata file specified)
+    # Compare results (always request metrics)
     if not verbose:
         click.echo(f"⚖️  Comparing results...")
     try:
-        concordance, processing_time, metrics_cmp = compare_results(
-            llm_results, peer_results, verbose=verbose, return_metrics=(metadata is not None)
+        concordance, processing_time, metrics_cmp, raw_response = compare_results(
+            llm_results, peer_results, verbose=verbose, return_metrics=True
         )
         if not verbose:
             click.echo(f"✅ Generated {len(concordance)} concordance rows in {processing_time:.2f}s")
@@ -403,29 +406,32 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, metadata: Optional[Path]
         click.echo(f"❌ Error writing output: {e}", err=True)
         sys.exit(1)
 
-    # Write metadata if requested
-    if metadata:
-        # Build full command string
-        cmd_parts = ["cllm", "cmp", str(eval_peers), str(eval_llm), "-o", str(output)]
-        if metadata:
-            cmd_parts.extend(["-m", str(metadata)])
-        if verbose:
-            cmd_parts.append("-v")
-
-        metadata_data = {
-            "command": " ".join(cmd_parts),
-        }
-
-        # Add metrics if available
-        if metrics_cmp:
-            metadata_data.update(metrics_cmp)
-
+    # Save metrics
+    if metrics_cmp:
         try:
-            metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            # Build full command string
+            cmd_parts = ["cllm", "cmp", str(eval_peers), str(eval_llm), "-o", str(output)]
+            if verbose:
+                cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
+
+            # Save metrics to output directory
+            output_dir = output.parent
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="cmp",
+                command=command_str,
+                model=metrics_cmp["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics_cmp["input_tokens"],
+                output_tokens=metrics_cmp["output_tokens"],
+                processing_time_sec=metrics_cmp["processing_time_seconds"],
+                cached_tokens=0
+            )
             if not verbose:
-                click.echo(f"📊 Saved metadata to: {metadata}")
+                click.echo(f"📊 Saved metrics to: {output_dir / 'metrics_cmp.json'}")
         except Exception as e:
-            click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
 
 @cli.command()
