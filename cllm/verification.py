@@ -339,7 +339,7 @@ def llm_group_claims_into_results(
     claims: List[LLMClaimV3],
     verbose: bool = False,
     return_metrics: bool = False,
-) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
+) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]], Any]:
     """Stage 2: LLM groups claims into results and evaluates each result.
 
     Args:
@@ -349,7 +349,7 @@ def llm_group_claims_into_results(
         return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of results, processing time in seconds, optional metrics dict)
+        Tuple of (list of results, processing time in seconds, optional metrics dict, raw_response)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -433,7 +433,7 @@ def llm_group_claims_into_results(
             file=sys.stderr,
         )
 
-    return results_with_ids, processing_time, metrics
+    return results_with_ids, processing_time, metrics, raw_response
 
 
 # ============================================================================
@@ -449,7 +449,7 @@ def peer_review_group_claims_into_results(
     review_text: str,
     verbose: bool = False,
     return_metrics: bool = False,
-) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]]]:
+) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]], Any]:
     """Stage 3: Extract results from peer review based on manuscript claims.
 
     Args:
@@ -459,7 +459,7 @@ def peer_review_group_claims_into_results(
         return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of results from reviewer perspective, processing time in seconds, optional metrics dict)
+        Tuple of (list of results from reviewer perspective, processing time in seconds, optional metrics dict, raw_response)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -541,7 +541,7 @@ def peer_review_group_claims_into_results(
             file=sys.stderr,
         )
 
-    return results_with_ids, processing_time, metrics
+    return results_with_ids, processing_time, metrics, raw_response
 
 
 # ============================================================================
@@ -606,7 +606,7 @@ def compare_results(
     peer_results: List[LLMResultV3],
     verbose: bool = False,
     return_metrics: bool = False,
-) -> Tuple[List[LLMResultsConcordanceRow], float, Optional[Dict[str, Any]]]:
+) -> Tuple[List[LLMResultsConcordanceRow], float, Optional[Dict[str, Any]], Any]:
     """Stage 4: Compare results between LLM and peer review.
 
     Args:
@@ -616,7 +616,7 @@ def compare_results(
         return_metrics: If True, return metrics dictionary as third element
 
     Returns:
-        Tuple of (list of concordance rows, processing time in seconds, optional metrics dict)
+        Tuple of (list of concordance rows, processing time in seconds, optional metrics dict, raw_response)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
@@ -794,7 +794,7 @@ def compare_results(
         metrics_report = format_metrics_report(metrics_dict["comparison_metrics"])
         print(metrics_report, file=sys.stderr)
 
-    return llm_response.concordance, processing_time, metrics_dict
+    return llm_response.concordance, processing_time, metrics_dict, raw_response
 
 
 # ============================================================================
