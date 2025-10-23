@@ -542,7 +542,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
 
     try:
-        claims, processing_time, metrics_data = extract_claims(
+        claims, processing_time, metrics_data, raw_response = extract_claims(
             manuscript_text,
             verbose=verbose,
             return_metrics=metrics
@@ -600,7 +600,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"🤖 Evaluating claims with LLM...")
 
     try:
-        llm_results, processing_time, metrics_data = llm_group_claims_into_results(
+        llm_results, processing_time, metrics_data, raw_response = llm_group_claims_into_results(
             manuscript_text, claims, verbose=verbose, return_metrics=metrics
         )
         if not verbose:
@@ -713,7 +713,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"🔍 Grouping claims based on peer review commentary...")
 
     try:
-        peer_results, processing_time, metrics_data = peer_review_group_claims_into_results(
+        peer_results, processing_time, metrics_data, raw_response = peer_review_group_claims_into_results(
             claims, review_text, verbose=verbose, return_metrics=metrics
         )
         if not verbose:
@@ -770,7 +770,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"⚖️  Comparing results...")
 
     try:
-        concordance, processing_time, metrics_data = compare_results(
+        concordance, processing_time, metrics_data, raw_response = compare_results(
             llm_results, peer_results, verbose=verbose, return_metrics=metrics
         )
         if not verbose:
