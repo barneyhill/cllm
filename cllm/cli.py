@@ -29,6 +29,7 @@ from .models import (
 )
 from .report import json_to_pdf_table
 from .db_export import export_to_database_format, save_db_export
+from .metrics import save_workflow_metrics
 
 
 @click.group()
@@ -45,11 +46,12 @@ def cli():
 @cli.command()
 @click.argument("manuscript", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for claims")
-@click.option("-m", "--metadata", type=click.Path(path_type=Path), help="Optional JSON file for metadata")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
-def extract(manuscript: Path, output: Path, metadata: Optional[Path], verbose: bool):
+def extract(manuscript: Path, output: Path, verbose: bool):
     """
     Extract atomic factual claims from a manuscript.
+
+    Automatically saves metrics to metrics_extract.json in the output directory.
 
     Example:
         cllm extract -o claims.json manuscript.txt
@@ -75,9 +77,9 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path], verbose: b
     if not verbose:
         click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
 
-    # Extract claims (request metrics if metadata file specified)
+    # Extract claims (always request metrics now)
     try:
-        claims, processing_time, metrics, raw_response = extract_claims(manuscript_text, verbose=verbose, return_metrics=(metadata is not None))
+        claims, processing_time, metrics, raw_response = extract_claims(manuscript_text, verbose=verbose, return_metrics=True)
         if not verbose:
             click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
     except Exception as e:
@@ -105,29 +107,32 @@ def extract(manuscript: Path, output: Path, metadata: Optional[Path], verbose: b
         click.echo(f"❌ Error writing output: {e}", err=True)
         sys.exit(1)
 
-    # Write metadata if requested
-    if metadata:
-        # Build full command string
-        cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(output)]
-        if metadata:
-            cmd_parts.extend(["-m", str(metadata)])
-        if verbose:
-            cmd_parts.append("-v")
-
-        metadata_data = {
-            "command": " ".join(cmd_parts),
-        }
-
-        # Add metrics if available
-        if metrics:
-            metadata_data.update(metrics)
-
+    # Save metrics
+    if metrics:
         try:
-            metadata.write_text(json.dumps(metadata_data, indent=2), encoding="utf-8")
+            # Build full command string
+            cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(output)]
+            if verbose:
+                cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
+
+            # Save metrics to output directory
+            output_dir = output.parent
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step="extract",
+                command=command_str,
+                model=metrics["model"],
+                provider=config.llm_provider,
+                input_tokens=metrics["input_tokens"],
+                output_tokens=metrics["output_tokens"],
+                processing_time_sec=metrics["processing_time_seconds"],
+                cached_tokens=0  # We don't have cached tokens from current metrics
+            )
             if not verbose:
-                click.echo(f"📊 Saved metadata to: {metadata}")
+                click.echo(f"📊 Saved metrics to: {output_dir / 'metrics_extract.json'}")
         except Exception as e:
-            click.echo(f"⚠️  Warning: Could not write metadata: {e}", err=True)
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
 
 @cli.command()

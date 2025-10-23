@@ -198,6 +198,103 @@ def save_metrics(
 
 
 # ============================================================================
+# Simplified API for CLI usage
+# ============================================================================
+
+def save_workflow_metrics(
+    output_dir: Path,
+    workflow_step: str,
+    command: str,
+    model: str,
+    provider: str,
+    input_tokens: int,
+    output_tokens: int,
+    processing_time_sec: float,
+    cached_tokens: int = 0
+) -> None:
+    """
+    Save workflow metrics using basic token counts.
+
+    This is a simplified version that doesn't require the raw API response.
+    It calculates costs based on the token counts provided.
+
+    Args:
+        output_dir: Directory to save metrics file
+        workflow_step: Workflow step name (extract, eval_openeval, eval_peer, cmp)
+        command: The full cllm command that was executed
+        model: Model identifier string
+        provider: Provider name (anthropic or openai)
+        input_tokens: Number of input tokens
+        output_tokens: Number of output tokens
+        processing_time_sec: Time taken for the LLM call in seconds
+        cached_tokens: Number of cached tokens (default 0)
+    """
+    # Calculate costs manually
+    if provider == "anthropic":
+        model_key = model  # Use model name as-is for litellm lookup
+        if model_key not in model_cost:
+            # Try common variations
+            if "claude" in model and "claude-" not in model:
+                model_key = f"claude-{model}"
+
+        if model_key in model_cost:
+            prices = model_cost[model_key]
+            in_p = prices["input_cost_per_token"]
+            out_p = prices["output_cost_per_token"]
+            cache_p = prices.get("cache_read_input_token_cost", 0.0)
+
+            input_cost = input_tokens * in_p
+            cached_cost = cached_tokens * cache_p
+            output_cost = output_tokens * out_p
+        else:
+            # Fallback to 0 if model not found
+            input_cost = 0.0
+            cached_cost = 0.0
+            output_cost = 0.0
+    elif provider == "openai":
+        model_key = model
+        if model_key in model_cost:
+            prices = model_cost[model_key]
+            in_p = prices["input_cost_per_token"]
+            out_p = prices["output_cost_per_token"]
+            cache_p = prices.get("cache_read_input_token_cost", in_p)
+
+            uncached_input = max(input_tokens - cached_tokens, 0)
+            input_cost = uncached_input * in_p
+            cached_cost = cached_tokens * cache_p
+            output_cost = output_tokens * out_p
+        else:
+            input_cost = 0.0
+            cached_cost = 0.0
+            output_cost = 0.0
+    else:
+        raise ValueError(f"Unsupported provider: {provider}")
+
+    total_cost = input_cost + cached_cost + output_cost
+    total_tokens = input_tokens + output_tokens
+
+    # Build metrics dictionary
+    metrics = {
+        "command": command,
+        "model": model,
+        "created_at": int(datetime.now().timestamp()),
+        "input_tokens": input_tokens,
+        "cached_tokens": cached_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": total_tokens,
+        "input_cost": input_cost,
+        "cached_cost": cached_cost,
+        "output_cost": output_cost,
+        "total_cost": total_cost,
+        "processing_time_sec": processing_time_sec,
+    }
+
+    # Save to file
+    metrics_file = output_dir / f"metrics_{workflow_step}.json"
+    metrics_file.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+
+
+# ============================================================================
 # Timing Context Manager
 # ============================================================================
 
