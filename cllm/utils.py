@@ -1,9 +1,16 @@
 """Utility functions for CLLM - metrics calculation, UUID generation, and prompt hashing."""
 
+import base64
 import hashlib
+import io
+import re
 import uuid
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple, Optional
+import urllib.request
+
+from PIL import Image
+
 from .models import LLMResultV3, LLMResultsConcordanceRow
 
 
@@ -32,6 +39,179 @@ def generate_prompt_id(prompt_text: str, model: str) -> str:
 def get_current_timestamp() -> str:
     """Get current timestamp in ISO format."""
     return datetime.utcnow().isoformat() + 'Z'
+
+
+def is_video_url(url: str) -> bool:
+    """Check if URL represents video file or video thumbnail.
+
+    Detects video extensions anywhere in the URL path, including thumbnails
+    like video.mp4.jpg which are JPEG images of video files that cannot be
+    processed by vision models.
+
+    Args:
+        url: URL to check
+
+    Returns:
+        True if URL contains video extension, False otherwise
+
+    Example:
+        >>> is_video_url("https://example.com/video.mp4")
+        True
+        >>> is_video_url("https://example.com/video.mp4.jpg")
+        True
+        >>> is_video_url("https://example.com/image.jpg")
+        False
+    """
+    # Pattern matches video extension anywhere in URL:
+    # .mp4, .mov, .avi, .webm, .mkv, .flv, .wmv, .m4v
+    # Followed by: dot, slash, query param, or end of string
+    video_pattern = r'\.(mp4|mov|avi|webm|mkv|flv|wmv|m4v)(?:\.|/|\?|$)'
+    return bool(re.search(video_pattern, url, re.IGNORECASE))
+
+
+def extract_figure_urls_from_markdown(markdown_text: str) -> List[str]:
+    """Extract figure URLs from markdown text.
+
+    Matches markdown image syntax: ![description](url)
+    Filters for common image extensions: jpg, jpeg, png, gif, webp
+    Excludes video files and video thumbnails
+
+    Args:
+        markdown_text: Full markdown text to search
+
+    Returns:
+        List of figure URLs found in the markdown (excluding videos)
+
+    Example:
+        >>> text = "![Figure 1](https://example.com/fig1.jpg)"
+        >>> extract_figure_urls_from_markdown(text)
+        ['https://example.com/fig1.jpg']
+    """
+    # Pattern matches: ![any text](http(s)://url.extension)
+    # where extension is one of the supported image formats
+    pattern = r"!\[([^\]]*)\]\((https?://[^\)]+\.(?:jpg|jpeg|png|gif|webp))\)"
+
+    matches = re.findall(pattern, markdown_text, re.IGNORECASE)
+
+    # Extract just the URLs (second element of each match tuple)
+    # and filter out video URLs
+    urls = [match[1] for match in matches if not is_video_url(match[1])]
+
+    return urls
+
+
+def extract_figures_with_metadata(markdown_text: str) -> List[Tuple[str, str]]:
+    """Extract figures with their descriptions and URLs from markdown.
+
+    Excludes video files and video thumbnails.
+
+    Args:
+        markdown_text: Full markdown text to search
+
+    Returns:
+        List of (description, url) tuples (excluding videos)
+
+    Example:
+        >>> text = "![Figure 1: Cell diagram](https://example.com/fig1.jpg)"
+        >>> extract_figures_with_metadata(text)
+        [('Figure 1: Cell diagram', 'https://example.com/fig1.jpg')]
+    """
+    pattern = r"!\[([^\]]*)\]\((https?://[^\)]+\.(?:jpg|jpeg|png|gif|webp))\)"
+
+    matches = re.findall(pattern, markdown_text, re.IGNORECASE)
+
+    # Filter out video URLs
+    filtered_matches = [match for match in matches if not is_video_url(match[1])]
+
+    return filtered_matches
+
+
+def fetch_and_resize_image(url: str, max_size: int = 2000) -> Optional[Tuple[str, str]]:
+    """Fetch an image from URL, resize it to fit within max_size, and return base64.
+
+    Anthropic API requires images to be max 2000x2000px when sending multiple images.
+    This function downloads the image, resizes it maintaining aspect ratio, and
+    converts to base64 JPEG format.
+
+    Args:
+        url: URL of the image to fetch
+        max_size: Maximum dimension (width or height) in pixels
+
+    Returns:
+        Tuple of (base64_data, media_type) or None if fetch/resize fails
+
+    Example:
+        >>> data, media_type = fetch_and_resize_image("https://example.com/image.jpg")
+        >>> print(media_type)
+        'image/jpeg'
+    """
+    try:
+        # Fetch image from URL
+        with urllib.request.urlopen(url, timeout=10) as response:
+            image_data = response.read()
+
+        # Open with Pillow
+        image = Image.open(io.BytesIO(image_data))
+
+        # Convert to RGB if necessary (handles RGBA, P, etc.)
+        if image.mode not in ('RGB', 'L'):
+            image = image.convert('RGB')
+
+        # Calculate new size maintaining aspect ratio
+        width, height = image.size
+        if width > max_size or height > max_size:
+            # Resize to fit within max_size x max_size
+            if width > height:
+                new_width = max_size
+                new_height = int(height * (max_size / width))
+            else:
+                new_height = max_size
+                new_width = int(width * (max_size / height))
+
+            image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+        # Convert to JPEG and encode as base64
+        buffer = io.BytesIO()
+        image.save(buffer, format='JPEG', quality=85, optimize=True)
+        buffer.seek(0)
+
+        base64_data = base64.b64encode(buffer.read()).decode('utf-8')
+
+        return base64_data, 'image/jpeg'
+
+    except Exception as e:
+        # Log error but don't crash - just skip this image
+        print(f"Warning: Failed to fetch/resize image {url}: {e}", file=__import__('sys').stderr)
+        return None
+
+
+def process_figure_urls_for_api(figure_urls: List[str], max_size: int = 2000) -> List[Tuple[str, str]]:
+    """Process a list of figure URLs for API consumption.
+
+    Fetches and resizes images, returning base64-encoded data.
+    Skips any images that fail to download or process.
+
+    Args:
+        figure_urls: List of image URLs
+        max_size: Maximum dimension (width or height) in pixels
+
+    Returns:
+        List of (base64_data, media_type) tuples for successfully processed images
+
+    Example:
+        >>> urls = ["https://example.com/fig1.jpg", "https://example.com/fig2.jpg"]
+        >>> processed = process_figure_urls_for_api(urls)
+        >>> len(processed)
+        2
+    """
+    processed_images = []
+
+    for url in figure_urls:
+        result = fetch_and_resize_image(url, max_size)
+        if result:
+            processed_images.append(result)
+
+    return processed_images
 
 
 def calculate_comparison_metrics(
@@ -85,6 +265,10 @@ def calculate_comparison_metrics(
     n_only1 = len(llm_ids_only)
     n_only2 = len(peer_ids_only)
 
+    # Create lookup dictionaries for evaluation_types
+    llm_results_dict = {r.result_id: r for r in llm_results}
+    peer_results_dict = {r.result_id: r for r in peer_results}
+
     # Classification agreement (for overlapping results only)
     overlapping_rows = [
         row for row in concordance
@@ -92,8 +276,8 @@ def calculate_comparison_metrics(
     ]
 
     if overlapping_rows:
-        agrees = sum(1 for row in overlapping_rows if row.agreement_status == "agree")
-        disagrees = sum(1 for row in overlapping_rows if row.agreement_status == "disagree")
+        agrees = sum(1 for row in overlapping_rows if row.comparison_type == "agree")
+        disagrees = sum(1 for row in overlapping_rows if row.comparison_type == "disagree")
 
         agreement_pct = (agrees / len(overlapping_rows)) * 100 if overlapping_rows else 0
         disagreement_pct = (disagrees / len(overlapping_rows)) * 100 if overlapping_rows else 0
@@ -111,21 +295,25 @@ def calculate_comparison_metrics(
         # Count matches for this category
         matches = sum(
             1 for row in overlapping_rows
-            if row.openeval_status == category
-            and row.peer_status == category
-            and row.agreement_status == "agree"
+            if row.openeval_result_id in llm_results_dict
+            and row.peer_result_id in peer_results_dict
+            and llm_results_dict[row.openeval_result_id].evaluation_type == category
+            and peer_results_dict[row.peer_result_id].evaluation_type == category
+            and row.comparison_type == "agree"
         )
 
         # Count all LLM results with this category
         llm_with_category = sum(
             1 for row in overlapping_rows
-            if row.openeval_status == category
+            if row.openeval_result_id in llm_results_dict
+            and llm_results_dict[row.openeval_result_id].evaluation_type == category
         )
 
         # Count all peer results with this category
         peer_with_category = sum(
             1 for row in overlapping_rows
-            if row.peer_status == category
+            if row.peer_result_id in peer_results_dict
+            and peer_results_dict[row.peer_result_id].evaluation_type == category
         )
 
         # Calculate precision, recall, F1

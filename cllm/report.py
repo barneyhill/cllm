@@ -146,8 +146,8 @@ def json_to_pdf_table(json_data, output_filename, title=None):
         elif header_lower in ['n_openeval', 'n_peer', 'n_itx']:
             # Number columns get less space
             col_widths.append(0.5)
-        elif header_lower in ['openeval_status', 'peer_status', 'agreement_status', 'status', 'claim_type']:
-            # Status columns get less space
+        elif header_lower in ['comparison_type', 'evaluation_type', 'claim_type']:
+            # Type/status columns get less space
             col_widths.append(0.8)
         elif header_lower in ['claim_id', 'result_id', 'openeval_result_id', 'peer_result_id']:
             # ID columns get minimal space

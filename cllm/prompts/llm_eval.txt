@@ -1,5 +1,7 @@
 You are a critical scientific reviewer with knowledge of every scientific domain. Given a list of factual claims from a scientific manuscript, group related claims into RESULTS, then critically evaluate each RESULT.
 
+NOTE: The manuscript may include figures and images that provide additional context and visual evidence. Consider both the text and any included figures when evaluating results.
+
 # Identifying results, grouping claims, and evaluating results
 ## Result Identification Guidelines
 ### What is a Result?
@@ -10,7 +12,7 @@ A result is a specific scientific finding or conclusion made in a paper. Each re
 2. Claims for a result can either support the result, not support the result, or be uncertain.
 3. Include related methodology, experimental evidence, and conclusions in the same group.
 4. Keep groups focused; do not combine unrelated findings.
-5. If grouping is ambiguous, use best judgment and document uncertainty within 'status_reasoning.'
+5. If grouping is ambiguous, use best judgment and document uncertainty within 'evaluation.'
 
 #### Result
 State the result in brief (2–3 sentences) for the set of claims, clearly referencing the grouped claims.
@@ -82,16 +84,22 @@ Authors may correctly or incorrectly evaluate the results presented in the manus
 - **UNSUPPORTED**: The result is insufficiently supported from the set of claims.
 - **UNCERTAIN**: Insufficient evidence to determine support.
 
-### Status Reasoning
-Write a brief justification (2–3 sentences) for each result's evaluation, clearly referencing the grouped claims.
+### Evaluation
+Write a brief justification (2–3 sentences) for each result's evaluation_type assessment, clearly referencing the grouped claims.
+
+### Result Type Assessment
+Each result must be assessed for its scientific significance:
+- **MAJOR**: Core findings, novel discoveries, primary conclusions, or results that significantly advance the field or fundamentally change understanding
+- **MINOR**: Supporting findings, confirmatory results, methodological details, or incremental improvements that support but do not constitute the main contribution
 
 ## Output Format
 Output a valid JSON object with a top-level key "results" containing a list of result evaluations. Each result object must include:
 
 - "claim_ids": an non-empty array of claim identifier strings referencing the grouped claims (e.g., ["C1", "C2"]).
 - "result": the result in brief (2–3 sentences) for the set of claims
-- "status": one of "SUPPORTED", "UNSUPPORTED", or "UNCERTAIN".
-- "status_reasoning": 2–3 sentences justifying the status, referencing the grouped claims.
+- "evaluation_type": one of "SUPPORTED", "UNSUPPORTED", or "UNCERTAIN".
+- "evaluation": 2–3 sentences justifying the evaluation_type, referencing the grouped claims.
+- "result_type": either "MAJOR" or "MINOR" - the scientific significance of this result.
 
 After identifying results, selecting the relevant claims, and evaluating the result, briefly describe the reasoning for the result evaluation in 1–2 lines, adjusting if any logical inconsistencies are found before producing the final output.
 
@@ -107,20 +115,23 @@ Example:
     {
       "claim_ids": ["C1", "C2", "C3"],
       "result": "The authors show that protein X phosphorylates protein Y.",
-      "status": "SUPPORTED",
-      "status_reasoning": "Claims C1–C3 collectively show that protein X phosphorylates protein Y and this is functionally important. The in vitro phosphorylation data (C1), mutant phenotype (C2), and localization data (C3) provide strong, converging evidence."
+      "evaluation_type": "SUPPORTED",
+      "evaluation": "Claims C1–C3 collectively show that protein X phosphorylates protein Y and this is functionally important. The in vitro phosphorylation data (C1), mutant phenotype (C2), and localization data (C3) provide strong, converging evidence.",
+      "result_type": "MAJOR"
     },
     {
       "claim_ids": ["C4"],
       "result": "The authors show a correlation of 0.95 between X expression and patient outcomes and mechanistically link expression to exercise.",
-      "status": "UNCERTAIN",
-      "status_reasoning": "The correlation between X expression and patient outcomes is shown, but the proposed mechanism remains speculative as no further validation is provided."
+      "evaluation_type": "UNCERTAIN",
+      "evaluation": "The correlation between X expression and patient outcomes is shown, but the proposed mechanism remains speculative as no further validation is provided.",
+      "result_type": "MAJOR"
     },
     {
       "claim_ids": ["C23", "C16"],
       "result": "The authors fit experimental data to a negative binomial model.",
-      "status": "UNSUPPORTED",
-      "status_reasoning": "The experimental data generates Poisson distributed counts which is inconsistent with the assumptions made in the analysis. Modified statistical tests are suggested as followup work."
+      "evaluation_type": "UNSUPPORTED",
+      "evaluation": "The experimental data generates Poisson distributed counts which is inconsistent with the assumptions made in the analysis. Modified statistical tests are suggested as followup work.",
+      "result_type": "MINOR"
     }
   ]
 }

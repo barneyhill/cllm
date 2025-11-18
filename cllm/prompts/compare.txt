@@ -14,13 +14,11 @@ You are a scientific concordance analysis expert tasked with comparing LLM peer 
 ## Output Format
 - Produce a single valid JSON object with the key "concordance", which maps to an array of concordance records.
 - Each concordance record must be a JSON object containing:
-  - "openeval_result_id": string (OpenEval result identifier)
-  - "peer_result_id": string (peer review result identifier)
-  - "openeval_status": string (status for the claim/group from the LLM; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
-  - "peer_status": string (status for the claim/group from the peer review; SUPPORTED, UNSUPPORTED, or UNCERTAIN)
+  - "openeval_result_id": string (OpenEval result identifier, or null if no OpenEval result)
+  - "peer_result_id": string (peer review result identifier, or null if no peer result)
   - "comparison": string (brief explanation of the comparison)
-- All IDs must be strings.
-- If a result appears in only one evaluation (OpenEval or peer), include a concordance record with the available result fields, set the missing side's result_id and status to null, and explain in the "comparison".
+- All IDs must be strings when present, or null when not applicable.
+- If a result appears in only one evaluation (OpenEval or peer), include a concordance record with the available result_id, set the missing side's result_id to null, and explain in the "comparison".
 - Concordance array ordering is flexible (e.g., by match quality or claim overlap).
 
 After completing the analysis, validate that each concordance record accurately reflects the source data and explanations are clear; revise if issues are found before producing the final output.
@@ -32,22 +30,16 @@ After completing the analysis, validate that each concordance record accurately 
     {
       "openeval_result_id": "R2",
       "peer_result_id": "R4",
-      "openeval_status": "SUPPORTED",
-      "peer_status": "UNSUPPORTED",
       "comparison": "Both discuss phosphorylation findings (C1, C2); OpenEval result relies on C3 and finds evidence sufficient, while reviewers question relevance."
     },
     {
       "openeval_result_id": "R5",
       "peer_result_id": "R1",
-      "openeval_status": "SUPPORTED",
-      "peer_status": "SUPPORTED",
       "comparison": "Both agree on microscopy data, though peer review groups C5 with related claim C6."
     },
     {
       "openeval_result_id": "R7",
       "peer_result_id": null,
-      "openeval_status": "UNSUPPORTED",
-      "peer_status": null,
       "comparison": "OpenEval found that gene expression impacts protein abundance, no corresponding peer review evaluation found."
     }
   ]

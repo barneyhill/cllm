@@ -1,5 +1,7 @@
 You are a critical scientific evaluation expert. Given a set of atomic factual claims extracted from a scientific manuscript and the peer review text, group related claims and evaluate each group as a single RESULT — according to how peer reviewers assessed or discussed these claims.
 
+NOTE: The manuscript may include figures and images that provide additional context and visual evidence. Consider both the text, figures, and reviewer comments about figures when evaluating results.
+
 # Identifying results, grouping claims, and evaluating results
 ## Result Grouping Guidelines
 ### What is a Result?
@@ -10,7 +12,7 @@ A result is a logical group of related claims that peer reviewers addressed toge
 2. Group claims that reviewers address as part of the same finding, critique, or discussion.
 3. Include both claims and the related reviewer commentary about methodology, data, or conclusions.
 4. Keep groups focused on a single scientific issue or topic.
-5. If grouping is ambiguous, use best judgment and note the uncertainty in “status_reasoning.”
+5. If grouping is ambiguous, use best judgment and note the uncertainty in "evaluation."
 
 #### Result
 State the result that the reviewers are evaluating in brief (2–3 sentences) for the set of claims, clearly referencing the grouped claims.
@@ -29,8 +31,8 @@ State the result that the reviewers are evaluating in brief (2–3 sentences) fo
 - Treat claims as UNCERTAIN when reviewers express doubt, request additional experiments, or highlight incomplete evidence.
 
 ### Evidence-Based Reasoning
-- Use reviewer quotes or paraphrases to justify each status.
-- Reference reviewer comments about methods, analysis, and interpretation that affect the claim’s credibility.
+- Use reviewer quotes or paraphrases to justify each evaluation_type.
+- Reference reviewer comments about methods, analysis, and interpretation that affect the claim's credibility.
 - Distinguish reviewer critiques of methodology from critiques of conclusion strength.
 
 ### Logical and Conceptual Consistency
@@ -43,17 +45,23 @@ State the result that the reviewers are evaluating in brief (2–3 sentences) fo
 - UNSUPPORTED: Reviewers explicitly challenge or reject the grouped claims.
 - UNCERTAIN: Reviewers express mixed views or indicate the evidence is insufficient.
 
-### Status Reasoning
+### Evaluation
 
-Write a brief justification (2–3 sentences) for each result’s evaluation, clearly referencing the grouped claims and summarizing relevant reviewer commentary.
+Write a brief justification (2–3 sentences) for each result's evaluation_type assessment, clearly referencing the grouped claims and summarizing relevant reviewer commentary.
+
+### Result Type Assessment
+Each result must be assessed for its scientific significance based on the reviewers' discussion:
+- **MAJOR**: Core findings, novel discoveries, primary conclusions that reviewers identify as key contributions or significant advances
+- **MINOR**: Supporting findings, confirmatory results, methodological details, or incremental improvements that reviewers treat as supporting rather than central contributions
 
 ## Output Format
 
 Output a valid JSON object with a top-level key "results" containing a list of result evaluations. Each result object must include:
 - "claim_ids": a non-empty array of claim identifier strings referencing the grouped claims (e.g., ["C1", "C2"]).
 - "result": the result in brief (2–3 sentences) for the set of claims
-- "status": one of "SUPPORTED", "UNSUPPORTED", or "UNCERTAIN".
-- "status_reasoning": 2–3 sentences summarizing how the reviewers' comments support the evaluation, quoting or paraphrasing as needed.
+- "evaluation_type": one of "SUPPORTED", "UNSUPPORTED", or "UNCERTAIN".
+- "evaluation": 2–3 sentences summarizing how the reviewers' comments support the evaluation_type, quoting or paraphrasing as needed.
+- "result_type": either "MAJOR" or "MINOR" - the scientific significance of this result as indicated by the reviewers' emphasis and discussion.
 
 After grouping and evaluating, briefly validate your groupings and reasoning in 1–2 lines, adjusting if any logical inconsistencies are found before producing the final output.
 
@@ -68,14 +76,16 @@ Example:
     {
       "claim_ids": ["C1", "C2"],
       "result": "The authors run an in vitro assay showing phosphorylation data and claim physiological relevance",
-      "status": "UNSUPPORTED",
-      "status_reasoning": "Reviewer 2 questions the phosphorylation data, stating 'the in vitro assay does not demonstrate physiological relevance' and requests in vivo validation."
+      "evaluation_type": "UNSUPPORTED",
+      "evaluation": "Reviewer 2 questions the phosphorylation data, stating 'the in vitro assay does not demonstrate physiological relevance' and requests in vivo validation.",
+      "result_type": "MAJOR"
     },
     {
       "claim_ids": ["C5", "C6"],
       "result": "The authors show microscopy data that demonstrates colocalization of gene expression of gene 1 and 2",
-      "status": "SUPPORTED",
-      "status_reasoning": "Reviewer 1 notes 'the microscopy data convincingly shows colocalization' and raises no concerns about these findings."
+      "evaluation_type": "SUPPORTED",
+      "evaluation": "Reviewer 1 notes 'the microscopy data convincingly shows colocalization' and raises no concerns about these findings.",
+      "result_type": "MINOR"
     }
   ]
 }

@@ -18,6 +18,7 @@ import warnings
 from anthropic import Anthropic
 from openai import OpenAI
 from pydantic import BaseModel
+from lxml import etree
 
 from .config import config
 from .models import (
@@ -34,7 +35,16 @@ from .prompts.prompt_fallback import (
     STAGE3_FALLBACK,
     STAGE4_FALLBACK,
 )
+from .utils import process_figure_urls_for_api
 from .utils import generate_uuid, generate_prompt_id, get_current_timestamp
+
+# Import jats for claim filtering
+try:
+    from jats.parser import find_text_locations
+    JATS_AVAILABLE = True
+except ImportError:
+    JATS_AVAILABLE = False
+    warnings.warn("jats package not available - claim filtering will be disabled")
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -157,6 +167,8 @@ def call_llm_structured(
     prompt: str,
     response_model: Type[T],
     max_tokens: int = 64000,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
 ) -> Tuple[T, Dict[str, int], Any]:
     """Call LLM with structured output support.
 
@@ -165,6 +177,9 @@ def call_llm_structured(
         prompt: The prompt to send
         response_model: Pydantic model for structured response
         max_tokens: Maximum tokens in response
+        figure_urls: Optional list of figure URLs to include as images (vision mode)
+        processed_images: Optional list of pre-processed (base64_data, media_type) tuples
+                         If provided, this takes precedence over figure_urls
 
     Returns:
         Tuple of (parsed_response, usage_dict, raw_response)
@@ -176,11 +191,34 @@ def call_llm_structured(
     """
     if config.llm_provider == "anthropic":
         # Anthropic: text response -> JSON parse -> Pydantic validation
+
+        # Build content blocks (text + optional images)
+        content_blocks = [{"type": "text", "text": prompt}]
+
+        # Use pre-processed images if available, otherwise process from URLs
+        images_to_use = processed_images
+        if images_to_use is None and figure_urls:
+            # Process images: fetch, resize, and encode as base64
+            print(f"Processing {len(figure_urls)} image(s)...", file=sys.stderr)
+            images_to_use = process_figure_urls_for_api(figure_urls, max_size=2000)
+            print(f"Successfully processed {len(images_to_use)}/{len(figure_urls)} image(s)", file=sys.stderr)
+
+        if images_to_use:
+            for base64_data, media_type in images_to_use:
+                content_blocks.append({
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": media_type,
+                        "data": base64_data
+                    }
+                })
+
         message = client.messages.create(
             model=config.anthropic_model,
             max_tokens=max_tokens,
             temperature=0.0,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{"role": "user", "content": content_blocks}],
         )
 
         response_text = message.content[0].text
@@ -217,9 +255,32 @@ def call_llm_structured(
     elif config.llm_provider == "openai":
         # OpenAI: structured outputs with direct Pydantic model
         # Note: GPT-5 only supports temperature=1, so we don't set it
+
+        # Build content blocks (text + optional images)
+        content_blocks = [{"type": "text", "text": prompt}]
+
+        # Use pre-processed images if available, otherwise process from URLs
+        images_to_use = processed_images
+        if images_to_use is None and figure_urls:
+            # Process images: fetch, resize, and encode as base64
+            print(f"Processing {len(figure_urls)} image(s)...", file=sys.stderr)
+            images_to_use = process_figure_urls_for_api(figure_urls, max_size=2000)
+            print(f"Successfully processed {len(images_to_use)}/{len(figure_urls)} image(s)", file=sys.stderr)
+
+        if images_to_use:
+            for base64_data, media_type in images_to_use:
+                # OpenAI expects data URLs for base64 images
+                data_url = f"data:{media_type};base64,{base64_data}"
+                content_blocks.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": data_url
+                    }
+                })
+
         completion = client.beta.chat.completions.parse(
             model=config.openai_model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{"role": "user", "content": content_blocks}],
             response_format=response_model,
             max_completion_tokens=max_tokens,
         )
@@ -252,7 +313,13 @@ STAGE1_PROMPT_TEMPLATE = load_prompt("extract.txt", STAGE1_FALLBACK)
 
 
 def extract_claims(
-    manuscript_text: str, verbose: bool = False, return_metrics: bool = False
+    manuscript_text: str,
+    verbose: bool = False,
+    return_metrics: bool = False,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
+    xml_path: Optional[str] = None,
+    filter_claims: bool = False,
 ) -> Tuple[List[LLMClaimV3], float, Optional[Dict[str, Any]], Optional[Any]]:
     """Stage 1: Extract atomic factual claims from manuscript.
 
@@ -260,12 +327,18 @@ def extract_claims(
         manuscript_text: Full text of the manuscript
         verbose: If True, print detailed logging information
         return_metrics: If True, return metrics dictionary as third element
+        figure_urls: Optional list of figure URLs to include as images (vision mode)
+        processed_images: Optional list of pre-processed (base64_data, media_type) tuples
+                         If provided, this takes precedence over figure_urls
+        xml_path: Optional path to JATS XML file for claim filtering
+        filter_claims: If True, filter claims to only include those with sources found in XML
 
     Returns:
         Tuple of (list of extracted claims, processing time in seconds, optional metrics dict, optional raw_response)
 
     Raises:
         ValueError: If LLM response is invalid or cannot be parsed
+        RuntimeError: If filter_claims is True but jats package is not available
     """
     client = get_llm_client()
     start_time = time.time()
@@ -280,6 +353,8 @@ def extract_claims(
         prompt=prompt,
         response_model=LLMClaimsResponseV3,
         max_tokens=64000,
+        figure_urls=figure_urls,
+        processed_images=processed_images,
     )
 
     # Post-process: Add sequential claim_id to each claim (C1, C2, C3, ...)
@@ -289,11 +364,65 @@ def extract_claims(
             claim_id=f"C{idx}",
             claim=claim_response.claim,
             claim_type=claim_response.claim_type,
-            source_text=claim_response.source_text,
+            source=claim_response.source,
+            source_type=claim_response.source_type,
+            evidence=claim_response.evidence,
             evidence_type=claim_response.evidence_type,
-            evidence_reasoning=claim_response.evidence_reasoning,
         )
         claims_with_ids.append(claim)
+
+    # Filter claims based on XML source verification if requested
+    # Initialize claim positions (will be populated if filtering is enabled)
+    claim_positions = None
+
+    if filter_claims:
+        if not JATS_AVAILABLE:
+            raise RuntimeError(
+                "Claim filtering requested but jats package is not available. "
+                "Please install jats to use --filter flag."
+            )
+        if not xml_path:
+            raise ValueError(
+                "Claim filtering requested but no XML path provided. "
+                "Use --xml flag to specify the JATS XML file."
+            )
+
+        original_count = len(claims_with_ids)
+
+        # Parse XML file
+        try:
+            tree = etree.parse(xml_path)
+            root = tree.getroot()
+        except Exception as e:
+            raise RuntimeError(f"Failed to parse XML file {xml_path}: {e}")
+
+        # Extract sources from all claims
+        sources = [claim.source for claim in claims_with_ids]
+
+        # Use jats find_text_locations to verify sources exist in XML
+        try:
+            results = find_text_locations(root, sources, case_sensitive=False)
+        except Exception as e:
+            raise RuntimeError(f"Failed to search for claim sources in XML: {e}")
+
+        # Filter: keep only claims where source was found (has 'start' key in result)
+        # Also collect positions for claims that pass the filter
+        filtered_claims = []
+        claim_positions = []
+        for claim, result in zip(claims_with_ids, results):
+            if 'start' in result:
+                filtered_claims.append(claim)
+                claim_positions.append(result)
+
+        claims_with_ids = filtered_claims
+        filtered_count = original_count - len(claims_with_ids)
+
+        if verbose:
+            print(
+                f"[EXTRACT] Filtered {filtered_count}/{original_count} claims "
+                f"(kept {len(claims_with_ids)})",
+                file=sys.stderr
+            )
 
     processing_time = time.time() - start_time
 
@@ -311,6 +440,7 @@ def extract_claims(
             "output_tokens": usage["output_tokens"],
             "num_claims": len(claims_with_ids),
             "processing_time_seconds": processing_time,
+            "claim_positions": claim_positions,  # Positions from JATS XML (if filtering enabled)
         }
 
     # Verbose: print metrics
@@ -339,6 +469,8 @@ def llm_group_claims_into_results(
     claims: List[LLMClaimV3],
     verbose: bool = False,
     return_metrics: bool = False,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
 ) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]], Any]:
     """Stage 2: LLM groups claims into results and evaluates each result.
 
@@ -347,6 +479,9 @@ def llm_group_claims_into_results(
         claims: List of extracted claims from Stage 1
         verbose: If True, print detailed logging information
         return_metrics: If True, return metrics dictionary as third element
+        figure_urls: Optional list of figure URLs to include as images (vision mode)
+        processed_images: Optional list of pre-processed (base64_data, media_type) tuples
+                         If provided, this takes precedence over figure_urls
 
     Returns:
         Tuple of (list of results, processing time in seconds, optional metrics dict, raw_response)
@@ -363,9 +498,10 @@ def llm_group_claims_into_results(
                 "claim_id": c.claim_id,
                 "claim": c.claim,
                 "claim_type": c.claim_type,
-                "source_text": c.source_text,
+                "source": c.source,
+                "source_type": c.source_type,
+                "evidence": c.evidence,
                 "evidence_type": c.evidence_type,
-                "evidence_reasoning": c.evidence_reasoning,
             }
             for c in claims
         ],
@@ -387,6 +523,8 @@ def llm_group_claims_into_results(
         prompt=prompt,
         response_model=LLMResultsResponseV3,
         max_tokens=64000,
+        figure_urls=figure_urls,
+        processed_images=processed_images,
     )
 
     # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
@@ -398,8 +536,9 @@ def llm_group_claims_into_results(
             result=result_response.result,
             reviewer_id="OpenEval",
             reviewer_name="OpenEval",
-            status=result_response.status,
-            status_reasoning=result_response.status_reasoning,
+            evaluation_type=result_response.evaluation_type,
+            evaluation=result_response.evaluation,
+            result_type=result_response.result_type,
         )
         results_with_ids.append(result)
 
@@ -449,6 +588,8 @@ def peer_review_group_claims_into_results(
     review_text: str,
     verbose: bool = False,
     return_metrics: bool = False,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
 ) -> Tuple[List[LLMResultV3], float, Optional[Dict[str, Any]], Any]:
     """Stage 3: Extract results from peer review based on manuscript claims.
 
@@ -457,6 +598,9 @@ def peer_review_group_claims_into_results(
         review_text: Full text of peer review
         verbose: If True, print detailed logging information
         return_metrics: If True, return metrics dictionary as third element
+        figure_urls: Optional list of figure URLs to include as images (vision mode)
+        processed_images: Optional list of pre-processed (base64_data, media_type) tuples
+                         If provided, this takes precedence over figure_urls
 
     Returns:
         Tuple of (list of results from reviewer perspective, processing time in seconds, optional metrics dict, raw_response)
@@ -473,9 +617,10 @@ def peer_review_group_claims_into_results(
                 "claim_id": c.claim_id,
                 "claim": c.claim,
                 "claim_type": c.claim_type,
-                "source_text": c.source_text,
+                "source": c.source,
+                "source_type": c.source_type,
+                "evidence": c.evidence,
                 "evidence_type": c.evidence_type,
-                "evidence_reasoning": c.evidence_reasoning,
             }
             for c in claims
         ],
@@ -495,6 +640,8 @@ def peer_review_group_claims_into_results(
         prompt=prompt,
         response_model=LLMResultsResponseV3,
         max_tokens=64000,
+        figure_urls=figure_urls,
+        processed_images=processed_images,
     )
 
     # Post-process: Add sequential result_id and reviewer fields (R1, R2, R3, ...)
@@ -506,8 +653,9 @@ def peer_review_group_claims_into_results(
             result=result_response.result,
             reviewer_id="PEER_REVIEW",
             reviewer_name="Peer Reviewer",
-            status=result_response.status,
-            status_reasoning=result_response.status_reasoning,
+            evaluation_type=result_response.evaluation_type,
+            evaluation=result_response.evaluation,
+            result_type=result_response.result_type,
         )
         results_with_ids.append(result)
 
@@ -636,8 +784,8 @@ def compare_results(
                 "claim_ids": r.claim_ids,
                 "reviewer_id": r.reviewer_id,
                 "reviewer_name": r.reviewer_name,
-                "status": r.status,
-                "status_reasoning": r.status_reasoning,
+                "evaluation_type": r.evaluation_type,
+                "evaluation": r.evaluation,
             }
             for r in llm_results
         ],
@@ -651,8 +799,8 @@ def compare_results(
                 "claim_ids": r.claim_ids,
                 "reviewer_id": r.reviewer_id,
                 "reviewer_name": r.reviewer_name,
-                "status": r.status,
-                "status_reasoning": r.status_reasoning,
+                "evaluation_type": r.evaluation_type,
+                "evaluation": r.evaluation,
             }
             for r in peer_results
         ],
@@ -680,31 +828,62 @@ def compare_results(
         max_tokens=64000,
     )
 
-    # Post-process: Calculate agreement_status based on openeval_status and peer_status
-    for row in llm_response.concordance:
-        # Calculate agreement_status based on presence and values of statuses
-        if row.openeval_status is not None and row.peer_status is not None:
-            # Both statuses present - check if they agree
-            if row.openeval_status == row.peer_status:
-                # If both agree on the same status (including both UNCERTAIN), mark as "agree"
-                row.agreement_status = "agree"
-            # Both present but different - check if either is UNCERTAIN
-            elif row.openeval_status == "UNCERTAIN" or row.peer_status == "UNCERTAIN":
-                # One is UNCERTAIN and the other is certain (but different), mark as "partial"
-                row.agreement_status = "partial"
-            else:
-                # Both are certain (SUPPORTED or UNSUPPORTED) but disagree
-                row.agreement_status = "disagree"
-        else:
-            # Only one status present (or both None) - mark as disjoint
-            row.agreement_status = "disjoint"
-
-    # Enhance concordance rows with claim count metrics
     # Create lookup dictionaries for faster access
     llm_results_dict = {r.result_id: r for r in llm_results}
     peer_results_dict = {r.result_id: r for r in peer_results}
 
-    for row in llm_response.concordance:
+    # Post-process: Add comparison_id and calculate comparison_type
+    concordance_with_ids = []
+    for idx, row in enumerate(llm_response.concordance, start=1):
+        # Look up evaluation_types and result_types from actual results
+        openeval_evaluation_type = None
+        openeval_result_type = None
+        if row.openeval_result_id and row.openeval_result_id in llm_results_dict:
+            openeval_evaluation_type = llm_results_dict[row.openeval_result_id].evaluation_type
+            openeval_result_type = llm_results_dict[row.openeval_result_id].result_type
+
+        peer_evaluation_type = None
+        peer_result_type = None
+        if row.peer_result_id and row.peer_result_id in peer_results_dict:
+            peer_evaluation_type = peer_results_dict[row.peer_result_id].evaluation_type
+            peer_result_type = peer_results_dict[row.peer_result_id].result_type
+
+        # Calculate comparison_type based on evaluation_types
+        if openeval_evaluation_type is not None and peer_evaluation_type is not None:
+            # Both evaluation types present - check if they agree
+            if openeval_evaluation_type == peer_evaluation_type:
+                # If both agree on the same evaluation_type (including both UNCERTAIN), mark as "agree"
+                comparison_type = "agree"
+            # Both present but different - check if either is UNCERTAIN
+            elif openeval_evaluation_type == "UNCERTAIN" or peer_evaluation_type == "UNCERTAIN":
+                # One is UNCERTAIN and the other is certain (but different), mark as "partial"
+                comparison_type = "partial"
+            else:
+                # Both are certain (SUPPORTED or UNSUPPORTED) but disagree
+                comparison_type = "disagree"
+        else:
+            # Only one evaluation type present (or both None) - mark as disjoint
+            comparison_type = "disjoint"
+
+        # Create new row with comparison_id, evaluation_types, result_types, and comparison_type
+        enhanced_row = LLMResultsConcordanceRow(
+            comparison_id=f"CMP{idx}",
+            openeval_result_id=row.openeval_result_id,
+            peer_result_id=row.peer_result_id,
+            openeval_evaluation_type=openeval_evaluation_type,  # Add evaluation type
+            peer_evaluation_type=peer_evaluation_type,  # Add evaluation type
+            openeval_result_type=openeval_result_type,  # Add result type
+            peer_result_type=peer_result_type,  # Add result type
+            comparison_type=comparison_type,
+            comparison=row.comparison,
+            n_openeval=None,  # Will be set below
+            n_peer=None,  # Will be set below
+            n_itx=None,  # Will be set below
+        )
+        concordance_with_ids.append(enhanced_row)
+
+    # Enhance concordance rows with claim count metrics
+    for row in concordance_with_ids:
         # Get the OpenEval result if present
         if row.openeval_result_id and row.openeval_result_id in llm_results_dict:
             llm_result = llm_results_dict[row.openeval_result_id]
@@ -737,25 +916,30 @@ def compare_results(
             else config.openai_model
         )
 
-        # Count status categories for breakdown
-        status_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
-        for row in llm_response.concordance:
-            if row.openeval_status in status_counts:
-                status_counts[row.openeval_status] += 1
-            if row.peer_status in status_counts:
-                status_counts[row.peer_status] += 1
+        # Count evaluation_type categories for breakdown
+        evaluation_type_counts = {"SUPPORTED": 0, "UNSUPPORTED": 0, "UNCERTAIN": 0}
+        for row in concordance_with_ids:
+            # Look up evaluation types from results
+            if row.openeval_result_id and row.openeval_result_id in llm_results_dict:
+                eval_type = llm_results_dict[row.openeval_result_id].evaluation_type
+                if eval_type in evaluation_type_counts:
+                    evaluation_type_counts[eval_type] += 1
+            if row.peer_result_id and row.peer_result_id in peer_results_dict:
+                eval_type = peer_results_dict[row.peer_result_id].evaluation_type
+                if eval_type in evaluation_type_counts:
+                    evaluation_type_counts[eval_type] += 1
 
         # Calculate comprehensive comparison metrics
         comparison_metrics = calculate_comparison_metrics(
-            llm_results, peer_results, llm_response.concordance
+            llm_results, peer_results, concordance_with_ids
         )
 
         metrics_dict = {
             "model": model,
             "input_tokens": usage["input_tokens"],
             "output_tokens": usage["output_tokens"],
-            "num_comparisons": len(llm_response.concordance),
-            "status_breakdown": status_counts,
+            "num_comparisons": len(concordance_with_ids),
+            "evaluation_type_breakdown": evaluation_type_counts,
             "processing_time_seconds": processing_time,
             "jaccard_pairings": jaccard_pairings,
             "comparison_metrics": comparison_metrics,
@@ -779,9 +963,9 @@ def compare_results(
             file=sys.stderr,
         )
         print(
-            f"[COMPARE] Status breakdown - Supported: {metrics_dict['status_breakdown']['SUPPORTED']}, "
-            f"Unsupported: {metrics_dict['status_breakdown']['UNSUPPORTED']}, "
-            f"Uncertain: {metrics_dict['status_breakdown']['UNCERTAIN']}",
+            f"[COMPARE] Evaluation type breakdown - Supported: {metrics_dict['evaluation_type_breakdown']['SUPPORTED']}, "
+            f"Unsupported: {metrics_dict['evaluation_type_breakdown']['UNSUPPORTED']}, "
+            f"Uncertain: {metrics_dict['evaluation_type_breakdown']['UNCERTAIN']}",
             file=sys.stderr,
         )
         print(
@@ -794,7 +978,7 @@ def compare_results(
         metrics_report = format_metrics_report(metrics_dict["comparison_metrics"])
         print(metrics_report, file=sys.stderr)
 
-    return llm_response.concordance, processing_time, metrics_dict, raw_response
+    return concordance_with_ids, processing_time, metrics_dict, raw_response
 
 
 # ============================================================================
@@ -818,10 +1002,10 @@ def calculate_results_metrics(
         Dictionary with metrics including agreement rate
     """
     total_comparisons = len(concordance)
-    agreements = sum(1 for row in concordance if row.agreement_status == "agree")
-    disagreements = sum(1 for row in concordance if row.agreement_status == "disagree")
-    partial = sum(1 for row in concordance if row.agreement_status == "partial")
-    disjoint = sum(1 for row in concordance if row.agreement_status == "disjoint")
+    agreements = sum(1 for row in concordance if row.comparison_type == "agree")
+    disagreements = sum(1 for row in concordance if row.comparison_type == "disagree")
+    partial = sum(1 for row in concordance if row.comparison_type == "partial")
+    disjoint = sum(1 for row in concordance if row.comparison_type == "disjoint")
 
     agreement_rate = (
         (agreements / total_comparisons * 100) if total_comparisons > 0 else 0.0

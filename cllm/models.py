@@ -25,15 +25,17 @@ class LLMClaimResponseV3(BaseModel):
     Attributes:
         claim: The atomic factual claim text
         claim_type: EXPLICIT or IMPLICIT
-        source_text: Exact excerpt from manuscript
+        source: Exact excerpt from manuscript or reference to figure
+        source_type: List indicating source types (TEXT, IMAGE)
+        evidence: Brief explanation of evidence type classification
         evidence_type: List of evidence types (DATA, CITATION, KNOWLEDGE, INFERENCE, SPECULATION)
-        evidence_reasoning: Brief explanation of evidence type classification
     """
     claim: str
     claim_type: str
-    source_text: str
+    source: str
+    source_type: List[str]
+    evidence: str
     evidence_type: List[str]
-    evidence_reasoning: str
 
 
 class LLMClaimV3(BaseModel):
@@ -43,16 +45,18 @@ class LLMClaimV3(BaseModel):
         claim_id: Unique identifier (e.g., "C1", "C2") - added after LLM response
         claim: The atomic factual claim text
         claim_type: EXPLICIT or IMPLICIT
-        source_text: Exact excerpt from manuscript
+        source: Exact excerpt from manuscript or reference to figure
+        source_type: List indicating source types (TEXT, IMAGE)
+        evidence: Brief explanation of evidence type classification
         evidence_type: List of evidence types (DATA, CITATION, KNOWLEDGE, INFERENCE, SPECULATION)
-        evidence_reasoning: Brief explanation of evidence type classification
     """
     claim_id: str
     claim: str
     claim_type: str
-    source_text: str
+    source: str
+    source_type: List[str]
+    evidence: str
     evidence_type: List[str]
-    evidence_reasoning: str
 
 
 class LLMClaimsResponseV3(BaseModel):
@@ -77,13 +81,15 @@ class LLMResultResponseV3(BaseModel):
     Attributes:
         claim_ids: List of claim IDs in this result (e.g., ["C1", "C2"])
         result: Description of the scientific finding (e.g., "The authors show that protein X phosphorylates protein Y.")
-        status: SUPPORTED, UNSUPPORTED, or UNCERTAIN
-        status_reasoning: Brief explanation of status evaluation
+        evaluation_type: SUPPORTED, UNSUPPORTED, or UNCERTAIN
+        evaluation: Brief explanation of evaluation_type assessment
+        result_type: MAJOR or MINOR - significance of the result
     """
     claim_ids: List[str]
     result: str
-    status: str
-    status_reasoning: str
+    evaluation_type: str
+    evaluation: str
+    result_type: str
 
 
 class LLMResultV3(BaseModel):
@@ -98,16 +104,18 @@ class LLMResultV3(BaseModel):
         result: Description of the scientific finding
         reviewer_id: ORCID ID of reviewer, or "OpenEval" for LLM evaluations - added after LLM response
         reviewer_name: Name of reviewer, or "OpenEval" for LLM evaluations - added after LLM response
-        status: SUPPORTED, UNSUPPORTED, or UNCERTAIN
-        status_reasoning: Brief explanation of status evaluation
+        evaluation_type: SUPPORTED, UNSUPPORTED, or UNCERTAIN
+        evaluation: Brief explanation of evaluation_type assessment
+        result_type: MAJOR or MINOR - significance of the result
     """
     result_id: str
     claim_ids: List[str]
     result: str
     reviewer_id: str
     reviewer_name: str
-    status: str
-    status_reasoning: str
+    evaluation_type: str
+    evaluation: str
+    result_type: str
 
 
 class LLMResultsResponseV3(BaseModel):
@@ -124,6 +132,21 @@ class LLMResultsResponseV3(BaseModel):
 # ============================================================================
 
 
+class LLMResultsConcordanceRowResponse(BaseModel):
+    """Concordance row as returned by LLM (without comparison_id, comparison_type, and claim counts).
+
+    This is the format the LLM returns. The comparison_id, comparison_type, and claim counts are added post-hoc.
+
+    Attributes:
+        openeval_result_id: Result ID from OpenEval evaluation (e.g., "R2"), or None if no OpenEval result
+        peer_result_id: Result ID from peer review evaluation (e.g., "R4"), or None if no peer result
+        comparison: Explanation of the comparison between evaluations
+    """
+    openeval_result_id: Optional[str] = None
+    peer_result_id: Optional[str] = None
+    comparison: Optional[str] = None
+
+
 class LLMResultsConcordanceRow(BaseModel):
     """Comparison between OpenEval and peer review results.
 
@@ -131,21 +154,27 @@ class LLMResultsConcordanceRow(BaseModel):
     evaluated overlapping claims.
 
     Attributes:
+        comparison_id: Unique identifier (e.g., "CMP1", "CMP2") - added after LLM response
         openeval_result_id: Result ID from OpenEval evaluation (e.g., "R2"), or None if no OpenEval result
         peer_result_id: Result ID from peer review evaluation (e.g., "R4"), or None if no peer result
-        openeval_status: OpenEval's status evaluation, or None if no OpenEval result
-        peer_status: Peer reviewer's status evaluation, or None if no peer result
-        agreement_status: "agree", "disagree", "partial", or "disjoint" - calculated post-hoc
+        openeval_evaluation_type: Evaluation type from OpenEval (SUPPORTED/UNSUPPORTED/UNCERTAIN), or None - looked up post-hoc
+        peer_evaluation_type: Evaluation type from peer review (SUPPORTED/UNSUPPORTED/UNCERTAIN), or None - looked up post-hoc
+        openeval_result_type: Result type from OpenEval (MAJOR/MINOR), or None - looked up post-hoc
+        peer_result_type: Result type from peer review (MAJOR/MINOR), or None - looked up post-hoc
+        comparison_type: "agree", "disagree", "partial", or "disjoint" - calculated post-hoc
         comparison: Explanation of the comparison between evaluations
         n_openeval: Number of claims in OpenEval result, or None if no OpenEval result
         n_peer: Number of claims in peer result, or None if no peer result
         n_itx: Number of claims in the intersection (shared between both)
     """
+    comparison_id: str
     openeval_result_id: Optional[str] = None
     peer_result_id: Optional[str] = None
-    openeval_status: Optional[str] = None
-    peer_status: Optional[str] = None
-    agreement_status: Optional[str] = None  # Calculated post-hoc, not provided by LLM
+    openeval_evaluation_type: Optional[str] = None  # Looked up post-hoc
+    peer_evaluation_type: Optional[str] = None  # Looked up post-hoc
+    openeval_result_type: Optional[str] = None  # Looked up post-hoc
+    peer_result_type: Optional[str] = None  # Looked up post-hoc
+    comparison_type: Optional[str] = None  # Calculated post-hoc
     comparison: Optional[str] = None
     n_openeval: Optional[int] = None
     n_peer: Optional[int] = None
@@ -153,12 +182,12 @@ class LLMResultsConcordanceRow(BaseModel):
 
 
 class LLMResultsConcordanceResponse(BaseModel):
-    """Response from concordance analysis stage.
+    """Response from concordance analysis stage (from LLM).
 
     Attributes:
-        concordance: List of concordance comparisons
+        concordance: List of concordance comparisons (without comparison_id or comparison_type)
     """
-    concordance: List[LLMResultsConcordanceRow]
+    concordance: List[LLMResultsConcordanceRowResponse]
 
 
 # ============================================================================
@@ -202,9 +231,10 @@ class DBClaim(BaseModel):
     claim_id: str  # "C1", "C2" from LLM
     claim: str
     claim_type: str
-    source_text: str
+    source: str
+    source_type: str  # JSON string
+    evidence: str
     evidence_type: str  # JSON string
-    evidence_reasoning: str
     prompt_id: str
     created_at: str
 
@@ -214,12 +244,13 @@ class DBResult(BaseModel):
     id: str  # UUID
     content_id: str
     result_id: str  # "R1", "R2" from LLM
-    result_type: str  # 'openeval' or 'peer'
+    result_category: str  # 'openeval' or 'peer'
     result: str  # Description of the scientific finding
     reviewer_id: str
     reviewer_name: str
-    result_status: str
-    result_reasoning: str
+    evaluation_type: str  # 'SUPPORTED', 'UNSUPPORTED', or 'UNCERTAIN'
+    evaluation: str
+    result_type: str  # 'MAJOR' or 'MINOR'
     prompt_id: str
     created_at: str
 
@@ -234,11 +265,14 @@ class DBComparison(BaseModel):
     """Comparison record for database."""
     id: str  # UUID
     submission_id: str
+    comparison_id: str  # "CMP1", "CMP2" from post-processing
     openeval_result_id: Optional[str] = None  # UUID, nullable
     peer_result_id: Optional[str] = None  # UUID, nullable
-    openeval_status: Optional[str] = None
-    peer_status: Optional[str] = None
-    agreement_status: str
+    openeval_evaluation_type: Optional[str] = None  # 'SUPPORTED', 'UNSUPPORTED', or 'UNCERTAIN', nullable
+    peer_evaluation_type: Optional[str] = None  # 'SUPPORTED', 'UNSUPPORTED', or 'UNCERTAIN', nullable
+    openeval_result_type: Optional[str] = None  # 'MAJOR' or 'MINOR', nullable
+    peer_result_type: Optional[str] = None  # 'MAJOR' or 'MINOR', nullable
+    comparison_type: str  # 'agree', 'disagree', 'partial', or 'disjoint'
     comparison: Optional[str] = None
     prompt_id: str
     created_at: str

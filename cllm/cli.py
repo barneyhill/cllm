@@ -30,6 +30,7 @@ from .models import (
 from .report import json_to_pdf_table
 from .db_export import export_to_database_format, save_db_export
 from .metrics import save_workflow_metrics
+from .utils import extract_figure_urls_from_markdown, process_figure_urls_for_api
 
 
 @click.group()
@@ -47,7 +48,10 @@ def cli():
 @click.argument("manuscript", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for claims")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
-def extract(manuscript: Path, output: Path, verbose: bool):
+@click.option("-f", "--figures", is_flag=True, help="Include figures from manuscript in LLM context (vision mode)")
+@click.option("--filter", is_flag=True, help="Filter claims to only include those with sources found in JATS XML")
+@click.option("--xml", type=click.Path(exists=True, path_type=Path), help="Path to JATS XML file (required if --filter is used)")
+def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter: bool, xml: Optional[Path]):
     """
     Extract atomic factual claims from a manuscript.
 
@@ -64,6 +68,11 @@ def extract(manuscript: Path, output: Path, verbose: bool):
         click.echo(f"❌ Configuration error: {e}", err=True)
         sys.exit(1)
 
+    # Validate filter and xml parameters
+    if filter and not xml:
+        click.echo("❌ Error: --xml is required when --filter is enabled", err=True)
+        sys.exit(1)
+
     if not verbose:
         click.echo(f"📄 Reading manuscript from: {manuscript}")
 
@@ -74,12 +83,29 @@ def extract(manuscript: Path, output: Path, verbose: bool):
         click.echo(f"❌ Error reading manuscript: {e}", err=True)
         sys.exit(1)
 
+    # Extract figure URLs if --figures flag is set
+    figure_urls = []
+    if figures:
+        figure_urls = extract_figure_urls_from_markdown(manuscript_text)
+        if not verbose:
+            if figure_urls:
+                click.echo(f"🖼️  Found {len(figure_urls)} figure(s) in manuscript")
+            else:
+                click.echo(f"⚠️  No figures found in manuscript (--figures flag enabled but no images detected)")
+
     if not verbose:
         click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
 
     # Extract claims (always request metrics now)
     try:
-        claims, processing_time, metrics, raw_response = extract_claims(manuscript_text, verbose=verbose, return_metrics=True)
+        claims, processing_time, metrics, raw_response = extract_claims(
+            manuscript_text,
+            verbose=verbose,
+            return_metrics=True,
+            figure_urls=figure_urls if figure_urls else None,
+            xml_path=str(xml) if xml else None,
+            filter_claims=filter
+        )
         if not verbose:
             click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
     except Exception as e:
@@ -92,9 +118,10 @@ def extract(manuscript: Path, output: Path, verbose: bool):
             "claim_id": c.claim_id,
             "claim": c.claim,
             "claim_type": c.claim_type,
-            "source_text": c.source_text,
+            "source": c.source,
+            "source_type": c.source_type,
+            "evidence": c.evidence,
             "evidence_type": c.evidence_type,
-            "evidence_reasoning": c.evidence_reasoning,
         }
         for c in claims
     ]
@@ -107,6 +134,18 @@ def extract(manuscript: Path, output: Path, verbose: bool):
         click.echo(f"❌ Error writing output: {e}", err=True)
         sys.exit(1)
 
+    # Write claim positions to pos_claims.json (if filtering was enabled)
+    if metrics and metrics.get("claim_positions") is not None:
+        try:
+            # Generate pos_claims.json filename
+            # e.g., claims.json -> pos_claims.json
+            pos_output = output.parent / f"pos_{output.name}"
+            pos_output.write_text(json.dumps(metrics["claim_positions"], indent=2), encoding="utf-8")
+            if not verbose:
+                click.echo(f"📍 Saved {len(metrics['claim_positions'])} claim positions to: {pos_output}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write claim positions: {e}", err=True)
+
     # Save metrics
     if metrics:
         try:
@@ -114,6 +153,12 @@ def extract(manuscript: Path, output: Path, verbose: bool):
             cmd_parts = ["cllm", "extract", str(manuscript), "-o", str(output)]
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
+            if filter:
+                cmd_parts.append("--filter")
+            if xml:
+                cmd_parts.extend(["--xml", str(xml)])
             command_str = " ".join(cmd_parts)
 
             # Save metrics to output directory
@@ -141,7 +186,8 @@ def extract(manuscript: Path, output: Path, verbose: bool):
 @click.option("-p", "--peer-reviews", type=click.Path(exists=True, path_type=Path), help="Peer review file (if provided, evaluates from reviewer perspective)")
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for evaluations")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
-def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, verbose: bool):
+@click.option("-f", "--figures", is_flag=True, help="Include figures from manuscript in LLM context (vision mode)")
+def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, verbose: bool, figures: bool):
     """
     Evaluate claims and group them into results.
 
@@ -149,9 +195,9 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
     With -p: Groups claims based on peer review commentary (saves metrics_eval_peer.json).
 
     Examples:
-        cllm eval -c claims.json -o eval_llm.json manuscript.txt
+        cllm eval -c claims.json -o eval_openeval.json manuscript.txt
         cllm eval -c claims.json -p reviews.txt -o eval_peers.json manuscript.txt
-        cllm eval -c claims.json -o eval_llm.json -v manuscript.txt  # with verbose logging
+        cllm eval -c claims.json -o eval_openeval.json -v manuscript.txt  # with verbose logging
     """
     # Validate configuration
     try:
@@ -169,6 +215,16 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         click.echo(f"❌ Error reading manuscript: {e}", err=True)
         sys.exit(1)
 
+    # Extract figure URLs if --figures flag is set
+    figure_urls = []
+    if figures:
+        figure_urls = extract_figure_urls_from_markdown(manuscript_text)
+        if not verbose:
+            if figure_urls:
+                click.echo(f"🖼️  Found {len(figure_urls)} figure(s) in manuscript")
+            else:
+                click.echo(f"⚠️  No figures found in manuscript (--figures flag enabled but no images detected)")
+
     # Read claims
     if not verbose:
         click.echo(f"📋 Reading claims from: {claims}")
@@ -182,9 +238,10 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
                 claim_id=c["claim_id"],
                 claim=c["claim"],
                 claim_type=c["claim_type"],
-                source_text=c["source_text"],
+                source=c["source"],
+                source_type=c["source_type"],
+                evidence=c["evidence"],
                 evidence_type=c["evidence_type"],
-                evidence_reasoning=c["evidence_reasoning"],
             )
             for c in claims_data
         ]
@@ -209,7 +266,11 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             click.echo(f"🔍 Grouping claims based on peer review commentary...")
         try:
             results, processing_time, metrics_eval, raw_response = peer_review_group_claims_into_results(
-                claims_list, review_text, verbose=verbose, return_metrics=True
+                claims_list,
+                review_text,
+                verbose=verbose,
+                return_metrics=True,
+                figure_urls=figure_urls if figure_urls else None
             )
             if not verbose:
                 click.echo(f"✅ Created {len(results)} peer review results in {processing_time:.2f}s")
@@ -223,7 +284,11 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             click.echo(f"🤖 Evaluating claims with LLM...")
         try:
             results, processing_time, metrics_eval, raw_response = llm_group_claims_into_results(
-                manuscript_text, claims_list, verbose=verbose, return_metrics=True
+                manuscript_text,
+                claims_list,
+                verbose=verbose,
+                return_metrics=True,
+                figure_urls=figure_urls if figure_urls else None
             )
             if not verbose:
                 click.echo(f"✅ Created {len(results)} LLM results in {processing_time:.2f}s")
@@ -240,8 +305,9 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
-            "status": r.status,
-            "status_reasoning": r.status_reasoning,
+            "evaluation_type": r.evaluation_type,
+            "evaluation": r.evaluation,
+            "result_type": r.result_type,
         }
         for r in results
     ]
@@ -264,6 +330,8 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             cmd_parts.extend(["-o", str(output)])
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
             command_str = " ".join(cmd_parts)
 
             # Save metrics to output directory
@@ -287,18 +355,18 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
 
 @cli.command()
 @click.argument("eval_peers", type=click.Path(exists=True, path_type=Path))
-@click.argument("eval_llm", type=click.Path(exists=True, path_type=Path))
+@click.argument("eval_openeval", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for comparison")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing, metrics)")
-def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
+def cmp(eval_peers: Path, eval_openeval: Path, output: Path, verbose: bool):
     """
     Compare peer review and LLM evaluations.
 
     Automatically saves metrics to metrics_cmp.json in the output directory.
 
     Example:
-        cllm cmp eval_peers.json eval_llm.json -o compare.json
-        cllm cmp eval_peers.json eval_llm.json -o compare.json -v  # with verbose logging and metrics
+        cllm cmp eval_peers.json eval_openeval.json -o compare.json
+        cllm cmp eval_peers.json eval_openeval.json -o compare.json -v  # with verbose logging and metrics
     """
     # Validate configuration
     try:
@@ -322,8 +390,9 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
                 result=r["result"],
                 reviewer_id=r["reviewer_id"],
                 reviewer_name=r["reviewer_name"],
-                status=r["status"],
-                status_reasoning=r["status_reasoning"],
+                evaluation_type=r["evaluation_type"],
+                evaluation=r["evaluation"],
+                result_type=r["result_type"],
             )
             for r in peers_data
         ]
@@ -335,9 +404,9 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
 
     # Read LLM results
     if not verbose:
-        click.echo(f"🤖 Reading LLM results from: {eval_llm}")
+        click.echo(f"🤖 Reading LLM results from: {eval_openeval}")
     try:
-        llm_data = json.loads(eval_llm.read_text(encoding="utf-8"))
+        llm_data = json.loads(eval_openeval.read_text(encoding="utf-8"))
         if not isinstance(llm_data, list):
             raise ValueError("Invalid results format: expected JSON array")
 
@@ -348,8 +417,9 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
                 result=r["result"],
                 reviewer_id=r["reviewer_id"],
                 reviewer_name=r["reviewer_name"],
-                status=r["status"],
-                status_reasoning=r["status_reasoning"],
+                evaluation_type=r["evaluation_type"],
+                evaluation=r["evaluation"],
+                result_type=r["result_type"],
             )
             for r in llm_data
         ]
@@ -373,9 +443,9 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
         sys.exit(1)
 
     # Calculate basic metrics (only shown in non-verbose mode; verbose mode shows comprehensive metrics)
-    agreements = sum(1 for c in concordance if c.agreement_status == "agree")
-    disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
-    disjoint = sum(1 for c in concordance if c.agreement_status == "disjoint")
+    agreements = sum(1 for c in concordance if c.comparison_type == "agree")
+    disagreements = sum(1 for c in concordance if c.comparison_type == "disagree")
+    disjoint = sum(1 for c in concordance if c.comparison_type == "disjoint")
     agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
 
     if not verbose:
@@ -385,11 +455,14 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
     # Convert to JSON (just array of concordance rows)
     concordance_array = [
         {
+            "comparison_id": c.comparison_id,
             "openeval_result_id": c.openeval_result_id,
             "peer_result_id": c.peer_result_id,
-            "openeval_status": c.openeval_status,
-            "peer_status": c.peer_status,
-            "agreement_status": c.agreement_status,
+            "openeval_evaluation_type": c.openeval_evaluation_type,
+            "peer_evaluation_type": c.peer_evaluation_type,
+            "openeval_result_type": c.openeval_result_type,
+            "peer_result_type": c.peer_result_type,
+            "comparison_type": c.comparison_type,
             "comparison": c.comparison,
             "n_openeval": c.n_openeval,
             "n_peer": c.n_peer,
@@ -410,7 +483,7 @@ def cmp(eval_peers: Path, eval_llm: Path, output: Path, verbose: bool):
     if metrics_cmp:
         try:
             # Build full command string
-            cmd_parts = ["cllm", "cmp", str(eval_peers), str(eval_llm), "-o", str(output)]
+            cmd_parts = ["cllm", "cmp", str(eval_peers), str(eval_openeval), "-o", str(output)]
             if verbose:
                 cmd_parts.append("-v")
             command_str = " ".join(cmd_parts)
@@ -445,7 +518,7 @@ def generate(input_json: Path, output: Path, format: str, data_type: str):
 
     Examples:
         cllm generate -o table.pdf -f pdf -t comparison compare.json
-        cllm generate -o table.pdf -f pdf -t evaluation eval_llm.json
+        cllm generate -o table.pdf -f pdf -t evaluation eval_openeval.json
         cllm generate -o table.pdf -f pdf -t claim claims.json
     """
     click.echo(f"📄 Reading {data_type} data from: {input_json}")
@@ -475,7 +548,10 @@ def generate(input_json: Path, output: Path, format: str, data_type: str):
 @click.option("-p", "--peer-reviews", type=click.Path(exists=True, path_type=Path), help="Peer review file (optional, runs full workflow if provided)")
 @click.option("-m", "--metrics", is_flag=True, help="Save metrics for each stage")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging")
-def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], metrics: bool, verbose: bool):
+@click.option("-f", "--figures", is_flag=True, help="Include figures from manuscript in LLM context (vision mode)")
+@click.option("--filter", is_flag=True, help="Filter claims to only include those with sources found in JATS XML")
+@click.option("--xml", type=click.Path(exists=True, path_type=Path), help="Path to JATS XML file (required if --filter is used)")
+def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], metrics: bool, verbose: bool, figures: bool, filter: bool, xml: Optional[Path]):
     """
     Run the CLLM workflow from manuscript to evaluation/comparison.
 
@@ -494,18 +570,23 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"❌ Configuration error: {e}", err=True)
         sys.exit(1)
 
+    # Validate filter and xml parameters
+    if filter and not xml:
+        click.echo("❌ Error: --xml is required when --filter is enabled", err=True)
+        sys.exit(1)
+
     # Create output directory if it doesn't exist
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Define output paths
     claims_file = output_dir / "claims.json"
-    eval_llm_file = output_dir / "eval_llm.json"
+    eval_openeval_file = output_dir / "eval_openeval.json"
     eval_peer_file = output_dir / "eval_peer.json"
     cmp_file = output_dir / "cmp.json"
 
     # Define metrics paths if requested
     metrics_extract_file = output_dir / "metrics_extract.json" if metrics else None
-    metrics_eval_llm_file = output_dir / "metrics_eval_llm.json" if metrics else None
+    metrics_eval_openeval_file = output_dir / "metrics_eval_openeval.json" if metrics else None
     metrics_eval_peer_file = output_dir / "metrics_eval_peer.json" if metrics else None
     metrics_cmp_file = output_dir / "metrics_cmp.json" if metrics else None
 
@@ -521,6 +602,10 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     click.echo(f"Output directory: {output_dir}")
     click.echo(f"Metrics: {'enabled' if metrics else 'disabled'}")
     click.echo(f"Verbose: {'enabled' if verbose else 'disabled'}")
+    click.echo(f"Figures: {'enabled' if figures else 'disabled'}")
+    click.echo(f"Filter claims: {'enabled' if filter else 'disabled'}")
+    if filter and xml:
+        click.echo(f"XML file: {xml}")
     click.echo("=" * 60)
 
     # ========================================================================
@@ -538,6 +623,25 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo(f"❌ Error reading manuscript: {e}", err=True)
         sys.exit(1)
 
+    # Extract figure URLs if --figures flag is set and process them once
+    figure_urls = []
+    processed_images = None
+    if figures:
+        figure_urls = extract_figure_urls_from_markdown(manuscript_text)
+        if not verbose:
+            if figure_urls:
+                click.echo(f"🖼️  Found {len(figure_urls)} figure(s) in manuscript")
+            else:
+                click.echo(f"⚠️  No figures found in manuscript (--figures flag enabled but no images detected)")
+
+        # Process images once for use in all stages
+        if figure_urls:
+            if not verbose:
+                click.echo(f"🖼️  Processing {len(figure_urls)} image(s)...")
+            processed_images = process_figure_urls_for_api(figure_urls, max_size=2000)
+            if not verbose:
+                click.echo(f"✅ Successfully processed {len(processed_images)}/{len(figure_urls)} image(s)")
+
     if not verbose:
         click.echo(f"🔍 Extracting claims from manuscript ({len(manuscript_text)} characters)...")
 
@@ -545,7 +649,11 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         claims, processing_time, metrics_data, raw_response = extract_claims(
             manuscript_text,
             verbose=verbose,
-            return_metrics=metrics
+            return_metrics=metrics,
+            figure_urls=figure_urls if figure_urls else None,
+            processed_images=processed_images,
+            xml_path=str(xml) if xml else None,
+            filter_claims=filter
         )
         if not verbose:
             click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
@@ -559,9 +667,10 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             "claim_id": c.claim_id,
             "claim": c.claim,
             "claim_type": c.claim_type,
-            "source_text": c.source_text,
+            "source": c.source,
+            "source_type": c.source_type,
+            "evidence": c.evidence,
             "evidence_type": c.evidence_type,
-            "evidence_reasoning": c.evidence_reasoning,
         }
         for c in claims
     ]
@@ -582,6 +691,8 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
             command_str = " ".join(cmd_parts)
 
             save_workflow_metrics(
@@ -610,7 +721,12 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
 
     try:
         llm_results, processing_time, metrics_data, raw_response = llm_group_claims_into_results(
-            manuscript_text, claims, verbose=verbose, return_metrics=metrics
+            manuscript_text,
+            claims,
+            verbose=verbose,
+            return_metrics=metrics,
+            figure_urls=figure_urls if figure_urls else None,
+            processed_images=processed_images
         )
         if not verbose:
             click.echo(f"✅ Created {len(llm_results)} LLM results in {processing_time:.2f}s")
@@ -626,15 +742,16 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
-            "status": r.status,
-            "status_reasoning": r.status_reasoning,
+            "evaluation_type": r.evaluation_type,
+            "evaluation": r.evaluation,
+            "result_type": r.result_type,
         }
         for r in llm_results
     ]
 
     try:
-        eval_llm_file.write_text(json.dumps(results_array, indent=2), encoding="utf-8")
-        click.echo(f"💾 Saved LLM results to: {eval_llm_file}")
+        eval_openeval_file.write_text(json.dumps(results_array, indent=2), encoding="utf-8")
+        click.echo(f"💾 Saved LLM results to: {eval_openeval_file}")
     except Exception as e:
         click.echo(f"❌ Error writing LLM results: {e}", err=True)
         sys.exit(1)
@@ -648,6 +765,8 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
             command_str = " ".join(cmd_parts)
 
             save_workflow_metrics(
@@ -661,7 +780,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
                 processing_time_sec=metrics_data["processing_time_seconds"],
                 cached_tokens=0
             )
-            click.echo(f"📊 Saved metrics to: {metrics_eval_llm_file}")
+            click.echo(f"📊 Saved metrics to: {metrics_eval_openeval_file}")
         except Exception as e:
             click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
 
@@ -678,7 +797,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
             prompts = {
                 "extract": {"text": STAGE1_PROMPT_TEMPLATE, "model": model},
-                "eval_llm": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
+                "eval_openeval": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
             }
 
             # Generate database export (no peer review or comparison data)
@@ -705,10 +824,10 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         click.echo("=" * 60)
         click.echo(f"Output directory: {output_dir}")
         click.echo(f"  - Claims: {claims_file.name}")
-        click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
+        click.echo(f"  - LLM evaluation: {eval_openeval_file.name}")
         click.echo(f"  - Database export: db_export.json")
         if metrics:
-            click.echo(f"  - Metrics files: metrics_extract.json, metrics_eval_llm.json")
+            click.echo(f"  - Metrics files: metrics_extract.json, metrics_eval_openeval.json")
         click.echo("=" * 60)
         return
 
@@ -732,7 +851,12 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
 
     try:
         peer_results, processing_time, metrics_data, raw_response = peer_review_group_claims_into_results(
-            claims, review_text, verbose=verbose, return_metrics=metrics
+            claims,
+            review_text,
+            verbose=verbose,
+            return_metrics=metrics,
+            figure_urls=figure_urls if figure_urls else None,
+            processed_images=processed_images
         )
         if not verbose:
             click.echo(f"✅ Created {len(peer_results)} peer review results in {processing_time:.2f}s")
@@ -748,8 +872,9 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             "result": r.result,
             "reviewer_id": r.reviewer_id,
             "reviewer_name": r.reviewer_name,
-            "status": r.status,
-            "status_reasoning": r.status_reasoning,
+            "evaluation_type": r.evaluation_type,
+            "evaluation": r.evaluation,
+            "result_type": r.result_type,
         }
         for r in peer_results
     ]
@@ -770,6 +895,8 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
             command_str = " ".join(cmd_parts)
 
             save_workflow_metrics(
@@ -807,9 +934,9 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         sys.exit(1)
 
     # Calculate basic metrics
-    agreements = sum(1 for c in concordance if c.agreement_status == "agree")
-    disagreements = sum(1 for c in concordance if c.agreement_status == "disagree")
-    disjoint = sum(1 for c in concordance if c.agreement_status == "disjoint")
+    agreements = sum(1 for c in concordance if c.comparison_type == "agree")
+    disagreements = sum(1 for c in concordance if c.comparison_type == "disagree")
+    disjoint = sum(1 for c in concordance if c.comparison_type == "disjoint")
     agreement_rate = (agreements / len(concordance) * 100) if concordance else 0.0
 
     if not verbose:
@@ -819,11 +946,14 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     # Write concordance
     concordance_array = [
         {
+            "comparison_id": c.comparison_id,
             "openeval_result_id": c.openeval_result_id,
             "peer_result_id": c.peer_result_id,
-            "openeval_status": c.openeval_status,
-            "peer_status": c.peer_status,
-            "agreement_status": c.agreement_status,
+            "openeval_evaluation_type": c.openeval_evaluation_type,
+            "peer_evaluation_type": c.peer_evaluation_type,
+            "openeval_result_type": c.openeval_result_type,
+            "peer_result_type": c.peer_result_type,
+            "comparison_type": c.comparison_type,
             "comparison": c.comparison,
             "n_openeval": c.n_openeval,
             "n_peer": c.n_peer,
@@ -848,6 +978,8 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
             cmd_parts.append("-m")
             if verbose:
                 cmd_parts.append("-v")
+            if figures:
+                cmd_parts.append("-f")
             command_str = " ".join(cmd_parts)
 
             save_workflow_metrics(
@@ -876,7 +1008,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
         model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
         prompts = {
             "extract": {"text": STAGE1_PROMPT_TEMPLATE, "model": model},
-            "eval_llm": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
+            "eval_openeval": {"text": STAGE2_PROMPT_TEMPLATE, "model": model},
             "eval_peer": {"text": STAGE3_PROMPT_TEMPLATE, "model": model},
             "compare": {"text": STAGE4_PROMPT_TEMPLATE, "model": model},
         }
@@ -908,7 +1040,7 @@ def workflow(manuscript: Path, output_dir: Path, peer_reviews: Optional[Path], m
     click.echo("=" * 60)
     click.echo(f"Output directory: {output_dir}")
     click.echo(f"  - Claims: {claims_file.name}")
-    click.echo(f"  - LLM evaluation: {eval_llm_file.name}")
+    click.echo(f"  - LLM evaluation: {eval_openeval_file.name}")
     click.echo(f"  - Peer evaluation: {eval_peer_file.name}")
     click.echo(f"  - Comparison: {cmp_file.name}")
     click.echo(f"  - Database export: db_export.json")

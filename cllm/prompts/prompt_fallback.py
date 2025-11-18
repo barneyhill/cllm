@@ -237,22 +237,16 @@ $JACCARD_PAIRINGS_JSON
     {
       "openeval_result_id": "R2",
       "peer_result_id": "R4",
-      "openeval_status": "SUPPORTED",
-      "peer_status": "UNSUPPORTED",
       "comparison": "Both address the phosphorylation findings (C1, C2), but OpenEval groups with C3 and finds evidence sufficient, while reviewers question physiological relevance."
     },
     {
       "openeval_result_id": "R5",
       "peer_result_id": "R1",
-      "openeval_status": "SUPPORTED",
-      "peer_status": "SUPPORTED",
       "comparison": "Both agree the microscopy data is convincing, though peer review groups C5 with related claim C6."
     },
     {
       "openeval_result_id": "R7",
       "peer_result_id": null,
-      "openeval_status": "UNSUPPORTED",
-      "peer_status": null,
       "comparison": "OpenEval result with no corresponding peer review evaluation found."
     }
   ]
