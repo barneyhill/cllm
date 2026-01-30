@@ -9,7 +9,7 @@ These models represent the V3 workflow for claim verification:
 
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 # ============================================================================
@@ -287,3 +287,69 @@ class DBExport(BaseModel):
     results: List[DBResult]
     claim_results: List[DBClaimResult]
     comparisons: List[DBComparison]
+
+
+# =============================================================================
+# Score Models (eLife Assessment)
+# =============================================================================
+
+class ScoreResponse(BaseModel):
+    """
+    Response from LLM for paper assessment (before enrichment).
+
+    This model represents the raw structured output from the LLM when
+    generating an eLife-style assessment.
+    """
+    assessment: str = Field(
+        ...,
+        description="Comprehensive 3-5 paragraph evaluation of the paper"
+    )
+    findings_significance: str = Field(
+        ...,
+        description="Significance rating: Landmark, Fundamental, Important, Valuable, or Useful"
+    )
+    evidence_strength: str = Field(
+        ...,
+        description="Evidence rating: Exceptional, Compelling, Convincing, Solid, Incomplete, or Inadequate"
+    )
+
+
+class Score(BaseModel):
+    """
+    Complete paper assessment with metadata (enriched post-LLM).
+
+    This model includes the LLM assessment plus file paths and taxonomy
+    information for traceability.
+    """
+    assessment: str = Field(
+        ...,
+        description="Comprehensive evaluation text"
+    )
+    findings_significance: str = Field(
+        ...,
+        description="Significance category from taxonomy"
+    )
+    evidence_strength: str = Field(
+        ...,
+        description="Evidence strength category from taxonomy"
+    )
+    taxonomy_type: str = Field(
+        ...,
+        description="Assessment taxonomy used (e.g., 'elife', 'icml', 'nature')"
+    )
+    manuscript_path: str = Field(
+        ...,
+        description="Path to source manuscript file"
+    )
+    claims_path: str = Field(
+        ...,
+        description="Path to source claims file"
+    )
+    results_path: str = Field(
+        ...,
+        description="Path to source results file"
+    )
+    created_at: str = Field(
+        ...,
+        description="ISO 8601 timestamp of assessment creation"
+    )

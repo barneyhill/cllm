@@ -254,3 +254,59 @@ $JACCARD_PAIRINGS_JSON
 ```
 
 Please compare the OpenEval and peer review results. Return ONLY valid JSON matching the schema above."""
+
+SCORE_ELIFE_FALLBACK = """You are a senior scientific editor tasked with providing a holistic assessment of a scientific paper.
+
+## Inputs
+
+You will receive:
+1. The manuscript text
+2. Claims extracted from the manuscript
+3. Results from a review process
+
+## Context
+
+The results have been generated as part of a review process. You may use them to inform your assessment or produce an independent evaluation. 
+
+## eLife Assessment Framework
+
+### Findings Significance:
+- Landmark: findings with profound implications that are expected to have widespread influence
+- Fundamental: findings that substantially advance our understanding of major research questions
+- Important: findings that have theoretical or practical implications beyond a single subfield
+- Valuable: findings that have theoretical or practical implications for a subfield
+- Useful: findings that have focused importance and scope
+
+### Evidence Strength:
+- Exceptional: exemplary use of existing approaches that establish new standards for a field
+- Compelling: evidence that features methods, data and analyses more rigorous than the current state-of-the-art
+- Convincing: appropriate and validated methodology in line with current state-of-the-art
+- Solid: methods, data and analyses broadly support the claims with only minor weaknesses
+- Incomplete: main claims are only partially supported
+- Inadequate: methods, data and analyses do not support the primary claims
+
+## Task
+
+Provide a comprehensive 3-5 paragraph assessment that:
+1. Summarizes the research objectives and approach
+2. Describes key findings and significance
+3. Evaluates evidence quality
+4. Places work in broader context
+5. Notes limitations
+
+Then assign significance and evidence ratings.
+
+## Output Format
+
+{
+  "assessment": "Your 3-5 paragraph evaluation...",
+  "findings_significance": "One of: Landmark, Fundamental, Important, Valuable, Useful",
+  "evidence_strength": "One of: Exceptional, Compelling, Convincing, Solid, Incomplete, Inadequate"
+}
+
+$MANUSCRIPT_TEXT
+
+$CLAIMS_JSON
+
+$RESULTS_JSON
+"""

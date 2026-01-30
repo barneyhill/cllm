@@ -508,6 +508,251 @@ def cmp(eval_peers: Path, eval_openeval: Path, output: Path, verbose: bool):
 
 
 @cli.command()
+@click.option(
+    "-m",
+    "--manuscript",
+    type=click.Path(exists=True, path_type=Path),
+    required=True,
+    help="Path to manuscript file (markdown format)",
+)
+@click.option(
+    "-c",
+    "--claims",
+    type=click.Path(exists=True, path_type=Path),
+    required=True,
+    help="Path to claims JSON file",
+)
+@click.option(
+    "-r",
+    "--results",
+    type=click.Path(exists=True, path_type=Path),
+    required=True,
+    help="Path to LLM results JSON file",
+)
+@click.option(
+    "-t",
+    "--taxonomy",
+    type=click.Choice(["elife"], case_sensitive=False),
+    default="elife",
+    help="Assessment taxonomy type (currently only 'elife' supported)",
+)
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(path_type=Path),
+    required=True,
+    help="Path to output JSON file (will be created)",
+)
+@click.option(
+    "--figures",
+    is_flag=True,
+    help="Include figures in LLM context (requires vision-capable model)",
+)
+@click.option(
+    "-v",
+    "--verbose",
+    is_flag=True,
+    help="Enable verbose output",
+)
+def score(
+    manuscript: Path,
+    claims: Path,
+    results: Path,
+    taxonomy: str,
+    output: Path,
+    figures: bool,
+    verbose: bool,
+):
+    """
+    Generate a holistic assessment of a scientific paper.
+
+    This command produces an eLife Assessment-style evaluation that includes:
+    - A comprehensive 3-5 paragraph assessment
+    - A findings significance rating
+    - An evidence strength rating
+
+    The assessment is based on the manuscript text, extracted claims, and
+    LLM-generated evaluation results. The LLM acts as a senior scientific editor,
+    considering the review results while producing an independent evaluation.
+
+    Metrics are automatically saved to metrics_score_openeval.json or
+    metrics_score_peer.json in the output directory (based on the eval file used).
+
+    Example:
+        cllm score -m manuscript.md -c claims.json -r eval_llm.json -t elife -o score.json --figures
+    """
+    from .verification import generate_elife_assessment
+    from .utils import extract_figure_urls_from_markdown, process_figure_urls_for_api
+    from .models import LLMClaimV3, LLMResultV3
+
+    if verbose:
+        click.echo("\n" + "=" * 60)
+        click.echo("CLLM SCORE - Paper Assessment")
+        click.echo("=" * 60)
+
+    # Validate configuration
+    try:
+        config.validate()
+    except ValueError as e:
+        click.echo(f"❌ Configuration error: {e}", err=True)
+        sys.exit(1)
+
+    provider = config.llm_provider
+    model = config.anthropic_model if config.llm_provider == "anthropic" else config.openai_model
+
+    if verbose:
+        click.echo(f"\n⚙️  Configuration")
+        click.echo(f"   Provider: {provider}")
+        click.echo(f"   Model: {model}")
+        click.echo(f"   Taxonomy: {taxonomy}")
+
+    # Read manuscript
+    if verbose:
+        click.echo(f"\n📄 Reading manuscript: {manuscript.name}")
+
+    try:
+        manuscript_text = manuscript.read_text()
+        if verbose:
+            click.echo(f"   Length: {len(manuscript_text)} characters")
+    except Exception as e:
+        click.echo(f"❌ Error reading manuscript: {e}", err=True)
+        sys.exit(1)
+
+    # Read claims
+    if verbose:
+        click.echo(f"\n📋 Reading claims: {claims.name}")
+
+    try:
+        claims_data = json.loads(claims.read_text())
+        claims_list = [LLMClaimV3(**claim) for claim in claims_data]
+        if verbose:
+            click.echo(f"   Claims loaded: {len(claims_list)}")
+    except Exception as e:
+        click.echo(f"❌ Error reading claims: {e}", err=True)
+        sys.exit(1)
+
+    # Read results
+    if verbose:
+        click.echo(f"\n📊 Reading results: {results.name}")
+
+    try:
+        results_data = json.loads(results.read_text())
+        results_list = [LLMResultV3(**result) for result in results_data]
+        if verbose:
+            click.echo(f"   Results loaded: {len(results_list)}")
+    except Exception as e:
+        click.echo(f"❌ Error reading results: {e}", err=True)
+        sys.exit(1)
+
+    # Extract and process figures if requested
+    figure_urls = None
+    processed_images = None
+
+    if figures:
+        if verbose:
+            click.echo(f"\n🖼️  Processing figures")
+
+        try:
+            figure_urls = extract_figure_urls_from_markdown(manuscript_text)
+            if figure_urls:
+                if verbose:
+                    click.echo(f"   Found {len(figure_urls)} figures")
+                processed_images = process_figure_urls_for_api(figure_urls, max_size=2000)
+                if verbose:
+                    click.echo(f"   Processed {len(processed_images)} images")
+            else:
+                if verbose:
+                    click.echo("   No figures found in manuscript")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Error processing figures: {e}", err=True)
+            click.echo("   Continuing without figures...", err=True)
+
+    # Generate assessment
+    if not verbose:
+        click.echo(f"🎯 Generating eLife assessment...")
+
+    try:
+        score_obj, processing_time, metrics_data, raw_response = generate_elife_assessment(
+            manuscript_text=manuscript_text,
+            claims=claims_list,
+            results=results_list,
+            manuscript_path=str(manuscript),
+            claims_path=str(claims),
+            results_path=str(results),
+            verbose=verbose,
+            return_metrics=True,
+            figure_urls=figure_urls,
+            processed_images=processed_images,
+        )
+        if not verbose:
+            click.echo(f"✅ Assessment generated in {processing_time:.2f}s")
+    except Exception as e:
+        click.echo(f"❌ Error generating assessment: {e}", err=True)
+        sys.exit(1)
+
+    # Write score output
+    if verbose:
+        click.echo(f"\n💾 Writing assessment: {output.name}")
+
+    try:
+        output.write_text(score_obj.model_dump_json(indent=2))
+        if verbose:
+            click.echo(f"   ✅ Saved to {output}")
+    except Exception as e:
+        click.echo(f"❌ Error writing output: {e}", err=True)
+        sys.exit(1)
+
+    # Save metrics
+    if metrics_data:
+        try:
+            # Build full command string
+            cmd_parts = ["cllm", "score", "-m", str(manuscript), "-c", str(claims), "-r", str(results), "-t", taxonomy, "-o", str(output)]
+            if figures:
+                cmd_parts.append("--figures")
+            if verbose:
+                cmd_parts.append("-v")
+            command_str = " ".join(cmd_parts)
+
+            # Determine workflow step name based on eval type
+            # Check the results filename to determine if it's openeval or peer
+            results_name = results.name
+            if "eval_llm" in results_name:
+                workflow_step = "score_openeval"
+            elif "eval_peer" in results_name:
+                workflow_step = "score_peer"
+            else:
+                # Fallback to generic score if we can't determine
+                workflow_step = "score"
+
+            # Save metrics to output directory
+            output_dir = output.parent
+            save_workflow_metrics(
+                output_dir=output_dir,
+                workflow_step=workflow_step,
+                command=command_str,
+                model=metrics_data.get("model", model),
+                provider=provider,
+                input_tokens=metrics_data.get("input_tokens", 0),
+                output_tokens=metrics_data.get("output_tokens", 0),
+                processing_time_sec=processing_time,
+                cached_tokens=0
+            )
+            if not verbose:
+                click.echo(f"📊 Saved metrics to: {output_dir / f'metrics_{workflow_step}.json'}")
+        except Exception as e:
+            click.echo(f"⚠️  Warning: Could not write metrics: {e}", err=True)
+
+    # Print summary
+    click.echo(f"\n✅ Assessment complete!")
+    click.echo(f"   Significance: {score_obj.findings_significance}")
+    click.echo(f"   Evidence: {score_obj.evidence_strength}")
+    click.echo(f"   Output: {output}")
+
+    if verbose:
+        click.echo("\n" + "=" * 60)
+
+
+@cli.command()
 @click.argument("input_json", type=click.Path(exists=True, path_type=Path))
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output PDF file")
 @click.option("-f", "--format", type=click.Choice(["pdf"]), default="pdf", help="Output format (currently only PDF)")

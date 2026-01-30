@@ -1019,3 +1019,108 @@ def calculate_results_metrics(
         "disjoint": disjoint,
         "agreement_rate": agreement_rate,
     }
+
+
+def generate_elife_assessment(
+    manuscript_text: str,
+    claims: List[LLMClaimV3],
+    results: List[LLMResultV3],
+    manuscript_path: str,
+    claims_path: str,
+    results_path: str,
+    verbose: bool = False,
+    return_metrics: bool = False,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
+) -> Tuple["Score", float, Optional[Dict[str, Any]], Any]:
+    """
+    Generate an eLife-style assessment for a scientific paper.
+
+    This function takes a manuscript, its extracted claims, and LLM-generated
+    results to produce a holistic editorial assessment with significance and
+    evidence strength ratings.
+
+    Args:
+        manuscript_text: Full text of the manuscript (markdown)
+        claims: List of LLMClaimV3 objects extracted from manuscript
+        results: List of LLMResultV3 objects from OpenEval evaluation
+        manuscript_path: Path to manuscript file (for metadata)
+        claims_path: Path to claims file (for metadata)
+        results_path: Path to results file (for metadata)
+        verbose: If True, print detailed progress information
+        return_metrics: If True, collect and return token/cost metrics
+        figure_urls: Optional list of figure URLs to include in LLM context
+        processed_images: Optional list of (url, base64_data) tuples for vision mode
+
+    Returns:
+        Tuple of (Score object, processing_time, metrics_dict, raw_response)
+
+    Raises:
+        ValueError: If configuration is invalid or required files are missing
+        Exception: If LLM call fails or response is malformed
+    """
+    from datetime import datetime, timezone
+    import time
+    from .models import Score, ScoreResponse
+    from .prompts.prompt_fallback import SCORE_ELIFE_FALLBACK
+
+    client = get_llm_client()
+    start_time = time.time()
+
+    # Serialize claims and results to JSON for prompt
+    claims_json = json.dumps([claim.model_dump() for claim in claims], indent=2)
+    results_json = json.dumps([result.model_dump() for result in results], indent=2)
+
+    # Build prompt from template
+    prompt_path = Path(__file__).parent / "prompts" / "score_elife.txt"
+
+    if prompt_path.exists():
+        prompt_template = prompt_path.read_text()
+    else:
+        prompt_template = SCORE_ELIFE_FALLBACK
+
+    # Substitute variables
+    prompt = prompt_template.replace("$MANUSCRIPT_TEXT", manuscript_text)
+    prompt = prompt.replace("$CLAIMS_JSON", claims_json)
+    prompt = prompt.replace("$RESULTS_JSON", results_json)
+
+    # Call LLM with structured output
+    score_response, usage, raw_response = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=ScoreResponse,
+        max_tokens=64000,
+        figure_urls=figure_urls if figure_urls else None,
+        processed_images=processed_images if processed_images else None,
+    )
+
+    # Enrich response with metadata
+    score = Score(
+        assessment=score_response.assessment,
+        findings_significance=score_response.findings_significance,
+        evidence_strength=score_response.evidence_strength,
+        taxonomy_type="elife",
+        manuscript_path=str(manuscript_path),
+        claims_path=str(claims_path),
+        results_path=str(results_path),
+        created_at=datetime.now(timezone.utc).isoformat(),
+    )
+
+    processing_time = time.time() - start_time
+
+    # Build metrics dict if return_metrics requested
+    metrics = None
+    if return_metrics:
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
+        metrics = {
+            "model": model,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
+            "processing_time_seconds": processing_time,
+        }
+
+    return score, processing_time, metrics, raw_response
