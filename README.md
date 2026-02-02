@@ -1,4 +1,4 @@
-# CLLM - Claim LLM CLI Tool
+# CLLM - Claim LLM
 
 A command-line tool for extracting, evaluating, and comparing scientific claims using Large Language Models.
 
