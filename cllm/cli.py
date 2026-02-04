@@ -16,6 +16,7 @@ from .config import config
 from .verification import (
     extract_claims,
     llm_group_claims_into_results,
+    llm_group_claims_only,
     peer_review_group_claims_into_results,
     compare_results,
     STAGE1_PROMPT_TEMPLATE,
@@ -187,23 +188,31 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
 @click.option("-o", "--output", type=click.Path(path_type=Path), required=True, help="Output JSON file for evaluations")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging (token counts, timing)")
 @click.option("-f", "--figures", is_flag=True, help="Include figures from manuscript in LLM context (vision mode)")
-def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, verbose: bool, figures: bool):
+@click.option("-g", "--group-only", is_flag=True, help="Group claims without evaluation (lighter output)")
+def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: Path, verbose: bool, figures: bool, group_only: bool):
     """
     Evaluate claims and group them into results.
 
     Without -p: LLM evaluates the claims based on manuscript (saves metrics_eval_openeval.json).
     With -p: Groups claims based on peer review commentary (saves metrics_eval_peer.json).
+    With -g: Groups claims without evaluation (lighter output with only result_id, claim_ids, result).
 
     Examples:
         cllm eval -c claims.json -o eval_openeval.json manuscript.txt
         cllm eval -c claims.json -p reviews.txt -o eval_peers.json manuscript.txt
         cllm eval -c claims.json -o eval_openeval.json -v manuscript.txt  # with verbose logging
+        cllm eval -c claims.json -o groups.json --group-only manuscript.txt  # group only
     """
     # Validate configuration
     try:
         config.validate()
     except ValueError as e:
         click.echo(f"❌ Configuration error: {e}", err=True)
+        sys.exit(1)
+
+    # Validate --group-only and --peer-reviews are mutually exclusive
+    if group_only and peer_reviews:
+        click.echo("❌ Error: --group-only and --peer-reviews cannot be used together", err=True)
         sys.exit(1)
 
     # Read manuscript
@@ -278,6 +287,50 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
         except Exception as e:
             click.echo(f"❌ Error evaluating with peer reviews: {e}", err=True)
             sys.exit(1)
+
+        # Convert to JSON (full results with evaluation)
+        results_array = [
+            {
+                "result_id": r.result_id,
+                "claim_ids": r.claim_ids,
+                "result": r.result,
+                "reviewer_id": r.reviewer_id,
+                "reviewer_name": r.reviewer_name,
+                "evaluation_type": r.evaluation_type,
+                "evaluation": r.evaluation,
+                "result_type": r.result_type,
+            }
+            for r in results
+        ]
+    elif group_only:
+        # Group-only mode (no evaluation)
+        if not verbose:
+            click.echo(f"📦 Grouping claims (without evaluation)...")
+        try:
+            groups, processing_time, metrics_eval, raw_response = llm_group_claims_only(
+                manuscript_text,
+                claims_list,
+                verbose=verbose,
+                return_metrics=True,
+                figure_urls=figure_urls if figure_urls else None
+            )
+            if not verbose:
+                click.echo(f"✅ Created {len(groups)} groups in {processing_time:.2f}s")
+            workflow_step = "group"
+        except Exception as e:
+            click.echo(f"❌ Error grouping claims: {e}", err=True)
+            sys.exit(1)
+
+        # Convert to JSON (groups without evaluation fields)
+        results_array = [
+            {
+                "result_id": g.result_id,
+                "claim_ids": g.claim_ids,
+                "result": g.result,
+            }
+            for g in groups
+        ]
+        results = groups  # For output message
     else:
         # LLM evaluation mode
         if not verbose:
@@ -297,20 +350,20 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
             click.echo(f"❌ Error evaluating with LLM: {e}", err=True)
             sys.exit(1)
 
-    # Convert to JSON (just array of results)
-    results_array = [
-        {
-            "result_id": r.result_id,
-            "claim_ids": r.claim_ids,
-            "result": r.result,
-            "reviewer_id": r.reviewer_id,
-            "reviewer_name": r.reviewer_name,
-            "evaluation_type": r.evaluation_type,
-            "evaluation": r.evaluation,
-            "result_type": r.result_type,
-        }
-        for r in results
-    ]
+        # Convert to JSON (full results with evaluation)
+        results_array = [
+            {
+                "result_id": r.result_id,
+                "claim_ids": r.claim_ids,
+                "result": r.result,
+                "reviewer_id": r.reviewer_id,
+                "reviewer_name": r.reviewer_name,
+                "evaluation_type": r.evaluation_type,
+                "evaluation": r.evaluation,
+                "result_type": r.result_type,
+            }
+            for r in results
+        ]
 
     # Write results to output file
     try:
@@ -332,6 +385,8 @@ def eval(manuscript: Path, claims: Path, peer_reviews: Optional[Path], output: P
                 cmd_parts.append("-v")
             if figures:
                 cmd_parts.append("-f")
+            if group_only:
+                cmd_parts.append("-g")
             command_str = " ".join(cmd_parts)
 
             # Save metrics to output directory

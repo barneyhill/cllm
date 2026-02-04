@@ -69,6 +69,50 @@ class LLMClaimsResponseV3(BaseModel):
 
 
 # ============================================================================
+# GROUP MODELS (for --group-only mode, without evaluation)
+# ============================================================================
+
+
+class LLMGroupResponseV3(BaseModel):
+    """Group response without evaluation fields (returned by LLM).
+
+    This is the format the LLM returns when grouping claims without evaluation.
+    The result_id is added post-hoc.
+
+    Attributes:
+        claim_ids: List of claim IDs in this group (e.g., ["C1", "C2"])
+        result: Description of the scientific finding
+    """
+    claim_ids: List[str]
+    result: str
+
+
+class LLMGroupV3(BaseModel):
+    """Grouped claims without evaluation (with result_id added post-hoc).
+
+    A group represents a logical grouping of related claims that together
+    support a coherent scientific finding, without evaluation fields.
+
+    Attributes:
+        result_id: Unique identifier for this group (e.g., "R1", "R2") - added after LLM response
+        claim_ids: List of claim IDs in this group (e.g., ["C1", "C2"])
+        result: Description of the scientific finding
+    """
+    result_id: str
+    claim_ids: List[str]
+    result: str
+
+
+class LLMGroupsResponseV3(BaseModel):
+    """Response from grouping stage (from LLM, without evaluation).
+
+    Attributes:
+        results: List of groups (without result_ids)
+    """
+    results: List[LLMGroupResponseV3]
+
+
+# ============================================================================
 # RESULT MODELS
 # ============================================================================
 

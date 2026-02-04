@@ -24,6 +24,8 @@ from .config import config
 from .models import (
     LLMClaimV3,
     LLMClaimsResponseV3,
+    LLMGroupV3,
+    LLMGroupsResponseV3,
     LLMResultV3,
     LLMResultsResponseV3,
     LLMResultsConcordanceRow,
@@ -463,6 +465,9 @@ def extract_claims(
 # Load prompt from file (with fallback)
 STAGE2_PROMPT_TEMPLATE = load_prompt("llm_eval.txt", STAGE2_FALLBACK)
 
+# Group-only prompt (simplified version without evaluation)
+STAGE2_GROUP_PROMPT_TEMPLATE = load_prompt("llm_group.txt", STAGE2_FALLBACK)
+
 
 def llm_group_claims_into_results(
     manuscript_text: str,
@@ -573,6 +578,114 @@ def llm_group_claims_into_results(
         )
 
     return results_with_ids, processing_time, metrics, raw_response
+
+
+def llm_group_claims_only(
+    manuscript_text: str,
+    claims: List[LLMClaimV3],
+    verbose: bool = False,
+    return_metrics: bool = False,
+    figure_urls: Optional[List[str]] = None,
+    processed_images: Optional[List[Tuple[str, str]]] = None,
+) -> Tuple[List[LLMGroupV3], float, Optional[Dict[str, Any]], Any]:
+    """Group claims into results without evaluation.
+
+    This is a simplified version of llm_group_claims_into_results that only
+    groups related claims without performing evaluation. Output contains only
+    result_id, claim_ids, and result fields.
+
+    Args:
+        manuscript_text: Full text of the manuscript (for context)
+        claims: List of extracted claims from Stage 1
+        verbose: If True, print detailed logging information
+        return_metrics: If True, return metrics dictionary as third element
+        figure_urls: Optional list of figure URLs to include as images (vision mode)
+        processed_images: Optional list of pre-processed (base64_data, media_type) tuples
+                         If provided, this takes precedence over figure_urls
+
+    Returns:
+        Tuple of (list of groups, processing time in seconds, optional metrics dict, raw_response)
+
+    Raises:
+        ValueError: If LLM response is invalid or cannot be parsed
+    """
+    client = get_llm_client()
+    start_time = time.time()
+
+    claims_json = json.dumps(
+        [
+            {
+                "claim_id": c.claim_id,
+                "claim": c.claim,
+                "claim_type": c.claim_type,
+                "source": c.source,
+                "source_type": c.source_type,
+                "evidence": c.evidence,
+                "evidence_type": c.evidence_type,
+            }
+            for c in claims
+        ],
+        indent=2,
+    )
+
+    prompt = STAGE2_GROUP_PROMPT_TEMPLATE.replace(
+        "$MANUSCRIPT_TEXT", manuscript_text
+    ).replace("$CLAIMS_JSON", claims_json)
+
+    warn_if_prompt_too_long(
+        prompt, MAX_PROMPT_TOKENS, "STAGE 2: LLM Group Claims (Group-Only)"
+    )
+
+    llm_response, usage, raw_response = call_llm_structured(
+        client=client,
+        prompt=prompt,
+        response_model=LLMGroupsResponseV3,
+        max_tokens=64000,
+        figure_urls=figure_urls,
+        processed_images=processed_images,
+    )
+
+    # Post-process: Add sequential result_id (R1, R2, R3, ...)
+    groups_with_ids = []
+    for idx, group_response in enumerate(llm_response.results, start=1):
+        group = LLMGroupV3(
+            result_id=f"R{idx}",
+            claim_ids=group_response.claim_ids,
+            result=group_response.result,
+        )
+        groups_with_ids.append(group)
+
+    processing_time = time.time() - start_time
+
+    # Build metrics dict if verbose or return_metrics requested
+    metrics = None
+    if verbose or return_metrics:
+        model = (
+            config.anthropic_model
+            if config.llm_provider == "anthropic"
+            else config.openai_model
+        )
+        metrics = {
+            "model": model,
+            "input_tokens": usage["input_tokens"],
+            "output_tokens": usage["output_tokens"],
+            "num_results": len(groups_with_ids),
+            "processing_time_seconds": processing_time,
+        }
+
+    # Verbose: print metrics
+    if verbose and metrics:
+        print(f"[GROUP] Input tokens: {metrics['input_tokens']:,}", file=sys.stderr)
+        print(
+            f"[GROUP] Output tokens: {metrics['output_tokens']:,}", file=sys.stderr
+        )
+        print(f"[GROUP] Groups created: {metrics['num_results']}", file=sys.stderr)
+        print(
+            f"[GROUP] Total time: {metrics['processing_time_seconds']:.2f}s",
+            file=sys.stderr,
+        )
+
+    return groups_with_ids, processing_time, metrics, raw_response
 
 
 # ============================================================================

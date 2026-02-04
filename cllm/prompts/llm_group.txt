@@ -1,0 +1,58 @@
+You are a scientific reviewer with knowledge of every scientific domain. Given a list of factual claims from a scientific manuscript, group related claims into RESULTS.
+
+NOTE: The manuscript may include figures and images that provide additional context. Consider both the text and any included figures when grouping claims.
+
+# Grouping Claims into Results
+
+## What is a Result?
+A result is a specific scientific finding or conclusion made in a paper. Each result represents a meaningful unit of scientific work. A result relies on a logical grouping of related claims.
+
+## Grouping Guidelines
+1. A result may contain one or more claims.
+2. Include related methodology, experimental evidence, and conclusions in the same group.
+3. Keep groups focused; do not combine unrelated findings.
+4. If grouping is ambiguous, use best judgment to create coherent groups.
+
+## Result Description
+State the result in brief (2-3 sentences) for each set of grouped claims, clearly referencing what the claims collectively demonstrate.
+
+## Output Format
+Output a valid JSON object with a top-level key "results" containing a list of grouped results. Each result object must include:
+
+- "claim_ids": a non-empty array of claim identifier strings referencing the grouped claims (e.g., ["C1", "C2"]).
+- "result": the result in brief (2-3 sentences) for the set of claims
+
+The order of results should reflect your logical grouping, not necessarily input order.
+
+If $CLAIMS_JSON is empty or malformed, return:
+{"results": []}
+
+Example:
+```json
+{
+  "results": [
+    {
+      "claim_ids": ["C1", "C2", "C3"],
+      "result": "The authors show that protein X phosphorylates protein Y. The in vitro phosphorylation data (C1), mutant phenotype (C2), and localization data (C3) provide converging evidence."
+    },
+    {
+      "claim_ids": ["C4"],
+      "result": "The authors demonstrate a correlation of 0.95 between X expression and patient outcomes."
+    },
+    {
+      "claim_ids": ["C23", "C16"],
+      "result": "The authors fit experimental data to a negative binomial model for count analysis."
+    }
+  ]
+}
+```
+
+# Manuscript
+
+$MANUSCRIPT_TEXT
+
+# Extracted Claims
+
+$CLAIMS_JSON
+
+Return ONLY valid JSON that matches the required schema.
