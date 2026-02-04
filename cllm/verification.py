@@ -312,6 +312,7 @@ def call_llm_structured(
 
 # Load prompt from file (with fallback)
 STAGE1_PROMPT_TEMPLATE = load_prompt("extract.txt", STAGE1_FALLBACK)
+STAGE1_EXPECTED_PROMPT_TEMPLATE = load_prompt("extract_expected.txt", STAGE1_FALLBACK)
 
 
 def extract_claims(
@@ -322,6 +323,7 @@ def extract_claims(
     processed_images: Optional[List[Tuple[str, str]]] = None,
     xml_path: Optional[str] = None,
     filter_claims: bool = False,
+    extract_expected: bool = False,
 ) -> Tuple[List[LLMClaimV3], float, Optional[Dict[str, Any]], Optional[Any]]:
     """Stage 1: Extract atomic factual claims from manuscript.
 
@@ -334,6 +336,7 @@ def extract_claims(
                          If provided, this takes precedence over figure_urls
         xml_path: Optional path to JATS XML file for claim filtering
         filter_claims: If True, filter claims to only include those with sources found in XML
+        extract_expected: If True, extract expected quantitative values for DATA claims
 
     Returns:
         Tuple of (list of extracted claims, processing time in seconds, optional metrics dict, optional raw_response)
@@ -345,7 +348,9 @@ def extract_claims(
     client = get_llm_client()
     start_time = time.time()
 
-    prompt = STAGE1_PROMPT_TEMPLATE.replace("$MANUSCRIPT_TEXT", manuscript_text)
+    # Select prompt based on whether expected values should be extracted
+    prompt_template = STAGE1_EXPECTED_PROMPT_TEMPLATE if extract_expected else STAGE1_PROMPT_TEMPLATE
+    prompt = prompt_template.replace("$MANUSCRIPT_TEXT", manuscript_text)
     warn_if_prompt_too_long(
         prompt, MAX_PROMPT_TOKENS, "STAGE 1: Extract Claims From Manuscript"
     )
@@ -370,6 +375,7 @@ def extract_claims(
             source_type=claim_response.source_type,
             evidence=claim_response.evidence,
             evidence_type=claim_response.evidence_type,
+            expected=claim_response.expected,
         )
         claims_with_ids.append(claim)
 

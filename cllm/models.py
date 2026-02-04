@@ -29,6 +29,7 @@ class LLMClaimResponseV3(BaseModel):
         source_type: List indicating source types (TEXT, IMAGE)
         evidence: Brief explanation of evidence type classification
         evidence_type: List of evidence types (DATA, CITATION, KNOWLEDGE, INFERENCE, SPECULATION)
+        expected: Optional dict of expected values for DATA claims (for verification)
     """
     claim: str
     claim_type: str
@@ -36,6 +37,7 @@ class LLMClaimResponseV3(BaseModel):
     source_type: List[str]
     evidence: str
     evidence_type: List[str]
+    expected: Optional[dict] = None
 
 
 class LLMClaimV3(BaseModel):
@@ -49,6 +51,7 @@ class LLMClaimV3(BaseModel):
         source_type: List indicating source types (TEXT, IMAGE)
         evidence: Brief explanation of evidence type classification
         evidence_type: List of evidence types (DATA, CITATION, KNOWLEDGE, INFERENCE, SPECULATION)
+        expected: Optional dict of expected values for DATA claims (for verification)
     """
     claim_id: str
     claim: str
@@ -57,6 +60,7 @@ class LLMClaimV3(BaseModel):
     source_type: List[str]
     evidence: str
     evidence_type: List[str]
+    expected: Optional[dict] = None
 
 
 class LLMClaimsResponseV3(BaseModel):

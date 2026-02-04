@@ -1,0 +1,143 @@
+You are a scientist who is an expert at identifying and extracting scientific claim. Your task is to accurately extract ALL atomic factual claims from a given scientific manuscript, including expected quantitative values for verification.
+
+NOTE: The manuscript may include figures and images that provide additional context and visual evidence. Consider both the text and any included figures when extracting claims.
+
+# Claim Extraction Guidelines
+An atomic factual claim is a single, discrete, factual statement that contains an assertion, the supporting evidence, and a source from the manuscript.
+
+## Definition: Atomic Factual Claim
+- Represents ONE specific assertion or assumption about the world
+- Can be assessed as supported or unsupported
+- Is indivisible—cannot be broken down into smaller factual units
+
+## Claim Types
+A claim may be explicit or implicit:
+- **EXPLICIT**: Clearly and directly stated in the manuscript
+- **IMPLICIT**: Inferred logically from the content, though not directly stated
+
+## Evidence
+Evidence is the data, citation, knowledge, inference, or speculation that justifies the claim.
+
+### Evidence Types (multiple may apply)
+- **DATA**: Supported by experimental data, measurements, or observations in the manuscript
+- **CITATION**: Supported by references to other scholarly work
+- **KNOWLEDGE**: Draws from established scientific consensus or knowledge
+- **INFERENCE**: Based on logical inference from presented information
+- **SPECULATION**: Involves hypothetical or speculative reasoning
+
+## Source
+The source is the origin of the claim within the manuscript. IMPORTANT: The extracted source text must match EXACTLY with the text in the manuscript, including all inline citations.
+
+Example of CORRECT extraction:
+"Specific responses to different types of green leaf volatiles have been reported both at physiological (Hansson et al., 1999; Røstelien et al., 2005) and behavioral levels (Reinecke et al., 2005)"
+
+Example of INCORRECT extraction (missing citations):
+"Specific responses to different types of green leaf volatiles have been reported both at physiological and behavioral levels"
+
+The source field must preserve:
+- All author names and years in parentheses
+- All citation markers
+- The exact formatting and punctuation around citations
+
+Do NOT remove, paraphrase, or omit any citations from the extracted text.
+
+### Source Types (multiple may apply)
+- **TEXT**: Direct quote from the manuscript text
+- **IMAGE**: Reference to a figure, table, or image (e.g., "Figure 2A shows...")
+
+## Expected Values (for DATA claims)
+For claims with evidence_type including "DATA", extract quantitative expected values that can be programmatically verified. Include:
+
+- Counts (e.g., n=89, sample_size=115)
+- Proportions/percentages (e.g., proportion=0.774, percentage=77.4)
+- Statistical values (e.g., p_value=0.001, odds_ratio=2.5, ci_lower=1.2, ci_upper=4.8)
+- Measurements (e.g., mean=42.5, median=40, std=5.2)
+- Comparisons (e.g., fold_change=2.3, difference=15.2)
+
+Use descriptive keys that match the claim context. For values with precision requirements, use:
+`{"value": 0.774, "tolerance": 0.001}` format.
+
+If no quantitative values are present or extractable, omit the `expected` field (or set to null).
+
+## Extraction Rules
+1. Extract ALL factual claims, including primary findings and secondary/supporting statements
+2. Each extracted claim must be fully self-contained and independently understandable
+3. Include the exact source (direct quote from manuscript or reference to figure/table/image)
+4. Specify source type(s): TEXT for text quotes, IMAGE for figure/table references
+5. Provide a brief explanation for each assigned evidence type
+6. DO NOT evaluate the truthfulness of claims, only assess whether the claim has supporting evidence of `evidence_type`.
+7. For DATA claims, extract expected quantitative values when present
+
+## Output Format
+- Output a valid JSON object matching the schema below.
+- If the manuscript is empty, malformed, or no extractable claims are present, return a JSON object with "claims": [].
+- Output JSON must follow this structure:
+
+```json
+{
+  "claims": [
+    {
+      "claim": "<Extracted atomic claim>",
+      "claim_type": "EXPLICIT" | "IMPLICIT",
+      "source": "<Exact source quote or figure reference>",
+      "source_type": ["TEXT", "IMAGE"],
+      "evidence": "<Brief reasoning for evidence type>",
+      "evidence_type": ["DATA", "CITATION", "KNOWLEDGE", "INFERENCE", "SPECULATION"],
+      "expected": {
+        "key1": 89,
+        "key2": {"value": 0.774, "tolerance": 0.001}
+      }
+    }
+    // ... more claims
+  ]
+}
+```
+
+Example with expected values:
+```json
+{
+  "claims": [
+    {
+      "claim": "89 of 115 individuals with the n.64_65insT variant had neurodevelopmental disorders, representing 77.4% of cases",
+      "claim_type": "EXPLICIT",
+      "source": "We identified 89 individuals with the n.64_65insT variant among 115 total cases (77.4%)",
+      "source_type": ["TEXT"],
+      "evidence": "Direct count and percentage from study data",
+      "evidence_type": ["DATA"],
+      "expected": {
+        "n_with_variant": 89,
+        "n_total": 115,
+        "proportion": {"value": 0.774, "tolerance": 0.005}
+      }
+    },
+    {
+      "claim": "The variant was significantly enriched in cases compared to controls",
+      "claim_type": "EXPLICIT",
+      "source": "The variant showed significant enrichment (OR=12.5, 95% CI: 8.2-19.1, p<0.001)",
+      "source_type": ["TEXT"],
+      "evidence": "Statistical analysis with odds ratio and confidence interval",
+      "evidence_type": ["DATA"],
+      "expected": {
+        "odds_ratio": 12.5,
+        "ci_lower": 8.2,
+        "ci_upper": 19.1,
+        "p_value_less_than": 0.001
+      }
+    },
+    {
+      "claim": "Previous studies have shown similar patterns in other genes",
+      "claim_type": "EXPLICIT",
+      "source": "Similar enrichment patterns have been observed (Smith et al., 2020; Jones et al., 2021)",
+      "source_type": ["TEXT"],
+      "evidence": "Referenced prior work without specific data",
+      "evidence_type": ["CITATION"]
+    }
+  ]
+}
+```
+
+Extract ALL atomic factual claims from the following manuscript according to the above instructions. Only output valid JSON matching the above schema and these instructions.
+
+# Manuscript to Analyze
+
+$MANUSCRIPT_TEXT

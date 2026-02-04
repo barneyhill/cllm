@@ -52,7 +52,8 @@ def cli():
 @click.option("-f", "--figures", is_flag=True, help="Include figures from manuscript in LLM context (vision mode)")
 @click.option("--filter", is_flag=True, help="Filter claims to only include those with sources found in JATS XML")
 @click.option("--xml", type=click.Path(exists=True, path_type=Path), help="Path to JATS XML file (required if --filter is used)")
-def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter: bool, xml: Optional[Path]):
+@click.option("-e", "--expected", is_flag=True, help="Extract expected quantitative values for DATA claims")
+def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter: bool, xml: Optional[Path], expected: bool):
     """
     Extract atomic factual claims from a manuscript.
 
@@ -61,6 +62,7 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
     Example:
         cllm extract -o claims.json manuscript.txt
         cllm extract -o claims.json -v manuscript.txt  # with verbose logging
+        cllm extract -o claims.json -e manuscript.txt  # with expected values
     """
     # Validate configuration
     try:
@@ -105,7 +107,8 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
             return_metrics=True,
             figure_urls=figure_urls if figure_urls else None,
             xml_path=str(xml) if xml else None,
-            filter_claims=filter
+            filter_claims=filter,
+            extract_expected=expected
         )
         if not verbose:
             click.echo(f"✅ Extracted {len(claims)} claims in {processing_time:.2f}s")
@@ -114,8 +117,9 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
         sys.exit(1)
 
     # Convert to JSON (just array of claims)
-    claims_array = [
-        {
+    claims_array = []
+    for c in claims:
+        claim_dict = {
             "claim_id": c.claim_id,
             "claim": c.claim,
             "claim_type": c.claim_type,
@@ -124,8 +128,10 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
             "evidence": c.evidence,
             "evidence_type": c.evidence_type,
         }
-        for c in claims
-    ]
+        # Include expected field only if present
+        if c.expected is not None:
+            claim_dict["expected"] = c.expected
+        claims_array.append(claim_dict)
 
     # Write claims to output file
     try:
@@ -160,6 +166,8 @@ def extract(manuscript: Path, output: Path, verbose: bool, figures: bool, filter
                 cmd_parts.append("--filter")
             if xml:
                 cmd_parts.extend(["--xml", str(xml)])
+            if expected:
+                cmd_parts.append("-e")
             command_str = " ".join(cmd_parts)
 
             # Save metrics to output directory
